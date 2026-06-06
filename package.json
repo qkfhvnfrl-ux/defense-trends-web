@@ -1,0 +1,51 @@
+{
+  "name": "defense-trends-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b --pretty false",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "validate:data": "tsx scripts/validate-data.mjs",
+    "sources:check": "node scripts/verify-sources.cjs",
+    "test:e2e": "node scripts/verify-render.cjs",
+    "design:check": "node scripts/verify-design.cjs",
+    "dev:check": "node scripts/verify-dev-render.cjs",
+    "images:check": "node scripts/verify-images.cjs",
+    "quality": "npm run lint && npm run validate:data && npm run test && npm run build && npm run test:e2e && npm run design:check && npm run dev:check",
+    "preview": "vite preview --host 127.0.0.1",
+    "serve:dist": "node scripts/serve-dist.cjs"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.17.10",
+    "leaflet": "^1.9.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-leaflet": "^4.2.1",
+    "three": "^0.171.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/leaflet": "^1.9.16",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^10.4.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "jsdom": "^29.1.1",
+    "playwright": "^1.60.0",
+    "pngjs": "^7.0.0",
+    "tsx": "^4.22.4",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.60.1",
+    "vite": "^6.0.7",
+    "vitest": "^4.1.8",
+    "zod": "^4.4.3"
+  }
+}

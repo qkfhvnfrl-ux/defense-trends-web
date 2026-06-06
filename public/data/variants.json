@@ -1,0 +1,482 @@
+[
+  {
+    "id": "stryker-icv",
+    "equipmentId": "stryker",
+    "nameKo": "ICV 병력수송형",
+    "role": "병력수송",
+    "armament": "원격무장장치",
+    "notesKo": "Stryker 여단의 기본 보병 수송형으로 분대 탑승과 기동 전개에 초점.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "General Dynamics Land Systems - Stryker",
+        "url": "https://www.gdls.com/stryker/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "stryker-dragoon",
+    "equipmentId": "stryker",
+    "nameKo": "30mm Dragoon형",
+    "role": "화력증강",
+    "armament": "30mm 기관포",
+    "notesKo": "유럽 전구 요구를 반영해 30mm 포탑을 통합한 화력 강화형.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "U.S. Army - Stryker Dragoon production",
+        "url": "https://www.army.mil/article/207851/anad_gdls_complete_production_of_stryker_dragoons",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "stryker-mshorad",
+    "equipmentId": "stryker",
+    "nameKo": "M-SHORAD 방공형",
+    "role": "기동방공",
+    "armament": "기관포, 미사일, 센서 통합",
+    "notesKo": "드론·헬기·저고도 표적 대응을 위한 Stryker 기반 단거리 방공형.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "U.S. Army - M-SHORAD",
+        "url": "https://www.army.mil/article/256892/army_activates_first_m_shorad_battalion_in_europe",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "stryker-atgm",
+    "equipmentId": "stryker",
+    "nameKo": "대전차 유도탄형",
+    "role": "대전차",
+    "armament": "TOW 계열 대전차미사일",
+    "notesKo": "기계화 부대의 장거리 대전차 화력 제공.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "General Dynamics Land Systems - Stryker",
+        "url": "https://www.gdls.com/stryker/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "boxer-apc",
+    "equipmentId": "boxer",
+    "nameKo": "병력수송 모듈",
+    "role": "병력수송",
+    "armament": "RWS 또는 기관총",
+    "notesKo": "드라이브 모듈 위에 병력수송 임무 모듈을 결합한 기본형.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "Rheinmetall - Boxer armoured transport vehicle",
+        "url": "https://www.rheinmetall.com/en/products/wheeled-armoured-vehicles/boxer",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "boxer-rct30",
+    "equipmentId": "boxer",
+    "nameKo": "RCT30 화력형",
+    "role": "보병전투/화력지원",
+    "armament": "30mm 무인포탑",
+    "notesKo": "Puma 계열 포탑 기술을 Boxer에 통합한 고화력 차륜형 IFV 구성.",
+    "maturity": "전시",
+    "sources": [
+      {
+        "title": "KNDS - Boxer vehicle family",
+        "url": "https://knds.com/en/products/boxer",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "boxer-skyranger",
+    "equipmentId": "boxer",
+    "nameKo": "Skyranger 30 방공형",
+    "role": "대드론/단거리방공",
+    "armament": "30mm 또는 35mm 기관포, 미사일 옵션",
+    "notesKo": "Boxer 차체에 Skyranger 포탑을 얹어 드론·저고도 표적 대응.",
+    "maturity": "도입",
+    "sources": [
+      {
+        "title": "Rheinmetall - Skyranger 30 on Boxer",
+        "url": "https://www.rheinmetall.com/en/media/news-watch/news/2024/02/2024-02-27-bundeswehr-ordered-skyranger-30-mobile-air-defence-system",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "boxer-ambulance",
+    "equipmentId": "boxer",
+    "nameKo": "의무후송형",
+    "role": "의무",
+    "armament": "비무장 또는 자기방어 RWS",
+    "notesKo": "방호된 공간에서 부상자 후송과 야전 의료 지원을 수행.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "KNDS - Boxer vehicle family",
+        "url": "https://knds.com/en/products/boxer",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "patria-amv-apc",
+    "equipmentId": "patria-amv",
+    "nameKo": "APC형",
+    "role": "병력수송",
+    "armament": "기관총/RWS",
+    "notesKo": "8x8 장갑차 플랫폼의 기본 병력수송 구성.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "Patria - AMV XP",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility/patria-amv-xp-number-1-in-the-battlefield",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "patria-amv-ifv",
+    "equipmentId": "patria-amv",
+    "nameKo": "IFV 30mm형",
+    "role": "보병전투",
+    "armament": "30mm 기관포",
+    "notesKo": "운용국 요구에 따라 30mm 포탑을 통합한 보병전투형.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "Patria - wheeled mobility vehicles",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "patria-nemo",
+    "equipmentId": "patria-amv",
+    "nameKo": "NEMO 박격포형",
+    "role": "간접화력",
+    "armament": "120mm 박격포 포탑",
+    "notesKo": "차륜형 플랫폼에 포탑식 박격포를 통합해 기동 간접화력 제공.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "Patria - NEMO mortar system",
+        "url": "https://www.patriagroup.com/products-and-services/defence-and-weapon-systems/armament/patria-nemo",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "vbci-vci",
+    "equipmentId": "vbci",
+    "nameKo": "VCI 보병전투형",
+    "role": "보병전투",
+    "armament": "25mm 기관포",
+    "notesKo": "프랑스군 VBCI의 대표 전투형.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "KNDS - VBCI MkII offer",
+        "url": "https://knds.com/en/press-releases/dimdex-2024-nexter-company-of-knds-offers-the-vbci-to-modernise-the-qatar-infantry-units",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "vbci-vpc",
+    "equipmentId": "vbci",
+    "nameKo": "VPC 지휘형",
+    "role": "지휘통제",
+    "armament": "자기방어 무장",
+    "notesKo": "기계화 부대 지휘소 역할을 수행하는 지휘형.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "KNDS - VBCI MkII offer",
+        "url": "https://knds.com/en/press-releases/dimdex-2024-nexter-company-of-knds-offers-the-vbci-to-modernise-the-qatar-infantry-units",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "vbci-mkii",
+    "equipmentId": "vbci",
+    "nameKo": "VBCI MkII/T40 제안형",
+    "role": "화력증강",
+    "armament": "40mm CTA 포탑 옵션",
+    "notesKo": "수출·현대화 시장을 겨냥한 고화력 구성.",
+    "maturity": "제안",
+    "sources": [
+      {
+        "title": "KNDS - armoured vehicles firepower and modularity",
+        "url": "https://knds.com/en/press-releases/knds-armoured-vehicles-firepower-modularity-mobility-and-protection",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "abrams-sepv3",
+    "equipmentId": "m1a2-abrams",
+    "nameKo": "M1A2 SEP v3",
+    "role": "주력전차",
+    "armament": "120mm 활강포",
+    "notesKo": "전력·전자장비·생존성 개량을 반영한 Abrams 현대화형.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "General Dynamics Land Systems - Abrams",
+        "url": "https://www.gdls.com/abrams/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "abrams-sepv4-cancelled",
+    "equipmentId": "m1a2-abrams",
+    "nameKo": "SEP v4 계획형",
+    "role": "계획/기술 전환",
+    "armament": "120mm 활강포, 센서 개량 계획",
+    "notesKo": "미 육군은 SEP v4 대신 더 큰 구조적 개량 방향을 추진하는 것으로 공개했다.",
+    "maturity": "시험",
+    "sources": [
+      {
+        "title": "U.S. Army - Abrams modernization path",
+        "url": "https://www.army.mil/article/269706/army_announces_abrams_m1e3_modernization_program",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "leopard-2a7v",
+    "equipmentId": "leopard-2a7",
+    "nameKo": "Leopard 2A7V",
+    "role": "주력전차",
+    "armament": "120mm 활강포",
+    "notesKo": "독일군 현대화형으로 방호·전력·운용성이 강화된 구성.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "KNDS - Leopard main battle tank family",
+        "url": "https://knds.com/en/products/leopard",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "leopard-2a8",
+    "equipmentId": "leopard-2a7",
+    "nameKo": "Leopard 2A8 계열",
+    "role": "신규 조달/개량",
+    "armament": "120mm 활강포, APS 옵션",
+    "notesKo": "유럽 전차 전력 보강 흐름 속에서 조달되는 최신 계열.",
+    "maturity": "도입",
+    "sources": [
+      {
+        "title": "KNDS - Leopard main battle tank family",
+        "url": "https://knds.com/en/products/leopard",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "challenger-3-production",
+    "equipmentId": "challenger-3",
+    "nameKo": "Challenger 3 양산형",
+    "role": "주력전차 개량",
+    "armament": "120mm L55A1 활강포",
+    "notesKo": "Challenger 2 차체 기반 신형 포탑·전자장비 개량형.",
+    "maturity": "도입",
+    "sources": [
+      {
+        "title": "UK Government - Challenger 3 contract and capability",
+        "url": "https://www.gov.uk/government/news/british-army-to-possess-most-lethal-tank-in-europe",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "leclerc-xlr-scorpion",
+    "equipmentId": "leclerc-xlr",
+    "nameKo": "Leclerc XLR SCORPION형",
+    "role": "주력전차 디지털화",
+    "armament": "120mm 활강포",
+    "notesKo": "SCORPION 전장정보체계 연동과 방호·통신 개량 중심.",
+    "maturity": "도입",
+    "sources": [
+      {
+        "title": "KNDS - Leclerc XLR product sheet",
+        "url": "https://knds.com/media/KRV_041_LECLERC_XLR_EN_BAT_BDEF_6a502524d1.pdf",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "bradley-m2a2-ods",
+    "equipmentId": "m2a2-bradley",
+    "nameKo": "M2A2 ODS-SA",
+    "role": "보병전투",
+    "armament": "25mm 기관포, TOW",
+    "notesKo": "우크라이나에 지원된 대표 Bradley 구성.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "U.S. Department of War - Ukraine security assistance, Jan. 19 2023",
+        "url": "https://www.war.gov/News/Releases/Release/Article/3272866/biden-administration-announces-additional-security-assistance-for-ukraine/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "bradley-cage",
+    "equipmentId": "m2a2-bradley",
+    "nameKo": "드론 케이지 개조형",
+    "role": "급조 생존성 개량",
+    "armament": "기존 25mm/TOW + 상부 케이지",
+    "notesKo": "FPV 드론 대응을 위해 지붕·측면에 금속 케이지를 추가하는 전장 개조 사례.",
+    "maturity": "급조",
+    "sources": [
+      {
+        "title": "Army Recognition - Bradley anti-drone cages",
+        "url": "https://www.armyrecognition.com/focus-analysis-conflicts/army/conflicts-in-the-world/ukraine-russia-conflict/ukrainian-army-considers-equipping-m2a2-bradleys-with-anti-drone-cages-to-counter-aerial-threats",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "cv90-ifv",
+    "equipmentId": "cv90",
+    "nameKo": "CV9030/35/40 IFV형",
+    "role": "보병전투",
+    "armament": "30/35/40mm 기관포",
+    "notesKo": "운용국별 기관포 구경과 센서 구성이 달라지는 대표 IFV형.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "BAE Systems - CV90 MkIV",
+        "url": "https://www.baesystems.com/en-us/product/cv90-mkiv",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "cv90-mortar",
+    "equipmentId": "cv90",
+    "nameKo": "Mjölner 박격포형",
+    "role": "간접화력",
+    "armament": "120mm 쌍열 박격포",
+    "notesKo": "CV90 계열 차체 기반 박격포 파생형.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "BAE Systems - CV90 MkIV variants",
+        "url": "https://www.baesystems.com/en-us/product/cv90-mkiv",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "puma-vjtf",
+    "equipmentId": "puma-ifv",
+    "nameKo": "Puma VJTF/개량형",
+    "role": "보병전투/네트워크",
+    "armament": "30mm 기관포, MELLS",
+    "notesKo": "NATO 고 readiness 임무를 위한 통신·전자장비 개량형.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "Rheinmetall - Puma IFV",
+        "url": "https://www.rheinmetall.com/en/products/tracked-vehicles/tracked-armoured-vehicles/puma-infantry-fighting-vehicle",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "t90m-cope-cage",
+    "equipmentId": "t90m",
+    "nameKo": "코프 케이지/터틀 개조형",
+    "role": "급조 드론 방호",
+    "armament": "125mm 주포 + 상부/측면 구조물",
+    "notesKo": "FPV 드론 위협에 대응해 금속 프레임, 케이블, 판재 구조물을 덧댄 전장 개조형.",
+    "maturity": "급조",
+    "sources": [
+      {
+        "title": "Kyiv Post - T-80 Super Turtle Tank",
+        "url": "https://www.kyivpost.com/post/37897",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "gepard-aa",
+    "equipmentId": "gepard",
+    "nameKo": "Gepard 1A2 대공형",
+    "role": "대드론/저고도방공",
+    "armament": "35mm 쌍열 기관포",
+    "notesKo": "우크라이나 방공에서 샤헤드형 드론과 저고도 표적 대응에 활용.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "AP - Gepard ammunition for Ukraine",
+        "url": "https://apnews.com/article/1a46d55d1325f4f2210dc1cb35b32137",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "caesar-anti-drone-cage",
+    "equipmentId": "caesar-8x8",
+    "nameKo": "메시 케이지 장착형",
+    "role": "급조 드론 방호",
+    "armament": "155mm 곡사포 + 운전실/탄약부 메시",
+    "notesKo": "FPV 드론 위협에 대응해 운전실과 탄약 적재부 위에 메시형 구조물을 설치한 사례.",
+    "maturity": "급조",
+    "sources": [
+      {
+        "title": "Defense Express - Caesar anti-drone protection",
+        "url": "https://en.defence-ua.com/weapon_and_tech/ukraine_created_anti_drone_protection_for_caesar_howitzers_does_it_actually_work-15189.html",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "m113-ambulance",
+    "equipmentId": "m113",
+    "nameKo": "의무후송형",
+    "role": "의무",
+    "armament": "비무장 또는 자기방어 무장",
+    "notesKo": "넓은 내부 공간을 활용해 부상자 후송과 응급처치 공간으로 개조.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "U.S. Department of War - M113 armored personnel carriers for Ukraine",
+        "url": "https://www.war.gov/News/Releases/Release/Article/2999113/800-million-in-additional-security-assistance-for-ukraine/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "m113-mortar",
+    "equipmentId": "m113",
+    "nameKo": "박격포 탑재형",
+    "role": "간접화력",
+    "armament": "81/120mm 박격포 계열",
+    "notesKo": "M113 계열의 대표 파생 임무 중 하나로 기동 박격포 플랫폼으로 운용.",
+    "maturity": "운용",
+    "sources": [
+      {
+        "title": "U.S. Department of War - M113 armored personnel carriers for Ukraine",
+        "url": "https://www.war.gov/News/Releases/Release/Article/2999113/800-million-in-additional-security-assistance-for-ukraine/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  }
+]

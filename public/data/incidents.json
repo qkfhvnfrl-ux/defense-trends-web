@@ -1,0 +1,247 @@
+[
+  {
+    "id": "ukraine-abrams-2024",
+    "equipmentIds": [
+      "m1a2-abrams"
+    ],
+    "titleKo": "우크라이나의 Abrams 운용",
+    "country": "우크라이나",
+    "location": "우크라이나 동부",
+    "lat": 48.46,
+    "lng": 37.09,
+    "period": "2024~현재",
+    "summaryKo": "미국이 제공한 Abrams 전차가 우크라이나에서 운용된 사실이 공개 보도와 정부 발표로 확인된다.",
+    "sources": [
+      {
+        "title": "U.S. Department of War - Abrams tanks for Ukraine",
+        "url": "https://www.war.gov/News/News-Stories/Article/article/3277910/biden-announces-abrams-tanks-to-be-delivered-to-ukraine/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "ukraine-leopard-2023",
+    "equipmentIds": [
+      "leopard-2a7"
+    ],
+    "titleKo": "우크라이나의 Leopard 2 계열 운용",
+    "country": "우크라이나",
+    "location": "자포리자 및 동부 전선",
+    "lat": 47.84,
+    "lng": 35.14,
+    "period": "2023~현재",
+    "summaryKo": "여러 NATO 국가가 Leopard 2 계열 전차를 우크라이나에 지원했고, 실제 전장 운용과 손실 사례가 공개 자료에서 확인된다.",
+    "sources": [
+      {
+        "title": "German Federal Government - Leopard 2 support to Ukraine",
+        "url": "https://www.bundesregierung.de/breg-en/news/military-support-ukraine-2054992",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "ukraine-stryker-2023",
+    "equipmentIds": [
+      "stryker"
+    ],
+    "titleKo": "우크라이나의 Stryker 운용",
+    "country": "우크라이나",
+    "location": "우크라이나 남동부",
+    "lat": 47.1,
+    "lng": 36.2,
+    "period": "2023~현재",
+    "summaryKo": "미국의 군사지원 패키지에 포함된 Stryker 장갑차가 우크라이나 기계화 부대에서 운용된 것으로 공개 보도되었다.",
+    "sources": [
+      {
+        "title": "U.S. Department of War - Ukraine security assistance, Jan. 19 2023",
+        "url": "https://www.war.gov/News/Releases/Release/Article/3272866/biden-administration-announces-additional-security-assistance-for-ukraine/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "afghanistan-boxer",
+    "equipmentIds": [
+      "boxer"
+    ],
+    "titleKo": "Afghanistan ISAF Boxer 운용",
+    "country": "아프가니스탄",
+    "location": "쿤두즈 등 북부 지역",
+    "lat": 36.73,
+    "lng": 68.86,
+    "period": "2011~2014",
+    "summaryKo": "독일군은 아프가니스탄 파병 기간 Boxer 장갑차를 운용하며 방호력과 기동성을 실전 환경에서 확인했다.",
+    "sources": [
+      {
+        "title": "Rheinmetall - Boxer operational record",
+        "url": "https://www.rheinmetall.com/en/products/wheeled-armoured-vehicles/boxer",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "Rheinmetall - Boxer armoured transport vehicle",
+        "url": "https://www.rheinmetall.com/en/products/wheeled-armoured-vehicles/boxer",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "afghanistan-rosomak",
+    "equipmentIds": [
+      "patria-amv"
+    ],
+    "titleKo": "폴란드 Rosomak의 아프가니스탄 운용",
+    "country": "아프가니스탄",
+    "location": "가즈니",
+    "lat": 33.55,
+    "lng": 68.42,
+    "period": "2007~2014",
+    "summaryKo": "Patria AMV 기반의 폴란드 Rosomak 장갑차는 ISAF 작전에서 운용되며 방호·기동 플랫폼으로 활용되었다.",
+    "sources": [
+      {
+        "title": "Patria - AMV XP",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility/patria-amv-xp-number-1-in-the-battlefield",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "mali-vbci",
+    "equipmentIds": [
+      "vbci"
+    ],
+    "titleKo": "프랑스군 VBCI의 Sahel 작전 운용",
+    "country": "말리",
+    "location": "가오 및 사헬 지역",
+    "lat": 16.27,
+    "lng": -0.05,
+    "period": "2013~2022",
+    "summaryKo": "프랑스군의 말리·사헬 지역 작전에서 VBCI가 기계화 보병 수송과 보호 임무에 투입된 공개 자료가 있다.",
+    "sources": [
+      {
+        "title": "TerreMag - Operation Barkhane withdrawal from Gao",
+        "url": "https://www.terremag.defense.gouv.fr/nos-reportages/immersion/operation-barkhane-au-revoir-gao",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "ukraine-challenger-2",
+    "equipmentIds": [
+      "challenger-3"
+    ],
+    "titleKo": "Challenger 계열의 우크라이나 전장 운용",
+    "country": "우크라이나",
+    "location": "우크라이나 남부",
+    "lat": 46.8,
+    "lng": 33.4,
+    "period": "2023~현재",
+    "summaryKo": "Challenger 3 자체는 개발 중이나, 기반이 되는 Challenger 2가 우크라이나에서 운용되어 후속 개량의 실전 교훈과 연결된다.",
+    "sources": [
+      {
+        "title": "UK Government - Challenger 2 training for Ukraine",
+        "url": "https://www.gov.uk/government/news/ukrainian-tank-crews-complete-challenger-2-training-in-uk",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "yemen-leclerc",
+    "equipmentIds": [
+      "leclerc-xlr"
+    ],
+    "titleKo": "UAE Leclerc 계열의 예멘 전장 운용",
+    "country": "예멘",
+    "location": "아덴 및 남부 예멘",
+    "lat": 12.8,
+    "lng": 45.03,
+    "period": "2015~",
+    "summaryKo": "Leclerc XLR 자체가 아닌 기본 Leclerc 계열은 UAE 운용 사례를 통해 예멘 전장 투입이 공개 자료에서 언급된다.",
+    "sources": [
+      {
+        "title": "Bellingcat - UAE armored vehicles in Yemen",
+        "url": "https://www.bellingcat.com/news/middle-east/2019/04/11/logbook-part-i-the-uaes-bmp-3-ifv-in-yemen/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "ukraine-bradley-stepove",
+    "equipmentIds": [
+      "m2a2-bradley"
+    ],
+    "titleKo": "우크라이나 Bradley 전장 운용",
+    "country": "우크라이나",
+    "location": "도네츠크주 Stepove 인근",
+    "lat": 48.18,
+    "lng": 37.68,
+    "period": "2023~현재",
+    "summaryKo": "M2A2 Bradley는 우크라이나 기계화부대에서 보병전투차로 운용되며, 전차·장갑차 교전과 드론 위협 대응 개조 논의가 공개 자료에 나타난다.",
+    "sources": [
+      {
+        "title": "U.S. Department of War - Ukraine security assistance, Jan. 19 2023",
+        "url": "https://www.war.gov/News/Releases/Release/Article/3272866/biden-administration-announces-additional-security-assistance-for-ukraine/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "ukraine-gepard-air-defense",
+    "equipmentIds": [
+      "gepard"
+    ],
+    "titleKo": "Gepard의 우크라이나 대드론 방공 임무",
+    "country": "우크라이나",
+    "location": "오데사 및 주요 도시 방공권",
+    "lat": 46.48,
+    "lng": 30.72,
+    "period": "2022~현재",
+    "summaryKo": "독일 제공 Gepard 자주대공포는 저고도 드론·순항미사일 대응 임무에서 활용되며 탄약 확보가 주요 과제로 보도되었다.",
+    "sources": [
+      {
+        "title": "AP - Germany to produce Gepard ammunition for Ukraine",
+        "url": "https://apnews.com/article/1a46d55d1325f4f2210dc1cb35b32137",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "ukraine-caesar-cage",
+    "equipmentIds": [
+      "caesar-8x8"
+    ],
+    "titleKo": "CAESAR 자주포의 드론 대응 메시 케이지",
+    "country": "우크라이나",
+    "location": "우크라이나 전선 포병 진지",
+    "lat": 48.7,
+    "lng": 36.9,
+    "period": "2025~현재",
+    "summaryKo": "우크라이나군은 FPV 드론 위협에 대응하기 위해 CAESAR 운전실과 탄약 적재부 주변에 메시형 보호 구조물을 설치한 사례를 공개했다.",
+    "sources": [
+      {
+        "title": "Defense Express - Ukraine created anti-drone protection for Caesar howitzers",
+        "url": "https://en.defence-ua.com/weapon_and_tech/ukraine_created_anti_drone_protection_for_caesar_howitzers_does_it_actually_work-15189.html",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "ukraine-turtle-tank-krasnohorivka",
+    "equipmentIds": [
+      "t90m"
+    ],
+    "titleKo": "러시아군 터틀형 전차 개조",
+    "country": "우크라이나",
+    "location": "도네츠크주 Krasnohorivka 일대",
+    "lat": 48,
+    "lng": 37.5,
+    "period": "2024~현재",
+    "summaryKo": "FPV 드론 위협에 대응해 러시아군 전차와 장갑차가 차량 전체를 덮는 박스형·케이지형 구조물을 장착한 사례가 보도되었다.",
+    "sources": [
+      {
+        "title": "Kyiv Post - Russia's T-80 Super Turtle Tank",
+        "url": "https://www.kyivpost.com/post/37897",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  }
+]

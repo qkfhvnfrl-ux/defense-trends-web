@@ -1,0 +1,577 @@
+[
+  {
+    "id": "powerpack",
+    "equipmentId": "stryker",
+    "nameKo": "파워팩",
+    "type": "기동장치",
+    "hotspotPosition": [
+      -1.25,
+      0.95,
+      0.15
+    ],
+    "modelPath": "/models/stryker/components/powerpack.glb",
+    "specs": {
+      "구성": "디젤 엔진 및 자동변속기",
+      "역할": "8x8 구동계에 동력 제공",
+      "정비": "야전 정비 접근성 고려"
+    },
+    "summaryKo": "Stryker의 기동성은 장거리 도로 기동과 여단급 신속 전개 개념에 맞춰 설계된 파워트레인에 기반한다.",
+    "sources": [
+      {
+        "title": "General Dynamics Land Systems - Stryker",
+        "url": "https://www.gdls.com/stryker/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "rws",
+    "equipmentId": "stryker",
+    "nameKo": "원격무장장치",
+    "type": "무장",
+    "hotspotPosition": [
+      0.3,
+      1.45,
+      0
+    ],
+    "modelPath": "/models/stryker/components/rws.glb",
+    "specs": {
+      "무장": "기관총 또는 유탄기관총 등 형식별 상이",
+      "운용": "차내 원격 조작",
+      "효과": "노출을 줄인 감시·사격"
+    },
+    "summaryKo": "원격무장장치는 승무원의 외부 노출을 줄이면서 근거리 방어와 감시를 지원한다.",
+    "sources": [
+      {
+        "title": "U.S. Army - Stryker Dragoon production",
+        "url": "https://www.army.mil/article/207851/anad_gdls_complete_production_of_stryker_dragoons",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "mission-module",
+    "equipmentId": "boxer",
+    "nameKo": "임무 모듈",
+    "type": "플랫폼",
+    "hotspotPosition": [
+      0.15,
+      1.25,
+      0
+    ],
+    "modelPath": "/models/boxer/components/mission-module.glb",
+    "specs": {
+      "구성": "차체 드라이브 모듈 + 교체형 임무 모듈",
+      "임무": "병력수송, 지휘, 의무, 화력지원",
+      "장점": "동일 차체 기반 임무 전환"
+    },
+    "summaryKo": "Boxer의 핵심은 드라이브 모듈과 임무 모듈 분리 구조로, 운용국 요구에 따라 상부 임무부를 달리할 수 있다.",
+    "sources": [
+      {
+        "title": "Rheinmetall - Boxer armoured transport vehicle",
+        "url": "https://www.rheinmetall.com/en/products/wheeled-armoured-vehicles/boxer",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "boxer-protection",
+    "equipmentId": "boxer",
+    "nameKo": "방호 패키지",
+    "type": "방호",
+    "hotspotPosition": [
+      0.05,
+      0.9,
+      0.95
+    ],
+    "modelPath": "/models/boxer/components/protection.glb",
+    "specs": {
+      "방호": "모듈형 장갑",
+      "위협": "탄도·지뢰·IED 방호 고려",
+      "특징": "임무형 구성에 따른 방호 조정"
+    },
+    "summaryKo": "Boxer는 고중량 8x8 플랫폼답게 방호력을 강조하며, 임무와 운용국 요구에 따라 방호 패키지가 조정된다.",
+    "sources": [
+      {
+        "title": "KNDS - Boxer vehicle family",
+        "url": "https://knds.com/en/products/boxer",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "amv-hull",
+    "equipmentId": "patria-amv",
+    "nameKo": "차체 구조",
+    "type": "방호/기동",
+    "hotspotPosition": [
+      0,
+      0.75,
+      0.9
+    ],
+    "modelPath": "/models/patria-amv/components/hull.glb",
+    "specs": {
+      "구동": "8x8",
+      "선택사항": "수상주행 구성 가능",
+      "확장": "포탑, 박격포, 지휘형 등"
+    },
+    "summaryKo": "Patria AMV는 국가별 요구에 맞춰 방호·무장·수상주행 옵션을 조합할 수 있는 플랫폼이다.",
+    "sources": [
+      {
+        "title": "Patria - AMV XP",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility/patria-amv-xp-number-1-in-the-battlefield",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "amv-turret",
+    "equipmentId": "patria-amv",
+    "nameKo": "무장 모듈",
+    "type": "무장",
+    "hotspotPosition": [
+      0.45,
+      1.35,
+      0
+    ],
+    "modelPath": "/models/patria-amv/components/turret.glb",
+    "specs": {
+      "무장": "기관총, 기관포, 박격포 등 파생형별 상이",
+      "통합": "사용국 요구 무장 통합",
+      "역할": "보병지원 및 화력지원"
+    },
+    "summaryKo": "AMV 계열은 다양한 무장 모듈을 통합할 수 있어 운용국별 형상이 크게 달라진다.",
+    "sources": [
+      {
+        "title": "Patria - wheeled mobility vehicles",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "vbci-turret",
+    "equipmentId": "vbci",
+    "nameKo": "25mm 포탑",
+    "type": "무장",
+    "hotspotPosition": [
+      0.42,
+      1.35,
+      0
+    ],
+    "modelPath": "/models/vbci/components/turret.glb",
+    "specs": {
+      "주무장": "25mm 기관포",
+      "부무장": "7.62mm 기관총",
+      "역할": "보병전투차 화력지원"
+    },
+    "summaryKo": "VBCI VCI형은 25mm 기관포 포탑을 통해 보병 수송과 직접 화력지원 임무를 함께 수행한다.",
+    "sources": [
+      {
+        "title": "KNDS - VBCI MkII offer",
+        "url": "https://knds.com/en/press-releases/dimdex-2024-nexter-company-of-knds-offers-the-vbci-to-modernise-the-qatar-infantry-units",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "vbci-network",
+    "equipmentId": "vbci",
+    "nameKo": "전장정보 장비",
+    "type": "전자장비",
+    "hotspotPosition": [
+      -0.55,
+      1.18,
+      -0.35
+    ],
+    "modelPath": "/models/vbci/components/network.glb",
+    "specs": {
+      "역할": "지휘통제 및 전장정보 공유",
+      "운용": "프랑스군 네트워크 중심 전투체계 연동",
+      "효과": "기계화 보병부대 상황인식 향상"
+    },
+    "summaryKo": "VBCI는 프랑스군 전장관리체계와 연동되는 기계화 보병 플랫폼으로 운용된다.",
+    "sources": [
+      {
+        "title": "KNDS - VBCI MkII offer",
+        "url": "https://knds.com/en/press-releases/dimdex-2024-nexter-company-of-knds-offers-the-vbci-to-modernise-the-qatar-infantry-units",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "abrams-gun",
+    "equipmentId": "m1a2-abrams",
+    "nameKo": "120mm 주포",
+    "type": "무장",
+    "hotspotPosition": [
+      1.85,
+      1.05,
+      0
+    ],
+    "modelPath": "/models/m1a2-abrams/components/main-gun.glb",
+    "specs": {
+      "구경": "120mm",
+      "방식": "활강포",
+      "역할": "전차 및 장갑 표적 교전"
+    },
+    "summaryKo": "Abrams 계열의 120mm 활강포는 주력전차 교전 능력의 핵심 장치다.",
+    "sources": [
+      {
+        "title": "U.S. Army - Abrams",
+        "url": "https://www.army.mil/article/1374/the_m1_abrams_main_battle_tank",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "abrams-sight",
+    "equipmentId": "m1a2-abrams",
+    "nameKo": "열상·조준장치",
+    "type": "센서",
+    "hotspotPosition": [
+      0.25,
+      1.45,
+      0.48
+    ],
+    "modelPath": "/models/m1a2-abrams/components/sight.glb",
+    "specs": {
+      "구성": "포수/전차장 조준장비",
+      "기능": "주야간 표적 탐지와 사격통제",
+      "개량": "SEP 계열에서 전자장비 성능 향상"
+    },
+    "summaryKo": "열상장비와 사격통제체계는 Abrams의 야간·악천후 교전 능력을 좌우한다.",
+    "sources": [
+      {
+        "title": "General Dynamics Land Systems - Abrams",
+        "url": "https://www.gdls.com/abrams/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "leopard-gun",
+    "equipmentId": "leopard-2a7",
+    "nameKo": "120mm 주포",
+    "type": "무장",
+    "hotspotPosition": [
+      1.85,
+      1.05,
+      0
+    ],
+    "modelPath": "/models/leopard-2a7/components/main-gun.glb",
+    "specs": {
+      "구경": "120mm",
+      "방식": "활강포",
+      "운용": "Leopard 2 계열 표준 주포 계열"
+    },
+    "summaryKo": "Leopard 2 계열의 120mm 활강포는 NATO 표준 전차 화력 체계의 대표 사례다.",
+    "sources": [
+      {
+        "title": "KNDS - Leopard main battle tank family",
+        "url": "https://knds.com/en/products/leopard",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "leopard-protection",
+    "equipmentId": "leopard-2a7",
+    "nameKo": "방호 모듈",
+    "type": "방호",
+    "hotspotPosition": [
+      -0.1,
+      0.95,
+      0.88
+    ],
+    "modelPath": "/models/leopard-2a7/components/protection.glb",
+    "specs": {
+      "구성": "복합장갑 및 개량 방호 구성",
+      "초점": "전면·측면 생존성 향상",
+      "운용": "개량형별 구성 상이"
+    },
+    "summaryKo": "Leopard 2A7 계열은 방호와 전장 지속 운용성 강화를 주요 개량 방향으로 삼는다.",
+    "sources": [
+      {
+        "title": "KNDS - Leopard main battle tank family",
+        "url": "https://knds.com/en/products/leopard",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "challenger-gun",
+    "equipmentId": "challenger-3",
+    "nameKo": "120mm L55A1 활강포",
+    "type": "무장",
+    "hotspotPosition": [
+      1.85,
+      1.05,
+      0
+    ],
+    "modelPath": "/models/challenger-3/components/main-gun.glb",
+    "specs": {
+      "구경": "120mm",
+      "형식": "L55A1 활강포 계획",
+      "변화": "Challenger 2 강선포에서 활강포로 전환"
+    },
+    "summaryKo": "Challenger 3의 가장 큰 변화 중 하나는 NATO 탄약 호환성을 고려한 120mm 활강포 적용이다.",
+    "sources": [
+      {
+        "title": "UK Government - Challenger 3 production milestone",
+        "url": "https://www.gov.uk/government/news/uks-most-lethal-tank-rolls-off-the-production-lines",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "challenger-turret",
+    "equipmentId": "challenger-3",
+    "nameKo": "신형 포탑",
+    "type": "포탑",
+    "hotspotPosition": [
+      0.1,
+      1.35,
+      0
+    ],
+    "modelPath": "/models/challenger-3/components/turret.glb",
+    "specs": {
+      "구성": "신형 포탑 및 전자 아키텍처",
+      "기능": "사격통제·센서·방호 통합",
+      "기반": "Challenger 2 차체 개량"
+    },
+    "summaryKo": "Challenger 3는 차체 개량과 함께 포탑 체계를 크게 바꿔 화력과 센서 성능을 개선한다.",
+    "sources": [
+      {
+        "title": "UK Government - Challenger 3 contract and capability",
+        "url": "https://www.gov.uk/government/news/british-army-to-possess-most-lethal-tank-in-europe",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "leclerc-autoloader",
+    "equipmentId": "leclerc-xlr",
+    "nameKo": "자동장전장치",
+    "type": "무장",
+    "hotspotPosition": [
+      -0.42,
+      1.25,
+      0
+    ],
+    "modelPath": "/models/leclerc-xlr/components/autoloader.glb",
+    "specs": {
+      "역할": "주포 탄약 자동 장전",
+      "승무원": "3명 운용 구조 지원",
+      "특징": "Leclerc 계열 설계 특징"
+    },
+    "summaryKo": "Leclerc 계열은 자동장전 구조를 통해 전차장, 포수, 조종수 3명 승무원 운용을 가능하게 한다.",
+    "sources": [
+      {
+        "title": "KNDS - Leclerc XLR product sheet",
+        "url": "https://knds.com/media/KRV_041_LECLERC_XLR_EN_BAT_BDEF_6a502524d1.pdf",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "leclerc-scorpion",
+    "equipmentId": "leclerc-xlr",
+    "nameKo": "SCORPION 연동장비",
+    "type": "전자장비",
+    "hotspotPosition": [
+      0.15,
+      1.45,
+      0.45
+    ],
+    "modelPath": "/models/leclerc-xlr/components/scorpion.glb",
+    "specs": {
+      "체계": "SCORPION 전장정보체계",
+      "역할": "전장정보 공유 및 지휘통제 연동",
+      "개량": "XLR 현대화 핵심"
+    },
+    "summaryKo": "Leclerc XLR의 현대화는 단순 화력 개선보다 프랑스 지상전 네트워크에 연결되는 디지털화에 초점이 있다.",
+    "sources": [
+      {
+        "title": "French Ministry of Armed Forces - SCORPION programme",
+        "url": "https://www.defense.gouv.fr/eurosatory/the-scorpion-programme",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "bradley-bushmaster",
+    "equipmentId": "m2a2-bradley",
+    "nameKo": "25mm Bushmaster",
+    "type": "무장",
+    "hotspotPosition": [
+      1.45,
+      1.05,
+      0
+    ],
+    "modelPath": "/models/m2a2-bradley/components/bushmaster.glb",
+    "specs": {
+      "구경": "25mm",
+      "역할": "보병전투차 주무장",
+      "연계": "TOW 대전차미사일과 복합 화력 구성"
+    },
+    "summaryKo": "Bradley의 25mm 기관포는 장갑차·진지·소프트스킨 표적 대응을 위한 핵심 화력이다.",
+    "sources": [
+      {
+        "title": "U.S. Army - Bradley Fighting Vehicle",
+        "url": "https://www.army.mil/article/258428/bradley_fighting_vehicle",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "bradley-tow",
+    "equipmentId": "m2a2-bradley",
+    "nameKo": "TOW 발사기",
+    "type": "대전차",
+    "hotspotPosition": [
+      0.15,
+      1.4,
+      -0.55
+    ],
+    "modelPath": "/models/m2a2-bradley/components/tow.glb",
+    "specs": {
+      "무장": "TOW 대전차미사일",
+      "역할": "전차 및 장갑 표적 장거리 교전",
+      "특징": "IFV 플랫폼에 대전차 능력 부여"
+    },
+    "summaryKo": "TOW 발사기는 Bradley가 보병전투차이면서도 전차 위협에 대응할 수 있게 하는 대표 장치다.",
+    "sources": [
+      {
+        "title": "U.S. Department of War - Ukraine security assistance, Jan. 19 2023",
+        "url": "https://www.war.gov/News/Releases/Release/Article/3272866/biden-administration-announces-additional-security-assistance-for-ukraine/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "cv90-main-cannon",
+    "equipmentId": "cv90",
+    "nameKo": "중구경 기관포",
+    "type": "무장",
+    "hotspotPosition": [
+      1.4,
+      1.05,
+      0
+    ],
+    "modelPath": "/models/cv90/components/main-cannon.glb",
+    "specs": {
+      "구경": "운용국별 30/35/40mm",
+      "역할": "IFV 직접화력",
+      "특징": "운용국 요구에 따른 파생형 다양화"
+    },
+    "summaryKo": "CV90 계열은 운용국별 무장 구성이 달라지는 대표적인 다국적 IFV 플랫폼이다.",
+    "sources": [
+      {
+        "title": "BAE Systems - CV90 MkIV",
+        "url": "https://www.baesystems.com/en-us/product/cv90-mkiv",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "puma-sensor-suite",
+    "equipmentId": "puma-ifv",
+    "nameKo": "360도 센서/재머",
+    "type": "센서/전자전",
+    "hotspotPosition": [
+      0.05,
+      1.55,
+      0.35
+    ],
+    "modelPath": "/models/puma-ifv/components/sensor-suite.glb",
+    "specs": {
+      "센서": "360도 카메라, 조준장비",
+      "전자전": "재머 통합",
+      "네트워크": "디지털 전장 연동"
+    },
+    "summaryKo": "Puma는 단순 장갑차가 아니라 센서와 보병 체계를 연결하는 네트워크형 IFV를 지향한다.",
+    "sources": [
+      {
+        "title": "Rheinmetall - Puma IFV",
+        "url": "https://www.rheinmetall.com/en/products/tracked-vehicles/tracked-armoured-vehicles/puma-infantry-fighting-vehicle",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "t90m-cope-cage",
+    "equipmentId": "t90m",
+    "nameKo": "급조 드론 방호 구조물",
+    "type": "드론 대응",
+    "hotspotPosition": [
+      0,
+      1.75,
+      0
+    ],
+    "modelPath": "/models/t90m/components/cope-cage.glb",
+    "specs": {
+      "구성": "철근, 와이어, 판재, 메시 등",
+      "역할": "FPV 드론 탄두 작동 위치 이격",
+      "한계": "시야, 중량, 정비성, 승하차 영향"
+    },
+    "summaryKo": "러우 전쟁에서 관찰되는 코프 케이지와 터틀형 구조물은 저비용 드론 대응 개조의 대표 사례다.",
+    "sources": [
+      {
+        "title": "RFE/RL - Hedgehog armor photos",
+        "url": "https://www.rferl.org/a/ukraine-russia-invasion-hedgehog-armor-photos/33660328.html",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "gepard-radar",
+    "equipmentId": "gepard",
+    "nameKo": "탐색/추적 레이더",
+    "type": "센서",
+    "hotspotPosition": [
+      -0.2,
+      1.72,
+      0
+    ],
+    "modelPath": "/models/gepard/components/radar.glb",
+    "specs": {
+      "역할": "저고도 표적 탐지와 사격통제",
+      "표적": "드론, 헬기, 저고도 항공기",
+      "연계": "35mm 쌍열 기관포"
+    },
+    "summaryKo": "Gepard의 핵심은 기관포뿐 아니라 자체 탐색/추적 센서로 공중표적을 교전하는 점이다.",
+    "sources": [
+      {
+        "title": "Wikimedia Commons - UA Gepard scanning",
+        "url": "https://commons.wikimedia.org/wiki/File:Ua_gepard_scanning.jpg",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "caesar-cage",
+    "equipmentId": "caesar-8x8",
+    "nameKo": "메시형 드론 방호",
+    "type": "드론 대응",
+    "hotspotPosition": [
+      -0.9,
+      1.25,
+      0
+    ],
+    "modelPath": "/models/caesar-8x8/components/anti-drone-cage.glb",
+    "specs": {
+      "구성": "운전실/탄약부 주변 메시 구조물",
+      "역할": "FPV 드론 직접 충돌·탄두 접근 방해",
+      "특징": "야전 급조형 저비용 방호"
+    },
+    "summaryKo": "CAESAR의 사례는 자주포도 드론 위협 때문에 플랫폼 외형이 빠르게 변하고 있음을 보여준다.",
+    "sources": [
+      {
+        "title": "Defense Express - Caesar anti-drone protection",
+        "url": "https://en.defence-ua.com/weapon_and_tech/ukraine_created_anti_drone_protection_for_caesar_howitzers_does_it_actually_work-15189.html",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  }
+]

@@ -1,0 +1,958 @@
+[
+  {
+    "id": "stryker",
+    "name": "Stryker",
+    "category": "wheeled-apc",
+    "country": "미국",
+    "manufacturer": "General Dynamics Land Systems",
+    "status": "운용 및 개량 중",
+    "summaryKo": "미 육군의 8x8 차륜형 장갑차 계열로 병력수송, 정찰, 화력지원, 의무후송 등 다양한 파생형이 운용된다. 우크라이나 지원 사례로 현대 전장에서의 기동·방호 운용이 다시 주목받고 있다.",
+    "specs": {
+      "구동": "8x8",
+      "승무원/탑승": "승무원 2명 + 보병 분대",
+      "중량": "형식별 상이, 약 18~25톤급",
+      "주요 무장": "원격무장장치, 30mm 포탑형, 대전차형 등 파생형별 상이",
+      "특징": "공중수송성, 다양한 파생형, 네트워크화 운용"
+    },
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/8/81/M1126_Stryker_top_close.jpg"
+    ],
+    "modelPath": "/models/stryker/vehicle.glb",
+    "sources": [
+      {
+        "title": "General Dynamics Land Systems - Stryker",
+        "url": "https://www.gdls.com/stryker/",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "U.S. Army - Stryker Dragoon production",
+        "url": "https://www.army.mil/article/207851/anad_gdls_complete_production_of_stryker_dragoons",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "Stryker"
+    ],
+    "originCountry": "미국",
+    "operatorCountries": [
+      "미국"
+    ],
+    "vehicleFamily": "차륜형장갑차",
+    "roleTags": [
+      "APC",
+      "8x8",
+      "병력수송"
+    ],
+    "technologyTags": [
+      "cuas-rcws",
+      "ugv-logistics-evacuation"
+    ],
+    "battlefieldCaseIds": [
+      "case-rcws-cuas"
+    ],
+    "sourceIds": [
+      "stryker-source-1",
+      "stryker-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 82,
+    "droneThreatPressure": 84,
+    "systemIntegrationLevel": 78,
+    "fieldModificationSensitivity": 82,
+    "sourceConfidenceScore": 78,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "stryker-icv",
+      "stryker-dragoon",
+      "stryker-mshorad",
+      "stryker-atgm"
+    ]
+  },
+  {
+    "id": "boxer",
+    "name": "Boxer",
+    "category": "wheeled-apc",
+    "country": "독일/네덜란드",
+    "manufacturer": "ARTEC / Rheinmetall / KNDS",
+    "status": "다국적 운용 및 생산 확대",
+    "summaryKo": "모듈형 임무 모듈을 핵심으로 하는 8x8 장갑차다. 독일, 네덜란드, 영국, 호주 등에서 운용·도입이 진행되며 병력수송, 지휘, 의무, 화력지원 임무로 확장되고 있다.",
+    "specs": {
+      "구동": "8x8",
+      "전투중량": "형식별 상이, 약 38톤급 이상",
+      "승무원/탑승": "임무 모듈별 상이",
+      "주요 무장": "원격무장장치, 기관포 탑재형 등",
+      "특징": "교체형 임무 모듈, 높은 방호력, 장거리 주행"
+    },
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/a/a3/GTK_Boxer_at_Camp_Marmal.jpg"
+    ],
+    "modelPath": "/models/boxer/vehicle.glb",
+    "sources": [
+      {
+        "title": "Rheinmetall - Boxer armoured transport vehicle",
+        "url": "https://www.rheinmetall.com/en/products/wheeled-armoured-vehicles/boxer",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "KNDS - Boxer vehicle family",
+        "url": "https://knds.com/en/products/boxer",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "Boxer"
+    ],
+    "originCountry": "독일/네덜란드",
+    "operatorCountries": [
+      "독일/네덜란드"
+    ],
+    "vehicleFamily": "차륜형장갑차",
+    "roleTags": [
+      "APC",
+      "8x8",
+      "병력수송"
+    ],
+    "technologyTags": [
+      "mobile-cuas-guns",
+      "cuas-rcws"
+    ],
+    "battlefieldCaseIds": [
+      "case-skyranger-boxer"
+    ],
+    "sourceIds": [
+      "boxer-source-1",
+      "boxer-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 88,
+    "droneThreatPressure": 78,
+    "systemIntegrationLevel": 86,
+    "fieldModificationSensitivity": 74,
+    "sourceConfidenceScore": 82,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "boxer-apc",
+      "boxer-rct30",
+      "boxer-skyranger",
+      "boxer-ambulance"
+    ]
+  },
+  {
+    "id": "patria-amv",
+    "name": "Patria AMV",
+    "category": "wheeled-apc",
+    "country": "핀란드",
+    "manufacturer": "Patria",
+    "status": "수출 및 파생형 운용",
+    "summaryKo": "핀란드 Patria의 8x8 장갑차 플랫폼으로 폴란드 Rosomak 계열 등 여러 국가에서 운용된다. 발칸, 아프가니스탄, 우크라이나 관련 운용 사례가 공개 자료에 언급된다.",
+    "specs": {
+      "구동": "8x8",
+      "중량": "형식별 상이, 약 16~30톤급",
+      "승무원/탑승": "승무원 2~3명 + 탑승 병력",
+      "주요 무장": "기관총, 30mm 기관포, 박격포/대전차 파생형",
+      "특징": "수상주행 옵션, 높은 파생형 확장성"
+    },
+    "images": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Patria%20AMV.jpg"
+    ],
+    "modelPath": "/models/patria-amv/vehicle.glb",
+    "sources": [
+      {
+        "title": "Patria - AMV XP",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility/patria-amv-xp-number-1-in-the-battlefield",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "Patria - wheeled mobility vehicles",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "Patria AMV"
+    ],
+    "originCountry": "핀란드",
+    "operatorCountries": [
+      "핀란드"
+    ],
+    "vehicleFamily": "차륜형장갑차",
+    "roleTags": [
+      "APC",
+      "8x8",
+      "병력수송"
+    ],
+    "technologyTags": [
+      "cuas-rcws"
+    ],
+    "battlefieldCaseIds": [],
+    "sourceIds": [
+      "patria-amv-source-1",
+      "patria-amv-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 80,
+    "droneThreatPressure": 72,
+    "systemIntegrationLevel": 76,
+    "fieldModificationSensitivity": 70,
+    "sourceConfidenceScore": 76,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "patria-amv-apc",
+      "patria-amv-ifv",
+      "patria-nemo"
+    ]
+  },
+  {
+    "id": "vbci",
+    "name": "VBCI",
+    "category": "wheeled-apc",
+    "country": "프랑스",
+    "manufacturer": "KNDS France",
+    "status": "프랑스군 운용",
+    "summaryKo": "프랑스 육군의 8x8 보병전투차로 해외 작전에서 운용된 사례가 있다. 25mm 포탑을 탑재한 VCI형과 지휘형 등으로 구성된다.",
+    "specs": {
+      "구동": "8x8",
+      "전투중량": "약 29톤급",
+      "승무원/탑승": "승무원 2~3명 + 보병",
+      "주요 무장": "25mm 기관포, 7.62mm 기관총",
+      "특징": "프랑스군 네트워크 중심 전투체계와 연계"
+    },
+    "images": [],
+    "modelPath": "/models/vbci/vehicle.glb",
+    "sources": [
+      {
+        "title": "KNDS - VBCI MkII offer",
+        "url": "https://knds.com/en/press-releases/dimdex-2024-nexter-company-of-knds-offers-the-vbci-to-modernise-the-qatar-infantry-units",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "KNDS - VBCI MkII offer",
+        "url": "https://knds.com/en/press-releases/dimdex-2024-nexter-company-of-knds-offers-the-vbci-to-modernise-the-qatar-infantry-units",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "VBCI"
+    ],
+    "originCountry": "프랑스",
+    "operatorCountries": [
+      "프랑스"
+    ],
+    "vehicleFamily": "차륜형장갑차",
+    "roleTags": [
+      "APC",
+      "8x8",
+      "병력수송"
+    ],
+    "technologyTags": [
+      "digital-battlefield"
+    ],
+    "battlefieldCaseIds": [],
+    "sourceIds": [
+      "vbci-source-1",
+      "vbci-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 74,
+    "droneThreatPressure": 68,
+    "systemIntegrationLevel": 72,
+    "fieldModificationSensitivity": 62,
+    "sourceConfidenceScore": 72,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "vbci-vci",
+      "vbci-vpc",
+      "vbci-mkii"
+    ]
+  },
+  {
+    "id": "m1a2-abrams",
+    "name": "M1A2 Abrams",
+    "category": "tank",
+    "country": "미국",
+    "manufacturer": "General Dynamics Land Systems",
+    "status": "운용 및 SEP 계열 개량",
+    "summaryKo": "미국의 주력전차 계열로 120mm 활강포, 복합장갑, 디지털 사격통제체계를 기반으로 지속 개량되고 있다. 우크라이나 지원 이후 실전 운용 사례가 공개 보도에서 확인된다.",
+    "specs": {
+      "주포": "120mm 활강포",
+      "승무원": "4명",
+      "엔진": "가스터빈",
+      "중량": "형식별 상이, 60톤대 이상",
+      "특징": "SEP 개량, 열상장비, 디지털 전장관리"
+    },
+    "images": [],
+    "modelPath": "/models/m1a2-abrams/vehicle.glb",
+    "sources": [
+      {
+        "title": "U.S. Army - Abrams Main Battle Tank",
+        "url": "https://www.army.mil/article/1374/the_m1_abrams_main_battle_tank",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "General Dynamics Land Systems - Abrams",
+        "url": "https://www.gdls.com/abrams/",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "M1A2 Abrams"
+    ],
+    "originCountry": "미국",
+    "operatorCountries": [
+      "미국"
+    ],
+    "vehicleFamily": "전차·궤도전투차",
+    "roleTags": [
+      "MBT",
+      "전차",
+      "직접화력"
+    ],
+    "technologyTags": [
+      "active-protection-aps",
+      "digital-battlefield"
+    ],
+    "battlefieldCaseIds": [],
+    "sourceIds": [
+      "m1a2-abrams-source-1",
+      "m1a2-abrams-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 84,
+    "droneThreatPressure": 82,
+    "systemIntegrationLevel": 86,
+    "fieldModificationSensitivity": 70,
+    "sourceConfidenceScore": 86,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "abrams-sepv3",
+      "abrams-sepv4-cancelled"
+    ]
+  },
+  {
+    "id": "leopard-2a7",
+    "name": "Leopard 2A7",
+    "category": "tank",
+    "country": "독일",
+    "manufacturer": "KNDS Deutschland / Rheinmetall",
+    "status": "NATO 다국적 운용 및 개량",
+    "summaryKo": "Leopard 2 계열의 최신 운용형 중 하나로 방호, 전력, 열관리, 시가전 운용성이 강화되었다. Leopard 2 계열은 우크라이나 전장에서 운용 사례가 널리 공개되었다.",
+    "specs": {
+      "주포": "120mm 활강포",
+      "승무원": "4명",
+      "엔진": "디젤",
+      "중량": "형식별 상이, 약 60톤대",
+      "특징": "개량형 방호, 향상된 전장 운용성"
+    },
+    "images": [],
+    "modelPath": "/models/leopard-2a7/vehicle.glb",
+    "sources": [
+      {
+        "title": "KNDS - Leopard main battle tank family",
+        "url": "https://knds.com/en/products/leopard",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "Rheinmetall - Main battle tank Leopard technology",
+        "url": "https://www.rheinmetall.com/en/products/tracked-armoured-vehicles/main-battle-tank-leopard-trademark-of-knds-deutschland",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "Leopard 2A7"
+    ],
+    "originCountry": "독일",
+    "operatorCountries": [
+      "독일"
+    ],
+    "vehicleFamily": "전차·궤도전투차",
+    "roleTags": [
+      "MBT",
+      "전차",
+      "직접화력"
+    ],
+    "technologyTags": [
+      "active-protection-aps",
+      "electronic-warfare-jammers"
+    ],
+    "battlefieldCaseIds": [],
+    "sourceIds": [
+      "leopard-2a7-source-1",
+      "leopard-2a7-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 88,
+    "droneThreatPressure": 82,
+    "systemIntegrationLevel": 84,
+    "fieldModificationSensitivity": 68,
+    "sourceConfidenceScore": 84,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "leopard-2a7v",
+      "leopard-2a8"
+    ]
+  },
+  {
+    "id": "challenger-3",
+    "name": "Challenger 3",
+    "category": "tank",
+    "country": "영국",
+    "manufacturer": "Rheinmetall BAE Systems Land",
+    "status": "개발·전력화 진행",
+    "summaryKo": "영국 Challenger 2의 대규모 개량형으로 120mm 활강포, 신형 포탑, 향상된 조준·방호 체계를 적용하는 계획이다. Challenger 2의 우크라이나 운용 사례가 공개되어 후속 개량의 전장 교훈과 연결된다.",
+    "specs": {
+      "주포": "120mm L55A1 활강포 계획",
+      "승무원": "4명",
+      "기반 플랫폼": "Challenger 2 개량",
+      "전력화": "영국 육군 단계적 도입",
+      "특징": "신형 포탑, 디지털 아키텍처, 방호 개량"
+    },
+    "images": [],
+    "modelPath": "/models/challenger-3/vehicle.glb",
+    "sources": [
+      {
+        "title": "UK Government - Challenger 3 contract and capability",
+        "url": "https://www.gov.uk/government/news/british-army-to-possess-most-lethal-tank-in-europe",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "UK Government - Challenger 3 production milestone",
+        "url": "https://www.gov.uk/government/news/uks-most-lethal-tank-rolls-off-the-production-lines",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "Challenger 3"
+    ],
+    "originCountry": "영국",
+    "operatorCountries": [
+      "영국"
+    ],
+    "vehicleFamily": "전차·궤도전투차",
+    "roleTags": [
+      "MBT",
+      "전차",
+      "직접화력"
+    ],
+    "technologyTags": [
+      "active-protection-aps"
+    ],
+    "battlefieldCaseIds": [],
+    "sourceIds": [
+      "challenger-3-source-1",
+      "challenger-3-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 86,
+    "droneThreatPressure": 74,
+    "systemIntegrationLevel": 82,
+    "fieldModificationSensitivity": 58,
+    "sourceConfidenceScore": 82,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "challenger-3-production"
+    ]
+  },
+  {
+    "id": "leclerc-xlr",
+    "name": "Leclerc XLR",
+    "category": "tank",
+    "country": "프랑스",
+    "manufacturer": "KNDS France",
+    "status": "Scorpion 체계 연동 개량",
+    "summaryKo": "프랑스 Leclerc 전차의 XLR 개량형으로 SCORPION 전장정보체계 연동, 방호·통신·전자장비 개량이 핵심이다. 기본 Leclerc 계열은 UAE 운용을 통해 예멘 전장 사례가 공개되어 있다.",
+    "specs": {
+      "주포": "120mm 활강포",
+      "승무원": "3명",
+      "장전": "자동장전",
+      "개량 초점": "SCORPION 연동, 통신·방호 개량",
+      "특징": "디지털화, 생존성 향상"
+    },
+    "images": [],
+    "modelPath": "/models/leclerc-xlr/vehicle.glb",
+    "sources": [
+      {
+        "title": "KNDS - Leclerc XLR product sheet",
+        "url": "https://knds.com/media/KRV_041_LECLERC_XLR_EN_BAT_BDEF_6a502524d1.pdf",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "French Ministry of Armed Forces - SCORPION programme",
+        "url": "https://www.defense.gouv.fr/eurosatory/the-scorpion-programme",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "Leclerc XLR"
+    ],
+    "originCountry": "프랑스",
+    "operatorCountries": [
+      "프랑스"
+    ],
+    "vehicleFamily": "전차·궤도전투차",
+    "roleTags": [
+      "MBT",
+      "전차",
+      "직접화력"
+    ],
+    "technologyTags": [
+      "digital-battlefield"
+    ],
+    "battlefieldCaseIds": [],
+    "sourceIds": [
+      "leclerc-xlr-source-1",
+      "leclerc-xlr-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 82,
+    "droneThreatPressure": 70,
+    "systemIntegrationLevel": 86,
+    "fieldModificationSensitivity": 60,
+    "sourceConfidenceScore": 80,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "leclerc-xlr-scorpion"
+    ]
+  },
+  {
+    "id": "m2a2-bradley",
+    "name": "M2A2 Bradley ODS-SA",
+    "category": "tracked-ifv",
+    "country": "미국",
+    "manufacturer": "BAE Systems / legacy FMC",
+    "status": "우크라이나 실전 운용",
+    "summaryKo": "미국제 궤도형 보병전투차로 25mm 기관포, TOW 대전차미사일, 보병 수송 능력을 결합한다. 우크라이나 전장에서 전차·장갑차 교전, 보병 보호, 드론 위협 대응 개조 사례가 함께 관찰된다.",
+    "specs": {
+      "구동": "궤도식",
+      "주무장": "25mm M242 Bushmaster 기관포",
+      "대전차": "TOW 미사일 발사기",
+      "승무원/탑승": "승무원 3명 + 보병",
+      "특징": "IFV 화력, 보병 수송, 전장 개조 용이성"
+    },
+    "images": [],
+    "modelPath": "/models/m2a2-bradley/vehicle.glb",
+    "sources": [
+      {
+        "title": "U.S. Army - Bradley Fighting Vehicle",
+        "url": "https://www.army.mil/article/258428/bradley_fighting_vehicle",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "U.S. Department of War - Ukraine security assistance, Jan. 19 2023",
+        "url": "https://www.war.gov/News/Releases/Release/Article/3272866/biden-administration-announces-additional-security-assistance-for-ukraine/",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "M2A2 Bradley ODS-SA"
+    ],
+    "originCountry": "미국",
+    "operatorCountries": [
+      "미국"
+    ],
+    "vehicleFamily": "전차·궤도전투차",
+    "roleTags": [
+      "IFV",
+      "보병전투",
+      "궤도형"
+    ],
+    "technologyTags": [
+      "anti-drone-cage-net"
+    ],
+    "battlefieldCaseIds": [
+      "case-bradley-cage"
+    ],
+    "sourceIds": [
+      "m2a2-bradley-source-1",
+      "m2a2-bradley-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 78,
+    "droneThreatPressure": 88,
+    "systemIntegrationLevel": 76,
+    "fieldModificationSensitivity": 86,
+    "sourceConfidenceScore": 82,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "bradley-m2a2-ods",
+      "bradley-cage"
+    ]
+  },
+  {
+    "id": "cv90",
+    "name": "CV90",
+    "category": "tracked-ifv",
+    "country": "스웨덴",
+    "manufacturer": "BAE Systems Hägglunds",
+    "status": "다국적 운용 및 우크라이나 운용",
+    "summaryKo": "스웨덴 기반 궤도형 보병전투차 계열로, 30/35/40mm 기관포형과 지휘·구난·박격포 등 다양한 파생형이 존재한다. 제조사는 10개국 이상 운용과 17개 계약 파생형을 공개하고 있다.",
+    "specs": {
+      "구동": "궤도식",
+      "주요 무장": "30mm, 35mm, 40mm 계열 기관포",
+      "계열": "IFV, 지휘, 구난, 박격포, 대공/센서형",
+      "특징": "디지털 아키텍처, BattleView360, APS 통합 가능성",
+      "운용국": "스웨덴, 노르웨이, 네덜란드, 체코, 우크라이나 등"
+    },
+    "images": [],
+    "modelPath": "/models/cv90/vehicle.glb",
+    "sources": [
+      {
+        "title": "BAE Systems - CV90 MkIV",
+        "url": "https://www.baesystems.com/en-us/product/cv90-mkiv",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "CV90"
+    ],
+    "originCountry": "스웨덴",
+    "operatorCountries": [
+      "스웨덴"
+    ],
+    "vehicleFamily": "전차·궤도전투차",
+    "roleTags": [
+      "IFV",
+      "보병전투",
+      "궤도형"
+    ],
+    "technologyTags": [
+      "active-protection-aps",
+      "digital-battlefield",
+      "ugv-logistics-evacuation"
+    ],
+    "battlefieldCaseIds": [],
+    "sourceIds": [
+      "cv90-source-1"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 90,
+    "droneThreatPressure": 78,
+    "systemIntegrationLevel": 88,
+    "fieldModificationSensitivity": 68,
+    "sourceConfidenceScore": 86,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "cv90-ifv",
+      "cv90-mortar"
+    ]
+  },
+  {
+    "id": "puma-ifv",
+    "name": "Puma IFV",
+    "category": "tracked-ifv",
+    "country": "독일",
+    "manufacturer": "Rheinmetall / KNDS / PSM",
+    "status": "독일군 운용 및 추가 조달",
+    "summaryKo": "독일의 최신 궤도형 보병전투차로 30mm 기관포, MELLS 대전차미사일, 360도 카메라, 디지털 전장 연동, 레이저 경보 및 재머 통합을 특징으로 한다.",
+    "specs": {
+      "구동": "궤도식",
+      "주무장": "30mm MK 기관포",
+      "대전차": "MELLS 유도미사일 통합",
+      "센서": "360도 카메라, 지휘관/포수 광학장비",
+      "특징": "디지털 전장 연동, 레이저 경보, 재머"
+    },
+    "images": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Sch%C3%BCtzenpanzer%20Puma.jpg"
+    ],
+    "modelPath": "/models/puma-ifv/vehicle.glb",
+    "sources": [
+      {
+        "title": "Rheinmetall - Puma Infantry Fighting Vehicle",
+        "url": "https://www.rheinmetall.com/en/products/tracked-vehicles/tracked-armoured-vehicles/puma-infantry-fighting-vehicle",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "KNDS - PUMA IFV",
+        "url": "https://knds.com/en/products/systems/puma",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "Puma IFV"
+    ],
+    "originCountry": "독일",
+    "operatorCountries": [
+      "독일"
+    ],
+    "vehicleFamily": "전차·궤도전투차",
+    "roleTags": [
+      "IFV",
+      "보병전투",
+      "궤도형"
+    ],
+    "technologyTags": [
+      "digital-battlefield",
+      "electronic-warfare-jammers"
+    ],
+    "battlefieldCaseIds": [],
+    "sourceIds": [
+      "puma-ifv-source-1",
+      "puma-ifv-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 92,
+    "droneThreatPressure": 72,
+    "systemIntegrationLevel": 92,
+    "fieldModificationSensitivity": 58,
+    "sourceConfidenceScore": 88,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "puma-vjtf"
+    ]
+  },
+  {
+    "id": "t90m",
+    "name": "T-90M Proryv",
+    "category": "tank",
+    "country": "러시아",
+    "manufacturer": "Uralvagonzavod",
+    "status": "러시아군 운용 및 우크라이나 전장 투입",
+    "summaryKo": "T-90 계열의 현대화형으로 러시아군이 우크라이나 전장에서 운용한다. 공개 영상과 사진에서 코프 케이지, 네트, 추가 장갑 등 드론 위협 대응 개조가 자주 관찰된다.",
+    "specs": {
+      "주포": "125mm 활강포 계열",
+      "승무원": "3명",
+      "장전": "자동장전",
+      "특징": "Kalina 계열 사격통제, 반응장갑, 전장 개조 사례",
+      "전장 이슈": "FPV 드론 위협에 대응한 급조 구조물 장착"
+    },
+    "images": [
+      "https://upload.wikimedia.org/wikipedia/commons/d/d9/T-90M.jpg"
+    ],
+    "modelPath": "/models/t90m/vehicle.glb",
+    "sources": [
+      {
+        "title": "CSIS - Back in Stock? The State of Russia's Defense Industry",
+        "url": "https://www.csis.org/analysis/back-stock-state-russias-defense-industry-after-two-years-war",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "Kyiv Post - Russia's T-80 Super Turtle Tank",
+        "url": "https://www.kyivpost.com/post/37897",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "T-90M Proryv"
+    ],
+    "originCountry": "러시아",
+    "operatorCountries": [
+      "러시아"
+    ],
+    "vehicleFamily": "전차·궤도전투차",
+    "roleTags": [
+      "MBT",
+      "전차",
+      "직접화력"
+    ],
+    "technologyTags": [
+      "anti-drone-cage-net",
+      "electronic-warfare-jammers"
+    ],
+    "battlefieldCaseIds": [
+      "case-turtle-tank"
+    ],
+    "sourceIds": [
+      "t90m-source-1",
+      "t90m-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 62,
+    "droneThreatPressure": 96,
+    "systemIntegrationLevel": 62,
+    "fieldModificationSensitivity": 92,
+    "sourceConfidenceScore": 58,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "t90m-cope-cage"
+    ]
+  },
+  {
+    "id": "gepard",
+    "name": "Gepard 1A2",
+    "category": "air-defense",
+    "country": "독일",
+    "manufacturer": "Krauss-Maffei / Rheinmetall 계열",
+    "status": "우크라이나 방공 임무 운용",
+    "summaryKo": "Leopard 1 차체 기반의 35mm 쌍열 자주대공포로, 우크라이나에서 순항미사일·샤헤드 계열 드론 등 저고도 표적 대응 임무에 활용되는 사례가 공개되어 있다.",
+    "specs": {
+      "구동": "궤도식",
+      "주무장": "35mm 쌍열 기관포",
+      "임무": "저고도 방공, 드론·순항미사일 대응",
+      "센서": "탐색/추적 레이더",
+      "특징": "구형 플랫폼의 현대 드론전 재활용 사례"
+    },
+    "images": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Ua%20gepard%20scanning.jpg"
+    ],
+    "modelPath": "/models/gepard/vehicle.glb",
+    "sources": [
+      {
+        "title": "Wikimedia Commons - UA Gepard scanning",
+        "url": "https://commons.wikimedia.org/wiki/File:Ua_gepard_scanning.jpg",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "AP - Germany to produce ammo for Gepard guns sent to Ukraine",
+        "url": "https://apnews.com/article/1a46d55d1325f4f2210dc1cb35b32137",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "Gepard 1A2"
+    ],
+    "originCountry": "독일",
+    "operatorCountries": [
+      "독일"
+    ],
+    "vehicleFamily": "전차·궤도전투차",
+    "roleTags": [
+      "SHORAD",
+      "C-UAS",
+      "방공"
+    ],
+    "technologyTags": [
+      "mobile-cuas-guns"
+    ],
+    "battlefieldCaseIds": [
+      "case-gepard-cuas"
+    ],
+    "sourceIds": [
+      "gepard-source-1",
+      "gepard-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 72,
+    "droneThreatPressure": 90,
+    "systemIntegrationLevel": 80,
+    "fieldModificationSensitivity": 62,
+    "sourceConfidenceScore": 74,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "gepard-aa"
+    ]
+  },
+  {
+    "id": "caesar-8x8",
+    "name": "CAESAR 8x8",
+    "category": "artillery",
+    "country": "프랑스",
+    "manufacturer": "KNDS France",
+    "status": "우크라이나 등 실전 운용",
+    "summaryKo": "155mm 차륜형 자주포 계열로 고속 기동과 사격 후 이탈 개념에 맞춰 운용된다. 우크라이나 전장에서는 FPV 드론 위협 때문에 운전실과 탄약 적재부 위에 메시형 보호 구조물을 추가하는 사례가 공개되었다.",
+    "specs": {
+      "구동": "6x6 또는 8x8 계열",
+      "주무장": "155mm/52구경장 곡사포",
+      "임무": "장거리 화력지원",
+      "특징": "Shoot-and-scoot, 차륜형 기동성",
+      "전장 개조": "드론 대응 메시 케이지 장착 사례"
+    },
+    "images": [],
+    "modelPath": "/models/caesar-8x8/vehicle.glb",
+    "sources": [
+      {
+        "title": "KNDS - CAESAR 8x8",
+        "url": "https://knds.com/en/products/systems/caesar-8x8",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "Defense Express - Anti-drone protection for Caesar howitzers",
+        "url": "https://en.defence-ua.com/weapon_and_tech/ukraine_created_anti_drone_protection_for_caesar_howitzers_does_it_actually_work-15189.html",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "CAESAR 8x8"
+    ],
+    "originCountry": "프랑스",
+    "operatorCountries": [
+      "프랑스"
+    ],
+    "vehicleFamily": "차륜형장갑차",
+    "roleTags": [
+      "Artillery",
+      "간접화력",
+      "차륜형"
+    ],
+    "technologyTags": [
+      "anti-drone-cage-net"
+    ],
+    "battlefieldCaseIds": [
+      "case-caesar-cage"
+    ],
+    "sourceIds": [
+      "caesar-8x8-source-1",
+      "caesar-8x8-source-2"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 68,
+    "droneThreatPressure": 88,
+    "systemIntegrationLevel": 62,
+    "fieldModificationSensitivity": 82,
+    "sourceConfidenceScore": 74,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "caesar-anti-drone-cage"
+    ]
+  },
+  {
+    "id": "m113",
+    "name": "M113 APC",
+    "category": "tracked-apc",
+    "country": "미국",
+    "manufacturer": "FMC / BAE Systems 계열",
+    "status": "다국적 장기 운용 및 우크라이나 지원",
+    "summaryKo": "냉전기부터 광범위하게 운용된 궤도형 병력수송장갑차다. 단순한 차체와 넓은 내부 공간 덕분에 지휘, 의무후송, 박격포, 탄약수송 등 다양한 계열 차량으로 파생되었다.",
+    "specs": {
+      "구동": "궤도식",
+      "임무": "병력수송, 지휘, 의무, 박격포, 수송",
+      "방호": "경장갑",
+      "특징": "높은 개조성, 저비용 운용, 다양한 파생형",
+      "전장 이슈": "드론 위협 증가에 따른 추가 방호 필요"
+    },
+    "images": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/M113%20APC.jpg"
+    ],
+    "modelPath": "/models/m113/vehicle.glb",
+    "sources": [
+      {
+        "title": "U.S. Department of War - M113 armored personnel carriers for Ukraine",
+        "url": "https://www.war.gov/News/Releases/Release/Article/2999113/800-million-in-additional-security-assistance-for-ukraine/",
+        "checkedAt": "2026-06-06"
+      }
+    ],
+    "aliases": [
+      "M113 APC"
+    ],
+    "originCountry": "미국",
+    "operatorCountries": [
+      "미국"
+    ],
+    "vehicleFamily": "전차·궤도전투차",
+    "roleTags": [
+      "APC",
+      "궤도형",
+      "지원"
+    ],
+    "technologyTags": [
+      "anti-drone-cage-net",
+      "ugv-logistics-evacuation",
+      "cuas-rcws"
+    ],
+    "battlefieldCaseIds": [
+      "case-ugv-evacuation"
+    ],
+    "sourceIds": [
+      "m113-source-1"
+    ],
+    "confidenceSummary": "공개 출처 기반으로 확인된 구성입니다. 세부 제원은 출처별 차이가 있어 범위로 해석해야 합니다.",
+    "modernizationPotential": 55,
+    "droneThreatPressure": 78,
+    "systemIntegrationLevel": 48,
+    "fieldModificationSensitivity": 90,
+    "sourceConfidenceScore": 68,
+    "lastUpdated": "2026-06-06",
+    "variantIds": [
+      "m113-ambulance",
+      "m113-mortar"
+    ]
+  }
+]
