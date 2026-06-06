@@ -1,0 +1,154 @@
+[
+  {
+    "id": "case-turtle-tank",
+    "conflict": "Russia-Ukraine War",
+    "dateObserved": "2024-2025",
+    "region": "Eastern Ukraine",
+    "equipmentName": "T-90M / Russian tank family",
+    "category": "Tank",
+    "adaptationType": "Drone cage",
+    "threatDriver": "FPV 드론과 상부공격형 소형 UAV 위협 확산",
+    "observedChange": "전차 상부와 측면을 덮는 박스형·케이지형 구조물이 공개 사진과 보도에서 관찰됨.",
+    "operationalMeaning": "기본 방호보다 야전 적응성이 중요해졌다는 신호다. 다만 시야, 정비성, 기동성 저하 가능성도 함께 고려해야 한다.",
+    "confidenceLevel": "Medium",
+    "sourceType": "News",
+    "sourceUrls": [
+      "https://www.kyivpost.com/post/37897",
+      "https://www.rferl.org/a/ukraine-russia-invasion-hedgehog-armor-photos/33660328.html"
+    ],
+    "equipmentIds": [
+      "t90m"
+    ],
+    "safetyNote": "정밀 제작법이나 취약점 악용 정보는 제외하고 공개 관측 사실만 요약함."
+  },
+  {
+    "id": "case-bradley-cage",
+    "conflict": "Russia-Ukraine War",
+    "dateObserved": "2024",
+    "region": "Ukraine",
+    "equipmentName": "M2A2 Bradley",
+    "category": "IFV",
+    "adaptationType": "Drone cage",
+    "threatDriver": "FPV 드론과 소형 UAV 투하탄 위협",
+    "observedChange": "Bradley 계열에 상부 케이지 또는 추가 보호 구조물을 적용하는 논의와 관측이 공개 보도에서 확인됨.",
+    "operationalMeaning": "IFV도 전차와 마찬가지로 상부 방호와 센서/무장 통합 여지가 주요 평가 기준이 되고 있다.",
+    "confidenceLevel": "Medium",
+    "sourceType": "News",
+    "sourceUrls": [
+      "https://www.armyrecognition.com/focus-analysis-conflicts/army/conflicts-in-the-world/ukraine-russia-conflict/ukrainian-army-considers-equipping-m2a2-bradleys-with-anti-drone-cages-to-counter-aerial-threats"
+    ],
+    "equipmentIds": [
+      "m2a2-bradley"
+    ],
+    "safetyNote": "구조물 세부 치수나 제작 절차는 제공하지 않음."
+  },
+  {
+    "id": "case-caesar-cage",
+    "conflict": "Russia-Ukraine War",
+    "dateObserved": "2025",
+    "region": "Ukraine",
+    "equipmentName": "CAESAR self-propelled howitzer",
+    "category": "Artillery",
+    "adaptationType": "Drone net",
+    "threatDriver": "포병 플랫폼에 대한 FPV 드론 위협",
+    "observedChange": "운전실과 탄약 적재부 주변에 메시형 보호 구조물이 추가된 사례가 공개 보도됨.",
+    "operationalMeaning": "자주포도 화력 성능만이 아니라 이동 중 생존성과 드론 대응 패키지가 중요해지고 있다.",
+    "confidenceLevel": "Medium",
+    "sourceType": "News",
+    "sourceUrls": [
+      "https://en.defence-ua.com/weapon_and_tech/ukraine_created_anti_drone_protection_for_caesar_howitzers_does_it_actually_work-15189.html"
+    ],
+    "equipmentIds": [
+      "caesar-8x8"
+    ],
+    "safetyNote": "방호 구조의 제작 방법이 아니라 공개 보도 기반 운용 변화만 기록함."
+  },
+  {
+    "id": "case-gepard-cuas",
+    "conflict": "Russia-Ukraine War",
+    "dateObserved": "2022-2026",
+    "region": "Ukraine",
+    "equipmentName": "Gepard 1A2",
+    "category": "SHORAD",
+    "adaptationType": "C-UAS",
+    "threatDriver": "샤헤드형 드론, 순항미사일, 저고도 공중표적",
+    "observedChange": "Gepard가 저고도 방공과 대드론 임무에 활용되고, 탄약 생산과 공급이 주요 과제로 보도됨.",
+    "operationalMeaning": "구형 기관포 방공 플랫폼도 현대 드론전에서 비용 대비 효과가 있는 방공 자산으로 재평가되고 있다.",
+    "confidenceLevel": "High",
+    "sourceType": "News",
+    "sourceUrls": [
+      "https://apnews.com/article/1a46d55d1325f4f2210dc1cb35b32137",
+      "https://commons.wikimedia.org/wiki/File:Ua_gepard_scanning.jpg"
+    ],
+    "equipmentIds": [
+      "gepard"
+    ],
+    "safetyNote": "실시간 방공 배치나 작전 정보는 포함하지 않음."
+  },
+  {
+    "id": "case-skyranger-boxer",
+    "conflict": "Other",
+    "dateObserved": "2024-2026",
+    "region": "Europe",
+    "equipmentName": "Boxer Skyranger 30",
+    "category": "SHORAD",
+    "adaptationType": "C-UAS",
+    "threatDriver": "소형 UAV와 저고도 표적에 대한 단거리 방공 공백",
+    "observedChange": "독일은 Boxer 기반 Skyranger 30 모바일 방공체계 주문을 공개함.",
+    "operationalMeaning": "차륜형 장갑차가 병력수송을 넘어 센서·기관포·미사일을 결합한 방공 노드로 진화하고 있다.",
+    "confidenceLevel": "High",
+    "sourceType": "Manufacturer",
+    "sourceUrls": [
+      "https://www.rheinmetall.com/en/media/news-watch/news/2024/02/2024-02-27-bundeswehr-ordered-skyranger-30-mobile-air-defence-system"
+    ],
+    "equipmentIds": [
+      "boxer"
+    ],
+    "safetyNote": "제조사 공개 자료 기반 조달·체계 정보만 요약함."
+  },
+  {
+    "id": "case-rcws-cuas",
+    "conflict": "Other",
+    "dateObserved": "2024-2026",
+    "region": "Global",
+    "equipmentName": "CROWS / PROTECTOR RWS",
+    "category": "APC",
+    "adaptationType": "RCWS",
+    "threatDriver": "소형 UAV와 근거리 공중위협",
+    "observedChange": "원격무장장치에 C-UAS 소프트웨어와 추적 기능을 결합하는 방향이 공개 제품 자료에서 확인됨.",
+    "operationalMeaning": "APC급 플랫폼도 자체 방어용 센서·무장 통합성이 중요한 비교 지표가 된다.",
+    "confidenceLevel": "High",
+    "sourceType": "Manufacturer",
+    "sourceUrls": [
+      "https://www.kongsberg.com/what-we-do/defence-and-security/remote-weapon-systems/crows/"
+    ],
+    "equipmentIds": [
+      "stryker",
+      "m113"
+    ],
+    "safetyNote": "교전 절차나 운용 전술은 설명하지 않음."
+  },
+  {
+    "id": "case-ugv-evacuation",
+    "conflict": "Russia-Ukraine War",
+    "dateObserved": "2024-2026",
+    "region": "Ukraine",
+    "equipmentName": "UGV logistics and evacuation systems",
+    "category": "UGV",
+    "adaptationType": "UGV support",
+    "threatDriver": "드론 감시가 촘촘한 전장에서 인원 노출 위험 증가",
+    "observedChange": "원격조종 지상 플랫폼이 보급, 후송, 공병 임무에 활용되는 사례가 공개 보도와 정부 발표에서 확인됨.",
+    "operationalMeaning": "전통적 장갑차는 향후 UGV 운용을 지휘·보조하는 모선 역할과 연결될 수 있다.",
+    "confidenceLevel": "High",
+    "sourceType": "News",
+    "sourceUrls": [
+      "https://apnews.com/article/cda457f0d153d279564ca200a4bc303b",
+      "https://mod.gov.ua/en/news/the-defence-forces-expand-their-fleet-of-ground-robots-with-a-unique-amphibious-system"
+    ],
+    "equipmentIds": [
+      "m113",
+      "cv90"
+    ],
+    "safetyNote": "실시간 임무 위치와 운용 절차는 제외함."
+  }
+]

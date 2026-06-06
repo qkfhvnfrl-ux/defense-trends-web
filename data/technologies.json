@@ -1,0 +1,218 @@
+[
+  {
+    "id": "anti-drone-cage-net",
+    "titleKo": "급조 코프 케이지·드론 네트",
+    "category": "드론 대응",
+    "maturity": "확산",
+    "summaryKo": "러시아-우크라이나 전쟁에서 FPV 드론과 투하탄 위협이 커지면서 전차, 장갑차, 자주포, 보급차량 위에 철근·와이어·메시 구조물을 용접하거나 볼트로 고정하는 사례가 확산됐다.",
+    "battlefieldUseKo": "상부 취약부와 탄약 적재부를 먼저 보호하고, 이후 차량 전체를 덮는 터틀형 구조물과 도로/시설 상부 네트까지 발전했다.",
+    "vehicleImpactKo": "상부 실루엣이 커지고 승하차·포탑 회전·정비성이 악화될 수 있지만, 저비용으로 FPV 드론 접촉·탄두 작동 위치를 바꾸는 효과를 기대한다.",
+    "relatedEquipmentIds": [
+      "t90m",
+      "m2a2-bradley",
+      "caesar-8x8",
+      "m113"
+    ],
+    "images": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/UA%20M109A4%20with%20anti-drone%20cage%2001.jpg",
+        "captionKo": "우크라이나 M109A4에 설치된 전면 드론 대응 케이지",
+        "credit": "Wikimedia Commons / Ministry of Defense of Ukraine"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Wikimedia Commons - UA M109A4 with anti-drone cage",
+        "url": "https://commons.wikimedia.org/wiki/File:UA_M109A4_with_anti-drone_cage_01.jpg",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "RFE/RL - Evolution of hedgehog armor in Ukraine",
+        "url": "https://www.rferl.org/a/ukraine-russia-invasion-hedgehog-armor-photos/33660328.html",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "Defense Express - Caesar anti-drone mesh cage",
+        "url": "https://en.defence-ua.com/weapon_and_tech/ukraine_created_anti_drone_protection_for_caesar_howitzers_does_it_actually_work-15189.html",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "mobile-cuas-guns",
+    "titleKo": "차량 탑재 C-UAS 기관포 방공",
+    "category": "방공",
+    "maturity": "전력화",
+    "summaryKo": "샤헤드형 드론, FPV, 순항미사일 등 저고도 표적이 늘면서 Gepard, Skyranger 30/35 같은 기관포 기반 기동 방공 플랫폼의 가치가 다시 커지고 있다.",
+    "battlefieldUseKo": "우크라이나는 Gepard를 저고도 공중위협 대응에 활용했고, 독일은 Boxer 기반 Skyranger 30을 주문해 단거리·초단거리 방공 공백을 메우려 한다.",
+    "vehicleImpactKo": "장갑차 플랫폼이 단순 병력수송을 넘어 센서, 추적 레이더, 공중폭발탄, 단거리 미사일을 통합한 기동 방공 노드가 된다.",
+    "relatedEquipmentIds": [
+      "gepard",
+      "boxer",
+      "stryker"
+    ],
+    "images": [
+      {
+        "url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ua%20gepard%20scanning.jpg",
+        "captionKo": "우크라이나군 Gepard 자주대공포",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Rheinmetall - Skyranger mobile air defence",
+        "url": "https://www.rheinmetall.com/en/products/air-defence/air-defence-systems/mobile-air-defence-skyranger",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "Rheinmetall - Bundeswehr ordered Skyranger 30 on Boxer",
+        "url": "https://www.rheinmetall.com/en/media/news-watch/news/2024/02/2024-02-27-bundeswehr-ordered-skyranger-30-mobile-air-defence-system",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "AP - Gepard ammunition production for Ukraine",
+        "url": "https://apnews.com/article/1a46d55d1325f4f2210dc1cb35b32137",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "cuas-rcws",
+    "titleKo": "C-UAS 소프트웨어가 들어간 원격무장장치",
+    "category": "드론 대응",
+    "maturity": "전력화",
+    "summaryKo": "기존 RCWS/RWS가 지상 표적용 보조무장에서 벗어나, 드론 탐지·추적·교전 소프트웨어를 결합한 차량 자체 방어 수단으로 진화하고 있다.",
+    "battlefieldUseKo": "Kongsberg는 CROWS/PROTECTOR 계열에 Counter-UAS 소프트웨어를 결합해 인원과 중요시설 보호 임무를 지원한다고 공개한다.",
+    "vehicleImpactKo": "병력수송장갑차와 보급차량도 기관총/RWS를 통해 제한적인 대드론 교전 능력을 갖추는 방향으로 개량될 수 있다.",
+    "relatedEquipmentIds": [
+      "stryker",
+      "boxer",
+      "patria-amv",
+      "m113"
+    ],
+    "images": [],
+    "sources": [
+      {
+        "title": "Kongsberg - CROWS / PROTECTOR RWS with Counter-UAS software",
+        "url": "https://www.kongsberg.com/what-we-do/defence-and-security/remote-weapon-systems/crows/",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "Saab - Trackfire RWS C-UAS capability",
+        "url": "https://www.saab.com/products/trackfire-remote-weapon-station",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "electronic-warfare-jammers",
+    "titleKo": "차량 탑재 재머·전자전 장비",
+    "category": "전자전",
+    "maturity": "확산",
+    "summaryKo": "FPV 드론과 상용 드론이 전술 수준까지 확산되면서, 장갑차 위에는 안테나형 재머와 전자전 장치가 추가되는 사례가 늘고 있다.",
+    "battlefieldUseKo": "재머는 드론 링크와 위성항법 의존성을 방해해 접근을 어렵게 하지만, 주파수 적응과 유선/자율화 드론에는 한계가 있다.",
+    "vehicleImpactKo": "차량의 전력관리, 안테나 배치, 전자파 간섭 관리, 승무원 운용절차가 새로운 설계 요소가 된다.",
+    "relatedEquipmentIds": [
+      "puma-ifv",
+      "leopard-2a7",
+      "m1a2-abrams",
+      "t90m"
+    ],
+    "images": [],
+    "sources": [
+      {
+        "title": "RUSI - Protecting the Force from Uncrewed Aerial Systems",
+        "url": "https://www.rusi.org/explore-our-research/publications/occasional-papers/protecting-force-uncrewed-aerial-systems",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "Wikimedia Commons - Electronic warfare equipment of Ukraine",
+        "url": "https://commons.wikimedia.org/wiki/Category:Electronic_warfare_equipment_of_Ukraine",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "ugv-logistics-evacuation",
+    "titleKo": "UGV 보급·후송·공병 임무",
+    "category": "무인화",
+    "maturity": "확산",
+    "summaryKo": "드론 감시가 촘촘한 전장에서 차량 이동과 부상자 후송 위험이 커지면서, 우크라이나군은 원격조종 지상로봇을 보급·지뢰제거·후송 임무에 확대 활용하고 있다.",
+    "battlefieldUseKo": "AP 보도와 우크라이나 국방부 발표는 위험한 임무에서 병사 노출을 줄이기 위해 '바퀴 달린 로봇'과 국산 UGV 채택이 늘고 있음을 보여준다.",
+    "vehicleImpactKo": "전통적인 APC/IFV는 유인 플랫폼 중심이지만, 앞으로는 UGV를 지휘·충전·회수하는 모선 역할과 연계될 가능성이 커진다.",
+    "relatedEquipmentIds": [
+      "m113",
+      "stryker",
+      "cv90"
+    ],
+    "images": [],
+    "sources": [
+      {
+        "title": "AP - Ukraine uses remote-controlled vehicles for dangerous missions",
+        "url": "https://apnews.com/article/cda457f0d153d279564ca200a4bc303b",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "Ukraine MoD - UNEX UGV codified and adopted",
+        "url": "https://mod.gov.ua/en/news/the-defence-forces-expand-their-fleet-of-ground-robots-with-a-unique-amphibious-system",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "active-protection-aps",
+    "titleKo": "능동방호체계 APS와 상부공격 대응",
+    "category": "능동방호",
+    "maturity": "전력화",
+    "summaryKo": "대전차미사일과 드론 위협이 복합화되면서 Trophy, Iron Fist 등 APS는 전차뿐 아니라 중형 장갑차까지 확장 가능한 생존성 패키지로 다뤄진다.",
+    "battlefieldUseKo": "APS는 접근 탄체를 탐지·추적·요격하는 하드킬/소프트킬 개념을 포함하지만, 저가 FPV 드론 대량 운용에는 비용과 탄약 지속성 문제가 남는다.",
+    "vehicleImpactKo": "센서 사각, 탑재 전력, 상부 방호, 보병 근접 운용 안전성까지 플랫폼 설계와 전술을 함께 바꾼다.",
+    "relatedEquipmentIds": [
+      "m1a2-abrams",
+      "leopard-2a7",
+      "challenger-3",
+      "cv90"
+    ],
+    "images": [],
+    "sources": [
+      {
+        "title": "General Dynamics OTS - Iron Fist Active Protection System",
+        "url": "https://www.gd-ots.com/protection-systems/active-protection-systems/",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "BAE Systems - CV90 MkIV active protection integration readiness",
+        "url": "https://www.baesystems.com/en-us/product/cv90-mkiv",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "digital-battlefield",
+    "titleKo": "디지털 전장관리·센서 융합",
+    "category": "네트워크",
+    "maturity": "전력화",
+    "summaryKo": "현대 장갑차는 장갑과 화력뿐 아니라 360도 카메라, BMS, 전차장/포수 센서, 하차 보병 네트워크 연결이 핵심 경쟁력이 되고 있다.",
+    "battlefieldUseKo": "Puma는 하차 보병 체계와 차량을 연결하고, CV90 MkIV는 디지털 아키텍처와 BattleView360 같은 센서 융합을 강조한다.",
+    "vehicleImpactKo": "장비 상세 페이지는 단순 제원표에서 벗어나 센서, 네트워크, 승무원 인지부하, 무인체계 연동까지 비교해야 한다.",
+    "relatedEquipmentIds": [
+      "puma-ifv",
+      "cv90",
+      "leclerc-xlr",
+      "m1a2-abrams"
+    ],
+    "images": [],
+    "sources": [
+      {
+        "title": "Rheinmetall - Puma IFV digital battlefield integration",
+        "url": "https://www.rheinmetall.com/en/products/tracked-vehicles/tracked-armoured-vehicles/puma-infantry-fighting-vehicle",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "BAE Systems - CV90 MkIV",
+        "url": "https://www.baesystems.com/en-us/product/cv90-mkiv",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  }
+]
