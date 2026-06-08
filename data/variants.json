@@ -440,11 +440,11 @@
     "notesKo": "FPV 드론 위협에 대응해 운전실과 탄약 적재부 위에 메시형 구조물을 설치한 사례.",
     "maturity": "급조",
     "sources": [
-      {
-        "title": "Defense Express - Caesar anti-drone protection",
-        "url": "https://en.defence-ua.com/weapon_and_tech/ukraine_created_anti_drone_protection_for_caesar_howitzers_does_it_actually_work-15189.html",
-        "checkedAt": "2026-06-06"
-      }
+    {
+      "title": "RFE/RL - improvised anti-drone armor in Ukraine",
+      "url": "https://www.rferl.org/a/ukraine-russia-invasion-hedgehog-armor-photos/33660328.html",
+      "checkedAt": "2026-06-08"
+    }
     ]
   },
   {

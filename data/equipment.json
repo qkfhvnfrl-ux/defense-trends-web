@@ -853,11 +853,16 @@
         "url": "https://knds.com/en/products/systems/caesar-8x8",
         "checkedAt": "2026-06-06"
       },
-      {
-        "title": "Defense Express - Anti-drone protection for Caesar howitzers",
-        "url": "https://en.defence-ua.com/weapon_and_tech/ukraine_created_anti_drone_protection_for_caesar_howitzers_does_it_actually_work-15189.html",
-        "checkedAt": "2026-06-06"
-      }
+    {
+      "title": "Ukraine Ministry of Defence - CAESAR self-propelled howitzer overview",
+      "url": "https://mod.gov.ua/en/news/mobility-precision-and-digital-fire-control-overview-of-the-french-caesar-self-propelled-howitzer",
+      "checkedAt": "2026-06-08"
+    },
+    {
+      "title": "RFE/RL - improvised anti-drone armor in Ukraine",
+      "url": "https://www.rferl.org/a/ukraine-russia-invasion-hedgehog-armor-photos/33660328.html",
+      "checkedAt": "2026-06-08"
+    }
     ],
     "aliases": [
       "CAESAR 8x8"
