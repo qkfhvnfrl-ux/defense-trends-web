@@ -138,6 +138,47 @@ export const battlefieldCaseStudySchema = z.object({
   safetyNote: z.string().optional()
 });
 
+export const developmentLensItemSchema = z.object({
+  id: z.string().min(1),
+  titleKo: z.string().min(1),
+  themeKo: z.string().min(1),
+  lifecyclePhaseKo: z.string().min(1),
+  summaryKo: z.string().min(1),
+  sourceConfidenceScore: scoreSchema,
+  relatedEquipmentIds: z.array(z.string().min(1)),
+  tags: z.array(z.string().min(1)),
+  threatDrivers: z.array(z.string().min(1)).min(1),
+  requirementSignals: z.array(z.string().min(1)).min(1),
+  architectureImpacts: z.array(z.object({
+    areaKo: z.string().min(1),
+    implicationKo: z.string().min(1),
+    designTradeoffKo: z.string().min(1)
+  })).min(1),
+  verificationItems: z.array(z.object({
+    phaseKo: z.string().min(1),
+    itemKo: z.string().min(1),
+    evidenceKo: z.string().min(1)
+  })).min(1),
+  riskRegister: z.array(z.object({
+    riskKo: z.string().min(1),
+    mitigationKo: z.string().min(1),
+    ownerKo: z.string().min(1),
+    level: z.enum(["High", "Medium", "Low"])
+  })).min(1),
+  sources: z.array(sourceSchema).min(1)
+});
+
+export const engineeringReferenceSchema = z.object({
+  id: z.string().min(1),
+  titleKo: z.string().min(1),
+  organization: z.string().min(1),
+  categoryKo: z.string().min(1),
+  url: z.string().url(),
+  usageKo: z.string().min(1),
+  priority: z.enum(["Core", "Useful", "Watch"]),
+  checkedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/)
+});
+
 export const appDataSchema = z.object({
   equipment: z.array(equipmentSchema).min(1),
   incidents: z.array(battlefieldCaseSchema),
@@ -145,7 +186,9 @@ export const appDataSchema = z.object({
   components: z.array(componentSpecSchema),
   variants: z.array(equipmentVariantSchema),
   technologies: z.array(battlefieldTechnologySchema),
-  caseStudies: z.array(battlefieldCaseStudySchema)
+  caseStudies: z.array(battlefieldCaseStudySchema),
+  developmentLens: z.array(developmentLensItemSchema),
+  engineeringReferences: z.array(engineeringReferenceSchema)
 });
 
 export type AppDataSchema = z.infer<typeof appDataSchema>;
@@ -190,7 +233,13 @@ export function validateCrossReferences(data: AppDataSchema) {
     }
   }
 
-  for (const collection of ["equipment", "incidents", "trends", "components", "variants", "technologies", "caseStudies"] as const) {
+  for (const lensItem of data.developmentLens) {
+    for (const equipmentId of lensItem.relatedEquipmentIds) {
+      if (!equipmentIds.has(equipmentId)) errors.push(`developmentLens.${lensItem.id} references unknown equipment ${equipmentId}`);
+    }
+  }
+
+  for (const collection of ["equipment", "incidents", "trends", "components", "variants", "technologies", "caseStudies", "developmentLens", "engineeringReferences"] as const) {
     const ids = new Set<string>();
     for (const item of data[collection]) {
       if (ids.has(item.id)) errors.push(`${collection} contains duplicate id ${item.id}`);

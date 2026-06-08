@@ -1,4 +1,14 @@
-import type { BattlefieldCase, BattlefieldCaseStudy, BattlefieldTechnology, ComponentSpec, Equipment, EquipmentVariant, Trend } from "./types";
+import type {
+  BattlefieldCase,
+  BattlefieldCaseStudy,
+  BattlefieldTechnology,
+  ComponentSpec,
+  DevelopmentLensItem,
+  EngineeringReference,
+  Equipment,
+  EquipmentVariant,
+  Trend
+} from "./types";
 import { appDataSchema, validateCrossReferences } from "./schema";
 import { publicPath } from "./publicPath";
 
@@ -11,17 +21,19 @@ async function loadJson<T>(path: string): Promise<T> {
 }
 
 export async function loadAppData() {
-  const [equipment, incidents, trends, components, variants, technologies, caseStudies] = await Promise.all([
+  const [equipment, incidents, trends, components, variants, technologies, caseStudies, developmentLens, engineeringReferences] = await Promise.all([
     loadJson<Equipment[]>("/data/equipment.json"),
     loadJson<BattlefieldCase[]>("/data/incidents.json"),
     loadJson<Trend[]>("/data/trends.json"),
     loadJson<ComponentSpec[]>("/data/components.json"),
     loadJson<EquipmentVariant[]>("/data/variants.json"),
     loadJson<BattlefieldTechnology[]>("/data/technologies.json"),
-    loadJson<BattlefieldCaseStudy[]>("/data/battlefieldCases.json")
+    loadJson<BattlefieldCaseStudy[]>("/data/battlefieldCases.json"),
+    loadJson<DevelopmentLensItem[]>("/data/developmentLens.json"),
+    loadJson<EngineeringReference[]>("/data/engineeringReferences.json")
   ]);
 
-  const parsed = appDataSchema.safeParse({ equipment, incidents, trends, components, variants, technologies, caseStudies });
+  const parsed = appDataSchema.safeParse({ equipment, incidents, trends, components, variants, technologies, caseStudies, developmentLens, engineeringReferences });
   if (!parsed.success) {
     throw new Error("데이터 스키마 검증에 실패했습니다.");
   }
@@ -39,5 +51,7 @@ export async function loadAppData() {
     variants: EquipmentVariant[];
     technologies: BattlefieldTechnology[];
     caseStudies: BattlefieldCaseStudy[];
+    developmentLens: DevelopmentLensItem[];
+    engineeringReferences: EngineeringReference[];
   };
 }

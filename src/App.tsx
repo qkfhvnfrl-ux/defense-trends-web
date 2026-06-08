@@ -1,5 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
-import type { BattlefieldCase, BattlefieldTechnology, ComponentSpec, Equipment, EquipmentCategory, EquipmentVariant, Trend } from "./types";
+import type {
+  BattlefieldCase,
+  BattlefieldTechnology,
+  ComponentSpec,
+  DevelopmentLensItem,
+  EngineeringReference,
+  Equipment,
+  EquipmentCategory,
+  EquipmentVariant,
+  Trend
+} from "./types";
 import { loadAppData } from "./data";
 import { EquipmentMap } from "./components/EquipmentMap";
 import { EquipmentDetail } from "./components/EquipmentDetail";
@@ -7,6 +17,7 @@ import { ModelViewer } from "./components/ModelViewer";
 import { TrendPanel } from "./components/TrendPanel";
 import { TechnologyPanel } from "./components/TechnologyPanel";
 import { BattlefieldLens } from "./components/BattlefieldLens";
+import { DevelopmentLensPage } from "./components/DevelopmentLensPage";
 
 type AppData = {
   equipment: Equipment[];
@@ -16,6 +27,8 @@ type AppData = {
   variants: EquipmentVariant[];
   technologies: BattlefieldTechnology[];
   caseStudies: import("./types").BattlefieldCaseStudy[];
+  developmentLens: DevelopmentLensItem[];
+  engineeringReferences: EngineeringReference[];
 };
 
 const categoryLabels: Record<EquipmentCategory | "all", string> = {
@@ -44,6 +57,7 @@ const familyCategories: Record<Exclude<EquipmentFamily, "all">, EquipmentCategor
 const navItems = [
   { path: "/", label: "Dashboard" },
   { path: "/equipment", label: "Equipment" },
+  { path: "/development", label: "Development" },
   { path: "/compare", label: "Compare" },
   { path: "/technologies", label: "Technologies" },
   { path: "/cases", label: "Cases" }
@@ -51,8 +65,21 @@ const navItems = [
 
 function inferSourceType(url: string): "Official" | "Manufacturer" | "Think Tank" | "News" | "OSINT" | "Other" {
   if (url.includes("gdls.com") || url.includes("rheinmetall.com") || url.includes("knds") || url.includes("baesystems.com") || url.includes("patriagroup.com") || url.includes("kongsberg.com")) return "Manufacturer";
-  if (url.includes("army.mil") || url.includes("defense.gov") || url.includes("gov.uk") || url.includes("mod.gov.ua") || url.includes("defense.gouv.fr")) return "Official";
-  if (url.includes("rusi.org") || url.includes("csis.org") || url.includes("iiss.org")) return "Think Tank";
+  if (
+    url.includes("army.mil") ||
+    url.includes("defense.gov") ||
+    url.includes("gov.uk") ||
+    url.includes("mod.gov.ua") ||
+    url.includes("defense.gouv.fr") ||
+    url.includes("nato.int") ||
+    url.includes("natogva.org") ||
+    url.includes("dau.edu") ||
+    url.includes("dla.mil") ||
+    url.includes("dsca.mil") ||
+    url.includes("eda.europa.eu") ||
+    url.includes("sto.nato.int")
+  ) return "Official";
+  if (url.includes("rusi.org") || url.includes("csis.org") || url.includes("iiss.org") || url.includes("sipri.org")) return "Think Tank";
   if (url.includes("commons.wikimedia.org") || url.includes("wikimedia.org")) return "OSINT";
   if (url.includes("apnews.com") || url.includes("kyivpost.com") || url.includes("armyrecognition.com") || url.includes("defence-ua.com") || url.includes("rferl.org")) return "News";
   return "Other";
@@ -164,6 +191,24 @@ export function App() {
       });
     }
   }
+  for (const item of data.developmentLens) {
+    for (const source of item.sources) {
+      uniqueSources.set(source.url, {
+        title: source.title,
+        url: source.url,
+        type: inferSourceType(source.url),
+        checkedAt: source.checkedAt
+      });
+    }
+  }
+  for (const reference of data.engineeringReferences) {
+    uniqueSources.set(reference.url, {
+      title: reference.titleKo,
+      url: reference.url,
+      type: inferSourceType(reference.url),
+      checkedAt: reference.checkedAt
+    });
+  }
 
   return (
     <main className="app-shell">
@@ -206,6 +251,16 @@ export function App() {
 
       {path === "/compare" ? (
         <ComparePage equipment={data.equipment} variants={data.variants} technologies={data.technologies} />
+      ) : path === "/development" ? (
+        <DevelopmentLensPage
+          equipment={data.equipment}
+          lensItems={data.developmentLens}
+          references={data.engineeringReferences}
+          onEquipmentOpen={(id) => {
+            selectEquipment(id);
+            navigate(`/equipment/${id}`);
+          }}
+        />
       ) : path === "/technologies" ? (
         <TechnologyPage technologies={data.technologies} onEquipmentSelect={(id) => {
           selectEquipment(id);

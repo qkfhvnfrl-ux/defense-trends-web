@@ -16,7 +16,9 @@ const data = {
   components: readJson("public/data/components.json"),
   variants: readJson("public/data/variants.json"),
   technologies: readJson("public/data/technologies.json"),
-  caseStudies: readJson("public/data/battlefieldCases.json")
+  caseStudies: readJson("public/data/battlefieldCases.json"),
+  developmentLens: readJson("public/data/developmentLens.json"),
+  engineeringReferences: readJson("public/data/engineeringReferences.json")
 };
 
 const parsed = appDataSchema.safeParse(data);
@@ -32,5 +34,5 @@ if (referenceErrors.length) {
 }
 
 console.log(
-  `Validated ${parsed.data.equipment.length} equipment, ${parsed.data.variants.length} variants, ${parsed.data.components.length} components, ${parsed.data.technologies.length} battlefield technologies, and ${parsed.data.caseStudies.length} case studies.`
+  `Validated ${parsed.data.equipment.length} equipment, ${parsed.data.variants.length} variants, ${parsed.data.components.length} components, ${parsed.data.technologies.length} battlefield technologies, ${parsed.data.caseStudies.length} case studies, ${parsed.data.developmentLens.length} development lens items, and ${parsed.data.engineeringReferences.length} engineering references.`
 );

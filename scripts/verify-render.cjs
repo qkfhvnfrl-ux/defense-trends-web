@@ -51,7 +51,7 @@ async function main() {
   };
 
   const routeChecks = [];
-  for (const route of ["/", "/equipment", "/equipment/m2a2-bradley", "/compare", "/technologies", "/cases"]) {
+  for (const route of ["/", "/equipment", "/equipment/m2a2-bradley", "/development", "/compare", "/technologies", "/cases"]) {
     await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
     const rootLength = await page.locator("#root").evaluate((node) => node.innerHTML.length);
     const hasHeading = await page.locator("h1, h2").first().isVisible();

@@ -134,3 +134,46 @@ export type BattlefieldCaseStudy = {
   equipmentIds: string[];
   safetyNote?: string;
 };
+
+export type DevelopmentRiskLevel = "High" | "Medium" | "Low";
+
+export type DevelopmentLensItem = {
+  id: string;
+  titleKo: string;
+  themeKo: string;
+  lifecyclePhaseKo: string;
+  summaryKo: string;
+  sourceConfidenceScore: number;
+  relatedEquipmentIds: string[];
+  tags: string[];
+  threatDrivers: string[];
+  requirementSignals: string[];
+  architectureImpacts: Array<{
+    areaKo: string;
+    implicationKo: string;
+    designTradeoffKo: string;
+  }>;
+  verificationItems: Array<{
+    phaseKo: string;
+    itemKo: string;
+    evidenceKo: string;
+  }>;
+  riskRegister: Array<{
+    riskKo: string;
+    mitigationKo: string;
+    ownerKo: string;
+    level: DevelopmentRiskLevel;
+  }>;
+  sources: Source[];
+};
+
+export type EngineeringReference = {
+  id: string;
+  titleKo: string;
+  organization: string;
+  categoryKo: string;
+  url: string;
+  usageKo: string;
+  priority: "Core" | "Useful" | "Watch";
+  checkedAt: string;
+};
