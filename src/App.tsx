@@ -18,6 +18,7 @@ import { TrendPanel } from "./components/TrendPanel";
 import { TechnologyPanel } from "./components/TechnologyPanel";
 import { BattlefieldLens } from "./components/BattlefieldLens";
 import { DevelopmentLensPage } from "./components/DevelopmentLensPage";
+import { normalizeRoute, routeHref } from "./routing";
 
 type AppData = {
   equipment: Equipment[];
@@ -106,7 +107,7 @@ function ScoreBar({ label, value, reason }: { label: string; value: number; reas
 export function App() {
   const [data, setData] = useState<AppData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [path, setPath] = useState(window.location.pathname);
+  const [path, setPath] = useState(() => normalizeRoute(window.location.pathname));
   const [family, setFamily] = useState<EquipmentFamily>("all");
   const [category, setCategory] = useState<EquipmentCategory | "all">("all");
   const [query, setQuery] = useState("");
@@ -121,7 +122,7 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    const onPopState = () => setPath(window.location.pathname);
+    const onPopState = () => setPath(normalizeRoute(window.location.pathname));
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
@@ -158,7 +159,7 @@ export function App() {
   }
 
   function navigate(nextPath: string) {
-    window.history.pushState(null, "", nextPath);
+    window.history.pushState(null, "", routeHref(nextPath));
     setPath(nextPath);
   }
 
