@@ -76,12 +76,11 @@ function inferSourceType(url: string): "Official" | "Manufacturer" | "Think Tank
     url.includes("dau.edu") ||
     url.includes("dla.mil") ||
     url.includes("dsca.mil") ||
-    url.includes("eda.europa.eu") ||
-    url.includes("sto.nato.int")
+    url.includes("eda.europa.eu")
   ) return "Official";
   if (url.includes("rusi.org") || url.includes("csis.org") || url.includes("iiss.org") || url.includes("sipri.org")) return "Think Tank";
   if (url.includes("commons.wikimedia.org") || url.includes("wikimedia.org")) return "OSINT";
-  if (url.includes("apnews.com") || url.includes("kyivpost.com") || url.includes("armyrecognition.com") || url.includes("defence-ua.com") || url.includes("rferl.org")) return "News";
+  if (url.includes("apnews.com") || url.includes("kyivpost.com") || url.includes("armyrecognition.com") || url.includes("rferl.org")) return "News";
   return "Other";
 }
 

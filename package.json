@@ -15,6 +15,8 @@
     "design:check": "node scripts/verify-design.cjs",
     "dev:check": "node scripts/verify-dev-render.cjs",
     "images:check": "node scripts/verify-images.cjs",
+    "prepare:pages": "node scripts/prepare-gh-pages.cjs",
+    "build:pages": "npm run build && npm run prepare:pages",
     "quality": "npm run lint && npm run validate:data && npm run test && npm run build && npm run test:e2e && npm run design:check && npm run dev:check",
     "preview": "vite preview --host 127.0.0.1",
     "serve:dist": "node scripts/serve-dist.cjs"

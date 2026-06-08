@@ -55,9 +55,10 @@
     "operationalMeaning": "자주포도 화력 성능만이 아니라 이동 중 생존성과 드론 대응 패키지가 중요해지고 있다.",
     "confidenceLevel": "Medium",
     "sourceType": "News",
-    "sourceUrls": [
-      "https://en.defence-ua.com/weapon_and_tech/ukraine_created_anti_drone_protection_for_caesar_howitzers_does_it_actually_work-15189.html"
-    ],
+  "sourceUrls": [
+    "https://www.rferl.org/a/ukraine-russia-invasion-hedgehog-armor-photos/33660328.html",
+    "https://commons.wikimedia.org/wiki/File:UA_M109A4_with_anti-drone_cage_01.jpg"
+  ],
     "equipmentIds": [
       "caesar-8x8"
     ],

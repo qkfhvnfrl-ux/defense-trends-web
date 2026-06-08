@@ -41,12 +41,12 @@
   },
   {
     "id": "nato-sto-publications",
-    "titleKo": "NATO Science & Technology Organization Publications",
-    "organization": "NATO STO",
-    "categoryKo": "국방 과학기술 연구",
-    "url": "https://www.sto.nato.int/publications/Pages/default.aspx",
-    "usageKo": "장갑차 생존성, 자율화, 센서, 전자전, 인간공학 관련 연구 동향을 찾을 때 참고한다.",
-    "priority": "Useful",
+  "titleKo": "NATO Science & Technology Organization Topic",
+  "organization": "NATO STO",
+  "categoryKo": "국방 과학기술 연구",
+  "url": "https://www.nato.int/en/about-us/organization/nato-structure/science-and-technology-organization",
+  "usageKo": "장갑차 생존성, 자율화, 센서, 전자전, 인간공학 관련 연구 동향을 찾을 때 참고한다.",
+  "priority": "Useful",
     "checkedAt": "2026-06-08"
   },
   {

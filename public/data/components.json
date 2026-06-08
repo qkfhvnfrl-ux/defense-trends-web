@@ -567,11 +567,11 @@
     },
     "summaryKo": "CAESAR의 사례는 자주포도 드론 위협 때문에 플랫폼 외형이 빠르게 변하고 있음을 보여준다.",
     "sources": [
-      {
-        "title": "Defense Express - Caesar anti-drone protection",
-        "url": "https://en.defence-ua.com/weapon_and_tech/ukraine_created_anti_drone_protection_for_caesar_howitzers_does_it_actually_work-15189.html",
-        "checkedAt": "2026-06-06"
-      }
+    {
+      "title": "RFE/RL - evolution of hedgehog armor in Ukraine",
+      "url": "https://www.rferl.org/a/ukraine-russia-invasion-hedgehog-armor-photos/33660328.html",
+      "checkedAt": "2026-06-08"
+    }
     ]
   }
 ]
