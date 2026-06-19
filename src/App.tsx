@@ -46,6 +46,17 @@ type CatalogFilters = {
   dataStatus: DataStatusFilter;
 };
 
+type CatalogPreset = {
+  id: string;
+  label: string;
+  description: string;
+  family?: EquipmentFamily;
+  category?: EquipmentCategory | "all";
+  filters?: Partial<CatalogFilters>;
+  sortMode?: CatalogSortMode;
+  query?: string;
+};
+
 type FilterOptions = {
   roles: string[];
   countries: string[];
@@ -114,6 +125,35 @@ const sortOptions: Array<{ value: CatalogSortMode; label: string }> = [
   { value: "cases-desc", label: "전장 사례 많은순" },
   { value: "variants-desc", label: "계열 많은순" },
   { value: "updated-desc", label: "최근 확인일순" }
+];
+
+const catalogPresets: CatalogPreset[] = [
+  {
+    id: "needs-review",
+    label: "보강 필요",
+    description: "출처/계열 데이터 점검 대상",
+    filters: { dataStatus: "needs-review" }
+  },
+  {
+    id: "field-proven",
+    label: "실전 사례",
+    description: "전장 사례가 있는 장비 우선",
+    filters: { casePresence: "with-cases" },
+    sortMode: "cases-desc"
+  },
+  {
+    id: "trusted-sources",
+    label: "고신뢰 출처",
+    description: "출처 신뢰도 높은 장비",
+    filters: { confidence: "High" },
+    sortMode: "confidence-desc"
+  },
+  {
+    id: "variant-rich",
+    label: "계열 많은 장비",
+    description: "파생형/운용형 비교 우선",
+    sortMode: "variants-desc"
+  }
 ];
 
 const navItems = [
@@ -482,6 +522,17 @@ export function App() {
     setSelectedComponent(null);
   }
 
+  function applyCatalogPreset(preset: CatalogPreset) {
+    setFamily(preset.family ?? "all");
+    setCategory(preset.category ?? "all");
+    setCatalogFilters({ ...defaultCatalogFilters, ...preset.filters });
+    setSortMode(preset.sortMode ?? defaultCatalogSortMode);
+    setQuery(preset.query ?? "");
+    setSelectedComponent(null);
+    setShareStatus("");
+    setExportStatus("");
+  }
+
   async function copySearchLink() {
     const catalogPath = path === "/equipment" ? "/equipment" : "/";
     const href = buildCatalogHref(catalogPath, {
@@ -651,6 +702,7 @@ export function App() {
             setSortMode(defaultCatalogSortMode);
             setQuery("");
           }}
+          onApplyPreset={applyCatalogPreset}
           onShareSearch={copySearchLink}
           onCopyResults={copyFilteredResults}
           onDownloadCsv={downloadFilteredCsv}
@@ -746,6 +798,7 @@ function CatalogPage({
   onFilterChange,
   onSortChange,
   onResetFilters,
+  onApplyPreset,
   onShareSearch,
   onCopyResults,
   onDownloadCsv,
@@ -780,6 +833,7 @@ function CatalogPage({
   onFilterChange: (key: keyof CatalogFilters, value: string) => void;
   onSortChange: (sortMode: CatalogSortMode) => void;
   onResetFilters: () => void;
+  onApplyPreset: (preset: CatalogPreset) => void;
   onShareSearch: () => void;
   onCopyResults: () => void;
   onDownloadCsv: () => void;
@@ -828,6 +882,14 @@ function CatalogPage({
               placeholder="예: Leopard, Patria, Germany"
             />
           </label>
+          <div className="catalog-preset-grid" aria-label="업무 검색 프리셋">
+            {catalogPresets.map((preset) => (
+              <button key={preset.id} type="button" onClick={() => onApplyPreset(preset)}>
+                <strong>{preset.label}</strong>
+                <span>{preset.description}</span>
+              </button>
+            ))}
+          </div>
           <div className="family-tabs">
             {(Object.keys(familyLabels) as EquipmentFamily[]).map((key) => (
               <button key={key} className={family === key ? "active" : ""} type="button" onClick={() => onFamilyChange(key)}>

@@ -1,3 +1,39 @@
+# 2026-06-19 팀용 장비 검색 프리셋 추가
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+## 수정 내역
+
+- `src/App.tsx`: 장비 검색 프리셋 타입, 설정 배열, 적용 함수, 프리셋 버튼 UI 추가
+- `src/styles.css`: 프리셋 버튼 그리드와 모바일 반응형 스타일 추가
+- `scripts/verify-render.cjs`: 프리셋 버튼 수, 보강 필요 결과 축소, URL 동기화 검증 추가
+- `scripts/verify-design.cjs`: 프리셋 버튼 수, 터치 크기, URL 동기화 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- `npm run quality`: 샌드박스에서는 Vitest 설정 접근 권한 문제로 1회 실패, 권한 상승 후 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 425.48 kB / CSS 43.00 kB
+  - test:e2e 통과: presetButtons 4 / presetNeedsReviewRows 3 / presetUrlHasDataParam true
+  - design:check 통과: presetButtons 4 / presetRows 3 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- 프리셋 목록은 현재 코드 상수로 관리한다. 운영자가 프리셋을 직접 편집해야 하면 추후 JSON 외부화가 필요하다.
+
 # 2026-06-19 출처 필터 결과 내보내기 추가
 
 ## 작업 상태

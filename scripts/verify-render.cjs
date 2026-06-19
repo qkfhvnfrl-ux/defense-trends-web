@@ -37,6 +37,7 @@ async function main() {
     metricStrips: await page.locator(".equipment-row .equipment-metric-strip").count(),
     metricCells: await page.locator(".equipment-row .equipment-metric-strip > span").count(),
     filterSelects: await page.locator(".filter-grid select").count(),
+    presetButtons: await page.locator(".catalog-preset-grid button").count(),
     shareButtons: await page.locator(".share-search-button").count(),
     resultActionButtons: await page.locator(".result-action-grid button").count(),
     koreanMapLabels: await page.locator(".korean-region-label").evaluateAll((nodes) =>
@@ -45,6 +46,10 @@ async function main() {
     modalTitle: await page.locator(".component-modal h2").innerText()
   };
   await page.locator(".icon-close").click();
+  await page.locator(".catalog-preset-grid button").first().click();
+  desktop.presetNeedsReviewRows = await page.locator(".equipment-row").count();
+  desktop.presetUrlHasDataParam = page.url().includes("data=needs-review");
+  await page.locator(".active-filter-actions button").first().click();
   await page.locator(".filter-grid select").first().selectOption({ label: "대드론/단거리방공" });
   desktop.roleFilteredRows = await page.locator(".equipment-row").count();
   desktop.roleUrlHasParam = page.url().includes("role=");
@@ -126,8 +131,11 @@ async function main() {
   if (desktop.metricStrips !== desktop.equipmentRows) throw new Error("Expected one metric strip per equipment row");
   if (desktop.metricCells !== desktop.equipmentRows * 4) throw new Error("Expected four metric cells per equipment row");
   if (desktop.filterSelects !== 8) throw new Error("Expected eight catalog filter selects");
+  if (desktop.presetButtons !== 4) throw new Error("Expected four catalog preset buttons");
   if (desktop.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktop.resultActionButtons !== 2) throw new Error("Expected result export actions");
+  if (desktop.presetNeedsReviewRows < 1 || desktop.presetNeedsReviewRows >= desktop.equipmentRows) throw new Error("Expected preset to narrow equipment rows");
+  if (!desktop.presetUrlHasDataParam) throw new Error("Expected preset to sync data status into URL");
   if (desktop.roleFilteredRows < 1 || desktop.roleFilteredRows >= desktop.equipmentRows) throw new Error("Expected role filter to narrow equipment rows");
   if (!desktop.roleUrlHasParam) throw new Error("Expected role filter in URL");
   if (desktop.reloadedRoleFilteredRows !== desktop.roleFilteredRows) throw new Error("Expected filtered search URL to restore after reload");

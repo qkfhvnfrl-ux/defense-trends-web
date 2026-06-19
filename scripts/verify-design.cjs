@@ -48,6 +48,7 @@ async function main() {
     metricStrips: await desktop.locator(".equipment-row .equipment-metric-strip").count(),
     metricCells: await desktop.locator(".equipment-row .equipment-metric-strip > span").count(),
     filterSelects: await desktop.locator(".filter-grid select").count(),
+    presetButtons: await desktop.locator(".catalog-preset-grid button").count(),
     activeFilterBars: await desktop.locator(".active-filter-bar").count(),
     shareButtons: await desktop.locator(".share-search-button").count(),
     resultActionButtons: await desktop.locator(".result-action-grid button").count()
@@ -65,9 +66,16 @@ async function main() {
   if (desktopChecks.metricStrips < 14) throw new Error("Expected metric strips in equipment rows");
   if (desktopChecks.metricCells < desktopChecks.metricStrips * 4) throw new Error("Expected four metric cells in each equipment row");
   if (desktopChecks.filterSelects !== 8) throw new Error("Expected eight structured catalog filters");
+  if (desktopChecks.presetButtons !== 4) throw new Error("Expected four catalog preset buttons");
   if (desktopChecks.activeFilterBars !== 1) throw new Error("Expected active filter summary bar");
   if (desktopChecks.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktopChecks.resultActionButtons !== 2) throw new Error("Expected two result export buttons");
+
+  await desktop.locator(".catalog-preset-grid button").first().click();
+  const presetRows = await desktop.locator(".equipment-row").count();
+  if (presetRows < 1 || presetRows >= 15) throw new Error(`Expected catalog preset to narrow rows, found ${presetRows}`);
+  if (!desktop.url().includes("data=needs-review")) throw new Error("Expected catalog preset to sync into URL");
+  await desktop.locator(".active-filter-actions button").first().click();
 
   await desktop.locator(".filter-grid select").nth(1).selectOption({ label: "독일" });
   const countryFilteredRows = await desktop.locator(".equipment-row").count();
@@ -133,7 +141,7 @@ async function main() {
     await assertNoHorizontalOverflow(page, label);
   }
 
-  const undersizedControls = await desktop.locator(".equipment-row, .segmented-control button, .filter-grid select, .active-filter-bar button, .share-search-button, .result-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
+  const undersizedControls = await desktop.locator(".equipment-row, .catalog-preset-grid button, .segmented-control button, .filter-grid select, .active-filter-bar button, .share-search-button, .result-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
     nodes
       .map((node) => {
         const rect = node.getBoundingClientRect();
@@ -148,7 +156,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, sourceIndex, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, presetRows, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, sourceIndex, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {
