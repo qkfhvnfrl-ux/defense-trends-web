@@ -33,6 +33,7 @@ type AppData = {
 
 type EquipmentFamily = "all" | "wheeled" | "tracked";
 type FilterValue = string;
+type CatalogSortMode = "default" | "confidence-desc" | "cases-desc" | "variants-desc" | "updated-desc";
 
 type CatalogFilters = {
   role: FilterValue;
@@ -54,6 +55,7 @@ type CatalogUrlState = {
   family: EquipmentFamily;
   category: EquipmentCategory | "all";
   filters: CatalogFilters;
+  sortMode: CatalogSortMode;
   query: string;
   selectedId: string;
 };
@@ -67,6 +69,7 @@ const defaultCatalogFilters: CatalogFilters = {
   casePresence: "all"
 };
 
+const defaultCatalogSortMode: CatalogSortMode = "default";
 const defaultSelectedEquipmentId = "m1a2-abrams";
 
 const categoryLabels: Record<EquipmentCategory | "all", string> = {
@@ -95,6 +98,14 @@ const confidenceOptions = ["High", "Medium", "Low"];
 const casePresenceOptions = [
   { value: "with-cases", label: "사례 있음" },
   { value: "without-cases", label: "사례 없음" }
+];
+
+const sortOptions: Array<{ value: CatalogSortMode; label: string }> = [
+  { value: "default", label: "기본순" },
+  { value: "confidence-desc", label: "출처 신뢰도 높은순" },
+  { value: "cases-desc", label: "전장 사례 많은순" },
+  { value: "variants-desc", label: "계열 많은순" },
+  { value: "updated-desc", label: "최근 확인일순" }
 ];
 
 const navItems = [
@@ -157,6 +168,10 @@ function isEquipmentCategory(value: string | null): value is EquipmentCategory |
   return Boolean(value && value in categoryLabels);
 }
 
+function isCatalogSortMode(value: string | null): value is CatalogSortMode {
+  return Boolean(value && sortOptions.some((option) => option.value === value));
+}
+
 function isCatalogPath(path: string) {
   return path === "/" || path === "/equipment" || path === "/compare";
 }
@@ -165,6 +180,7 @@ function readCatalogStateFromLocation(): CatalogUrlState {
   const params = new URLSearchParams(window.location.search);
   const family = params.get("family");
   const category = params.get("category");
+  const sort = params.get("sort");
   return {
     family: isEquipmentFamily(family) ? family : "all",
     category: isEquipmentCategory(category) ? category : "all",
@@ -176,6 +192,7 @@ function readCatalogStateFromLocation(): CatalogUrlState {
       confidence: params.get("confidence") || "all",
       casePresence: params.get("cases") || "all"
     },
+    sortMode: isCatalogSortMode(sort) ? sort : defaultCatalogSortMode,
     query: params.get("q") || "",
     selectedId: params.get("eq") || defaultSelectedEquipmentId
   };
@@ -192,6 +209,7 @@ function buildCatalogHref(path: string, state: CatalogUrlState) {
   if (state.filters.variantMaturity !== "all") params.set("maturity", state.filters.variantMaturity);
   if (state.filters.confidence !== "all") params.set("confidence", state.filters.confidence);
   if (state.filters.casePresence !== "all") params.set("cases", state.filters.casePresence);
+  if (state.sortMode !== defaultCatalogSortMode) params.set("sort", state.sortMode);
   if (state.selectedId !== defaultSelectedEquipmentId) params.set("eq", state.selectedId);
   const query = params.toString();
   return `${routeHref(path)}${query ? `?${query}` : ""}`;
@@ -207,6 +225,15 @@ function getVariantCountByEquipment(variants: EquipmentVariant[]) {
     accumulator[variant.equipmentId] = (accumulator[variant.equipmentId] ?? 0) + 1;
     return accumulator;
   }, {});
+}
+
+function compareCatalogEquipment(a: Equipment, b: Equipment, sortMode: CatalogSortMode, variantCountByEquipment: Record<string, number>) {
+  const byName = () => a.name.localeCompare(b.name);
+  if (sortMode === "confidence-desc") return b.sourceConfidenceScore - a.sourceConfidenceScore || byName();
+  if (sortMode === "cases-desc") return b.battlefieldCaseIds.length - a.battlefieldCaseIds.length || byName();
+  if (sortMode === "variants-desc") return (variantCountByEquipment[b.id] ?? 0) - (variantCountByEquipment[a.id] ?? 0) || byName();
+  if (sortMode === "updated-desc") return latestSourceCheckDate(b).localeCompare(latestSourceCheckDate(a)) || byName();
+  return 0;
 }
 
 function buildResultSummary(equipmentList: Equipment[], variants: EquipmentVariant[]) {
@@ -263,6 +290,7 @@ export function App() {
   const [family, setFamily] = useState<EquipmentFamily>(initialCatalogState.family);
   const [category, setCategory] = useState<EquipmentCategory | "all">(initialCatalogState.category);
   const [catalogFilters, setCatalogFilters] = useState<CatalogFilters>(initialCatalogState.filters);
+  const [sortMode, setSortMode] = useState<CatalogSortMode>(initialCatalogState.sortMode);
   const [query, setQuery] = useState(initialCatalogState.query);
   const [selectedId, setSelectedId] = useState(initialCatalogState.selectedId);
   const [selectedIncidentId, setSelectedIncidentId] = useState<string | null>(null);
@@ -283,6 +311,7 @@ export function App() {
       setFamily(nextCatalogState.family);
       setCategory(nextCatalogState.category);
       setCatalogFilters(nextCatalogState.filters);
+      setSortMode(nextCatalogState.sortMode);
       setQuery(nextCatalogState.query);
       setSelectedId(nextCatalogState.selectedId);
     };
@@ -297,6 +326,7 @@ export function App() {
       family,
       category,
       filters: catalogFilters,
+      sortMode,
       query,
       selectedId
     });
@@ -304,11 +334,12 @@ export function App() {
     if (currentHref !== nextHref) {
       window.history.replaceState(null, "", nextHref);
     }
-  }, [catalogFilters, category, family, path, query, selectedId]);
+  }, [catalogFilters, category, family, path, query, selectedId, sortMode]);
 
   const filteredEquipment = useMemo(() => {
     if (!data) return [];
     const normalizedQuery = normalizeSearchText(query);
+    const variantCountByEquipment = getVariantCountByEquipment(data.variants);
     return data.equipment.filter((item) => {
       const itemVariants = data.variants.filter((variant) => variant.equipmentId === item.id);
       const matchesFamily =
@@ -352,8 +383,8 @@ export function App() {
       ].join(" ").toLowerCase();
       const matchesQuery = !normalizedQuery || searchable.includes(normalizedQuery);
       return matchesFamily && matchesCategory && matchesRole && matchesCountry && matchesStatus && matchesVariantMaturity && matchesConfidence && matchesCasePresence && matchesQuery;
-    });
-  }, [catalogFilters, category, data, family, query]);
+    }).sort((a, b) => compareCatalogEquipment(a, b, sortMode, variantCountByEquipment));
+  }, [catalogFilters, category, data, family, query, sortMode]);
 
   const availableCategoryKeys = useMemo(() => {
     if (family === "all") return Object.keys(categoryLabels) as Array<EquipmentCategory | "all">;
@@ -389,6 +420,7 @@ export function App() {
       family,
       category,
       filters: catalogFilters,
+      sortMode,
       query,
       selectedId
     });
@@ -530,6 +562,7 @@ export function App() {
           family={family}
           category={category}
           filters={catalogFilters}
+          sortMode={sortMode}
           filterOptions={filterOptions}
           query={query}
           shareStatus={shareStatus}
@@ -542,10 +575,12 @@ export function App() {
           }}
           onCategoryChange={setCategory}
           onFilterChange={(key, value) => setCatalogFilters((current) => ({ ...current, [key]: value }))}
+          onSortChange={setSortMode}
           onResetFilters={() => {
             setFamily("all");
             setCategory("all");
             setCatalogFilters(defaultCatalogFilters);
+            setSortMode(defaultCatalogSortMode);
             setQuery("");
           }}
           onShareSearch={copySearchLink}
@@ -631,6 +666,7 @@ function CatalogPage({
   family,
   category,
   filters,
+  sortMode,
   filterOptions,
   query,
   shareStatus,
@@ -640,6 +676,7 @@ function CatalogPage({
   onFamilyChange,
   onCategoryChange,
   onFilterChange,
+  onSortChange,
   onResetFilters,
   onShareSearch,
   onCopyResults,
@@ -663,6 +700,7 @@ function CatalogPage({
   family: EquipmentFamily;
   category: EquipmentCategory | "all";
   filters: CatalogFilters;
+  sortMode: CatalogSortMode;
   filterOptions: FilterOptions;
   query: string;
   shareStatus: string;
@@ -672,6 +710,7 @@ function CatalogPage({
   onFamilyChange: (family: EquipmentFamily) => void;
   onCategoryChange: (category: EquipmentCategory | "all") => void;
   onFilterChange: (key: keyof CatalogFilters, value: string) => void;
+  onSortChange: (sortMode: CatalogSortMode) => void;
   onResetFilters: () => void;
   onShareSearch: () => void;
   onCopyResults: () => void;
@@ -691,6 +730,7 @@ function CatalogPage({
     filters.variantMaturity !== "all",
     filters.confidence !== "all",
     filters.casePresence !== "all",
+    sortMode !== defaultCatalogSortMode,
     query.trim().length > 0
   ].filter(Boolean).length;
   const variantCountByEquipment = variants.reduce<Record<string, number>>((accumulator, variant) => {
@@ -774,6 +814,12 @@ function CatalogPage({
               <select value={filters.casePresence} onChange={(event) => onFilterChange("casePresence", event.target.value)}>
                 <option value="all">전체 사례</option>
                 {casePresenceOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>정렬 기준</span>
+              <select value={sortMode} onChange={(event) => onSortChange(event.target.value as CatalogSortMode)}>
+                {sortOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </label>
           </div>

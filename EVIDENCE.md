@@ -487,3 +487,50 @@ completed
 - 향후 사례 데이터가 늘어나면 분쟁 지역, 시기, 사례 신뢰도 기준의 추가 필터가 필요할 수 있다.
 
 ---
+## 2026-06-19 검색 결과 정렬 기준 추가
+
+### 작업 상태
+
+completed
+
+### 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run validate:data
+& "C:\Program Files\nodejs\npm.cmd" run test
+& "C:\Program Files\nodejs\npm.cmd" run build
+& "C:\Program Files\nodejs\npm.cmd" run test:e2e
+& "C:\Program Files\nodejs\npm.cmd" run design:check
+& "C:\Program Files\nodejs\npm.cmd" run dev:check
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+### 수정 내역
+
+- `src/App.tsx`: `CatalogSortMode` 및 정렬 옵션 추가
+- `src/App.tsx`: `sort` URL query string 읽기/쓰기 추가
+- `src/App.tsx`: 신뢰도, 전장 사례 수, 계열 수, 최근 확인일 기준 정렬 로직 추가
+- `src/App.tsx`: 검색 패널에 `정렬 기준` 선택 상자 추가
+- `scripts/verify-render.cjs`: select 7개, 전장 사례 많은순, URL 동기화 검증 추가
+- `scripts/verify-design.cjs`: select 7개, 전장 사례 많은순, URL 동기화 검증 추가
+
+### 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- `npm run validate:data`: 통과, 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+- `npm run test`: 통과, 2 files / 5 tests
+- `npm run build`: 통과, JS 419.30 kB / CSS 39.87 kB
+- `npm run test:e2e`: 통과, filterSelects 7 / sortedFirstRow Boxer / sortUrlHasParam true / 모바일 overflow 없음
+- `npm run design:check`: 통과, filterSelects 7 / sortedFirstRow Boxer / undersized controls 없음
+- `npm run dev:check`: 통과, 장비 15건 / 브라우저 오류 없음
+- `npm run quality`: 통과
+
+### 남은 리스크
+
+- 기본순은 현재 JSON 데이터 입력 순서를 따른다.
+- 대량 데이터 확장 후에는 검색어 매칭 점수 기반 정렬도 검토할 수 있다.
+
+---

@@ -58,7 +58,7 @@ async function main() {
   if (desktopChecks.componentSpecPanels < 1) throw new Error("Expected component spec panel");
   if (desktopChecks.trustPills < 14) throw new Error("Expected source trust pills in equipment rows");
   if (desktopChecks.sourceQuicklines < 14) throw new Error("Expected source check dates in equipment rows");
-  if (desktopChecks.filterSelects !== 6) throw new Error("Expected six structured catalog filters");
+  if (desktopChecks.filterSelects !== 7) throw new Error("Expected seven structured catalog filters");
   if (desktopChecks.activeFilterBars !== 1) throw new Error("Expected active filter summary bar");
   if (desktopChecks.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktopChecks.resultActionButtons !== 2) throw new Error("Expected two result export buttons");
@@ -79,6 +79,12 @@ async function main() {
   const withCaseRows = await desktop.locator(".equipment-row").count();
   if (withCaseRows < 1 || withCaseRows >= 15) throw new Error(`Expected battlefield case filter to narrow rows, found ${withCaseRows}`);
   if (!desktop.url().includes("cases=with-cases")) throw new Error("Expected battlefield case filter to sync into URL");
+  await desktop.getByRole("button", { name: "초기화" }).click();
+
+  await desktop.locator(".filter-grid select").nth(6).selectOption({ label: "전장 사례 많은순" });
+  const sortedFirstRow = await desktop.locator(".equipment-row").first().innerText();
+  if (!sortedFirstRow.includes("Boxer")) throw new Error(`Expected battlefield case sort to put Boxer first, found ${sortedFirstRow}`);
+  if (!desktop.url().includes("sort=cases-desc")) throw new Error("Expected sort mode to sync into URL");
   await desktop.getByRole("button", { name: "초기화" }).click();
 
   await desktop.locator(".search-box input").fill("M1A2 Abrams");
@@ -108,7 +114,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, countryFilteredRows, lowConfidenceRows, withCaseRows, filteredRows, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, countryFilteredRows, lowConfidenceRows, withCaseRows, sortedFirstRow, filteredRows, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {
