@@ -40,16 +40,18 @@ async function main() {
     searchFields: await desktop.locator(".search-box input").count(),
     mapOverlays: await desktop.locator(".map-overlay").count(),
     metaPills: await desktop.locator(".meta-row span").count(),
-    panelCounters: await desktop.locator(".panel-title span").count()
+    panelCounters: await desktop.locator(".panel-title span").count(),
+    modelSlots: await desktop.locator(".model-slot").count()
   };
 
-  if (desktopChecks.kpis !== 5) throw new Error("Expected 5 KPI cards");
+  if (desktopChecks.kpis !== 4) throw new Error("Expected 4 KPI cards");
   if (desktopChecks.searchFields !== 1) throw new Error("Expected equipment search field");
   if (desktopChecks.mapOverlays !== 1) throw new Error("Expected map overlay");
   if (desktopChecks.metaPills < 3) throw new Error("Expected equipment meta pills");
   if (desktopChecks.panelCounters < 1) throw new Error("Expected panel counters");
+  if (desktopChecks.modelSlots < 1) throw new Error("Expected simplified model slot");
 
-  await desktop.locator(".search-box input").fill("Leopard");
+  await desktop.locator(".search-box input").fill("M1A2 Abrams");
   const filteredRows = await desktop.locator(".equipment-row").count();
   if (filteredRows !== 1) throw new Error(`Expected search to narrow to 1 row, found ${filteredRows}`);
 
@@ -61,7 +63,7 @@ async function main() {
     await assertNoHorizontalOverflow(page, label);
   }
 
-  const undersizedControls = await desktop.locator(".equipment-row, .segmented-control button, .hotspot").evaluateAll((nodes) =>
+  const undersizedControls = await desktop.locator(".equipment-row, .segmented-control button, .component-slot").evaluateAll((nodes) =>
     nodes
       .map((node) => {
         const rect = node.getBoundingClientRect();

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type {
   BattlefieldCase,
+  BattlefieldCaseStudy,
   BattlefieldTechnology,
   ComponentSpec,
   DevelopmentLensItem,
@@ -14,10 +15,8 @@ import { loadAppData } from "./data";
 import { EquipmentMap } from "./components/EquipmentMap";
 import { EquipmentDetail } from "./components/EquipmentDetail";
 import { ModelViewer } from "./components/ModelViewer";
-import { TrendPanel } from "./components/TrendPanel";
 import { TechnologyPanel } from "./components/TechnologyPanel";
 import { BattlefieldLens } from "./components/BattlefieldLens";
-import { DevelopmentLensPage } from "./components/DevelopmentLensPage";
 import { normalizeRoute, routeHref } from "./routing";
 
 type AppData = {
@@ -27,27 +26,27 @@ type AppData = {
   components: ComponentSpec[];
   variants: EquipmentVariant[];
   technologies: BattlefieldTechnology[];
-  caseStudies: import("./types").BattlefieldCaseStudy[];
+  caseStudies: BattlefieldCaseStudy[];
   developmentLens: DevelopmentLensItem[];
   engineeringReferences: EngineeringReference[];
 };
 
+type EquipmentFamily = "all" | "wheeled" | "tracked";
+
 const categoryLabels: Record<EquipmentCategory | "all", string> = {
   all: "전체",
-  "wheeled-apc": "차륜형장갑차",
+  "wheeled-apc": "차륜형 장갑차",
   "tracked-apc": "궤도형 APC",
   "tracked-ifv": "보병전투차",
   tank: "전차",
-  "air-defense": "방공차량",
+  "air-defense": "방공 차량",
   artillery: "자주포"
 };
 
-type EquipmentFamily = "all" | "wheeled" | "tracked";
-
 const familyLabels: Record<EquipmentFamily, string> = {
   all: "전체",
-  wheeled: "차륜형장갑차",
-  tracked: "전차·궤도전투차"
+  wheeled: "차륜형",
+  tracked: "전차/궤도형"
 };
 
 const familyCategories: Record<Exclude<EquipmentFamily, "all">, EquipmentCategory[]> = {
@@ -56,12 +55,10 @@ const familyCategories: Record<Exclude<EquipmentFamily, "all">, EquipmentCategor
 };
 
 const navItems = [
-  { path: "/", label: "Dashboard" },
-  { path: "/equipment", label: "Equipment" },
-  { path: "/development", label: "Development" },
-  { path: "/compare", label: "Compare" },
-  { path: "/technologies", label: "Technologies" },
-  { path: "/cases", label: "Cases" }
+  { path: "/", label: "장비 검색" },
+  { path: "/equipment", label: "전체 장비" },
+  { path: "/insights", label: "전장 인사이트" },
+  { path: "/sources", label: "출처" }
 ];
 
 function inferSourceType(url: string): "Official" | "Manufacturer" | "Think Tank" | "News" | "OSINT" | "Other" {
@@ -69,6 +66,7 @@ function inferSourceType(url: string): "Official" | "Manufacturer" | "Think Tank
   if (
     url.includes("army.mil") ||
     url.includes("defense.gov") ||
+    url.includes("war.gov") ||
     url.includes("gov.uk") ||
     url.includes("mod.gov.ua") ||
     url.includes("defense.gouv.fr") ||
@@ -81,7 +79,7 @@ function inferSourceType(url: string): "Official" | "Manufacturer" | "Think Tank
   ) return "Official";
   if (url.includes("rusi.org") || url.includes("csis.org") || url.includes("iiss.org") || url.includes("sipri.org")) return "Think Tank";
   if (url.includes("commons.wikimedia.org") || url.includes("wikimedia.org")) return "OSINT";
-  if (url.includes("apnews.com") || url.includes("kyivpost.com") || url.includes("armyrecognition.com") || url.includes("rferl.org")) return "News";
+  if (url.includes("apnews.com") || url.includes("kyivpost.com") || url.includes("armyrecognition.com") || url.includes("rferl.org") || url.includes("bellingcat.com")) return "News";
   return "Other";
 }
 
@@ -136,7 +134,17 @@ export function App() {
         (family === "wheeled" && familyCategories.wheeled.includes(item.category)) ||
         (family === "tracked" && familyCategories.tracked.includes(item.category));
       const matchesCategory = category === "all" || item.category === category;
-      const matchesQuery = !normalizedQuery || `${item.name} ${item.country} ${item.manufacturer}`.toLowerCase().includes(normalizedQuery);
+      const searchable = [
+        item.name,
+        item.country,
+        item.originCountry,
+        item.manufacturer,
+        item.operatorCountries.join(" "),
+        item.aliases.join(" "),
+        item.roleTags.join(" "),
+        item.summaryKo
+      ].join(" ").toLowerCase();
+      const matchesQuery = !normalizedQuery || searchable.includes(normalizedQuery);
       return matchesFamily && matchesCategory && matchesQuery;
     });
   }, [category, data, family, query]);
@@ -146,30 +154,30 @@ export function App() {
     return ["all", ...familyCategories[family]] as Array<EquipmentCategory | "all">;
   }, [family]);
 
-  const selectedEquipment = data?.equipment.find((item) => item.id === selectedId) ?? data?.equipment[0];
-  const relatedIncidents = data?.incidents.filter((incident) => selectedEquipment?.id && incident.equipmentIds.includes(selectedEquipment.id)) ?? [];
-  const relatedComponents = data?.components.filter((component) => component.equipmentId === selectedEquipment?.id) ?? [];
-  const relatedVariants = data?.variants.filter((variant) => variant.equipmentId === selectedEquipment?.id) ?? [];
-  const relatedTechnologies = data?.technologies.filter((technology) => technology.relatedEquipmentIds.includes(selectedEquipment?.id ?? "")) ?? [];
-  const selectedIncident = data?.incidents.find((incident) => incident.id === selectedIncidentId) ?? null;
+  function navigate(nextPath: string) {
+    window.history.pushState(null, "", routeHref(nextPath));
+    setPath(nextPath);
+  }
 
   function selectEquipment(id: string) {
     setSelectedId(id);
     setSelectedComponent(null);
   }
 
-  function navigate(nextPath: string) {
-    window.history.pushState(null, "", routeHref(nextPath));
-    setPath(nextPath);
-  }
-
   if (error) {
     return <main className="state-page">데이터 오류: {error}</main>;
   }
 
-  if (!data || !selectedEquipment) {
-    return <main className="state-page">자료를 불러오는 중입니다.</main>;
+  if (!data) {
+    return <main className="state-page">장비 데이터를 불러오는 중입니다.</main>;
   }
+
+  const selectedEquipment = data.equipment.find((item) => item.id === selectedId) ?? data.equipment[0];
+  const selectedIncident = data.incidents.find((incident) => incident.id === selectedIncidentId) ?? null;
+  const relatedIncidents = data.incidents.filter((incident) => incident.equipmentIds.includes(selectedEquipment.id));
+  const relatedComponents = data.components.filter((component) => component.equipmentId === selectedEquipment.id);
+  const relatedVariants = data.variants.filter((variant) => variant.equipmentId === selectedEquipment.id);
+  const relatedTechnologies = data.technologies.filter((technology) => technology.relatedEquipmentIds.includes(selectedEquipment.id));
 
   const equipmentPathMatch = path.match(/^\/equipment\/([^/]+)$/);
   const routeSelectedEquipment = equipmentPathMatch
@@ -180,191 +188,96 @@ export function App() {
   const routeComponents = data.components.filter((component) => component.equipmentId === routeSelectedEquipment.id);
   const routeTechnologies = data.technologies.filter((technology) => technology.relatedEquipmentIds.includes(routeSelectedEquipment.id));
 
-  const uniqueSources = new Map<string, { title: string; url: string; type: string; checkedAt: string }>();
-  for (const item of data.equipment) {
-    for (const source of item.sources) {
-      uniqueSources.set(source.url, {
-        title: source.title,
-        url: source.url,
-        type: inferSourceType(source.url),
-        checkedAt: source.checkedAt
-      });
-    }
-  }
-  for (const item of data.developmentLens) {
-    for (const source of item.sources) {
-      uniqueSources.set(source.url, {
-        title: source.title,
-        url: source.url,
-        type: inferSourceType(source.url),
-        checkedAt: source.checkedAt
-      });
-    }
-  }
-  for (const reference of data.engineeringReferences) {
-    uniqueSources.set(reference.url, {
-      title: reference.titleKo,
-      url: reference.url,
-      type: inferSourceType(reference.url),
-      checkedAt: reference.checkedAt
-    });
+  const uniqueSources = buildSourceIndex(data);
+  const isInsightsPath = ["/insights", "/development", "/technologies", "/cases"].includes(path);
+  const isSourcesPath = path === "/sources";
+
+  function isNavActive(itemPath: string) {
+    if (itemPath === "/insights") return isInsightsPath;
+    if (itemPath === "/sources") return isSourcesPath;
+    if (itemPath === "/equipment") return path === "/equipment" || Boolean(equipmentPathMatch);
+    return path === "/" || path === "/compare";
   }
 
   return (
     <main className="app-shell">
       <nav className="site-nav" aria-label="주요 메뉴">
         {navItems.map((item) => (
-          <button key={item.path} className={path === item.path || (item.path !== "/" && path.startsWith(item.path)) ? "active" : ""} type="button" onClick={() => navigate(item.path)}>
+          <button key={item.path} className={isNavActive(item.path) ? "active" : ""} type="button" onClick={() => navigate(item.path)}>
             {item.label}
           </button>
         ))}
       </nav>
+
       <header className="topbar">
         <div>
-          <p className="eyebrow">Open-source armored vehicle intelligence</p>
-          <h1>Global Land Platform Intelligence</h1>
-          <p className="hero-subtitle">공개 출처 기반 차륜형장갑차·전차 현대화 동향 분석</p>
+          <p className="eyebrow">Global equipment catalog</p>
+          <h1>전 세계 지상 장비 검색</h1>
+          <p className="hero-subtitle">팀원이 필요한 장비를 빠르게 찾고 제원, 계열차량, 전장 사례, 공개 출처를 한 화면에서 확인하는 검색 중심 카탈로그입니다.</p>
         </div>
         <div className="kpi-strip" aria-label="자료 현황">
-          <div>
-            <strong>{data.equipment.length}</strong>
-            <span>장비</span>
-          </div>
-          <div>
-            <strong>{data.incidents.length}</strong>
-            <span>전장 사례</span>
-          </div>
-          <div>
-            <strong>{data.variants.length}</strong>
-            <span>파생형</span>
-          </div>
-          <div>
-            <strong>{data.technologies.length}</strong>
-            <span>전장 기술</span>
-          </div>
-          <div>
-            <strong>{uniqueSources.size}</strong>
-            <span>공개 출처</span>
-          </div>
+          <div><strong>{data.equipment.length}</strong><span>장비</span></div>
+          <div><strong>{data.variants.length}</strong><span>계열/파생형</span></div>
+          <div><strong>{data.incidents.length}</strong><span>전장 사례</span></div>
+          <div><strong>{uniqueSources.length}</strong><span>공개 출처</span></div>
         </div>
       </header>
 
-      {path === "/compare" ? (
-        <ComparePage equipment={data.equipment} variants={data.variants} technologies={data.technologies} />
-      ) : path === "/development" ? (
-        <DevelopmentLensPage
-          equipment={data.equipment}
-          lensItems={data.developmentLens}
+      {isInsightsPath ? (
+        <FieldInsightsPage
+          technologies={data.technologies}
+          cases={data.caseStudies}
+          developmentLens={data.developmentLens}
           references={data.engineeringReferences}
+          equipment={data.equipment}
+          onEquipmentSelect={(id) => {
+            selectEquipment(id);
+            navigate(`/equipment/${id}`);
+          }}
+        />
+      ) : isSourcesPath ? (
+        <SourceIndexPage sources={uniqueSources} equipment={data.equipment} />
+      ) : equipmentPathMatch ? (
+        <EquipmentDetailPage
+          equipment={routeSelectedEquipment}
+          variants={routeVariants}
+          incidents={routeIncidents}
+          components={routeComponents}
+          technologies={routeTechnologies}
+          equipmentList={data.equipment}
+          onComponentSelect={setSelectedComponent}
           onEquipmentOpen={(id) => {
             selectEquipment(id);
             navigate(`/equipment/${id}`);
           }}
         />
-      ) : path === "/technologies" ? (
-        <TechnologyPage technologies={data.technologies} onEquipmentSelect={(id) => {
-          selectEquipment(id);
-          navigate(`/equipment/${id}`);
-        }} />
-      ) : path === "/cases" ? (
-        <CasesPage cases={data.caseStudies} equipment={data.equipment} />
-      ) : equipmentPathMatch ? (
-        <>
-          <EquipmentHero equipment={routeSelectedEquipment} variants={routeVariants} />
-          <section className="detail-grid">
-            <EquipmentDetail equipment={routeSelectedEquipment} incidents={routeIncidents} variants={routeVariants} />
-            <ModelViewer equipment={routeSelectedEquipment} components={routeComponents} onComponentSelect={setSelectedComponent} />
-          </section>
-          <BattlefieldLens equipment={routeSelectedEquipment} variants={routeVariants} technologies={routeTechnologies} />
-          <ComparableVehicles equipment={routeSelectedEquipment} equipmentList={data.equipment} onSelect={(id) => navigate(`/equipment/${id}`)} />
-          <SourcePanel equipment={routeSelectedEquipment} />
-        </>
       ) : (
-        <>
-          {path === "/" ? <DashboardOverview equipment={data.equipment} variants={data.variants} technologies={data.technologies} caseStudies={data.caseStudies} sources={Array.from(uniqueSources.values())} /> : null}
-          <section className="dashboard-grid">
-        <aside className="equipment-rail" aria-label="장비 목록">
-          <div className="rail-header">
-            <div>
-              <p className="eyebrow">Inventory</p>
-              <h2>장비 탐색</h2>
-            </div>
-            <span>{filteredEquipment.length}건</span>
-          </div>
-          <label className="search-box">
-            <span>검색</span>
-            <input
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="모델, 국가, 제조사"
-            />
-          </label>
-          <div className="family-tabs">
-            {(Object.keys(familyLabels) as EquipmentFamily[]).map((key) => (
-              <button
-                key={key}
-                className={family === key ? "active" : ""}
-                type="button"
-                onClick={() => {
-                  setFamily(key);
-                  setCategory("all");
-                }}
-              >
-                {familyLabels[key]}
-              </button>
-            ))}
-          </div>
-          <div className="segmented-control">
-            {availableCategoryKeys.map((key) => (
-              <button
-                key={key}
-                className={category === key ? "active" : ""}
-                type="button"
-                onClick={() => setCategory(key)}
-              >
-                {categoryLabels[key]}
-              </button>
-            ))}
-          </div>
-          <div className="equipment-list">
-            {filteredEquipment.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={`equipment-row ${item.id === selectedEquipment.id ? "active" : ""}`}
-                onClick={() => selectEquipment(item.id)}
-                onDoubleClick={() => navigate(`/equipment/${item.id}`)}
-              >
-                <span>{item.name}</span>
-                <small>{item.country} · {categoryLabels[item.category]}</small>
-              </button>
-            ))}
-            {!filteredEquipment.length ? <p className="empty-state">검색 조건에 맞는 장비가 없습니다.</p> : null}
-          </div>
-        </aside>
-
-        <section className="map-panel">
-          <EquipmentMap
-            incidents={data.incidents}
-            selectedEquipmentId={selectedEquipment.id}
-            selectedIncident={selectedIncident}
-            onIncidentSelect={setSelectedIncidentId}
-            onEquipmentSelect={selectEquipment}
-          />
-        </section>
-
-        <TrendPanel trends={data.trends} selectedEquipmentId={selectedEquipment.id} onEquipmentSelect={selectEquipment} />
-      </section>
-
-      <section className="detail-grid">
-        <EquipmentDetail equipment={selectedEquipment} incidents={relatedIncidents} variants={relatedVariants} />
-        <ModelViewer equipment={selectedEquipment} components={relatedComponents} onComponentSelect={setSelectedComponent} />
-      </section>
-
-      <BattlefieldLens equipment={selectedEquipment} variants={relatedVariants} technologies={relatedTechnologies} />
-      <TechnologyPanel technologies={data.technologies} relatedTechnologies={relatedTechnologies} onEquipmentSelect={selectEquipment} />
-        </>
+        <CatalogPage
+          equipment={data.equipment}
+          filteredEquipment={filteredEquipment}
+          selectedEquipment={selectedEquipment}
+          incidents={data.incidents}
+          selectedIncident={selectedIncident}
+          relatedIncidents={relatedIncidents}
+          relatedVariants={relatedVariants}
+          relatedComponents={relatedComponents}
+          relatedTechnologies={relatedTechnologies}
+          family={family}
+          category={category}
+          query={query}
+          availableCategoryKeys={availableCategoryKeys}
+          sources={uniqueSources}
+          onFamilyChange={(nextFamily) => {
+            setFamily(nextFamily);
+            setCategory("all");
+          }}
+          onCategoryChange={setCategory}
+          onQueryChange={setQuery}
+          onEquipmentSelect={selectEquipment}
+          onEquipmentOpen={(id) => navigate(`/equipment/${id}`)}
+          onIncidentSelect={setSelectedIncidentId}
+          onComponentSelect={setSelectedComponent}
+        />
       )}
 
       {selectedComponent ? (
@@ -398,78 +311,232 @@ export function App() {
   );
 }
 
-function DashboardOverview({ equipment, variants, technologies, caseStudies, sources }: {
+function buildSourceIndex(data: AppData) {
+  const uniqueSources = new Map<string, { title: string; url: string; type: string; checkedAt: string }>();
+  const addSource = (source: { title: string; url: string; checkedAt: string }) => {
+    uniqueSources.set(source.url, {
+      title: source.title,
+      url: source.url,
+      type: inferSourceType(source.url),
+      checkedAt: source.checkedAt
+    });
+  };
+
+  data.equipment.forEach((item) => item.sources.forEach(addSource));
+  data.components.forEach((item) => item.sources.forEach(addSource));
+  data.technologies.forEach((item) => item.sources.forEach(addSource));
+  data.developmentLens.forEach((item) => item.sources.forEach(addSource));
+  data.engineeringReferences.forEach((reference) => {
+    uniqueSources.set(reference.url, {
+      title: reference.titleKo,
+      url: reference.url,
+      type: inferSourceType(reference.url),
+      checkedAt: reference.checkedAt
+    });
+  });
+
+  return Array.from(uniqueSources.values()).sort((a, b) => a.type.localeCompare(b.type) || a.title.localeCompare(b.title));
+}
+
+function CatalogPage({
+  equipment,
+  filteredEquipment,
+  selectedEquipment,
+  incidents,
+  selectedIncident,
+  relatedIncidents,
+  relatedVariants,
+  relatedComponents,
+  relatedTechnologies,
+  family,
+  category,
+  query,
+  availableCategoryKeys,
+  sources,
+  onFamilyChange,
+  onCategoryChange,
+  onQueryChange,
+  onEquipmentSelect,
+  onEquipmentOpen,
+  onIncidentSelect,
+  onComponentSelect
+}: {
   equipment: Equipment[];
-  variants: EquipmentVariant[];
-  technologies: BattlefieldTechnology[];
-  caseStudies: AppData["caseStudies"];
+  filteredEquipment: Equipment[];
+  selectedEquipment: Equipment;
+  incidents: BattlefieldCase[];
+  selectedIncident: BattlefieldCase | null;
+  relatedIncidents: BattlefieldCase[];
+  relatedVariants: EquipmentVariant[];
+  relatedComponents: ComponentSpec[];
+  relatedTechnologies: BattlefieldTechnology[];
+  family: EquipmentFamily;
+  category: EquipmentCategory | "all";
+  query: string;
+  availableCategoryKeys: Array<EquipmentCategory | "all">;
+  sources: Array<{ title: string; url: string; type: string; checkedAt: string }>;
+  onFamilyChange: (family: EquipmentFamily) => void;
+  onCategoryChange: (category: EquipmentCategory | "all") => void;
+  onQueryChange: (query: string) => void;
+  onEquipmentSelect: (id: string) => void;
+  onEquipmentOpen: (id: string) => void;
+  onIncidentSelect: (id: string) => void;
+  onComponentSelect: (component: ComponentSpec) => void;
+}) {
+  return (
+    <>
+      <CatalogOverview equipment={equipment} variantsCount={relatedVariants.length} incidents={incidents} sources={sources} />
+      <section className="dashboard-grid catalog-grid">
+        <aside className="equipment-rail" aria-label="장비 목록">
+          <div className="rail-header">
+            <div>
+              <p className="eyebrow">Equipment index</p>
+              <h2>장비 검색</h2>
+            </div>
+            <span>{filteredEquipment.length}건</span>
+          </div>
+          <label className="search-box">
+            <span>모델, 국가, 제조사 검색</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => onQueryChange(event.target.value)}
+              placeholder="예: Leopard, Patria, Germany"
+            />
+          </label>
+          <div className="family-tabs">
+            {(Object.keys(familyLabels) as EquipmentFamily[]).map((key) => (
+              <button key={key} className={family === key ? "active" : ""} type="button" onClick={() => onFamilyChange(key)}>
+                {familyLabels[key]}
+              </button>
+            ))}
+          </div>
+          <div className="segmented-control">
+            {availableCategoryKeys.map((key) => (
+              <button key={key} className={category === key ? "active" : ""} type="button" onClick={() => onCategoryChange(key)}>
+                {categoryLabels[key]}
+              </button>
+            ))}
+          </div>
+          <div className="equipment-list">
+            {filteredEquipment.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={`equipment-row ${item.id === selectedEquipment.id ? "active" : ""}`}
+                onClick={() => onEquipmentSelect(item.id)}
+                onDoubleClick={() => onEquipmentOpen(item.id)}
+              >
+                <span>{item.name}</span>
+                <small>{item.country} · {categoryLabels[item.category]}</small>
+              </button>
+            ))}
+            {!filteredEquipment.length ? <p className="empty-state">검색 조건에 맞는 장비가 없습니다.</p> : null}
+          </div>
+        </aside>
+
+        <section className="map-panel catalog-map">
+          <EquipmentMap
+            incidents={incidents}
+            selectedEquipmentId={selectedEquipment.id}
+            selectedIncident={selectedIncident}
+            onIncidentSelect={onIncidentSelect}
+            onEquipmentSelect={onEquipmentSelect}
+          />
+        </section>
+
+        <CatalogQuickFacts equipment={selectedEquipment} variants={relatedVariants} incidents={relatedIncidents} technologies={relatedTechnologies} onOpen={onEquipmentOpen} />
+      </section>
+
+      <section className="detail-grid">
+        <EquipmentDetail equipment={selectedEquipment} incidents={relatedIncidents} variants={relatedVariants} />
+        <ModelViewer equipment={selectedEquipment} components={relatedComponents} onComponentSelect={onComponentSelect} />
+      </section>
+
+      <BattlefieldLens equipment={selectedEquipment} variants={relatedVariants} technologies={relatedTechnologies} />
+    </>
+  );
+}
+
+function CatalogOverview({ equipment, incidents, sources }: {
+  equipment: Equipment[];
+  variantsCount: number;
+  incidents: BattlefieldCase[];
   sources: Array<{ title: string; url: string; type: string; checkedAt: string }>;
 }) {
-  const avg = (values: number[]) => Math.round(values.reduce((sum, value) => sum + value, 0) / values.length);
-  const timeline = ["기본형", "RCWS형", "30mm 포탑형", "C-UAS형", "APS/EW 통합형"];
-  const threats = ["FPV 드론", "ATGM", "지뢰/IED", "소형 UAV 정찰", "포병 위협"];
-  const responses = ["드론 네트", "APS", "재머/EW", "RCWS", "C-UAS 기관포", "센서융합"];
-
+  const categoryCount = new Set(equipment.map((item) => item.category)).size;
+  const countryCount = new Set(equipment.flatMap((item) => [item.originCountry, ...item.operatorCountries])).size;
   return (
-    <section className="dashboard-overview">
-      <div className="overview-grid">
-        <ScoreBar label="드론 위협 압력" value={avg(equipment.map((item) => item.droneThreatPressure))} reason="공개 관측 사례와 드론 대응 기술 연결 수를 반영한 평균 지표입니다." />
-        <ScoreBar label="체계 통합도" value={avg(equipment.map((item) => item.systemIntegrationLevel))} reason="센서, 네트워크, 전자전, 방공 통합 여지를 비교합니다." />
-        <ScoreBar label="야전 개조 민감도" value={avg(equipment.map((item) => item.fieldModificationSensitivity))} reason="급조 방호와 임무형 전환 가능성을 반영합니다." />
+    <section className="catalog-overview">
+      <div>
+        <p className="eyebrow">Search-first catalog</p>
+        <h2>찾고, 좁히고, 근거를 확인하는 장비 데이터베이스</h2>
+        <p>현재 수록 데이터는 시작점이며, 같은 JSON 구조로 국가와 장비를 계속 확장할 수 있습니다. 3D는 추후 모델 파일이 준비될 때 다시 강화합니다.</p>
       </div>
-      <div className="timeline-panel">
-        <div className="section-heading">
-          <h2>Equipment Evolution Timeline</h2>
-          <span>{variants.length}개 파생형 기반</span>
-        </div>
-        <div className="timeline-row">
-          {timeline.map((item, index) => (
-            <article key={item} className="timeline-event">
-              <em>{String(index + 1).padStart(2, "0")}</em>
-              <strong>{item}</strong>
-            </article>
-          ))}
-        </div>
-      </div>
-      <div className="matrix-panel">
-        <div className="section-heading">
-          <h2>Threat-Response Matrix</h2>
-          <span>{technologies.length}개 기술 축 반영</span>
-        </div>
-        <div className="threat-matrix">
-          {threats.map((threat) => responses.map((response, index) => (
-            <div key={`${threat}-${response}`} className={index % 2 === 0 ? "active" : ""}>
-              <strong>{threat}</strong>
-              <span>{response}</span>
-            </div>
-          )))}
-        </div>
-      </div>
-      <div className="source-update-panel">
-        <div className="section-heading">
-          <h2>Recently Updated Sources</h2>
-          <span>{sources.length}개 출처</span>
-        </div>
-        <div className="source-cards">
-          {sources.slice(0, 8).map((source) => (
-            <a key={source.url} href={source.url} target="_blank" rel="noreferrer">
-              <span className={`source-badge ${source.type.toLowerCase().replace(/\s+/g, "-")}`}>{source.type}</span>
-              <strong>{source.title}</strong>
-              <small>{source.checkedAt}</small>
-            </a>
-          ))}
-        </div>
-      </div>
-      <div className="case-strip">
-        {caseStudies.slice(0, 4).map((caseStudy) => (
-          <article key={caseStudy.id} className="case-study-card compact-card">
-            <span>{caseStudy.conflict} · {caseStudy.confidenceLevel}</span>
-            <strong>{caseStudy.equipmentName}</strong>
-            <p>{caseStudy.operationalMeaning}</p>
-          </article>
-        ))}
+      <div className="catalog-stat-grid">
+        <span><strong>{equipment.length}</strong>장비</span>
+        <span><strong>{categoryCount}</strong>분류</span>
+        <span><strong>{countryCount}</strong>관련 국가</span>
+        <span><strong>{incidents.length}</strong>사례</span>
+        <span><strong>{sources.length}</strong>출처</span>
       </div>
     </section>
+  );
+}
+
+function CatalogQuickFacts({ equipment, variants, incidents, technologies, onOpen }: {
+  equipment: Equipment;
+  variants: EquipmentVariant[];
+  incidents: BattlefieldCase[];
+  technologies: BattlefieldTechnology[];
+  onOpen: (id: string) => void;
+}) {
+  return (
+    <aside className="trend-panel catalog-summary-panel">
+      <div className="panel-title">
+        <div>
+          <p className="eyebrow">Selected equipment</p>
+          <h2>{equipment.name}</h2>
+        </div>
+        <span>{confidenceLabel(equipment.sourceConfidenceScore)}</span>
+      </div>
+      <p className="summary">{equipment.summaryKo}</p>
+      <dl className="catalog-fact-list">
+        <div><dt>분류</dt><dd>{categoryLabels[equipment.category]}</dd></div>
+        <div><dt>원산국</dt><dd>{equipment.originCountry}</dd></div>
+        <div><dt>제조사</dt><dd>{equipment.manufacturer}</dd></div>
+        <div><dt>계열/파생형</dt><dd>{variants.length}건</dd></div>
+        <div><dt>전장 사례</dt><dd>{incidents.length}건</dd></div>
+        <div><dt>연계 기술</dt><dd>{technologies.length}건</dd></div>
+      </dl>
+      <button className="primary-action" type="button" onClick={() => onOpen(equipment.id)}>
+        상세 페이지 열기
+      </button>
+    </aside>
+  );
+}
+
+function EquipmentDetailPage({ equipment, variants, incidents, components, technologies, equipmentList, onComponentSelect, onEquipmentOpen }: {
+  equipment: Equipment;
+  variants: EquipmentVariant[];
+  incidents: BattlefieldCase[];
+  components: ComponentSpec[];
+  technologies: BattlefieldTechnology[];
+  equipmentList: Equipment[];
+  onComponentSelect: (component: ComponentSpec) => void;
+  onEquipmentOpen: (id: string) => void;
+}) {
+  return (
+    <>
+      <EquipmentHero equipment={equipment} variants={variants} />
+      <section className="detail-grid">
+        <EquipmentDetail equipment={equipment} incidents={incidents} variants={variants} />
+        <ModelViewer equipment={equipment} components={components} onComponentSelect={onComponentSelect} />
+      </section>
+      <BattlefieldLens equipment={equipment} variants={variants} technologies={technologies} />
+      <ComparableVehicles equipment={equipment} equipmentList={equipmentList} onSelect={onEquipmentOpen} />
+      <SourcePanel equipment={equipment} />
+    </>
   );
 }
 
@@ -484,12 +551,12 @@ function EquipmentHero({ equipment, variants }: { equipment: Equipment; variants
           <span>{equipment.originCountry}</span>
           <span>{equipment.manufacturer}</span>
           <span>{equipment.roleTags.join(" / ")}</span>
-          <span>{variants.length}개 파생형</span>
+          <span>{variants.length}개 계열</span>
         </div>
       </div>
       <div className="hero-score-stack">
-        <ScoreBar label="현대화 확장성" value={equipment.modernizationPotential} reason="파생형, 센서 통합, 공개 현대화 흐름을 종합한 지표입니다." />
-        <ScoreBar label="출처 검증 수준" value={equipment.sourceConfidenceScore} reason={equipment.confidenceSummary} />
+        <ScoreBar label="현대화 잠재력" value={equipment.modernizationPotential} reason="계열 확장성, 센서 통합, 공개 현대화 흐름을 종합한 참고 지표입니다." />
+        <ScoreBar label="출처 신뢰도" value={equipment.sourceConfidenceScore} reason={equipment.confidenceSummary} />
       </div>
     </section>
   );
@@ -502,15 +569,15 @@ function ComparableVehicles({ equipment, equipmentList, onSelect }: { equipment:
   return (
     <section className="comparison-band">
       <div className="section-heading">
-        <h2>Comparable Vehicles</h2>
-        <span>{comparable.length}개 추천</span>
+        <h2>유사 장비</h2>
+        <span>{comparable.length}건</span>
       </div>
       <div className="comparable-grid">
         {comparable.map((item) => (
           <button key={item.id} type="button" onClick={() => onSelect(item.id)}>
             <strong>{item.name}</strong>
             <span>{item.roleTags.join(" / ")}</span>
-            <ScoreBar label="전장 적응성" value={Math.round((item.droneThreatPressure + item.fieldModificationSensitivity) / 2)} />
+            <ScoreBar label="전장 적응 지표" value={Math.round((item.droneThreatPressure + item.fieldModificationSensitivity) / 2)} />
           </button>
         ))}
       </div>
@@ -522,7 +589,7 @@ function SourcePanel({ equipment }: { equipment: Equipment }) {
   return (
     <section className="source-panel-block">
       <div className="section-heading">
-        <h2>Public Source Panel</h2>
+        <h2>공개 출처</h2>
         <span>{confidenceLabel(equipment.sourceConfidenceScore)}</span>
       </div>
       <div className="source-cards">
@@ -541,77 +608,60 @@ function SourcePanel({ equipment }: { equipment: Equipment }) {
   );
 }
 
-function ComparePage({ equipment, variants, technologies }: { equipment: Equipment[]; variants: EquipmentVariant[]; technologies: BattlefieldTechnology[] }) {
-  const [selected, setSelected] = useState(equipment.slice(0, 4).map((item) => item.id));
-  const selectedEquipment = selected.map((id) => equipment.find((item) => item.id === id)).filter(Boolean) as Equipment[];
-  const rows = [
-    ["임무", (item: Equipment) => item.roleTags.join(", ")],
-    ["분류", (item: Equipment) => item.vehicleFamily],
-    ["주요 무장", (item: Equipment) => item.specs["주무장"] || item.specs["주요 무장"] || item.specs["주포"] || "출처별 상이"],
-    ["플랫폼 계열성", (item: Equipment) => `${variants.filter((variant) => variant.equipmentId === item.id).length}개 파생형`],
-    ["기술 연계", (item: Equipment) => `${technologies.filter((technology) => technology.relatedEquipmentIds.includes(item.id)).length}개 기술`],
-    ["전장 적응성", (item: Equipment) => String(Math.round((item.droneThreatPressure + item.fieldModificationSensitivity) / 2))],
-    ["출처 신뢰도", (item: Equipment) => `${confidenceLabel(item.sourceConfidenceScore)} (${item.sourceConfidenceScore})`]
-  ] as const;
+function FieldInsightsPage({ technologies, cases, developmentLens, references, equipment, onEquipmentSelect }: {
+  technologies: BattlefieldTechnology[];
+  cases: BattlefieldCaseStudy[];
+  developmentLens: DevelopmentLensItem[];
+  references: EngineeringReference[];
+  equipment: Equipment[];
+  onEquipmentSelect: (id: string) => void;
+}) {
   return (
-    <section className="compare-page">
+    <section className="insights-page">
       <div className="section-heading">
         <div>
-          <p className="eyebrow">Comparison workbench</p>
-          <h2>장비 비교 분석</h2>
+          <p className="eyebrow">Field insights</p>
+          <h2>전장 기술·사례 인사이트</h2>
         </div>
-        <span>2~4개 선택</span>
-      </div>
-      <div className="selector-grid">
-        {selected.map((id, index) => (
-          <select key={index} value={id} onChange={(event) => setSelected((current) => current.map((value, itemIndex) => itemIndex === index ? event.target.value : value))}>
-            {equipment.map((item) => <option key={item.id} value={item.id}>{item.name}</option>)}
-          </select>
-        ))}
-      </div>
-      <div className="comparison-table-wrap">
-        <table className="comparison-table">
-          <thead>
-            <tr>
-              <th>분석 항목</th>
-              {selectedEquipment.map((item) => <th key={item.id}>{item.name}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map(([label, getter]) => (
-              <tr key={label}>
-                <th>{label}</th>
-                {selectedEquipment.map((item) => <td key={item.id}>{getter(item)}</td>)}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <span>{technologies.length + cases.length + developmentLens.length}건</span>
       </div>
       <div className="overview-grid">
-        {selectedEquipment.map((item) => (
+        {developmentLens.slice(0, 3).map((item) => (
           <article key={item.id} className="lens-card light">
-            <strong>{item.name}</strong>
-            <ScoreBar label="현대화 여지" value={item.modernizationPotential} />
-            <ScoreBar label="센서/전력 통합" value={item.systemIntegrationLevel} />
-            <ScoreBar label="야전 개조 민감도" value={item.fieldModificationSensitivity} />
+            <span className="source-badge official">{item.lifecyclePhaseKo}</span>
+            <strong>{item.titleKo}</strong>
+            <p>{item.summaryKo}</p>
           </article>
         ))}
       </div>
+      <TechnologyPanel technologies={technologies} relatedTechnologies={technologies} onEquipmentSelect={onEquipmentSelect} />
+      <CasesPage cases={cases} equipment={equipment} />
+      <section className="source-panel-block">
+        <div className="section-heading">
+          <h2>개발 참고자료</h2>
+          <span>{references.length}건</span>
+        </div>
+        <div className="source-cards reference-grid">
+          {references.map((reference) => (
+            <a key={reference.id} href={reference.url} target="_blank" rel="noreferrer">
+              <span className="source-badge official">{reference.priority}</span>
+              <strong>{reference.titleKo}</strong>
+              <small>{reference.organization} · {reference.categoryKo}</small>
+            </a>
+          ))}
+        </div>
+      </section>
     </section>
   );
 }
 
-function TechnologyPage({ technologies, onEquipmentSelect }: { technologies: BattlefieldTechnology[]; onEquipmentSelect: (id: string) => void }) {
-  return <TechnologyPanel technologies={technologies} relatedTechnologies={technologies} onEquipmentSelect={onEquipmentSelect} />;
-}
-
-function CasesPage({ cases, equipment }: { cases: AppData["caseStudies"]; equipment: Equipment[] }) {
+function CasesPage({ cases, equipment }: { cases: BattlefieldCaseStudy[]; equipment: Equipment[] }) {
   return (
     <section className="cases-page">
       <div className="section-heading">
         <div>
           <p className="eyebrow">Observed adaptation cases</p>
-          <h2>현대 전장 사례</h2>
+          <h2>공개 전장 사례</h2>
         </div>
         <span>{cases.length}건</span>
       </div>
@@ -635,6 +685,39 @@ function CasesPage({ cases, equipment }: { cases: AppData["caseStudies"]; equipm
               {caseStudy.sourceUrls.map((url) => <a key={url} href={url} target="_blank" rel="noreferrer">{inferSourceType(url)} source</a>)}
             </div>
           </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SourceIndexPage({ sources, equipment }: { sources: Array<{ title: string; url: string; type: string; checkedAt: string }>; equipment: Equipment[] }) {
+  const sourceTypes = Array.from(new Set(sources.map((source) => source.type)));
+  return (
+    <section className="source-index-page">
+      <div className="section-heading">
+        <div>
+          <p className="eyebrow">Source index</p>
+          <h2>공개 출처 인덱스</h2>
+        </div>
+        <span>{sources.length}건</span>
+      </div>
+      <div className="catalog-overview compact">
+        <p>장비 데이터는 제조사, 정부/군, 연구기관, 보도, 공개 이미지 출처를 구분해 관리합니다. 새 장비를 추가할 때는 출처 URL과 확인일을 함께 넣는 것을 기본 규칙으로 둡니다.</p>
+        <div className="catalog-stat-grid">
+          <span><strong>{equipment.length}</strong>장비</span>
+          <span><strong>{sourceTypes.length}</strong>출처 유형</span>
+          <span><strong>{sources.filter((source) => source.type === "Official").length}</strong>공식</span>
+          <span><strong>{sources.filter((source) => source.type === "Manufacturer").length}</strong>제조사</span>
+        </div>
+      </div>
+      <div className="source-cards reference-grid">
+        {sources.map((source) => (
+          <a key={source.url} href={source.url} target="_blank" rel="noreferrer">
+            <span className={`source-badge ${source.type.toLowerCase().replace(/\s+/g, "-")}`}>{source.type}</span>
+            <strong>{source.title}</strong>
+            <small>{source.checkedAt}</small>
+          </a>
         ))}
       </div>
     </section>
