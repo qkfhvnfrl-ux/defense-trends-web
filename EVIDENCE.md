@@ -345,3 +345,50 @@ completed
 - `modelPath`, `hotspotPosition`은 미래 호환용으로 남아 있으나 현재 화면에서는 직접 사용하지 않는다.
 
 ---
+## 2026-06-19 검색 결과 출처 신뢰도 즉시 표시
+
+### 작업 상태
+
+completed
+
+### 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run validate:data
+& "C:\Program Files\nodejs\npm.cmd" run test
+& "C:\Program Files\nodejs\npm.cmd" run build
+& "C:\Program Files\nodejs\npm.cmd" run test:e2e
+& "C:\Program Files\nodejs\npm.cmd" run design:check
+& "C:\Program Files\nodejs\npm.cmd" run dev:check
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+### 수정 내역
+
+- `src/App.tsx`: 검색 행에 출처 신뢰도 배지, 공개 출처 수, 최근 확인일 추가
+- `src/App.tsx`: 선택 장비 요약 패널에 출처 신뢰도/확인일/출처 수 추가
+- `src/App.tsx`: 결과 요약 복사와 CSV 다운로드에 출처 등급, 최근 확인일, 출처 수 추가
+- `src/styles.css`: 신뢰도 배지와 확인일 보조 라인 스타일 추가
+- `scripts/verify-render.cjs`: 모든 장비 행의 신뢰도 배지/확인일 라인 검증 추가
+- `scripts/verify-design.cjs`: 디자인 검증에 신뢰도 배지/확인일 라인 카운트 추가
+
+### 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- `npm run validate:data`: 통과, 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+- `npm run test`: 통과, 2 files / 5 tests
+- `npm run build`: 통과, JS 416.89 kB / CSS 39.87 kB
+- `npm run test:e2e`: 통과, trustPills 15 / sourceQuicklines 15 / 모바일 overflow 없음
+- `npm run design:check`: 통과, trustPills 15 / sourceQuicklines 15 / undersized controls 없음
+- `npm run dev:check`: 통과, 장비 15건 / 브라우저 오류 없음
+- `npm run quality`: 통과
+
+### 남은 리스크
+
+- 출처 신뢰도 점수는 현재 수동 데이터셋의 참고 지표이며, 실제 URL 재검증 자동 점수는 아직 연결되지 않았다.
+- 향후 데이터가 대량 확장되면 낮은 신뢰도 장비만 따로 보는 필터가 필요할 수 있다.
+
+---

@@ -31,6 +31,8 @@ async function main() {
     markers: await page.locator(".case-marker").count(),
     componentSpecPanels: await page.locator(".component-spec-panel").count(),
     componentSlots: await page.locator(".component-slot").count(),
+    trustPills: await page.locator(".equipment-row .trust-pill").count(),
+    sourceQuicklines: await page.locator(".equipment-row .source-quickline").count(),
     filterSelects: await page.locator(".filter-grid select").count(),
     shareButtons: await page.locator(".share-search-button").count(),
     resultActionButtons: await page.locator(".result-action-grid button").count(),
@@ -80,6 +82,8 @@ async function main() {
   if (desktop.markers < 6) throw new Error("Expected battlefield markers");
   if (desktop.componentSpecPanels < 1) throw new Error("Expected component spec panel");
   if (desktop.componentSlots < 1) throw new Error("Expected component spec slots");
+  if (desktop.trustPills !== desktop.equipmentRows) throw new Error("Expected one source trust pill per equipment row");
+  if (desktop.sourceQuicklines !== desktop.equipmentRows) throw new Error("Expected one source check line per equipment row");
   if (desktop.filterSelects !== 4) throw new Error("Expected four catalog filter selects");
   if (desktop.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktop.resultActionButtons !== 2) throw new Error("Expected result export actions");

@@ -42,6 +42,8 @@ async function main() {
     metaPills: await desktop.locator(".meta-row span").count(),
     panelCounters: await desktop.locator(".panel-title span").count(),
     componentSpecPanels: await desktop.locator(".component-spec-panel").count(),
+    trustPills: await desktop.locator(".equipment-row .trust-pill").count(),
+    sourceQuicklines: await desktop.locator(".equipment-row .source-quickline").count(),
     filterSelects: await desktop.locator(".filter-grid select").count(),
     activeFilterBars: await desktop.locator(".active-filter-bar").count(),
     shareButtons: await desktop.locator(".share-search-button").count(),
@@ -54,6 +56,8 @@ async function main() {
   if (desktopChecks.metaPills < 3) throw new Error("Expected equipment meta pills");
   if (desktopChecks.panelCounters < 1) throw new Error("Expected panel counters");
   if (desktopChecks.componentSpecPanels < 1) throw new Error("Expected component spec panel");
+  if (desktopChecks.trustPills < 14) throw new Error("Expected source trust pills in equipment rows");
+  if (desktopChecks.sourceQuicklines < 14) throw new Error("Expected source check dates in equipment rows");
   if (desktopChecks.filterSelects !== 4) throw new Error("Expected four structured catalog filters");
   if (desktopChecks.activeFilterBars !== 1) throw new Error("Expected active filter summary bar");
   if (desktopChecks.shareButtons !== 1) throw new Error("Expected share search button");

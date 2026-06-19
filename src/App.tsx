@@ -121,6 +121,15 @@ function confidenceLabel(score: number) {
   return "Low";
 }
 
+function confidenceClass(score: number) {
+  return confidenceLabel(score).toLowerCase();
+}
+
+function latestSourceCheckDate(equipment: Equipment) {
+  const checkedDates = equipment.sources.map((source) => source.checkedAt).sort();
+  return checkedDates.length ? checkedDates[checkedDates.length - 1] : equipment.lastUpdated;
+}
+
 function normalizeSearchText(value: string) {
   return value.trim().toLowerCase();
 }
@@ -188,14 +197,14 @@ function getVariantCountByEquipment(variants: EquipmentVariant[]) {
 function buildResultSummary(equipmentList: Equipment[], variants: EquipmentVariant[]) {
   const variantCountByEquipment = getVariantCountByEquipment(variants);
   const rows = equipmentList.map((item, index) =>
-    `${index + 1}. ${item.name} | ${categoryLabels[item.category]} | ${item.originCountry} | ${item.roleTags.slice(0, 3).join(", ")} | 계열 ${variantCountByEquipment[item.id] ?? 0}건`
+    `${index + 1}. ${item.name} | ${categoryLabels[item.category]} | ${item.originCountry} | ${item.roleTags.slice(0, 3).join(", ")} | 계열 ${variantCountByEquipment[item.id] ?? 0}건 | 출처 ${confidenceLabel(item.sourceConfidenceScore)} ${item.sourceConfidenceScore} | 확인 ${latestSourceCheckDate(item)}`
   );
   return [`장비 검색 결과 ${equipmentList.length}건`, ...rows].join("\n");
 }
 
 function buildEquipmentCsv(equipmentList: Equipment[], variants: EquipmentVariant[]) {
   const variantCountByEquipment = getVariantCountByEquipment(variants);
-  const headers = ["장비명", "분류", "국가", "원산국", "제조사", "운용 상태", "임무 태그", "계열 수", "출처 신뢰도", "상세 ID"];
+  const headers = ["장비명", "분류", "국가", "원산국", "제조사", "운용 상태", "임무 태그", "계열 수", "출처 신뢰도", "출처 등급", "최근 확인일", "출처 수", "상세 ID"];
   const rows = equipmentList.map((item) => [
     item.name,
     categoryLabels[item.category],
@@ -206,6 +215,9 @@ function buildEquipmentCsv(equipmentList: Equipment[], variants: EquipmentVarian
     item.roleTags.join(" / "),
     variantCountByEquipment[item.id] ?? 0,
     item.sourceConfidenceScore,
+    confidenceLabel(item.sourceConfidenceScore),
+    latestSourceCheckDate(item),
+    item.sources.length,
     item.id
   ]);
   return [
@@ -748,9 +760,15 @@ function CatalogPage({
                 onClick={() => onEquipmentSelect(item.id)}
                 onDoubleClick={() => onEquipmentOpen(item.id)}
               >
-                <span>{item.name}</span>
+                <span className="equipment-row-heading">
+                  <strong>{item.name}</strong>
+                  <b className={`trust-pill ${confidenceClass(item.sourceConfidenceScore)}`}>
+                    출처 {confidenceLabel(item.sourceConfidenceScore)} {item.sourceConfidenceScore}
+                  </b>
+                </span>
                 <small>{item.country} · {categoryLabels[item.category]}</small>
                 <em>{item.roleTags.slice(0, 3).join(" / ")} · 계열 {variantCountByEquipment[item.id] ?? 0}건</em>
+                <small className="source-quickline">공개 출처 {item.sources.length}건 · 최근 확인 {latestSourceCheckDate(item)}</small>
               </button>
             ))}
             {!filteredEquipment.length ? <p className="empty-state">검색 조건에 맞는 장비가 없습니다.</p> : null}
@@ -827,6 +845,9 @@ function CatalogQuickFacts({ equipment, variants, incidents, technologies, onOpe
         <div><dt>분류</dt><dd>{categoryLabels[equipment.category]}</dd></div>
         <div><dt>원산국</dt><dd>{equipment.originCountry}</dd></div>
         <div><dt>제조사</dt><dd>{equipment.manufacturer}</dd></div>
+        <div><dt>출처 신뢰도</dt><dd>{confidenceLabel(equipment.sourceConfidenceScore)} {equipment.sourceConfidenceScore}</dd></div>
+        <div><dt>최근 확인</dt><dd>{latestSourceCheckDate(equipment)}</dd></div>
+        <div><dt>공개 출처</dt><dd>{equipment.sources.length}건</dd></div>
         <div><dt>계열/파생형</dt><dd>{variants.length}건</dd></div>
         <div><dt>전장 사례</dt><dd>{incidents.length}건</dd></div>
         <div><dt>연계 기술</dt><dd>{technologies.length}건</dd></div>
