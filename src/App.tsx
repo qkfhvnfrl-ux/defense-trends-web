@@ -39,6 +39,7 @@ type CatalogFilters = {
   country: FilterValue;
   status: FilterValue;
   variantMaturity: FilterValue;
+  confidence: FilterValue;
 };
 
 type FilterOptions = {
@@ -60,7 +61,8 @@ const defaultCatalogFilters: CatalogFilters = {
   role: "all",
   country: "all",
   status: "all",
-  variantMaturity: "all"
+  variantMaturity: "all",
+  confidence: "all"
 };
 
 const defaultSelectedEquipmentId = "m1a2-abrams";
@@ -85,6 +87,8 @@ const familyCategories: Record<Exclude<EquipmentFamily, "all">, EquipmentCategor
   wheeled: ["wheeled-apc", "artillery"],
   tracked: ["tank", "tracked-ifv", "tracked-apc", "air-defense"]
 };
+
+const confidenceOptions = ["High", "Medium", "Low"];
 
 const navItems = [
   { path: "/", label: "장비 검색" },
@@ -161,7 +165,8 @@ function readCatalogStateFromLocation(): CatalogUrlState {
       role: params.get("role") || "all",
       country: params.get("country") || "all",
       status: params.get("status") || "all",
-      variantMaturity: params.get("maturity") || "all"
+      variantMaturity: params.get("maturity") || "all",
+      confidence: params.get("confidence") || "all"
     },
     query: params.get("q") || "",
     selectedId: params.get("eq") || defaultSelectedEquipmentId
@@ -177,6 +182,7 @@ function buildCatalogHref(path: string, state: CatalogUrlState) {
   if (state.filters.country !== "all") params.set("country", state.filters.country);
   if (state.filters.status !== "all") params.set("status", state.filters.status);
   if (state.filters.variantMaturity !== "all") params.set("maturity", state.filters.variantMaturity);
+  if (state.filters.confidence !== "all") params.set("confidence", state.filters.confidence);
   if (state.selectedId !== defaultSelectedEquipmentId) params.set("eq", state.selectedId);
   const query = params.toString();
   return `${routeHref(path)}${query ? `?${query}` : ""}`;
@@ -315,6 +321,9 @@ export function App() {
       const matchesVariantMaturity =
         catalogFilters.variantMaturity === "all" ||
         itemVariants.some((variant) => variant.maturity === catalogFilters.variantMaturity);
+      const matchesConfidence =
+        catalogFilters.confidence === "all" ||
+        confidenceLabel(item.sourceConfidenceScore) === catalogFilters.confidence;
       const searchable = [
         item.name,
         item.country,
@@ -328,7 +337,7 @@ export function App() {
         itemVariants.map((variant) => `${variant.nameKo} ${variant.role} ${variant.armament} ${variant.maturity}`).join(" ")
       ].join(" ").toLowerCase();
       const matchesQuery = !normalizedQuery || searchable.includes(normalizedQuery);
-      return matchesFamily && matchesCategory && matchesRole && matchesCountry && matchesStatus && matchesVariantMaturity && matchesQuery;
+      return matchesFamily && matchesCategory && matchesRole && matchesCountry && matchesStatus && matchesVariantMaturity && matchesConfidence && matchesQuery;
     });
   }, [catalogFilters, category, data, family, query]);
 
@@ -666,6 +675,7 @@ function CatalogPage({
     filters.country !== "all",
     filters.status !== "all",
     filters.variantMaturity !== "all",
+    filters.confidence !== "all",
     query.trim().length > 0
   ].filter(Boolean).length;
   const variantCountByEquipment = variants.reduce<Record<string, number>>((accumulator, variant) => {
@@ -735,6 +745,13 @@ function CatalogPage({
               <select value={filters.variantMaturity} onChange={(event) => onFilterChange("variantMaturity", event.target.value)}>
                 <option value="all">전체 성숙도</option>
                 {filterOptions.variantMaturities.map((maturity) => <option key={maturity} value={maturity}>{maturity}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>출처 신뢰도</span>
+              <select value={filters.confidence} onChange={(event) => onFilterChange("confidence", event.target.value)}>
+                <option value="all">전체 신뢰도</option>
+                {confidenceOptions.map((confidence) => <option key={confidence} value={confidence}>{confidence}</option>)}
               </select>
             </label>
           </div>

@@ -155,3 +155,16 @@
   - E2E/디자인 검증에 신뢰도 배지와 확인일 라인 검증 추가
 - 검증:
   - `npm run quality` 통과
+## 2026-06-19 출처 신뢰도 필터 추가
+
+- 상태 전이: new_task -> planned -> executing -> verifying -> completed
+- 목표:
+  - 팀원이 검증 우선순위가 높은 장비를 빠르게 찾도록 출처 신뢰도 기준 필터를 제공한다.
+  - 신뢰도 필터도 검색 링크 공유와 새로고침 복원 대상에 포함한다.
+- 결과:
+  - 장비 검색 필터에 `출처 신뢰도` 선택 상자 추가
+  - `High`, `Medium`, `Low` 등급별 장비 검색 지원
+  - URL query string에 `confidence` 파라미터 추가
+  - E2E/디자인 검증에서 필터 5개, Low 신뢰도 결과 1건, URL 동기화 확인
+- 검증:
+  - `npm run quality` 통과

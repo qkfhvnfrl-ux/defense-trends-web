@@ -48,6 +48,10 @@ async function main() {
   await page.reload({ waitUntil: "networkidle" });
   desktop.reloadedRoleFilteredRows = await page.locator(".equipment-row").count();
   await page.getByRole("button", { name: "초기화" }).click();
+  await page.locator(".filter-grid select").nth(4).selectOption({ label: "Low" });
+  desktop.lowConfidenceRows = await page.locator(".equipment-row").count();
+  desktop.confidenceUrlHasParam = page.url().includes("confidence=Low");
+  await page.getByRole("button", { name: "초기화" }).click();
   const downloadPromise = page.waitForEvent("download");
   await page.getByRole("button", { name: "CSV 다운로드" }).click();
   const download = await downloadPromise;
@@ -84,12 +88,14 @@ async function main() {
   if (desktop.componentSlots < 1) throw new Error("Expected component spec slots");
   if (desktop.trustPills !== desktop.equipmentRows) throw new Error("Expected one source trust pill per equipment row");
   if (desktop.sourceQuicklines !== desktop.equipmentRows) throw new Error("Expected one source check line per equipment row");
-  if (desktop.filterSelects !== 4) throw new Error("Expected four catalog filter selects");
+  if (desktop.filterSelects !== 5) throw new Error("Expected five catalog filter selects");
   if (desktop.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktop.resultActionButtons !== 2) throw new Error("Expected result export actions");
   if (desktop.roleFilteredRows < 1 || desktop.roleFilteredRows >= desktop.equipmentRows) throw new Error("Expected role filter to narrow equipment rows");
   if (!desktop.roleUrlHasParam) throw new Error("Expected role filter in URL");
   if (desktop.reloadedRoleFilteredRows !== desktop.roleFilteredRows) throw new Error("Expected filtered search URL to restore after reload");
+  if (desktop.lowConfidenceRows < 1 || desktop.lowConfidenceRows >= desktop.equipmentRows) throw new Error("Expected confidence filter to narrow equipment rows");
+  if (!desktop.confidenceUrlHasParam) throw new Error("Expected confidence filter in URL");
   if (desktop.csvSuggestedFilename !== "equipment-search-results.csv") throw new Error("Expected CSV download filename");
   if (!desktop.koreanMapLabels.includes("우크라이나") || !desktop.koreanMapLabels.includes("유럽")) {
     throw new Error("Expected Korean map labels");

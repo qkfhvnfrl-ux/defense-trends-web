@@ -392,3 +392,50 @@ completed
 - 향후 데이터가 대량 확장되면 낮은 신뢰도 장비만 따로 보는 필터가 필요할 수 있다.
 
 ---
+## 2026-06-19 출처 신뢰도 필터 추가
+
+### 작업 상태
+
+completed
+
+### 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run validate:data
+& "C:\Program Files\nodejs\npm.cmd" run test
+& "C:\Program Files\nodejs\npm.cmd" run build
+& "C:\Program Files\nodejs\npm.cmd" run test:e2e
+& "C:\Program Files\nodejs\npm.cmd" run design:check
+& "C:\Program Files\nodejs\npm.cmd" run dev:check
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+### 수정 내역
+
+- `src/App.tsx`: `CatalogFilters.confidence` 추가
+- `src/App.tsx`: `confidence` URL query string 읽기/쓰기 추가
+- `src/App.tsx`: 신뢰도 등급별 검색 결과 필터링 추가
+- `src/App.tsx`: 검색 패널에 `출처 신뢰도` 선택 상자 추가
+- `scripts/verify-render.cjs`: 필터 5개, Low 신뢰도 필터, URL 동기화 검증 추가
+- `scripts/verify-design.cjs`: 필터 5개, Low 신뢰도 필터, URL 동기화 검증 추가
+
+### 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- `npm run validate:data`: 통과, 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+- `npm run test`: 통과, 2 files / 5 tests
+- `npm run build`: 통과, JS 417.41 kB / CSS 39.87 kB
+- `npm run test:e2e`: 통과, filterSelects 5 / lowConfidenceRows 1 / confidenceUrlHasParam true / 모바일 overflow 없음
+- `npm run design:check`: 통과, filterSelects 5 / lowConfidenceRows 1 / undersized controls 없음
+- `npm run dev:check`: 통과, 장비 15건 / 브라우저 오류 없음
+- `npm run quality`: 통과
+
+### 남은 리스크
+
+- 현재 Low 신뢰도 장비는 1건이므로 데이터가 늘어날수록 신뢰도 등급 분포를 재점검해야 한다.
+- 출처 신뢰도 점수 산정 자체는 아직 수동 데이터 기반이다.
+
+---

@@ -58,7 +58,7 @@ async function main() {
   if (desktopChecks.componentSpecPanels < 1) throw new Error("Expected component spec panel");
   if (desktopChecks.trustPills < 14) throw new Error("Expected source trust pills in equipment rows");
   if (desktopChecks.sourceQuicklines < 14) throw new Error("Expected source check dates in equipment rows");
-  if (desktopChecks.filterSelects !== 4) throw new Error("Expected four structured catalog filters");
+  if (desktopChecks.filterSelects !== 5) throw new Error("Expected five structured catalog filters");
   if (desktopChecks.activeFilterBars !== 1) throw new Error("Expected active filter summary bar");
   if (desktopChecks.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktopChecks.resultActionButtons !== 2) throw new Error("Expected two result export buttons");
@@ -67,6 +67,12 @@ async function main() {
   const countryFilteredRows = await desktop.locator(".equipment-row").count();
   if (countryFilteredRows < 1 || countryFilteredRows >= 15) throw new Error(`Expected country filter to narrow rows, found ${countryFilteredRows}`);
   if (!desktop.url().includes("country=")) throw new Error("Expected country filter to sync into URL");
+  await desktop.getByRole("button", { name: "초기화" }).click();
+
+  await desktop.locator(".filter-grid select").nth(4).selectOption({ label: "Low" });
+  const lowConfidenceRows = await desktop.locator(".equipment-row").count();
+  if (lowConfidenceRows < 1 || lowConfidenceRows >= 15) throw new Error(`Expected confidence filter to narrow rows, found ${lowConfidenceRows}`);
+  if (!desktop.url().includes("confidence=Low")) throw new Error("Expected confidence filter to sync into URL");
   await desktop.getByRole("button", { name: "초기화" }).click();
 
   await desktop.locator(".search-box input").fill("M1A2 Abrams");
@@ -96,7 +102,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, countryFilteredRows, filteredRows, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, countryFilteredRows, lowConfidenceRows, filteredRows, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {
