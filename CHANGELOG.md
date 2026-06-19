@@ -47,3 +47,15 @@
 - `/`, `/equipment`, `/equipment/:id`, `/compare`, `/technologies`, `/cases` 렌더링 확인
 - 모바일 가로 오버플로 없음
 - 실제 이미지 404 실패 0개
+# 변경 이력
+
+## 2026-06-19 운영 문서 체계 도입
+
+- `AGENTS.md`를 추가해 harness-based development loop를 프로젝트 기본 운영 방식으로 명시했다.
+- `PROJECT_STATE.md`를 추가해 목적, 기술 스택, 완료 기능, 위험 요소, 다음 우선순위를 기록했다.
+- `TASKS.md`를 추가해 상태 머신 기반 작업 목록을 기록하도록 했다.
+- `DECISIONS.md`를 추가해 주요 의사결정과 근거를 기록하도록 했다.
+- `EVIDENCE.md`를 추가해 검증 명령, 결과, 리스크를 기록하도록 했다.
+- 기존 앱 코드와 데이터 구조는 변경하지 않았다.
+
+---
