@@ -55,7 +55,9 @@ async function main() {
     activeFilterBars: await desktop.locator(".active-filter-bar").count(),
     shareButtons: await desktop.locator(".share-search-button").count(),
     resultActionButtons: await desktop.locator(".result-action-grid button").count(),
-    quickActionButtons: await desktop.locator(".catalog-summary-panel .quick-action-grid button").count()
+    quickActionButtons: await desktop.locator(".catalog-summary-panel .quick-action-grid button").count(),
+    shortlistPanels: await desktop.locator(".shortlist-panel").count(),
+    shortlistActionButtons: await desktop.locator(".shortlist-actions button").count()
   };
 
   if (desktopChecks.navButtons !== 3) throw new Error("Expected three primary navigation buttons");
@@ -77,7 +79,18 @@ async function main() {
   if (desktopChecks.activeFilterBars !== 1) throw new Error("Expected active filter summary bar");
   if (desktopChecks.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktopChecks.resultActionButtons !== 2) throw new Error("Expected two result export buttons");
-  if (desktopChecks.quickActionButtons !== 2) throw new Error("Expected two selected equipment quick actions");
+  if (desktopChecks.quickActionButtons !== 3) throw new Error("Expected three selected equipment quick actions");
+  if (desktopChecks.shortlistPanels !== 1) throw new Error("Expected selected equipment shortlist panel");
+  if (desktopChecks.shortlistActionButtons !== 2) throw new Error("Expected two shortlist action buttons");
+
+  await desktop.locator(".shortlist-toggle-button").click();
+  const shortlistItemsAfterAdd = await desktop.locator(".shortlist-item").count();
+  const shortlistEnabledActionsAfterAdd = await desktop.locator(".shortlist-actions button:not([disabled])").count();
+  if (shortlistItemsAfterAdd !== 1) throw new Error(`Expected shortlist add to create one item, found ${shortlistItemsAfterAdd}`);
+  if (shortlistEnabledActionsAfterAdd !== 2) throw new Error("Expected shortlist actions to enable after add");
+  await desktop.locator(".shortlist-actions button").nth(1).click();
+  const shortlistItemsAfterClear = await desktop.locator(".shortlist-item").count();
+  if (shortlistItemsAfterClear !== 0) throw new Error(`Expected shortlist clear to remove items, found ${shortlistItemsAfterClear}`);
 
   await desktop.locator(".team-queue-grid button").nth(1).click();
   await desktop.waitForSelector(".source-index-page", { timeout: 15000 });
@@ -178,7 +191,7 @@ async function main() {
     await assertNoHorizontalOverflow(page, label);
   }
 
-  const undersizedControls = await desktop.locator(".equipment-row, .team-queue-grid button, .catalog-preset-grid button, .segmented-control button, .filter-grid select, .active-filter-tags button, .active-filter-bar button, .share-search-button, .result-action-grid button, .quick-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
+  const undersizedControls = await desktop.locator(".equipment-row, .team-queue-grid button, .catalog-preset-grid button, .segmented-control button, .filter-grid select, .active-filter-tags button, .active-filter-bar button, .share-search-button, .result-action-grid button, .quick-action-grid button, .shortlist-open, .shortlist-remove, .shortlist-actions button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
     nodes
       .map((node) => {
         const rect = node.getBoundingClientRect();
@@ -193,7 +206,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, presetRowsAfterTagClear, presetFilterTagsAfterClear, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, compareCanonicalPath, casesCanonicalPath, sourceIndex, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, shortlistItemsAfterAdd, shortlistEnabledActionsAfterAdd, shortlistItemsAfterClear, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, presetRowsAfterTagClear, presetFilterTagsAfterClear, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, compareCanonicalPath, casesCanonicalPath, sourceIndex, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {

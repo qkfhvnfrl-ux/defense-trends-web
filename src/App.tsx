@@ -383,6 +383,16 @@ function buildSelectedEquipmentBrief(equipment: Equipment, variants: EquipmentVa
   return lines.join("\n");
 }
 
+function buildShortlistBrief(equipmentList: Equipment[], variants: EquipmentVariant[]) {
+  const variantCountByEquipment = getVariantCountByEquipment(variants);
+  const rows = equipmentList.map((item, index) => {
+    const variantCount = variantCountByEquipment[item.id] ?? 0;
+    const readiness = getDataReadiness(item, variantCount);
+    return `${index + 1}. ${item.name} | ${categoryLabels[item.category]} | ${item.originCountry} | ${item.roleTags.slice(0, 3).join(", ")} | 계열 ${variantCount}건 | 전장 사례 ${item.battlefieldCaseIds.length}건 | 출처 ${confidenceLabel(item.sourceConfidenceScore)} ${item.sourceConfidenceScore} | 데이터 ${readiness.label}`;
+  });
+  return [`[팀 후보 장비] ${equipmentList.length}건`, ...rows].join("\n");
+}
+
 function buildSourceSummary(sources: Array<{ title: string; url: string; type: string; checkedAt: string }>) {
   const rows = sources.map((source, index) => {
     const freshness = getSourceFreshness(source.checkedAt);
@@ -432,6 +442,8 @@ export function App() {
   const [shareStatus, setShareStatus] = useState("");
   const [exportStatus, setExportStatus] = useState("");
   const [briefStatus, setBriefStatus] = useState("");
+  const [shortlistStatus, setShortlistStatus] = useState("");
+  const [shortlistIds, setShortlistIds] = useState<string[]>([]);
   const canonicalPath = canonicalRouteFor(path);
 
   useEffect(() => {
@@ -564,6 +576,25 @@ export function App() {
     setSelectedComponent(null);
   }
 
+  function toggleShortlist(id: string) {
+    setShortlistStatus("");
+    setShortlistIds((current) => {
+      if (current.includes(id)) return current.filter((itemId) => itemId !== id);
+      const next = [...current, id];
+      return next.length > 6 ? next.slice(next.length - 6) : next;
+    });
+  }
+
+  function removeShortlistItem(id: string) {
+    setShortlistStatus("");
+    setShortlistIds((current) => current.filter((itemId) => itemId !== id));
+  }
+
+  function clearShortlist() {
+    setShortlistIds([]);
+    setShortlistStatus("");
+  }
+
   function applyCatalogPreset(preset: CatalogPreset) {
     setFamily(preset.family ?? "all");
     setCategory(preset.category ?? "all");
@@ -635,6 +666,9 @@ export function App() {
   const relatedComponents = data.components.filter((component) => component.equipmentId === selectedEquipment.id);
   const relatedVariants = data.variants.filter((variant) => variant.equipmentId === selectedEquipment.id);
   const relatedTechnologies = data.technologies.filter((technology) => technology.relatedEquipmentIds.includes(selectedEquipment.id));
+  const shortlistEquipment = shortlistIds
+    .map((id) => data.equipment.find((item) => item.id === id))
+    .filter((item): item is Equipment => Boolean(item));
 
   const equipmentPathMatch = canonicalPath.match(/^\/equipment\/([^/]+)$/);
   const routeSelectedEquipment = equipmentPathMatch
@@ -664,6 +698,25 @@ export function App() {
       setBriefStatus("브라우저에서 복사를 허용하지 않았습니다");
     }
     window.setTimeout(() => setBriefStatus(""), 2200);
+  }
+
+  async function copyShortlistBrief() {
+    if (!data) return;
+    const shortlistedEquipment = shortlistIds
+      .map((id) => data.equipment.find((item) => item.id === id))
+      .filter((item): item is Equipment => Boolean(item));
+    if (!shortlistedEquipment.length) {
+      setShortlistStatus("후보 목록이 비어 있습니다.");
+      window.setTimeout(() => setShortlistStatus(""), 2200);
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(buildShortlistBrief(shortlistedEquipment, data.variants));
+      setShortlistStatus("후보 목록 요약 복사됨");
+    } catch {
+      setShortlistStatus("브라우저에서 복사를 허용하지 않았습니다.");
+    }
+    window.setTimeout(() => setShortlistStatus(""), 2200);
   }
 
   return (
@@ -739,6 +792,9 @@ export function App() {
           shareStatus={shareStatus}
           exportStatus={exportStatus}
           briefStatus={briefStatus}
+          shortlistStatus={shortlistStatus}
+          shortlistEquipment={shortlistEquipment}
+          shortlistIds={shortlistIds}
           availableCategoryKeys={availableCategoryKeys}
           sources={uniqueSources}
           onFamilyChange={(nextFamily) => {
@@ -761,6 +817,10 @@ export function App() {
           onCopyResults={copyFilteredResults}
           onDownloadCsv={downloadFilteredCsv}
           onCopyBrief={copySelectedEquipmentBrief}
+          onToggleShortlist={toggleShortlist}
+          onRemoveShortlist={removeShortlistItem}
+          onClearShortlist={clearShortlist}
+          onCopyShortlist={copyShortlistBrief}
           onQueryChange={setQuery}
           onEquipmentSelect={selectEquipment}
           onEquipmentOpen={(id) => navigate(`/equipment/${id}`)}
@@ -847,6 +907,9 @@ function CatalogPage({
   shareStatus,
   exportStatus,
   briefStatus,
+  shortlistStatus,
+  shortlistEquipment,
+  shortlistIds,
   availableCategoryKeys,
   sources,
   onFamilyChange,
@@ -860,6 +923,10 @@ function CatalogPage({
   onCopyResults,
   onDownloadCsv,
   onCopyBrief,
+  onToggleShortlist,
+  onRemoveShortlist,
+  onClearShortlist,
+  onCopyShortlist,
   onQueryChange,
   onEquipmentSelect,
   onEquipmentOpen,
@@ -885,6 +952,9 @@ function CatalogPage({
   shareStatus: string;
   exportStatus: string;
   briefStatus: string;
+  shortlistStatus: string;
+  shortlistEquipment: Equipment[];
+  shortlistIds: string[];
   availableCategoryKeys: Array<EquipmentCategory | "all">;
   sources: Array<{ title: string; url: string; type: string; checkedAt: string }>;
   onFamilyChange: (family: EquipmentFamily) => void;
@@ -898,6 +968,10 @@ function CatalogPage({
   onCopyResults: () => void;
   onDownloadCsv: () => void;
   onCopyBrief: () => void;
+  onToggleShortlist: (id: string) => void;
+  onRemoveShortlist: (id: string) => void;
+  onClearShortlist: () => void;
+  onCopyShortlist: () => void;
   onQueryChange: (query: string) => void;
   onEquipmentSelect: (id: string) => void;
   onEquipmentOpen: (id: string) => void;
@@ -1114,7 +1188,15 @@ function CatalogPage({
           incidents={relatedIncidents}
           technologies={relatedTechnologies}
           briefStatus={briefStatus}
+          shortlistStatus={shortlistStatus}
+          shortlistEquipment={shortlistEquipment}
+          shortlistIds={shortlistIds}
+          allVariants={variants}
           onCopyBrief={onCopyBrief}
+          onToggleShortlist={onToggleShortlist}
+          onRemoveShortlist={onRemoveShortlist}
+          onClearShortlist={onClearShortlist}
+          onCopyShortlist={onCopyShortlist}
           onOpen={onEquipmentOpen}
         />
       </section>
@@ -1187,15 +1269,41 @@ function CatalogOverview({ equipment, variants, incidents, sources, onApplyPrese
   );
 }
 
-function CatalogQuickFacts({ equipment, variants, incidents, technologies, briefStatus, onCopyBrief, onOpen }: {
+function CatalogQuickFacts({
+  equipment,
+  variants,
+  incidents,
+  technologies,
+  briefStatus,
+  shortlistStatus,
+  shortlistEquipment,
+  shortlistIds,
+  allVariants,
+  onCopyBrief,
+  onToggleShortlist,
+  onRemoveShortlist,
+  onClearShortlist,
+  onCopyShortlist,
+  onOpen
+}: {
   equipment: Equipment;
   variants: EquipmentVariant[];
   incidents: BattlefieldCase[];
   technologies: BattlefieldTechnology[];
   briefStatus: string;
+  shortlistStatus: string;
+  shortlistEquipment: Equipment[];
+  shortlistIds: string[];
+  allVariants: EquipmentVariant[];
   onCopyBrief: () => void;
+  onToggleShortlist: (id: string) => void;
+  onRemoveShortlist: (id: string) => void;
+  onClearShortlist: () => void;
+  onCopyShortlist: () => void;
   onOpen: (id: string) => void;
 }) {
+  const isShortlisted = shortlistIds.includes(equipment.id);
+  const variantCountByEquipment = getVariantCountByEquipment(allVariants);
   return (
     <aside className="trend-panel catalog-summary-panel">
       <div className="panel-title">
@@ -1219,11 +1327,45 @@ function CatalogQuickFacts({ equipment, variants, incidents, technologies, brief
       </dl>
       <div className="quick-action-grid" aria-label="선택 장비 작업">
         <button type="button" onClick={onCopyBrief}>요약 복사</button>
+        <button className="shortlist-toggle-button" type="button" onClick={() => onToggleShortlist(equipment.id)}>
+          {isShortlisted ? "후보 제외" : "후보 추가"}
+        </button>
         <button className="primary-action" type="button" onClick={() => onOpen(equipment.id)}>
           상세 페이지 열기
         </button>
       </div>
       {briefStatus ? <p className="share-status" role="status">{briefStatus}</p> : null}
+      <div className="shortlist-panel" aria-label="팀 후보 목록">
+        <div className="shortlist-title">
+          <strong>팀 후보 목록</strong>
+          <span>{shortlistEquipment.length} / 6</span>
+        </div>
+        {shortlistEquipment.length ? (
+          <div className="shortlist-list">
+            {shortlistEquipment.map((item) => {
+              const variantCount = variantCountByEquipment[item.id] ?? 0;
+              return (
+                <div className="shortlist-item" key={item.id}>
+                  <button className="shortlist-open" type="button" onClick={() => onOpen(item.id)}>
+                    <strong>{item.name}</strong>
+                    <span>{categoryLabels[item.category]} · 계열 {variantCount}건 · 사례 {item.battlefieldCaseIds.length}건</span>
+                  </button>
+                  <button className="shortlist-remove" type="button" onClick={() => onRemoveShortlist(item.id)} aria-label={`${item.name} 후보 제거`}>
+                    해제
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="shortlist-empty">회의 후보로 볼 장비를 추가하세요.</p>
+        )}
+        <div className="shortlist-actions">
+          <button type="button" onClick={onCopyShortlist} disabled={!shortlistEquipment.length}>후보 요약 복사</button>
+          <button type="button" onClick={onClearShortlist} disabled={!shortlistEquipment.length}>비우기</button>
+        </div>
+        {shortlistStatus ? <p className="share-status shortlist-status" role="status">{shortlistStatus}</p> : null}
+      </div>
     </aside>
   );
 }

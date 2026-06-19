@@ -212,3 +212,10 @@ completed
 - 기존 공유 링크는 계속 열리며, `/compare?data=needs-review`처럼 검색 query string은 보존된다.
 - 검증 결과 `npm run quality`에서 routeChecks 최종 경로와 디자인 검증의 `compareCanonicalPath`, `casesCanonicalPath`를 확인했다.
 - GitHub Pages 공개 URL에서도 `/compare?data=needs-review`와 `/cases` canonical 동작을 Playwright로 확인했다.
+# 2026-06-20 상태 갱신: 팀 후보 목록 추가
+
+- 장비 검색 화면의 선택 장비 패널에 `팀 후보 목록`을 추가했다.
+- 사용자는 현재 선택 장비를 후보로 추가/제외하고, 후보를 열람하거나 비울 수 있다.
+- 후보 목록은 최대 6개까지 유지되어 회의용 비교 범위를 과도하게 넓히지 않는다.
+- 후보 요약 복사 기능으로 장비명, 분류, 원산국, 임무, 계열 수, 전장 사례 수, 출처 신뢰도, 데이터 상태를 공유할 수 있다.
+- 검증 결과 `npm run quality`에서 후보 추가/삭제/비우기, action 버튼 수, 모바일 가로 넘침 없음이 확인됐다.

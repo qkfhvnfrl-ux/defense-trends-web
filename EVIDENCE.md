@@ -963,3 +963,42 @@ completed
 ## 남은 리스크
 
 - 미추적 `ax-development-journey.html`은 이번 작업 범위에서 제외했다.
+# 2026-06-20 팀 후보 목록 추가
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+## 수정 내역
+
+- `src/App.tsx`: 후보 목록 상태와 후보 요약 복사 로직 추가
+- `src/App.tsx`: 선택 장비 패널에 `후보 추가/후보 제외`, `팀 후보 목록`, 후보 제거/비우기/요약 복사 UI 추가
+- `src/styles.css`: 후보 목록 패널, 후보 행, 후보 action 버튼 스타일 추가
+- `scripts/verify-render.cjs`: 후보 패널 수, 후보 추가/삭제/비우기, action 활성화 검증 추가
+- `scripts/verify-design.cjs`: 후보 UI 수, action 활성화, 버튼 크기 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 최초 `npm run quality`: 샌드박스 상위 디렉터리 접근 제한으로 Vitest/esbuild가 `vite.config.ts` 로드 실패
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 432.89 kB / CSS 45.79 kB
+  - test:e2e 통과: quickActionButtons 3 / shortlistPanels 1 / shortlistItemsAfterAdd 1 / shortlistItemsAfterRemove 0 / shortlistItemsAfterClear 0
+  - design:check 통과: shortlistItemsAfterAdd 1 / shortlistEnabledActionsAfterAdd 2 / shortlistItemsAfterClear 0 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- 후보 목록은 현재 브라우저 세션 상태이며 URL 공유나 영구 저장은 아직 포함하지 않는다.
+- 미추적 `ax-development-journey.html`은 이번 작업 범위에서 제외했다.

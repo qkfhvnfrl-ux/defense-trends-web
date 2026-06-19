@@ -44,12 +44,23 @@ async function main() {
     shareButtons: await page.locator(".share-search-button").count(),
     resultActionButtons: await page.locator(".result-action-grid button").count(),
     quickActionButtons: await page.locator(".catalog-summary-panel .quick-action-grid button").count(),
+    shortlistPanels: await page.locator(".shortlist-panel").count(),
+    shortlistItemsInitial: await page.locator(".shortlist-item").count(),
+    shortlistActionButtons: await page.locator(".shortlist-actions button").count(),
     koreanMapLabels: await page.locator(".korean-region-label").evaluateAll((nodes) =>
       nodes.map((node) => node.textContent?.trim()).filter(Boolean)
     ),
     modalTitle: await page.locator(".component-modal h2").innerText()
   };
   await page.locator(".icon-close").click();
+  await page.locator(".shortlist-toggle-button").click();
+  desktop.shortlistItemsAfterAdd = await page.locator(".shortlist-item").count();
+  desktop.shortlistEnabledActionsAfterAdd = await page.locator(".shortlist-actions button:not([disabled])").count();
+  await page.locator(".shortlist-remove").first().click();
+  desktop.shortlistItemsAfterRemove = await page.locator(".shortlist-item").count();
+  await page.locator(".shortlist-toggle-button").click();
+  await page.locator(".shortlist-actions button").nth(1).click();
+  desktop.shortlistItemsAfterClear = await page.locator(".shortlist-item").count();
   await page.locator(".team-queue-grid button").nth(1).click();
   await page.waitForSelector(".source-index-page", { timeout: 15000 });
   desktop.sourceQueueUrlHasFreshness = page.url().includes("freshness=stale");
@@ -154,7 +165,14 @@ async function main() {
   if (desktop.teamQueueButtons !== 4) throw new Error("Expected four team queue buttons");
   if (desktop.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktop.resultActionButtons !== 2) throw new Error("Expected result export actions");
-  if (desktop.quickActionButtons !== 2) throw new Error("Expected two selected equipment quick actions");
+  if (desktop.quickActionButtons !== 3) throw new Error("Expected three selected equipment quick actions");
+  if (desktop.shortlistPanels !== 1) throw new Error("Expected selected equipment shortlist panel");
+  if (desktop.shortlistItemsInitial !== 0) throw new Error("Expected empty shortlist on first load");
+  if (desktop.shortlistActionButtons !== 2) throw new Error("Expected two shortlist actions");
+  if (desktop.shortlistItemsAfterAdd !== 1) throw new Error("Expected shortlist add to create one item");
+  if (desktop.shortlistEnabledActionsAfterAdd !== 2) throw new Error("Expected shortlist actions to enable after add");
+  if (desktop.shortlistItemsAfterRemove !== 0) throw new Error("Expected shortlist remove to clear the item");
+  if (desktop.shortlistItemsAfterClear !== 0) throw new Error("Expected shortlist clear to remove all items");
   if (!desktop.sourceQueueUrlHasFreshness) throw new Error("Expected source review queue to open stale source filter");
   if (desktop.sourceQueueCards < 1 && desktop.sourceQueueEmptyStates < 1) throw new Error("Expected source review queue to show cards or an empty state");
   if (desktop.presetNeedsReviewRows < 1 || desktop.presetNeedsReviewRows >= desktop.equipmentRows) throw new Error("Expected preset to narrow equipment rows");
