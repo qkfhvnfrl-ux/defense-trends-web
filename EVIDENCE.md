@@ -1017,3 +1017,42 @@ completed
   - enabledActions 2
   - shortlist afterClear 0
   - horizontal overflow 없음
+# 2026-06-20 후보 목록 공유 URL 지원
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+## 수정 내역
+
+- `src/App.tsx`: `CatalogUrlState`에 `shortlistIds` 추가
+- `src/App.tsx`: `shortlist` query string 파싱/생성 추가
+- `src/App.tsx`: 후보 목록 초기화, popstate 복원, URL 동기화, 검색 링크 복사에 후보 목록 포함
+- `scripts/verify-render.cjs`: 후보 추가 URL 동기화, 제거/비우기 query 제거, 공유 URL 복원 검증 추가
+- `scripts/verify-design.cjs`: 후보 URL 동기화와 공유 URL 복원 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 최초 `npm run quality`: 샌드박스 상위 디렉터리 접근 제한으로 Vitest/esbuild가 `vite.config.ts` 로드 실패
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 433.17 kB / CSS 45.79 kB
+  - test:e2e 통과: shortlistUrlAfterAdd `?shortlist=m1a2-abrams`, remove/clear 후 query 제거, 공유 URL `boxer,leopard-2a7` 2건 복원
+  - design:check 통과: shortlistItemsFromUrl 2 / shortlist URL add-clear 동기화 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- 후보 목록은 URL query string 길이에 맞는 경량 후보 공유용이다. 대량 후보 저장이나 사용자별 저장은 아직 포함하지 않는다.
+- 미추적 `ax-development-journey.html`은 이번 작업 범위에서 제외했다.

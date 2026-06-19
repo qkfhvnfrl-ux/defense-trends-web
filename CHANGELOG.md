@@ -275,3 +275,15 @@
 - `npm run quality` 통과를 확인했다.
 
 ---
+# 변경사항 요약
+
+## 2026-06-20 후보 목록 공유 URL 지원
+
+- 팀 후보 목록을 `shortlist` URL query string과 동기화했다.
+- 후보 추가 시 URL에 후보 장비 ID가 반영된다.
+- 후보 제거 또는 비우기 시 URL의 `shortlist` 조건이 제거된다.
+- 공유 URL 예: `/?shortlist=boxer,leopard-2a7`로 들어오면 후보 목록이 복원된다.
+- 렌더/디자인 검증에 후보 URL 동기화와 공유 URL 복원 검증을 추가했다.
+- `npm run quality` 통과를 확인했다.
+
+---

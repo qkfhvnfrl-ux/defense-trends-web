@@ -220,3 +220,10 @@ completed
 - 후보 요약 복사 기능으로 장비명, 분류, 원산국, 임무, 계열 수, 전장 사례 수, 출처 신뢰도, 데이터 상태를 공유할 수 있다.
 - 검증 결과 `npm run quality`에서 후보 추가/삭제/비우기, action 버튼 수, 모바일 가로 넘침 없음이 확인됐다.
 - GitHub Pages 공개 URL에서도 후보 추가/비우기와 가로 넘침 없음이 확인됐다.
+# 2026-06-20 상태 갱신: 후보 목록 공유 URL 지원
+
+- 팀 후보 목록이 검색 URL의 `shortlist` query string과 동기화된다.
+- 후보를 추가하면 예: `?shortlist=m1a2-abrams`가 URL에 반영되고, 후보 제거/비우기 시 query가 제거된다.
+- 공유 URL 예: `?shortlist=boxer,leopard-2a7`로 접속하면 팀 후보 목록에 Boxer와 Leopard 2A7이 복원된다.
+- 기존 검색 조건, 선택 장비, 정렬 조건과 같은 공유 링크 구조를 그대로 확장했다.
+- 검증 결과 `npm run quality`에서 후보 URL 동기화, 공유 URL 복원, 모바일 가로 넘침 없음이 확인됐다.

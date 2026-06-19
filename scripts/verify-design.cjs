@@ -86,11 +86,23 @@ async function main() {
   await desktop.locator(".shortlist-toggle-button").click();
   const shortlistItemsAfterAdd = await desktop.locator(".shortlist-item").count();
   const shortlistEnabledActionsAfterAdd = await desktop.locator(".shortlist-actions button:not([disabled])").count();
+  const shortlistUrlAfterAdd = desktop.url();
   if (shortlistItemsAfterAdd !== 1) throw new Error(`Expected shortlist add to create one item, found ${shortlistItemsAfterAdd}`);
   if (shortlistEnabledActionsAfterAdd !== 2) throw new Error("Expected shortlist actions to enable after add");
+  if (!shortlistUrlAfterAdd.includes("shortlist=")) throw new Error("Expected shortlist add to sync into URL");
   await desktop.locator(".shortlist-actions button").nth(1).click();
   const shortlistItemsAfterClear = await desktop.locator(".shortlist-item").count();
+  const shortlistUrlAfterClear = desktop.url();
   if (shortlistItemsAfterClear !== 0) throw new Error(`Expected shortlist clear to remove items, found ${shortlistItemsAfterClear}`);
+  if (shortlistUrlAfterClear.includes("shortlist=")) throw new Error("Expected shortlist clear to remove URL param");
+  await desktop.goto(new URL("/?shortlist=boxer,leopard-2a7", desktop.url()).href, { waitUntil: "networkidle" });
+  await desktop.waitForSelector(".equipment-row", { timeout: 15000 });
+  const shortlistItemsFromUrl = await desktop.locator(".shortlist-item").count();
+  const shortlistTextFromUrl = await desktop.locator(".shortlist-panel").innerText();
+  if (shortlistItemsFromUrl !== 2) throw new Error(`Expected shared shortlist URL to restore two items, found ${shortlistItemsFromUrl}`);
+  if (!shortlistTextFromUrl.includes("Boxer") || !shortlistTextFromUrl.includes("Leopard 2A7")) {
+    throw new Error("Expected shared shortlist URL to restore selected equipment names");
+  }
 
   await desktop.locator(".team-queue-grid button").nth(1).click();
   await desktop.waitForSelector(".source-index-page", { timeout: 15000 });
@@ -206,7 +218,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, shortlistItemsAfterAdd, shortlistEnabledActionsAfterAdd, shortlistItemsAfterClear, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, presetRowsAfterTagClear, presetFilterTagsAfterClear, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, compareCanonicalPath, casesCanonicalPath, sourceIndex, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, shortlistItemsAfterAdd, shortlistEnabledActionsAfterAdd, shortlistUrlAfterAdd, shortlistItemsAfterClear, shortlistUrlAfterClear, shortlistItemsFromUrl, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, presetRowsAfterTagClear, presetFilterTagsAfterClear, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, compareCanonicalPath, casesCanonicalPath, sourceIndex, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {

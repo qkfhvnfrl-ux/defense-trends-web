@@ -71,6 +71,7 @@ type CatalogUrlState = {
   sortMode: CatalogSortMode;
   query: string;
   selectedId: string;
+  shortlistIds: string[];
 };
 
 const defaultCatalogFilters: CatalogFilters = {
@@ -259,6 +260,11 @@ function canonicalRouteFor(path: string) {
   return path;
 }
 
+function parseShortlistIds(value: string | null) {
+  if (!value) return [];
+  return Array.from(new Set(value.split(",").map((id) => id.trim()).filter(Boolean))).slice(0, 6);
+}
+
 function readCatalogStateFromLocation(): CatalogUrlState {
   const params = new URLSearchParams(window.location.search);
   const family = params.get("family");
@@ -279,7 +285,8 @@ function readCatalogStateFromLocation(): CatalogUrlState {
     },
     sortMode: isCatalogSortMode(sort) ? sort : defaultCatalogSortMode,
     query: params.get("q") || "",
-    selectedId: params.get("eq") || defaultSelectedEquipmentId
+    selectedId: params.get("eq") || defaultSelectedEquipmentId,
+    shortlistIds: parseShortlistIds(params.get("shortlist"))
   };
 }
 
@@ -297,6 +304,7 @@ function buildCatalogHref(path: string, state: CatalogUrlState) {
   if (state.filters.dataStatus !== "all") params.set("data", state.filters.dataStatus);
   if (state.sortMode !== defaultCatalogSortMode) params.set("sort", state.sortMode);
   if (state.selectedId !== defaultSelectedEquipmentId) params.set("eq", state.selectedId);
+  if (state.shortlistIds.length) params.set("shortlist", state.shortlistIds.join(","));
   const query = params.toString();
   return `${routeHref(path)}${query ? `?${query}` : ""}`;
 }
@@ -443,7 +451,7 @@ export function App() {
   const [exportStatus, setExportStatus] = useState("");
   const [briefStatus, setBriefStatus] = useState("");
   const [shortlistStatus, setShortlistStatus] = useState("");
-  const [shortlistIds, setShortlistIds] = useState<string[]>([]);
+  const [shortlistIds, setShortlistIds] = useState<string[]>(initialCatalogState.shortlistIds);
   const canonicalPath = canonicalRouteFor(path);
 
   useEffect(() => {
@@ -462,6 +470,7 @@ export function App() {
       setSortMode(nextCatalogState.sortMode);
       setQuery(nextCatalogState.query);
       setSelectedId(nextCatalogState.selectedId);
+      setShortlistIds(nextCatalogState.shortlistIds);
     };
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
@@ -482,13 +491,14 @@ export function App() {
       filters: catalogFilters,
       sortMode,
       query,
-      selectedId
+      selectedId,
+      shortlistIds
     });
     const currentHref = `${window.location.pathname}${window.location.search}`;
     if (currentHref !== nextHref) {
       window.history.replaceState(null, "", nextHref);
     }
-  }, [canonicalPath, catalogFilters, category, family, query, selectedId, sortMode]);
+  }, [canonicalPath, catalogFilters, category, family, query, selectedId, shortlistIds, sortMode]);
 
   const filteredEquipment = useMemo(() => {
     if (!data) return [];
@@ -614,7 +624,8 @@ export function App() {
       filters: catalogFilters,
       sortMode,
       query,
-      selectedId
+      selectedId,
+      shortlistIds
     });
     const fullUrl = new URL(href, window.location.origin).href;
     try {

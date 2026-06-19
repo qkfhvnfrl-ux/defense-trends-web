@@ -417,3 +417,27 @@
   - `npm run typecheck` 통과
   - `npm run lint` 통과
   - 권한 상승 후 `npm run quality` 통과
+# 2026-06-20 후보 목록 공유 URL 지원
+
+## 진행 중 작업
+
+- 없음
+
+## 완료 작업
+
+### 2026-06-20 후보 목록 공유 URL 지원
+
+- 상태 전이: new_task -> planned -> executing -> verifying -> completed
+- 목표:
+  - 팀 후보 목록을 새로고침과 링크 공유 후에도 복원되게 한다.
+  - 기존 검색 공유 URL 구조를 유지하면서 후보 목록만 추가한다.
+- 결과:
+  - `shortlist` query string 추가
+  - 후보 추가 시 URL 동기화
+  - 후보 제거/비우기 시 URL query 제거
+  - 공유 URL 직접 진입 시 후보 목록 복원
+  - e2e/design 검증에 URL 동기화와 복원 조건 추가
+- 검증:
+  - `npm run typecheck` 통과
+  - `npm run lint` 통과
+  - 권한 상승 후 `npm run quality` 통과

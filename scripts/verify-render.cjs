@@ -56,11 +56,18 @@ async function main() {
   await page.locator(".shortlist-toggle-button").click();
   desktop.shortlistItemsAfterAdd = await page.locator(".shortlist-item").count();
   desktop.shortlistEnabledActionsAfterAdd = await page.locator(".shortlist-actions button:not([disabled])").count();
+  desktop.shortlistUrlAfterAdd = page.url();
   await page.locator(".shortlist-remove").first().click();
   desktop.shortlistItemsAfterRemove = await page.locator(".shortlist-item").count();
+  desktop.shortlistUrlAfterRemove = page.url();
   await page.locator(".shortlist-toggle-button").click();
   await page.locator(".shortlist-actions button").nth(1).click();
   desktop.shortlistItemsAfterClear = await page.locator(".shortlist-item").count();
+  desktop.shortlistUrlAfterClear = page.url();
+  await page.goto(`${baseUrl}/?shortlist=boxer,leopard-2a7`, { waitUntil: "networkidle" });
+  await page.waitForSelector(".equipment-row", { timeout: 15000 });
+  desktop.shortlistItemsFromUrl = await page.locator(".shortlist-item").count();
+  desktop.shortlistTextFromUrl = await page.locator(".shortlist-panel").innerText();
   await page.locator(".team-queue-grid button").nth(1).click();
   await page.waitForSelector(".source-index-page", { timeout: 15000 });
   desktop.sourceQueueUrlHasFreshness = page.url().includes("freshness=stale");
@@ -171,8 +178,15 @@ async function main() {
   if (desktop.shortlistActionButtons !== 2) throw new Error("Expected two shortlist actions");
   if (desktop.shortlistItemsAfterAdd !== 1) throw new Error("Expected shortlist add to create one item");
   if (desktop.shortlistEnabledActionsAfterAdd !== 2) throw new Error("Expected shortlist actions to enable after add");
+  if (!desktop.shortlistUrlAfterAdd.includes("shortlist=")) throw new Error("Expected shortlist add to sync into URL");
   if (desktop.shortlistItemsAfterRemove !== 0) throw new Error("Expected shortlist remove to clear the item");
+  if (desktop.shortlistUrlAfterRemove.includes("shortlist=")) throw new Error("Expected shortlist remove to clear URL param");
   if (desktop.shortlistItemsAfterClear !== 0) throw new Error("Expected shortlist clear to remove all items");
+  if (desktop.shortlistUrlAfterClear.includes("shortlist=")) throw new Error("Expected shortlist clear to remove URL param");
+  if (desktop.shortlistItemsFromUrl !== 2) throw new Error("Expected shared shortlist URL to restore two items");
+  if (!desktop.shortlistTextFromUrl.includes("Boxer") || !desktop.shortlistTextFromUrl.includes("Leopard 2A7")) {
+    throw new Error("Expected shared shortlist URL to restore selected equipment names");
+  }
   if (!desktop.sourceQueueUrlHasFreshness) throw new Error("Expected source review queue to open stale source filter");
   if (desktop.sourceQueueCards < 1 && desktop.sourceQueueEmptyStates < 1) throw new Error("Expected source review queue to show cards or an empty state");
   if (desktop.presetNeedsReviewRows < 1 || desktop.presetNeedsReviewRows >= desktop.equipmentRows) throw new Error("Expected preset to narrow equipment rows");
