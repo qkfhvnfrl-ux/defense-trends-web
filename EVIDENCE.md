@@ -1002,3 +1002,18 @@ completed
 
 - 후보 목록은 현재 브라우저 세션 상태이며 URL 공유나 영구 저장은 아직 포함하지 않는다.
 - 미추적 `ax-development-journey.html`은 이번 작업 범위에서 제외했다.
+
+## 배포 검증
+
+- main 커밋: `5a24510` (`Add team equipment shortlist`)
+- gh-pages 커밋: `21ea5de` (`Deploy team equipment shortlist`)
+- GitHub Pages build: `built`
+- 공개 HTML 조회: `https://qkfhvnfrl-ux.github.io/defense-trends-web/?deployCheck=21ea5de` status 200
+- 공개 JS asset: `assets/index-JnQzQEGo.js`
+- 공개 CSS asset: `assets/index-DOE9sDjZ.css`
+- 공개 Playwright 검증:
+  - shortlist initial 0
+  - shortlist afterAdd 1
+  - enabledActions 2
+  - shortlist afterClear 0
+  - horizontal overflow 없음
