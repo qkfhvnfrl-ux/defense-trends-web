@@ -227,3 +227,4 @@ completed
 - 공유 URL 예: `?shortlist=boxer,leopard-2a7`로 접속하면 팀 후보 목록에 Boxer와 Leopard 2A7이 복원된다.
 - 기존 검색 조건, 선택 장비, 정렬 조건과 같은 공유 링크 구조를 그대로 확장했다.
 - 검증 결과 `npm run quality`에서 후보 URL 동기화, 공유 URL 복원, 모바일 가로 넘침 없음이 확인됐다.
+- GitHub Pages 공개 URL에서도 공유 후보 URL 복원, 비우기 후 query 제거, 재추가 후 query 반영을 Playwright로 확인했다.

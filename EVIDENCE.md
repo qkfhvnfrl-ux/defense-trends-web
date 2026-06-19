@@ -1056,3 +1056,16 @@ completed
 
 - 후보 목록은 URL query string 길이에 맞는 경량 후보 공유용이다. 대량 후보 저장이나 사용자별 저장은 아직 포함하지 않는다.
 - 미추적 `ax-development-journey.html`은 이번 작업 범위에서 제외했다.
+
+## 배포 검증
+
+- main 커밋: `3d52fb2` (`Sync shortlist with shared URLs`)
+- gh-pages 커밋: `9fb78ba` (`Deploy shared shortlist URLs`)
+- GitHub Pages build: `built`
+- 공개 HTML 조회: `https://qkfhvnfrl-ux.github.io/defense-trends-web/?deployCheck=9fb78ba` status 200
+- 공개 JS asset: `assets/index-CifoxJpY.js`
+- 공개 Playwright 검증:
+  - `?shortlist=boxer,leopard-2a7` 접속 시 후보 2건 복원
+  - Boxer / Leopard 2A7 텍스트 확인
+  - 비우기 후 URL에서 `shortlist` 제거
+  - 후보 추가 후 URL에 `shortlist=m1a2-abrams` 반영
