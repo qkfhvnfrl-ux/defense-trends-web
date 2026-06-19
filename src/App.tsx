@@ -837,25 +837,35 @@ function CatalogPage({
           </div>
           {exportStatus ? <p className="share-status" role="status">{exportStatus}</p> : null}
           <div className="equipment-list">
-            {filteredEquipment.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className={`equipment-row ${item.id === selectedEquipment.id ? "active" : ""}`}
-                onClick={() => onEquipmentSelect(item.id)}
-                onDoubleClick={() => onEquipmentOpen(item.id)}
-              >
-                <span className="equipment-row-heading">
-                  <strong>{item.name}</strong>
-                  <b className={`trust-pill ${confidenceClass(item.sourceConfidenceScore)}`}>
-                    출처 {confidenceLabel(item.sourceConfidenceScore)} {item.sourceConfidenceScore}
-                  </b>
-                </span>
-                <small>{item.country} · {categoryLabels[item.category]}</small>
-                <em>{item.roleTags.slice(0, 3).join(" / ")} · 계열 {variantCountByEquipment[item.id] ?? 0}건</em>
-                <small className="source-quickline">공개 출처 {item.sources.length}건 · 최근 확인 {latestSourceCheckDate(item)}</small>
-              </button>
-            ))}
+            {filteredEquipment.map((item) => {
+              const variantCount = variantCountByEquipment[item.id] ?? 0;
+              const sourceCheckDate = latestSourceCheckDate(item);
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={`equipment-row ${item.id === selectedEquipment.id ? "active" : ""}`}
+                  onClick={() => onEquipmentSelect(item.id)}
+                  onDoubleClick={() => onEquipmentOpen(item.id)}
+                >
+                  <span className="equipment-row-heading">
+                    <strong>{item.name}</strong>
+                    <b className={`trust-pill ${confidenceClass(item.sourceConfidenceScore)}`}>
+                      출처 {confidenceLabel(item.sourceConfidenceScore)} {item.sourceConfidenceScore}
+                    </b>
+                  </span>
+                  <small>{item.country} · {categoryLabels[item.category]}</small>
+                  <em>{item.roleTags.slice(0, 3).join(" / ")} · 계열 {variantCount}건</em>
+                  <span className="equipment-metric-strip" aria-label={`${item.name} 핵심 지표`}>
+                    <span><b>{item.operatorCountries.length}</b><small>운용국</small></span>
+                    <span><b>{variantCount}</b><small>계열</small></span>
+                    <span><b>{item.battlefieldCaseIds.length}</b><small>전장 사례</small></span>
+                    <span><b>{item.sources.length}</b><small>출처</small></span>
+                  </span>
+                  <small className="source-quickline">공개 출처 {item.sources.length}건 · 최근 확인 {sourceCheckDate}</small>
+                </button>
+              );
+            })}
             {!filteredEquipment.length ? <p className="empty-state">검색 조건에 맞는 장비가 없습니다.</p> : null}
           </div>
         </aside>

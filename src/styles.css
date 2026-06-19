@@ -576,6 +576,41 @@ a {
   line-height: 1.35;
 }
 
+.equipment-metric-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.equipment-metric-strip span {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+  padding: 6px 5px;
+  border: 1px solid rgba(22, 74, 67, 0.1);
+  border-radius: 6px;
+  background: rgba(246, 248, 246, 0.86);
+  text-align: center;
+}
+
+.equipment-metric-strip b {
+  color: var(--green-deep);
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.equipment-metric-strip small {
+  overflow: hidden;
+  color: #68756e;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .empty-state {
   margin: 0;
   padding: 16px;

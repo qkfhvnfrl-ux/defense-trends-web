@@ -127,6 +127,22 @@
 ## 실패 작업
 
 - 없음
+
+## 2026-06-19 검색 결과 핵심 지표 스트립 추가
+
+- 상태 전이: new_task -> planned -> executing -> verifying -> completed
+- 목표:
+  - 팀원이 검색 결과 목록만 보고도 장비별 운용국, 계열/파생형, 전장 사례, 공개 출처 규모를 빠르게 비교할 수 있게 한다.
+  - 데이터 구조 변경 없이 기존 `equipment`, `variants`, `battlefieldCaseIds`, `sources` 데이터를 재사용한다.
+- 결과:
+  - 장비 검색 결과 행마다 핵심 지표 스트립을 추가했다.
+  - 지표 항목은 `운용국`, `계열`, `전장 사례`, `출처` 4개로 고정했다.
+  - 렌더/디자인 검증에 지표 스트립과 셀 개수 검증을 추가했다.
+- 검증:
+  - `npm run typecheck` 통과
+  - `npm run lint` 통과
+  - sandbox 내부 `npm run quality`는 Vitest/Vite 설정 로드 권한 문제로 실패
+  - 권한 상승 후 `npm run quality` 통과
 ## 2026-06-19 3D 준비 영역 제거 및 공개 장치 스펙 패널 전환
 
 - 상태 전이: new_task -> planned -> executing -> verifying -> completed

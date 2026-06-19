@@ -44,6 +44,8 @@ async function main() {
     componentSpecPanels: await desktop.locator(".component-spec-panel").count(),
     trustPills: await desktop.locator(".equipment-row .trust-pill").count(),
     sourceQuicklines: await desktop.locator(".equipment-row .source-quickline").count(),
+    metricStrips: await desktop.locator(".equipment-row .equipment-metric-strip").count(),
+    metricCells: await desktop.locator(".equipment-row .equipment-metric-strip > span").count(),
     filterSelects: await desktop.locator(".filter-grid select").count(),
     activeFilterBars: await desktop.locator(".active-filter-bar").count(),
     shareButtons: await desktop.locator(".share-search-button").count(),
@@ -58,6 +60,8 @@ async function main() {
   if (desktopChecks.componentSpecPanels < 1) throw new Error("Expected component spec panel");
   if (desktopChecks.trustPills < 14) throw new Error("Expected source trust pills in equipment rows");
   if (desktopChecks.sourceQuicklines < 14) throw new Error("Expected source check dates in equipment rows");
+  if (desktopChecks.metricStrips < 14) throw new Error("Expected metric strips in equipment rows");
+  if (desktopChecks.metricCells < desktopChecks.metricStrips * 4) throw new Error("Expected four metric cells in each equipment row");
   if (desktopChecks.filterSelects !== 7) throw new Error("Expected seven structured catalog filters");
   if (desktopChecks.activeFilterBars !== 1) throw new Error("Expected active filter summary bar");
   if (desktopChecks.shareButtons !== 1) throw new Error("Expected share search button");
