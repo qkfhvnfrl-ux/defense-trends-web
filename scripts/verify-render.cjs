@@ -43,6 +43,7 @@ async function main() {
     teamQueueButtons: await page.locator(".team-queue-grid button").count(),
     shareButtons: await page.locator(".share-search-button").count(),
     resultActionButtons: await page.locator(".result-action-grid button").count(),
+    quickActionButtons: await page.locator(".catalog-summary-panel .quick-action-grid button").count(),
     koreanMapLabels: await page.locator(".korean-region-label").evaluateAll((nodes) =>
       nodes.map((node) => node.textContent?.trim()).filter(Boolean)
     ),
@@ -147,6 +148,7 @@ async function main() {
   if (desktop.teamQueueButtons !== 4) throw new Error("Expected four team queue buttons");
   if (desktop.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktop.resultActionButtons !== 2) throw new Error("Expected result export actions");
+  if (desktop.quickActionButtons !== 2) throw new Error("Expected two selected equipment quick actions");
   if (!desktop.sourceQueueUrlHasFreshness) throw new Error("Expected source review queue to open stale source filter");
   if (desktop.sourceQueueCards < 1 && desktop.sourceQueueEmptyStates < 1) throw new Error("Expected source review queue to show cards or an empty state");
   if (desktop.presetNeedsReviewRows < 1 || desktop.presetNeedsReviewRows >= desktop.equipmentRows) throw new Error("Expected preset to narrow equipment rows");

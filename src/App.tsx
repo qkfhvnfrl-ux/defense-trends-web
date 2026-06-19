@@ -357,6 +357,26 @@ function buildEquipmentCsv(equipmentList: Equipment[], variants: EquipmentVarian
   ].join("\r\n");
 }
 
+function buildSelectedEquipmentBrief(equipment: Equipment, variants: EquipmentVariant[], incidents: BattlefieldCase[], technologies: BattlefieldTechnology[]) {
+  const readiness = getDataReadiness(equipment, variants.length);
+  const lines = [
+    `[장비 요약] ${equipment.name}`,
+    `분류: ${categoryLabels[equipment.category]}`,
+    `국가/원산국: ${equipment.country} / ${equipment.originCountry}`,
+    `제조사: ${equipment.manufacturer}`,
+    `운용 상태: ${equipment.status}`,
+    `핵심 임무: ${equipment.roleTags.slice(0, 4).join(", ") || "미기재"}`,
+    `계열/파생형: ${variants.length}건`,
+    `전장 사례: ${incidents.length}건`,
+    `연계 기술: ${technologies.length}건`,
+    `출처 신뢰도: ${confidenceLabel(equipment.sourceConfidenceScore)} ${equipment.sourceConfidenceScore}`,
+    `데이터 상태: ${readiness.label}${readiness.reasons.length ? ` (${readiness.reasons.join("; ")})` : ""}`,
+    `최근 출처 확인: ${latestSourceCheckDate(equipment)}`,
+    `요약: ${equipment.summaryKo}`
+  ];
+  return lines.join("\n");
+}
+
 function buildSourceSummary(sources: Array<{ title: string; url: string; type: string; checkedAt: string }>) {
   const rows = sources.map((source, index) => {
     const freshness = getSourceFreshness(source.checkedAt);
@@ -405,6 +425,7 @@ export function App() {
   const [selectedComponent, setSelectedComponent] = useState<ComponentSpec | null>(null);
   const [shareStatus, setShareStatus] = useState("");
   const [exportStatus, setExportStatus] = useState("");
+  const [briefStatus, setBriefStatus] = useState("");
 
   useEffect(() => {
     loadAppData().then(setData).catch((reason: unknown) => {
@@ -621,6 +642,17 @@ export function App() {
     return path === "/" || path === "/equipment" || path === "/compare" || Boolean(equipmentPathMatch);
   }
 
+  async function copySelectedEquipmentBrief() {
+    const brief = buildSelectedEquipmentBrief(selectedEquipment, relatedVariants, relatedIncidents, relatedTechnologies);
+    try {
+      await navigator.clipboard.writeText(brief);
+      setBriefStatus("선택 장비 요약 복사됨");
+    } catch {
+      setBriefStatus("브라우저에서 복사를 허용하지 않았습니다");
+    }
+    window.setTimeout(() => setBriefStatus(""), 2200);
+  }
+
   return (
     <main className="app-shell">
       <nav className="site-nav" aria-label="주요 메뉴">
@@ -693,6 +725,7 @@ export function App() {
           query={query}
           shareStatus={shareStatus}
           exportStatus={exportStatus}
+          briefStatus={briefStatus}
           availableCategoryKeys={availableCategoryKeys}
           sources={uniqueSources}
           onFamilyChange={(nextFamily) => {
@@ -714,6 +747,7 @@ export function App() {
           onShareSearch={copySearchLink}
           onCopyResults={copyFilteredResults}
           onDownloadCsv={downloadFilteredCsv}
+          onCopyBrief={copySelectedEquipmentBrief}
           onQueryChange={setQuery}
           onEquipmentSelect={selectEquipment}
           onEquipmentOpen={(id) => navigate(`/equipment/${id}`)}
@@ -799,6 +833,7 @@ function CatalogPage({
   query,
   shareStatus,
   exportStatus,
+  briefStatus,
   availableCategoryKeys,
   sources,
   onFamilyChange,
@@ -811,6 +846,7 @@ function CatalogPage({
   onShareSearch,
   onCopyResults,
   onDownloadCsv,
+  onCopyBrief,
   onQueryChange,
   onEquipmentSelect,
   onEquipmentOpen,
@@ -835,6 +871,7 @@ function CatalogPage({
   query: string;
   shareStatus: string;
   exportStatus: string;
+  briefStatus: string;
   availableCategoryKeys: Array<EquipmentCategory | "all">;
   sources: Array<{ title: string; url: string; type: string; checkedAt: string }>;
   onFamilyChange: (family: EquipmentFamily) => void;
@@ -847,6 +884,7 @@ function CatalogPage({
   onShareSearch: () => void;
   onCopyResults: () => void;
   onDownloadCsv: () => void;
+  onCopyBrief: () => void;
   onQueryChange: (query: string) => void;
   onEquipmentSelect: (id: string) => void;
   onEquipmentOpen: (id: string) => void;
@@ -1044,7 +1082,15 @@ function CatalogPage({
           />
         </section>
 
-        <CatalogQuickFacts equipment={selectedEquipment} variants={relatedVariants} incidents={relatedIncidents} technologies={relatedTechnologies} onOpen={onEquipmentOpen} />
+        <CatalogQuickFacts
+          equipment={selectedEquipment}
+          variants={relatedVariants}
+          incidents={relatedIncidents}
+          technologies={relatedTechnologies}
+          briefStatus={briefStatus}
+          onCopyBrief={onCopyBrief}
+          onOpen={onEquipmentOpen}
+        />
       </section>
 
       <section className="detail-grid">
@@ -1115,11 +1161,13 @@ function CatalogOverview({ equipment, variants, incidents, sources, onApplyPrese
   );
 }
 
-function CatalogQuickFacts({ equipment, variants, incidents, technologies, onOpen }: {
+function CatalogQuickFacts({ equipment, variants, incidents, technologies, briefStatus, onCopyBrief, onOpen }: {
   equipment: Equipment;
   variants: EquipmentVariant[];
   incidents: BattlefieldCase[];
   technologies: BattlefieldTechnology[];
+  briefStatus: string;
+  onCopyBrief: () => void;
   onOpen: (id: string) => void;
 }) {
   return (
@@ -1143,9 +1191,13 @@ function CatalogQuickFacts({ equipment, variants, incidents, technologies, onOpe
         <div><dt>전장 사례</dt><dd>{incidents.length}건</dd></div>
         <div><dt>연계 기술</dt><dd>{technologies.length}건</dd></div>
       </dl>
-      <button className="primary-action" type="button" onClick={() => onOpen(equipment.id)}>
-        상세 페이지 열기
-      </button>
+      <div className="quick-action-grid" aria-label="선택 장비 작업">
+        <button type="button" onClick={onCopyBrief}>요약 복사</button>
+        <button className="primary-action" type="button" onClick={() => onOpen(equipment.id)}>
+          상세 페이지 열기
+        </button>
+      </div>
+      {briefStatus ? <p className="share-status" role="status">{briefStatus}</p> : null}
     </aside>
   );
 }

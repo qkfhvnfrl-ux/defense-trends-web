@@ -54,7 +54,8 @@ async function main() {
     teamQueueButtons: await desktop.locator(".team-queue-grid button").count(),
     activeFilterBars: await desktop.locator(".active-filter-bar").count(),
     shareButtons: await desktop.locator(".share-search-button").count(),
-    resultActionButtons: await desktop.locator(".result-action-grid button").count()
+    resultActionButtons: await desktop.locator(".result-action-grid button").count(),
+    quickActionButtons: await desktop.locator(".catalog-summary-panel .quick-action-grid button").count()
   };
 
   if (desktopChecks.navButtons !== 3) throw new Error("Expected three primary navigation buttons");
@@ -76,6 +77,7 @@ async function main() {
   if (desktopChecks.activeFilterBars !== 1) throw new Error("Expected active filter summary bar");
   if (desktopChecks.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktopChecks.resultActionButtons !== 2) throw new Error("Expected two result export buttons");
+  if (desktopChecks.quickActionButtons !== 2) throw new Error("Expected two selected equipment quick actions");
 
   await desktop.locator(".team-queue-grid button").nth(1).click();
   await desktop.waitForSelector(".source-index-page", { timeout: 15000 });
@@ -156,7 +158,7 @@ async function main() {
     await assertNoHorizontalOverflow(page, label);
   }
 
-  const undersizedControls = await desktop.locator(".equipment-row, .team-queue-grid button, .catalog-preset-grid button, .segmented-control button, .filter-grid select, .active-filter-bar button, .share-search-button, .result-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
+  const undersizedControls = await desktop.locator(".equipment-row, .team-queue-grid button, .catalog-preset-grid button, .segmented-control button, .filter-grid select, .active-filter-bar button, .share-search-button, .result-action-grid button, .quick-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
     nodes
       .map((node) => {
         const rect = node.getBoundingClientRect();

@@ -309,6 +309,21 @@ a {
   text-align: right;
 }
 
+.quick-action-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.quick-action-grid button {
+  min-height: 42px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #fbfcfb;
+  color: var(--green-deep);
+  font-weight: 900;
+}
+
 .primary-action {
   width: 100%;
   min-height: 42px;
@@ -2000,6 +2015,7 @@ a {
   .component-slot-list,
   .source-action-grid,
   .source-health-strip,
+  .quick-action-grid,
   .result-action-grid {
     grid-template-columns: 1fr;
   }

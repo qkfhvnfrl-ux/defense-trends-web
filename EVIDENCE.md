@@ -1,3 +1,40 @@
+# 2026-06-20 선택 장비 요약 복사 추가
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+```
+
+## 수정 내역
+
+- `src/App.tsx`: 선택 장비 요약 텍스트 생성 함수 추가
+- `src/App.tsx`: 선택 장비 요약 복사 상태와 Clipboard API 처리 추가
+- `src/App.tsx`: 선택 장비 패널에 `요약 복사`, `상세 페이지 열기` 작업 버튼 추가
+- `src/styles.css`: 선택 장비 빠른 작업 버튼 레이아웃 추가
+- `scripts/verify-render.cjs`: 선택 장비 빠른 작업 버튼 2개 검증 추가
+- `scripts/verify-design.cjs`: 선택 장비 빠른 작업 버튼 2개와 컨트롤 크기 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 428.26 kB / CSS 43.91 kB
+  - test:e2e 통과: quickActionButtons 2 / equipmentRows 15 / browser errors 없음
+  - design:check 통과: quickActionButtons 2 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- Clipboard API는 브라우저 권한에 따라 실패할 수 있으며, 실패 시 상태 메시지로 안내한다.
+
 # 2026-06-20 중복 상단 메뉴 축소
 
 ## 작업 상태
