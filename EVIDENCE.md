@@ -949,7 +949,17 @@ completed
   - design:check 통과: compareCanonicalPath `/`, casesCanonicalPath `/insights`
   - dev:check 통과: browser errors 없음
 
+## 배포 검증
+
+- main 커밋: `3b1749c` (`Canonicalize legacy routes`)
+- gh-pages 커밋: `7802a4d` (`Deploy canonical legacy routes`)
+- GitHub Pages build: `built`
+- 공개 HTML 조회: `https://qkfhvnfrl-ux.github.io/defense-trends-web/?deployCheck=7802a4d` status 200
+- 공개 JS asset: `assets/index-DhlUAwCU.js`
+- 공개 Playwright 검증:
+  - `/defense-trends-web/compare?data=needs-review` -> `/defense-trends-web/?data=needs-review`
+  - `/defense-trends-web/cases` -> `/defense-trends-web/insights`
+
 ## 남은 리스크
 
-- 아직 공개 GitHub Pages 배포 전 상태다. 커밋, push, gh-pages 배포 후 공개 URL에서 재확인해야 한다.
 - 미추적 `ax-development-journey.html`은 이번 작업 범위에서 제외했다.

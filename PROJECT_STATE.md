@@ -211,3 +211,4 @@ completed
 - `/development`, `/technologies`, `/cases`는 전장 인사이트 `/insights`로 canonical 처리한다.
 - 기존 공유 링크는 계속 열리며, `/compare?data=needs-review`처럼 검색 query string은 보존된다.
 - 검증 결과 `npm run quality`에서 routeChecks 최종 경로와 디자인 검증의 `compareCanonicalPath`, `casesCanonicalPath`를 확인했다.
+- GitHub Pages 공개 URL에서도 `/compare?data=needs-review`와 `/cases` canonical 동작을 Playwright로 확인했다.
