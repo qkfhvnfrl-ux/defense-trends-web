@@ -1395,6 +1395,23 @@ a {
   font-weight: 900;
 }
 
+.source-action-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.source-action-grid button {
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid rgba(47, 117, 105, 0.28);
+  border-radius: 7px;
+  background: var(--green-soft);
+  color: var(--green-deep);
+  font-weight: 900;
+}
+
 .source-cards a,
 .comparable-grid button {
   display: grid;
@@ -1896,6 +1913,7 @@ a {
   .catalog-overview,
   .catalog-stat-grid,
   .component-slot-list,
+  .source-action-grid,
   .source-health-strip,
   .result-action-grid {
     grid-template-columns: 1fr;

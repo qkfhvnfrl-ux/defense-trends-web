@@ -6,6 +6,23 @@
 
 ## 완료 작업
 
+### 2026-06-19 출처 필터 결과 내보내기 추가
+
+- 상태 전이: new_task -> planned -> executing -> verifying -> completed
+- 목표:
+  - 팀원이 `/sources`에서 필터링한 출처 목록을 회의/점검 요청에 바로 붙일 수 있게 한다.
+  - 필터 결과를 CSV로 저장해 별도 표 작업에 사용할 수 있게 한다.
+- 결과:
+  - `출처 요약 복사` 버튼 추가
+  - `출처 CSV 다운로드` 버튼 추가
+  - CSV 파일명 `source-index-results.csv` 고정
+  - 현재 필터 결과 기준으로 요약/CSV 생성
+  - E2E/디자인 검증에 출처 내보내기 버튼과 CSV 파일명 검증 추가
+- 검증:
+  - `npm run typecheck` 통과
+  - `npm run lint` 통과
+  - 권한 상승 후 `npm run quality` 통과
+
 ### 2026-06-19 출처 인덱스 필터/확인 상태 추가
 
 - 상태 전이: new_task -> planned -> executing -> verifying -> completed

@@ -1,3 +1,43 @@
+# 2026-06-19 출처 필터 결과 내보내기 추가
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+## 수정 내역
+
+- `src/App.tsx`: 필터링된 출처 결과 요약 생성 함수 추가
+- `src/App.tsx`: 필터링된 출처 결과 CSV 생성 및 다운로드 추가
+- `src/App.tsx`: `/sources` 화면에 `출처 요약 복사`, `출처 CSV 다운로드` 버튼 및 상태 메시지 추가
+- `src/styles.css`: 출처 내보내기 버튼 레이아웃 추가
+- `scripts/verify-render.cjs`: 출처 내보내기 버튼 2개와 `source-index-results.csv` 다운로드 파일명 검증 추가
+- `scripts/verify-design.cjs`: 출처 내보내기 버튼 2개와 컨트롤 크기 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 424.51 kB / CSS 42.36 kB
+  - test:e2e 통과: sourceActionButtons 2 / csvSuggestedFilename `source-index-results.csv`
+  - design:check 통과: sourceActionButtons 2 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- Clipboard API는 브라우저 권한에 따라 실패할 수 있으며, 이 경우 CSV 다운로드를 대체 수단으로 안내한다.
+- CSV에는 정적 데이터의 확인 상태만 포함되며 실제 접속 실패 여부는 `sources:check` 결과와 별도다.
+
 # 2026-06-19 출처 인덱스 필터/확인 상태 추가
 
 ## 작업 상태

@@ -314,6 +314,26 @@ function buildEquipmentCsv(equipmentList: Equipment[], variants: EquipmentVarian
   ].join("\r\n");
 }
 
+function buildSourceSummary(sources: Array<{ title: string; url: string; type: string; checkedAt: string }>) {
+  const rows = sources.map((source, index) => {
+    const freshness = getSourceFreshness(source.checkedAt);
+    return `${index + 1}. ${source.title} | ${source.type} | ${freshness.label} | 확인 ${source.checkedAt} | ${source.url}`;
+  });
+  return [`출처 인덱스 결과 ${sources.length}건`, ...rows].join("\n");
+}
+
+function buildSourceCsv(sources: Array<{ title: string; url: string; type: string; checkedAt: string }>) {
+  const headers = ["제목", "유형", "확인일", "확인 상태", "URL"];
+  const rows = sources.map((source) => {
+    const freshness = getSourceFreshness(source.checkedAt);
+    return [source.title, source.type, source.checkedAt, freshness.label, source.url];
+  });
+  return [
+    headers.map(escapeCsv).join(","),
+    ...rows.map((row) => row.map(escapeCsv).join(","))
+  ].join("\r\n");
+}
+
 function ScoreBar({ label, value, reason }: { label: string; value: number; reason?: string }) {
   return (
     <div className="score-item">
@@ -1198,6 +1218,7 @@ function SourceIndexPage({ sources, equipment }: { sources: Array<{ title: strin
   const [sourceQuery, setSourceQuery] = useState("");
   const [sourceType, setSourceType] = useState("all");
   const [freshness, setFreshness] = useState("all");
+  const [sourceExportStatus, setSourceExportStatus] = useState("");
   const sourceTypes = Array.from(new Set(sources.map((source) => source.type))).sort((a, b) => a.localeCompare(b));
   const freshnessByUrl = Object.fromEntries(sources.map((source) => [source.url, getSourceFreshness(source.checkedAt)]));
   const filteredSources = sources.filter((source) => {
@@ -1211,6 +1232,29 @@ function SourceIndexPage({ sources, equipment }: { sources: Array<{ title: strin
   });
   const currentSources = sources.filter((source) => freshnessByUrl[source.url].status === "current").length;
   const staleSources = sources.length - currentSources;
+
+  async function copySourceResults() {
+    const summary = buildSourceSummary(filteredSources);
+    try {
+      await navigator.clipboard.writeText(summary);
+      setSourceExportStatus("출처 요약을 복사했습니다.");
+    } catch {
+      setSourceExportStatus("브라우저 권한 때문에 복사하지 못했습니다. CSV 다운로드를 사용하세요.");
+    }
+  }
+
+  function downloadSourceCsv() {
+    const csv = `\uFEFF${buildSourceCsv(filteredSources)}`;
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = "source-index-results.csv";
+    anchor.click();
+    URL.revokeObjectURL(url);
+    setSourceExportStatus("출처 CSV를 생성했습니다.");
+  }
+
   return (
     <section className="source-index-page">
       <div className="section-heading">
@@ -1260,6 +1304,11 @@ function SourceIndexPage({ sources, equipment }: { sources: Array<{ title: strin
           setFreshness("all");
         }}>초기화</button>
       </div>
+      <div className="source-action-grid" aria-label="출처 결과 내보내기">
+        <button type="button" onClick={copySourceResults}>출처 요약 복사</button>
+        <button type="button" onClick={downloadSourceCsv}>출처 CSV 다운로드</button>
+      </div>
+      {sourceExportStatus ? <p className="share-status" role="status">{sourceExportStatus}</p> : null}
       <div className="source-cards reference-grid">
         {filteredSources.map((source) => (
           <a key={source.url} className="source-card" href={source.url} target="_blank" rel="noreferrer">

@@ -86,13 +86,18 @@ async function main() {
     sourceCards: await page.locator(".source-card").count(),
     sourceFilterInputs: await page.locator(".source-filter-bar input").count(),
     sourceFilterSelects: await page.locator(".source-filter-bar select").count(),
-    sourceHealthStats: await page.locator(".source-health-strip span").count()
+    sourceHealthStats: await page.locator(".source-health-strip span").count(),
+    sourceActionButtons: await page.locator(".source-action-grid button").count()
   };
   await page.locator(".source-filter-bar select").first().selectOption({ label: "Official" });
   sourceIndex.officialCards = await page.locator(".source-card").count();
   await page.locator(".source-filter-bar button").click();
   await page.locator(".source-filter-bar input").fill("Rheinmetall");
   sourceIndex.searchFilteredCards = await page.locator(".source-card").count();
+  const sourceDownloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "출처 CSV 다운로드" }).click();
+  const sourceDownload = await sourceDownloadPromise;
+  sourceIndex.csvSuggestedFilename = sourceDownload.suggestedFilename();
 
   const mobile = await browser.newPage({ viewport: { width: 390, height: 900 } });
   await mobile.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
@@ -139,8 +144,10 @@ async function main() {
   if (sourceIndex.sourceFilterInputs !== 1) throw new Error("Expected source search input");
   if (sourceIndex.sourceFilterSelects !== 2) throw new Error("Expected source filter selects");
   if (sourceIndex.sourceHealthStats !== 3) throw new Error("Expected source health stats");
+  if (sourceIndex.sourceActionButtons !== 2) throw new Error("Expected source export action buttons");
   if (sourceIndex.officialCards < 1 || sourceIndex.officialCards >= sourceIndex.sourceCards) throw new Error("Expected source type filter to narrow cards");
   if (sourceIndex.searchFilteredCards < 1 || sourceIndex.searchFilteredCards >= sourceIndex.sourceCards) throw new Error("Expected source search to narrow cards");
+  if (sourceIndex.csvSuggestedFilename !== "source-index-results.csv") throw new Error("Expected source CSV download filename");
   if (!desktop.koreanMapLabels.includes("우크라이나") || !desktop.koreanMapLabels.includes("유럽")) {
     throw new Error("Expected Korean map labels");
   }

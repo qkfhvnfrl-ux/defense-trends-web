@@ -109,7 +109,8 @@ async function main() {
     sourceCards: await desktop.locator(".source-card").count(),
     sourceFilterInputs: await desktop.locator(".source-filter-bar input").count(),
     sourceFilterSelects: await desktop.locator(".source-filter-bar select").count(),
-    sourceHealthStats: await desktop.locator(".source-health-strip span").count()
+    sourceHealthStats: await desktop.locator(".source-health-strip span").count(),
+    sourceActionButtons: await desktop.locator(".source-action-grid button").count()
   };
   await desktop.locator(".source-filter-bar select").first().selectOption({ label: "Official" });
   sourceIndex.officialCards = await desktop.locator(".source-card").count();
@@ -120,6 +121,7 @@ async function main() {
   if (sourceIndex.sourceFilterInputs !== 1) throw new Error("Expected source search input");
   if (sourceIndex.sourceFilterSelects !== 2) throw new Error("Expected source filter selects");
   if (sourceIndex.sourceHealthStats !== 3) throw new Error("Expected source health stats");
+  if (sourceIndex.sourceActionButtons !== 2) throw new Error("Expected source export action buttons");
   if (sourceIndex.officialCards < 1 || sourceIndex.officialCards >= sourceIndex.sourceCards) throw new Error("Expected source type filter to narrow cards");
   if (sourceIndex.searchFilteredCards < 1 || sourceIndex.searchFilteredCards >= sourceIndex.sourceCards) throw new Error("Expected source search to narrow cards");
 
@@ -131,7 +133,7 @@ async function main() {
     await assertNoHorizontalOverflow(page, label);
   }
 
-  const undersizedControls = await desktop.locator(".equipment-row, .segmented-control button, .filter-grid select, .active-filter-bar button, .share-search-button, .result-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button").evaluateAll((nodes) =>
+  const undersizedControls = await desktop.locator(".equipment-row, .segmented-control button, .filter-grid select, .active-filter-bar button, .share-search-button, .result-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
     nodes
       .map((node) => {
         const rect = node.getBoundingClientRect();
