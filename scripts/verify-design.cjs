@@ -43,7 +43,8 @@ async function main() {
     panelCounters: await desktop.locator(".panel-title span").count(),
     modelSlots: await desktop.locator(".model-slot").count(),
     filterSelects: await desktop.locator(".filter-grid select").count(),
-    activeFilterBars: await desktop.locator(".active-filter-bar").count()
+    activeFilterBars: await desktop.locator(".active-filter-bar").count(),
+    shareButtons: await desktop.locator(".share-search-button").count()
   };
 
   if (desktopChecks.kpis !== 4) throw new Error("Expected 4 KPI cards");
@@ -54,11 +55,13 @@ async function main() {
   if (desktopChecks.modelSlots < 1) throw new Error("Expected simplified model slot");
   if (desktopChecks.filterSelects !== 4) throw new Error("Expected four structured catalog filters");
   if (desktopChecks.activeFilterBars !== 1) throw new Error("Expected active filter summary bar");
+  if (desktopChecks.shareButtons !== 1) throw new Error("Expected share search button");
 
   await desktop.locator(".filter-grid select").nth(1).selectOption({ label: "독일" });
   const countryFilteredRows = await desktop.locator(".equipment-row").count();
   if (countryFilteredRows < 1 || countryFilteredRows >= 15) throw new Error(`Expected country filter to narrow rows, found ${countryFilteredRows}`);
-  await desktop.locator(".active-filter-bar button").click();
+  if (!desktop.url().includes("country=")) throw new Error("Expected country filter to sync into URL");
+  await desktop.getByRole("button", { name: "초기화" }).click();
 
   await desktop.locator(".search-box input").fill("M1A2 Abrams");
   const filteredRows = await desktop.locator(".equipment-row").count();
@@ -72,7 +75,7 @@ async function main() {
     await assertNoHorizontalOverflow(page, label);
   }
 
-  const undersizedControls = await desktop.locator(".equipment-row, .segmented-control button, .filter-grid select, .active-filter-bar button, .component-slot").evaluateAll((nodes) =>
+  const undersizedControls = await desktop.locator(".equipment-row, .segmented-control button, .filter-grid select, .active-filter-bar button, .share-search-button, .component-slot").evaluateAll((nodes) =>
     nodes
       .map((node) => {
         const rect = node.getBoundingClientRect();

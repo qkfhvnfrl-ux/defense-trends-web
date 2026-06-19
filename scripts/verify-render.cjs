@@ -32,6 +32,7 @@ async function main() {
     modelSlots: await page.locator(".model-slot").count(),
     componentSlots: await page.locator(".component-slot").count(),
     filterSelects: await page.locator(".filter-grid select").count(),
+    shareButtons: await page.locator(".share-search-button").count(),
     koreanMapLabels: await page.locator(".korean-region-label").evaluateAll((nodes) =>
       nodes.map((node) => node.textContent?.trim()).filter(Boolean)
     ),
@@ -40,7 +41,10 @@ async function main() {
   await page.locator(".icon-close").click();
   await page.locator(".filter-grid select").first().selectOption({ label: "대드론/단거리방공" });
   desktop.roleFilteredRows = await page.locator(".equipment-row").count();
-  await page.locator(".active-filter-bar button").click();
+  desktop.roleUrlHasParam = page.url().includes("role=");
+  await page.reload({ waitUntil: "networkidle" });
+  desktop.reloadedRoleFilteredRows = await page.locator(".equipment-row").count();
+  await page.getByRole("button", { name: "초기화" }).click();
 
   const routeChecks = [];
   for (const route of ["/", "/equipment", "/equipment/m2a2-bradley", "/insights", "/sources", "/development", "/compare", "/technologies", "/cases"]) {
@@ -72,7 +76,10 @@ async function main() {
   if (desktop.modelSlots < 1) throw new Error("Expected simplified 3D model slot");
   if (desktop.componentSlots < 1) throw new Error("Expected component spec slots");
   if (desktop.filterSelects !== 4) throw new Error("Expected four catalog filter selects");
+  if (desktop.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktop.roleFilteredRows < 1 || desktop.roleFilteredRows >= desktop.equipmentRows) throw new Error("Expected role filter to narrow equipment rows");
+  if (!desktop.roleUrlHasParam) throw new Error("Expected role filter in URL");
+  if (desktop.reloadedRoleFilteredRows !== desktop.roleFilteredRows) throw new Error("Expected filtered search URL to restore after reload");
   if (!desktop.koreanMapLabels.includes("우크라이나") || !desktop.koreanMapLabels.includes("유럽")) {
     throw new Error("Expected Korean map labels");
   }

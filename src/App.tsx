@@ -48,6 +48,23 @@ type FilterOptions = {
   variantMaturities: string[];
 };
 
+type CatalogUrlState = {
+  family: EquipmentFamily;
+  category: EquipmentCategory | "all";
+  filters: CatalogFilters;
+  query: string;
+  selectedId: string;
+};
+
+const defaultCatalogFilters: CatalogFilters = {
+  role: "all",
+  country: "all",
+  status: "all",
+  variantMaturity: "all"
+};
+
+const defaultSelectedEquipmentId = "m1a2-abrams";
+
 const categoryLabels: Record<EquipmentCategory | "all", string> = {
   all: "전체",
   "wheeled-apc": "차륜형 장갑차",
@@ -112,6 +129,50 @@ function uniqueSorted(values: string[]) {
   return Array.from(new Set(values.filter(Boolean))).sort((a, b) => a.localeCompare(b, "ko"));
 }
 
+function isEquipmentFamily(value: string | null): value is EquipmentFamily {
+  return value === "all" || value === "wheeled" || value === "tracked";
+}
+
+function isEquipmentCategory(value: string | null): value is EquipmentCategory | "all" {
+  return Boolean(value && value in categoryLabels);
+}
+
+function isCatalogPath(path: string) {
+  return path === "/" || path === "/equipment" || path === "/compare";
+}
+
+function readCatalogStateFromLocation(): CatalogUrlState {
+  const params = new URLSearchParams(window.location.search);
+  const family = params.get("family");
+  const category = params.get("category");
+  return {
+    family: isEquipmentFamily(family) ? family : "all",
+    category: isEquipmentCategory(category) ? category : "all",
+    filters: {
+      role: params.get("role") || "all",
+      country: params.get("country") || "all",
+      status: params.get("status") || "all",
+      variantMaturity: params.get("maturity") || "all"
+    },
+    query: params.get("q") || "",
+    selectedId: params.get("eq") || defaultSelectedEquipmentId
+  };
+}
+
+function buildCatalogHref(path: string, state: CatalogUrlState) {
+  const params = new URLSearchParams();
+  if (state.query.trim()) params.set("q", state.query.trim());
+  if (state.family !== "all") params.set("family", state.family);
+  if (state.category !== "all") params.set("category", state.category);
+  if (state.filters.role !== "all") params.set("role", state.filters.role);
+  if (state.filters.country !== "all") params.set("country", state.filters.country);
+  if (state.filters.status !== "all") params.set("status", state.filters.status);
+  if (state.filters.variantMaturity !== "all") params.set("maturity", state.filters.variantMaturity);
+  if (state.selectedId !== defaultSelectedEquipmentId) params.set("eq", state.selectedId);
+  const query = params.toString();
+  return `${routeHref(path)}${query ? `?${query}` : ""}`;
+}
+
 function ScoreBar({ label, value, reason }: { label: string; value: number; reason?: string }) {
   return (
     <div className="score-item">
@@ -126,21 +187,18 @@ function ScoreBar({ label, value, reason }: { label: string; value: number; reas
 }
 
 export function App() {
+  const [initialCatalogState] = useState(() => readCatalogStateFromLocation());
   const [data, setData] = useState<AppData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [path, setPath] = useState(() => normalizeRoute(window.location.pathname));
-  const [family, setFamily] = useState<EquipmentFamily>("all");
-  const [category, setCategory] = useState<EquipmentCategory | "all">("all");
-  const [catalogFilters, setCatalogFilters] = useState<CatalogFilters>({
-    role: "all",
-    country: "all",
-    status: "all",
-    variantMaturity: "all"
-  });
-  const [query, setQuery] = useState("");
-  const [selectedId, setSelectedId] = useState("m1a2-abrams");
+  const [family, setFamily] = useState<EquipmentFamily>(initialCatalogState.family);
+  const [category, setCategory] = useState<EquipmentCategory | "all">(initialCatalogState.category);
+  const [catalogFilters, setCatalogFilters] = useState<CatalogFilters>(initialCatalogState.filters);
+  const [query, setQuery] = useState(initialCatalogState.query);
+  const [selectedId, setSelectedId] = useState(initialCatalogState.selectedId);
   const [selectedIncidentId, setSelectedIncidentId] = useState<string | null>(null);
   const [selectedComponent, setSelectedComponent] = useState<ComponentSpec | null>(null);
+  const [shareStatus, setShareStatus] = useState("");
 
   useEffect(() => {
     loadAppData().then(setData).catch((reason: unknown) => {
@@ -149,10 +207,34 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    const onPopState = () => setPath(normalizeRoute(window.location.pathname));
+    const onPopState = () => {
+      const nextCatalogState = readCatalogStateFromLocation();
+      setPath(normalizeRoute(window.location.pathname));
+      setFamily(nextCatalogState.family);
+      setCategory(nextCatalogState.category);
+      setCatalogFilters(nextCatalogState.filters);
+      setQuery(nextCatalogState.query);
+      setSelectedId(nextCatalogState.selectedId);
+    };
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
+
+  useEffect(() => {
+    if (!isCatalogPath(path)) return;
+    const catalogPath = path === "/equipment" ? "/equipment" : "/";
+    const nextHref = buildCatalogHref(catalogPath, {
+      family,
+      category,
+      filters: catalogFilters,
+      query,
+      selectedId
+    });
+    const currentHref = `${window.location.pathname}${window.location.search}`;
+    if (currentHref !== nextHref) {
+      window.history.replaceState(null, "", nextHref);
+    }
+  }, [catalogFilters, category, family, path, query, selectedId]);
 
   const filteredEquipment = useMemo(() => {
     if (!data) return [];
@@ -222,6 +304,25 @@ export function App() {
   function selectEquipment(id: string) {
     setSelectedId(id);
     setSelectedComponent(null);
+  }
+
+  async function copySearchLink() {
+    const catalogPath = path === "/equipment" ? "/equipment" : "/";
+    const href = buildCatalogHref(catalogPath, {
+      family,
+      category,
+      filters: catalogFilters,
+      query,
+      selectedId
+    });
+    const fullUrl = new URL(href, window.location.origin).href;
+    try {
+      await navigator.clipboard.writeText(fullUrl);
+      setShareStatus("검색 링크 복사됨");
+    } catch {
+      setShareStatus("브라우저에서 URL을 직접 복사하세요");
+    }
+    window.setTimeout(() => setShareStatus(""), 2200);
   }
 
   if (error) {
@@ -328,6 +429,7 @@ export function App() {
           filters={catalogFilters}
           filterOptions={filterOptions}
           query={query}
+          shareStatus={shareStatus}
           availableCategoryKeys={availableCategoryKeys}
           sources={uniqueSources}
           onFamilyChange={(nextFamily) => {
@@ -339,9 +441,10 @@ export function App() {
           onResetFilters={() => {
             setFamily("all");
             setCategory("all");
-            setCatalogFilters({ role: "all", country: "all", status: "all", variantMaturity: "all" });
+            setCatalogFilters(defaultCatalogFilters);
             setQuery("");
           }}
+          onShareSearch={copySearchLink}
           onQueryChange={setQuery}
           onEquipmentSelect={selectEquipment}
           onEquipmentOpen={(id) => navigate(`/equipment/${id}`)}
@@ -424,12 +527,14 @@ function CatalogPage({
   filters,
   filterOptions,
   query,
+  shareStatus,
   availableCategoryKeys,
   sources,
   onFamilyChange,
   onCategoryChange,
   onFilterChange,
   onResetFilters,
+  onShareSearch,
   onQueryChange,
   onEquipmentSelect,
   onEquipmentOpen,
@@ -451,12 +556,14 @@ function CatalogPage({
   filters: CatalogFilters;
   filterOptions: FilterOptions;
   query: string;
+  shareStatus: string;
   availableCategoryKeys: Array<EquipmentCategory | "all">;
   sources: Array<{ title: string; url: string; type: string; checkedAt: string }>;
   onFamilyChange: (family: EquipmentFamily) => void;
   onCategoryChange: (category: EquipmentCategory | "all") => void;
   onFilterChange: (key: keyof CatalogFilters, value: string) => void;
   onResetFilters: () => void;
+  onShareSearch: () => void;
   onQueryChange: (query: string) => void;
   onEquipmentSelect: (id: string) => void;
   onEquipmentOpen: (id: string) => void;
@@ -544,8 +651,12 @@ function CatalogPage({
           </div>
           <div className="active-filter-bar">
             <span>{activeFilterCount ? `${activeFilterCount}개 조건 적용` : "필터 없음"}</span>
-            <button type="button" onClick={onResetFilters}>초기화</button>
+            <div className="active-filter-actions">
+              <button type="button" onClick={onResetFilters}>초기화</button>
+              <button className="share-search-button" type="button" onClick={onShareSearch}>검색 링크 복사</button>
+            </div>
           </div>
+          {shareStatus ? <p className="share-status" role="status">{shareStatus}</p> : null}
           <div className="equipment-list">
             {filteredEquipment.map((item) => (
               <button

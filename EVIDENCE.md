@@ -1,5 +1,53 @@
 # EVIDENCE
 
+## 2026-06-19 검색 조건 공유 링크 추가
+
+### 작업 상태
+
+completed
+
+### 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run test
+& "C:\Program Files\nodejs\npm.cmd" run validate:data
+& "C:\Program Files\nodejs\npm.cmd" run build
+& "C:\Program Files\nodejs\npm.cmd" run test:e2e
+& "C:\Program Files\nodejs\npm.cmd" run design:check
+& "C:\Program Files\nodejs\npm.cmd" run dev:check
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+### 수정 내역
+
+- `src/App.tsx`: 검색 조건을 URL query string에서 초기화하도록 추가
+- `src/App.tsx`: 검색 필터/검색어/선택 장비 변경 시 URL query string 동기화
+- `src/App.tsx`: 검색 링크 복사 버튼과 상태 메시지 추가
+- `src/styles.css`: 공유 버튼과 상태 메시지 스타일 추가
+- `scripts/verify-render.cjs`: 필터 URL 파라미터 생성 및 reload 복원 검증 추가
+- `scripts/verify-design.cjs`: 공유 버튼 렌더링 및 국가 필터 URL 동기화 검증 추가
+
+### 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- `npm run test`: 통과, 2 files / 5 tests
+- `npm run validate:data`: 통과, 15 equipment / 30 variants / 23 components / 7 technologies / 7 case studies / 6 development lens items / 8 engineering references
+- `npm run build`: 통과, JS 414.06 kB / CSS 44.16 kB
+- `npm run test:e2e`: 통과, share button 1개 / role URL param 생성 / reload 후 필터 결과 1건 유지
+- `npm run design:check`: 통과, country URL param 생성 / undersized controls 없음
+- `npm run dev:check`: 통과
+- `npm run quality`: 통과
+
+### 남은 리스크
+
+- Clipboard API는 브라우저 보안 정책에 따라 http 로컬 환경에서 제한될 수 있으나, GitHub Pages HTTPS 환경에서는 정상 동작 대상이다.
+- 공유 링크는 현재 데이터셋 ID와 필터값을 기준으로 하므로, 향후 데이터 명칭을 바꿀 때 구 링크 호환성을 고려해야 한다.
+
+---
+
 ## 2026-06-19 팀원용 장비 검색 필터 고도화
 
 ### 작업 상태

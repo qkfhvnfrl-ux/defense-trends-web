@@ -6,6 +6,20 @@
 
 ## 완료 작업
 
+### 2026-06-19 검색 조건 공유 링크 추가
+
+- 상태 전이: new_task → planned → executing → verifying → completed
+- 목표:
+  - 팀원이 같은 검색 조건을 URL로 공유하고 다시 열 수 있게 개선
+  - 검색 조건이 새로고침 또는 링크 전달 후에도 유지되게 개선
+- 결과:
+  - 검색 필터 상태를 URL query string과 동기화
+  - 장비 검색 화면 진입 시 URL query에서 필터/검색어/선택 장비 복원
+  - 검색 패널에 `검색 링크 복사` 버튼 추가
+  - E2E 검증에서 URL 파라미터 생성과 reload 복원 확인
+- 검증:
+  - `npm run quality` 통과
+
 ### 2026-06-19 팀원용 장비 검색 필터 고도화
 
 - 상태 전이: new_task → planned → executing → verifying → completed
