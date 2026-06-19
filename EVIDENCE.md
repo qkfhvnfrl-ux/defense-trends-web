@@ -1,3 +1,41 @@
+# 2026-06-20 팀 작업 큐 추가
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+## 수정 내역
+
+- `src/App.tsx`: 첫 화면 작업 큐 계산 및 버튼 UI 추가
+- `src/App.tsx`: 출처 재확인 큐를 `/sources?freshness=stale`로 연결
+- `src/App.tsx`: `/sources`가 `freshness` query를 초기 필터로 읽도록 개선
+- `src/styles.css`: 작업 큐 버튼 그리드와 반응형 스타일 추가
+- `scripts/verify-render.cjs`: 작업 큐 버튼, 출처 재확인 URL, 빈 상태 검증 추가
+- `scripts/verify-design.cjs`: 작업 큐 버튼 수, 컨트롤 크기, 출처 재확인 이동 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 427.08 kB / CSS 43.65 kB
+  - test:e2e 통과: teamQueueButtons 4 / sourceQueueUrlHasFreshness true / sourceQueueCards 0 / sourceQueueEmptyStates 1
+  - design:check 통과: teamQueueButtons 4 / sourceQueueEmptyStates 1 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- 작업 큐는 현재 정적 데이터 기준으로 계산된다. 추후 데이터가 대량 확장되면 큐 기준을 별도 정책 파일로 분리할 수 있다.
+
 # 2026-06-19 팀용 장비 검색 프리셋 추가
 
 ## 작업 상태

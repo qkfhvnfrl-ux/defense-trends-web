@@ -6,6 +6,23 @@
 
 ## 완료 작업
 
+### 2026-06-20 팀 작업 큐 추가
+
+- 상태 전이: new_task -> planned -> executing -> verifying -> completed
+- 목표:
+  - 팀원이 첫 화면에서 오늘 먼저 점검할 장비/출처 범위를 바로 볼 수 있게 한다.
+  - 검색 프리셋과 출처 인덱스를 작업 큐에서 직접 연결해 반복 클릭을 줄인다.
+- 결과:
+  - `보강 필요 장비`, `출처 재확인`, `실전 사례 장비`, `계열 비교 후보` 큐 4개 추가
+  - 장비 큐 클릭 시 기존 프리셋을 재사용해 검색 조건 즉시 적용
+  - 출처 재확인 큐 클릭 시 `/sources?freshness=stale`로 이동
+  - 출처 페이지가 `freshness` query를 초기 필터로 읽도록 개선
+  - E2E/디자인 검증에 작업 큐 버튼 수, 출처 재확인 경로, 빈 상태 검증 추가
+- 검증:
+  - `npm run typecheck` 통과
+  - `npm run lint` 통과
+  - 권한 상승 후 `npm run quality` 통과
+
 ### 2026-06-19 팀용 장비 검색 프리셋 추가
 
 - 상태 전이: new_task -> planned -> executing -> verifying -> completed

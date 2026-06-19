@@ -246,6 +246,10 @@ function isDataStatusFilter(value: string | null): value is DataStatusFilter {
   return value === "all" || Boolean(value && dataStatusOptions.some((option) => option.value === value));
 }
 
+function isSourceFreshnessFilter(value: string | null): value is "all" | "current" | "stale" {
+  return value === "all" || value === "current" || value === "stale";
+}
+
 function isCatalogPath(path: string) {
   return path === "/" || path === "/equipment" || path === "/compare";
 }
@@ -517,6 +521,11 @@ export function App() {
     setPath(nextPath);
   }
 
+  function openSourceReviewQueue() {
+    window.history.pushState(null, "", routeHref("/sources?freshness=stale"));
+    setPath("/sources");
+  }
+
   function selectEquipment(id: string) {
     setSelectedId(id);
     setSelectedComponent(null);
@@ -703,6 +712,7 @@ export function App() {
             setQuery("");
           }}
           onApplyPreset={applyCatalogPreset}
+          onSourceReview={openSourceReviewQueue}
           onShareSearch={copySearchLink}
           onCopyResults={copyFilteredResults}
           onDownloadCsv={downloadFilteredCsv}
@@ -799,6 +809,7 @@ function CatalogPage({
   onSortChange,
   onResetFilters,
   onApplyPreset,
+  onSourceReview,
   onShareSearch,
   onCopyResults,
   onDownloadCsv,
@@ -834,6 +845,7 @@ function CatalogPage({
   onSortChange: (sortMode: CatalogSortMode) => void;
   onResetFilters: () => void;
   onApplyPreset: (preset: CatalogPreset) => void;
+  onSourceReview: () => void;
   onShareSearch: () => void;
   onCopyResults: () => void;
   onDownloadCsv: () => void;
@@ -863,7 +875,14 @@ function CatalogPage({
 
   return (
     <>
-      <CatalogOverview equipment={equipment} variantsCount={relatedVariants.length} incidents={incidents} sources={sources} />
+      <CatalogOverview
+        equipment={equipment}
+        variants={variants}
+        incidents={incidents}
+        sources={sources}
+        onApplyPreset={onApplyPreset}
+        onSourceReview={onSourceReview}
+      />
       <section className="dashboard-grid catalog-grid">
         <aside className="equipment-rail" aria-label="장비 목록">
           <div className="rail-header">
@@ -1040,14 +1059,24 @@ function CatalogPage({
   );
 }
 
-function CatalogOverview({ equipment, incidents, sources }: {
+function CatalogOverview({ equipment, variants, incidents, sources, onApplyPreset, onSourceReview }: {
   equipment: Equipment[];
-  variantsCount: number;
+  variants: EquipmentVariant[];
   incidents: BattlefieldCase[];
   sources: Array<{ title: string; url: string; type: string; checkedAt: string }>;
+  onApplyPreset: (preset: CatalogPreset) => void;
+  onSourceReview: () => void;
 }) {
   const categoryCount = new Set(equipment.map((item) => item.category)).size;
   const countryCount = new Set(equipment.flatMap((item) => [item.originCountry, ...item.operatorCountries])).size;
+  const variantCountByEquipment = getVariantCountByEquipment(variants);
+  const needsReviewCount = equipment.filter((item) => getDataReadiness(item, variantCountByEquipment[item.id] ?? 0).status === "needs-review").length;
+  const staleSourceCount = sources.filter((source) => getSourceFreshness(source.checkedAt).status === "stale").length;
+  const fieldProvenCount = equipment.filter((item) => item.battlefieldCaseIds.length > 0).length;
+  const variantRichCount = equipment.filter((item) => (variantCountByEquipment[item.id] ?? 0) >= 3).length;
+  const needsReviewPreset = catalogPresets.find((preset) => preset.id === "needs-review") ?? catalogPresets[0];
+  const fieldProvenPreset = catalogPresets.find((preset) => preset.id === "field-proven") ?? catalogPresets[0];
+  const variantRichPreset = catalogPresets.find((preset) => preset.id === "variant-rich") ?? catalogPresets[0];
   return (
     <section className="catalog-overview">
       <div>
@@ -1061,6 +1090,28 @@ function CatalogOverview({ equipment, incidents, sources }: {
         <span><strong>{countryCount}</strong>관련 국가</span>
         <span><strong>{incidents.length}</strong>사례</span>
         <span><strong>{sources.length}</strong>출처</span>
+      </div>
+      <div className="team-queue-grid" aria-label="팀 작업 큐">
+        <button type="button" onClick={() => onApplyPreset(needsReviewPreset)}>
+          <strong>{needsReviewCount}</strong>
+          <span>보강 필요 장비</span>
+          <small>출처/계열 데이터 점검</small>
+        </button>
+        <button type="button" onClick={onSourceReview}>
+          <strong>{staleSourceCount}</strong>
+          <span>출처 재확인</span>
+          <small>확인일 180일 초과</small>
+        </button>
+        <button type="button" onClick={() => onApplyPreset(fieldProvenPreset)}>
+          <strong>{fieldProvenCount}</strong>
+          <span>실전 사례 장비</span>
+          <small>전장 사용 사례 보유</small>
+        </button>
+        <button type="button" onClick={() => onApplyPreset(variantRichPreset)}>
+          <strong>{variantRichCount}</strong>
+          <span>계열 비교 후보</span>
+          <small>파생형 3건 이상</small>
+        </button>
       </div>
     </section>
   );
@@ -1277,9 +1328,12 @@ function CasesPage({ cases, equipment }: { cases: BattlefieldCaseStudy[]; equipm
 }
 
 function SourceIndexPage({ sources, equipment }: { sources: Array<{ title: string; url: string; type: string; checkedAt: string }>; equipment: Equipment[] }) {
+  const initialFreshness = new URLSearchParams(window.location.search).get("freshness");
   const [sourceQuery, setSourceQuery] = useState("");
   const [sourceType, setSourceType] = useState("all");
-  const [freshness, setFreshness] = useState("all");
+  const [freshness, setFreshness] = useState<"all" | "current" | "stale">(
+    isSourceFreshnessFilter(initialFreshness) ? initialFreshness : "all"
+  );
   const [sourceExportStatus, setSourceExportStatus] = useState("");
   const sourceTypes = Array.from(new Set(sources.map((source) => source.type))).sort((a, b) => a.localeCompare(b));
   const freshnessByUrl = Object.fromEntries(sources.map((source) => [source.url, getSourceFreshness(source.checkedAt)]));
@@ -1354,7 +1408,10 @@ function SourceIndexPage({ sources, equipment }: { sources: Array<{ title: strin
         </label>
         <label>
           <span>확인 상태</span>
-          <select value={freshness} onChange={(event) => setFreshness(event.target.value)}>
+          <select value={freshness} onChange={(event) => {
+            const nextFreshness = event.target.value;
+            if (isSourceFreshnessFilter(nextFreshness)) setFreshness(nextFreshness);
+          }}>
             <option value="all">전체 상태</option>
             <option value="current">최근 확인</option>
             <option value="stale">재확인 필요</option>
@@ -1364,6 +1421,7 @@ function SourceIndexPage({ sources, equipment }: { sources: Array<{ title: strin
           setSourceQuery("");
           setSourceType("all");
           setFreshness("all");
+          window.history.replaceState(null, "", routeHref("/sources"));
         }}>초기화</button>
       </div>
       <div className="source-action-grid" aria-label="출처 결과 내보내기">
