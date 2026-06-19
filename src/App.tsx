@@ -34,6 +34,7 @@ type AppData = {
 type EquipmentFamily = "all" | "wheeled" | "tracked";
 type FilterValue = string;
 type CatalogSortMode = "default" | "confidence-desc" | "cases-desc" | "variants-desc" | "updated-desc";
+type DataStatusFilter = "all" | "ready" | "needs-review";
 
 type CatalogFilters = {
   role: FilterValue;
@@ -42,6 +43,7 @@ type CatalogFilters = {
   variantMaturity: FilterValue;
   confidence: FilterValue;
   casePresence: FilterValue;
+  dataStatus: DataStatusFilter;
 };
 
 type FilterOptions = {
@@ -66,7 +68,8 @@ const defaultCatalogFilters: CatalogFilters = {
   status: "all",
   variantMaturity: "all",
   confidence: "all",
-  casePresence: "all"
+  casePresence: "all",
+  dataStatus: "all"
 };
 
 const defaultCatalogSortMode: CatalogSortMode = "default";
@@ -98,6 +101,11 @@ const confidenceOptions = ["High", "Medium", "Low"];
 const casePresenceOptions = [
   { value: "with-cases", label: "사례 있음" },
   { value: "without-cases", label: "사례 없음" }
+];
+
+const dataStatusOptions: Array<{ value: Exclude<DataStatusFilter, "all">; label: string }> = [
+  { value: "ready", label: "검증 양호" },
+  { value: "needs-review", label: "보강 필요" }
 ];
 
 const sortOptions: Array<{ value: CatalogSortMode; label: string }> = [
@@ -147,6 +155,18 @@ function confidenceClass(score: number) {
   return confidenceLabel(score).toLowerCase();
 }
 
+function getDataReadiness(equipment: Equipment, variantCount: number) {
+  const reasons: string[] = [];
+  if (equipment.sourceConfidenceScore < 68) reasons.push("출처 신뢰도 낮음");
+  if (equipment.sources.length < 2) reasons.push("공개 출처 2건 미만");
+  if (variantCount === 0) reasons.push("계열 데이터 없음");
+  return {
+    status: reasons.length ? "needs-review" : "ready",
+    label: reasons.length ? "보강 필요" : "검증 양호",
+    reasons
+  } as const;
+}
+
 function latestSourceCheckDate(equipment: Equipment) {
   const checkedDates = equipment.sources.map((source) => source.checkedAt).sort();
   return checkedDates.length ? checkedDates[checkedDates.length - 1] : equipment.lastUpdated;
@@ -172,6 +192,10 @@ function isCatalogSortMode(value: string | null): value is CatalogSortMode {
   return Boolean(value && sortOptions.some((option) => option.value === value));
 }
 
+function isDataStatusFilter(value: string | null): value is DataStatusFilter {
+  return value === "all" || Boolean(value && dataStatusOptions.some((option) => option.value === value));
+}
+
 function isCatalogPath(path: string) {
   return path === "/" || path === "/equipment" || path === "/compare";
 }
@@ -181,6 +205,7 @@ function readCatalogStateFromLocation(): CatalogUrlState {
   const family = params.get("family");
   const category = params.get("category");
   const sort = params.get("sort");
+  const dataStatus = params.get("data");
   return {
     family: isEquipmentFamily(family) ? family : "all",
     category: isEquipmentCategory(category) ? category : "all",
@@ -190,7 +215,8 @@ function readCatalogStateFromLocation(): CatalogUrlState {
       status: params.get("status") || "all",
       variantMaturity: params.get("maturity") || "all",
       confidence: params.get("confidence") || "all",
-      casePresence: params.get("cases") || "all"
+      casePresence: params.get("cases") || "all",
+      dataStatus: isDataStatusFilter(dataStatus) ? dataStatus : "all"
     },
     sortMode: isCatalogSortMode(sort) ? sort : defaultCatalogSortMode,
     query: params.get("q") || "",
@@ -209,6 +235,7 @@ function buildCatalogHref(path: string, state: CatalogUrlState) {
   if (state.filters.variantMaturity !== "all") params.set("maturity", state.filters.variantMaturity);
   if (state.filters.confidence !== "all") params.set("confidence", state.filters.confidence);
   if (state.filters.casePresence !== "all") params.set("cases", state.filters.casePresence);
+  if (state.filters.dataStatus !== "all") params.set("data", state.filters.dataStatus);
   if (state.sortMode !== defaultCatalogSortMode) params.set("sort", state.sortMode);
   if (state.selectedId !== defaultSelectedEquipmentId) params.set("eq", state.selectedId);
   const query = params.toString();
@@ -238,31 +265,39 @@ function compareCatalogEquipment(a: Equipment, b: Equipment, sortMode: CatalogSo
 
 function buildResultSummary(equipmentList: Equipment[], variants: EquipmentVariant[]) {
   const variantCountByEquipment = getVariantCountByEquipment(variants);
-  const rows = equipmentList.map((item, index) =>
-    `${index + 1}. ${item.name} | ${categoryLabels[item.category]} | ${item.originCountry} | ${item.roleTags.slice(0, 3).join(", ")} | 계열 ${variantCountByEquipment[item.id] ?? 0}건 | 전장 사례 ${item.battlefieldCaseIds.length}건 | 출처 ${confidenceLabel(item.sourceConfidenceScore)} ${item.sourceConfidenceScore} | 확인 ${latestSourceCheckDate(item)}`
-  );
+  const rows = equipmentList.map((item, index) => {
+    const variantCount = variantCountByEquipment[item.id] ?? 0;
+    const readiness = getDataReadiness(item, variantCount);
+    return `${index + 1}. ${item.name} | ${categoryLabels[item.category]} | ${item.originCountry} | ${item.roleTags.slice(0, 3).join(", ")} | 계열 ${variantCount}건 | 전장 사례 ${item.battlefieldCaseIds.length}건 | 데이터 ${readiness.label}${readiness.reasons.length ? `(${readiness.reasons.join("; ")})` : ""} | 출처 ${confidenceLabel(item.sourceConfidenceScore)} ${item.sourceConfidenceScore} | 확인 ${latestSourceCheckDate(item)}`;
+  });
   return [`장비 검색 결과 ${equipmentList.length}건`, ...rows].join("\n");
 }
 
 function buildEquipmentCsv(equipmentList: Equipment[], variants: EquipmentVariant[]) {
   const variantCountByEquipment = getVariantCountByEquipment(variants);
-  const headers = ["장비명", "분류", "국가", "원산국", "제조사", "운용 상태", "임무 태그", "계열 수", "전장 사례 수", "출처 신뢰도", "출처 등급", "최근 확인일", "출처 수", "상세 ID"];
-  const rows = equipmentList.map((item) => [
-    item.name,
-    categoryLabels[item.category],
-    item.country,
-    item.originCountry,
-    item.manufacturer,
-    item.status,
-    item.roleTags.join(" / "),
-    variantCountByEquipment[item.id] ?? 0,
-    item.battlefieldCaseIds.length,
-    item.sourceConfidenceScore,
-    confidenceLabel(item.sourceConfidenceScore),
-    latestSourceCheckDate(item),
-    item.sources.length,
-    item.id
-  ]);
+  const headers = ["장비명", "분류", "국가", "원산국", "제조사", "운용 상태", "임무 태그", "계열 수", "전장 사례 수", "데이터 상태", "보강 사유", "출처 신뢰도", "출처 등급", "최근 확인일", "출처 수", "상세 ID"];
+  const rows = equipmentList.map((item) => {
+    const variantCount = variantCountByEquipment[item.id] ?? 0;
+    const readiness = getDataReadiness(item, variantCount);
+    return [
+      item.name,
+      categoryLabels[item.category],
+      item.country,
+      item.originCountry,
+      item.manufacturer,
+      item.status,
+      item.roleTags.join(" / "),
+      variantCount,
+      item.battlefieldCaseIds.length,
+      readiness.label,
+      readiness.reasons.join(" / "),
+      item.sourceConfidenceScore,
+      confidenceLabel(item.sourceConfidenceScore),
+      latestSourceCheckDate(item),
+      item.sources.length,
+      item.id
+    ];
+  });
   return [
     headers.map(escapeCsv).join(","),
     ...rows.map((row) => row.map(escapeCsv).join(","))
@@ -369,6 +404,9 @@ export function App() {
         catalogFilters.casePresence === "all" ||
         (catalogFilters.casePresence === "with-cases" && item.battlefieldCaseIds.length > 0) ||
         (catalogFilters.casePresence === "without-cases" && item.battlefieldCaseIds.length === 0);
+      const matchesDataStatus =
+        catalogFilters.dataStatus === "all" ||
+        getDataReadiness(item, variantCountByEquipment[item.id] ?? 0).status === catalogFilters.dataStatus;
       const searchable = [
         item.name,
         item.country,
@@ -382,7 +420,7 @@ export function App() {
         itemVariants.map((variant) => `${variant.nameKo} ${variant.role} ${variant.armament} ${variant.maturity}`).join(" ")
       ].join(" ").toLowerCase();
       const matchesQuery = !normalizedQuery || searchable.includes(normalizedQuery);
-      return matchesFamily && matchesCategory && matchesRole && matchesCountry && matchesStatus && matchesVariantMaturity && matchesConfidence && matchesCasePresence && matchesQuery;
+      return matchesFamily && matchesCategory && matchesRole && matchesCountry && matchesStatus && matchesVariantMaturity && matchesConfidence && matchesCasePresence && matchesDataStatus && matchesQuery;
     }).sort((a, b) => compareCatalogEquipment(a, b, sortMode, variantCountByEquipment));
   }, [catalogFilters, category, data, family, query, sortMode]);
 
@@ -730,6 +768,7 @@ function CatalogPage({
     filters.variantMaturity !== "all",
     filters.confidence !== "all",
     filters.casePresence !== "all",
+    filters.dataStatus !== "all",
     sortMode !== defaultCatalogSortMode,
     query.trim().length > 0
   ].filter(Boolean).length;
@@ -817,6 +856,13 @@ function CatalogPage({
               </select>
             </label>
             <label>
+              <span>데이터 상태</span>
+              <select value={filters.dataStatus} onChange={(event) => onFilterChange("dataStatus", event.target.value)}>
+                <option value="all">전체 상태</option>
+                {dataStatusOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+              </select>
+            </label>
+            <label>
               <span>정렬 기준</span>
               <select value={sortMode} onChange={(event) => onSortChange(event.target.value as CatalogSortMode)}>
                 {sortOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
@@ -840,6 +886,7 @@ function CatalogPage({
             {filteredEquipment.map((item) => {
               const variantCount = variantCountByEquipment[item.id] ?? 0;
               const sourceCheckDate = latestSourceCheckDate(item);
+              const readiness = getDataReadiness(item, variantCount);
               return (
                 <button
                   key={item.id}
@@ -850,9 +897,14 @@ function CatalogPage({
                 >
                   <span className="equipment-row-heading">
                     <strong>{item.name}</strong>
-                    <b className={`trust-pill ${confidenceClass(item.sourceConfidenceScore)}`}>
-                      출처 {confidenceLabel(item.sourceConfidenceScore)} {item.sourceConfidenceScore}
-                    </b>
+                    <span className="equipment-row-badges">
+                      <b className={`trust-pill ${confidenceClass(item.sourceConfidenceScore)}`}>
+                        출처 {confidenceLabel(item.sourceConfidenceScore)} {item.sourceConfidenceScore}
+                      </b>
+                      <b className={`data-readiness-pill ${readiness.status}`}>
+                        {readiness.label}
+                      </b>
+                    </span>
                   </span>
                   <small>{item.country} · {categoryLabels[item.category]}</small>
                   <em>{item.roleTags.slice(0, 3).join(" / ")} · 계열 {variantCount}건</em>
@@ -862,7 +914,10 @@ function CatalogPage({
                     <span><b>{item.battlefieldCaseIds.length}</b><small>전장 사례</small></span>
                     <span><b>{item.sources.length}</b><small>출처</small></span>
                   </span>
-                  <small className="source-quickline">공개 출처 {item.sources.length}건 · 최근 확인 {sourceCheckDate}</small>
+                  <small className="source-quickline">
+                    공개 출처 {item.sources.length}건 · 최근 확인 {sourceCheckDate}
+                    {readiness.reasons.length ? ` · ${readiness.reasons.join(" / ")}` : ""}
+                  </small>
                 </button>
               );
             })}

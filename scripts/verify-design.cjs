@@ -43,6 +43,7 @@ async function main() {
     panelCounters: await desktop.locator(".panel-title span").count(),
     componentSpecPanels: await desktop.locator(".component-spec-panel").count(),
     trustPills: await desktop.locator(".equipment-row .trust-pill").count(),
+    readinessPills: await desktop.locator(".equipment-row .data-readiness-pill").count(),
     sourceQuicklines: await desktop.locator(".equipment-row .source-quickline").count(),
     metricStrips: await desktop.locator(".equipment-row .equipment-metric-strip").count(),
     metricCells: await desktop.locator(".equipment-row .equipment-metric-strip > span").count(),
@@ -59,10 +60,11 @@ async function main() {
   if (desktopChecks.panelCounters < 1) throw new Error("Expected panel counters");
   if (desktopChecks.componentSpecPanels < 1) throw new Error("Expected component spec panel");
   if (desktopChecks.trustPills < 14) throw new Error("Expected source trust pills in equipment rows");
+  if (desktopChecks.readinessPills < 14) throw new Error("Expected data readiness pills in equipment rows");
   if (desktopChecks.sourceQuicklines < 14) throw new Error("Expected source check dates in equipment rows");
   if (desktopChecks.metricStrips < 14) throw new Error("Expected metric strips in equipment rows");
   if (desktopChecks.metricCells < desktopChecks.metricStrips * 4) throw new Error("Expected four metric cells in each equipment row");
-  if (desktopChecks.filterSelects !== 7) throw new Error("Expected seven structured catalog filters");
+  if (desktopChecks.filterSelects !== 8) throw new Error("Expected eight structured catalog filters");
   if (desktopChecks.activeFilterBars !== 1) throw new Error("Expected active filter summary bar");
   if (desktopChecks.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktopChecks.resultActionButtons !== 2) throw new Error("Expected two result export buttons");
@@ -85,7 +87,13 @@ async function main() {
   if (!desktop.url().includes("cases=with-cases")) throw new Error("Expected battlefield case filter to sync into URL");
   await desktop.getByRole("button", { name: "초기화" }).click();
 
-  await desktop.locator(".filter-grid select").nth(6).selectOption({ label: "전장 사례 많은순" });
+  await desktop.locator(".filter-grid select").nth(6).selectOption({ label: "보강 필요" });
+  const needsReviewRows = await desktop.locator(".equipment-row").count();
+  if (needsReviewRows < 1 || needsReviewRows >= 15) throw new Error(`Expected data status filter to narrow rows, found ${needsReviewRows}`);
+  if (!desktop.url().includes("data=needs-review")) throw new Error("Expected data status filter to sync into URL");
+  await desktop.getByRole("button", { name: "초기화" }).click();
+
+  await desktop.locator(".filter-grid select").nth(7).selectOption({ label: "전장 사례 많은순" });
   const sortedFirstRow = await desktop.locator(".equipment-row").first().innerText();
   if (!sortedFirstRow.includes("Boxer")) throw new Error(`Expected battlefield case sort to put Boxer first, found ${sortedFirstRow}`);
   if (!desktop.url().includes("sort=cases-desc")) throw new Error("Expected sort mode to sync into URL");
@@ -118,7 +126,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, countryFilteredRows, lowConfidenceRows, withCaseRows, sortedFirstRow, filteredRows, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {

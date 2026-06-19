@@ -32,6 +32,7 @@ async function main() {
     componentSpecPanels: await page.locator(".component-spec-panel").count(),
     componentSlots: await page.locator(".component-slot").count(),
     trustPills: await page.locator(".equipment-row .trust-pill").count(),
+    readinessPills: await page.locator(".equipment-row .data-readiness-pill").count(),
     sourceQuicklines: await page.locator(".equipment-row .source-quickline").count(),
     metricStrips: await page.locator(".equipment-row .equipment-metric-strip").count(),
     metricCells: await page.locator(".equipment-row .equipment-metric-strip > span").count(),
@@ -58,7 +59,11 @@ async function main() {
   desktop.withCaseRows = await page.locator(".equipment-row").count();
   desktop.casesUrlHasParam = page.url().includes("cases=with-cases");
   await page.getByRole("button", { name: "초기화" }).click();
-  await page.locator(".filter-grid select").nth(6).selectOption({ label: "전장 사례 많은순" });
+  await page.locator(".filter-grid select").nth(6).selectOption({ label: "보강 필요" });
+  desktop.needsReviewRows = await page.locator(".equipment-row").count();
+  desktop.dataStatusUrlHasParam = page.url().includes("data=needs-review");
+  await page.getByRole("button", { name: "초기화" }).click();
+  await page.locator(".filter-grid select").nth(7).selectOption({ label: "전장 사례 많은순" });
   desktop.sortedFirstRow = await page.locator(".equipment-row").first().innerText();
   desktop.sortUrlHasParam = page.url().includes("sort=cases-desc");
   await page.getByRole("button", { name: "초기화" }).click();
@@ -97,10 +102,11 @@ async function main() {
   if (desktop.componentSpecPanels < 1) throw new Error("Expected component spec panel");
   if (desktop.componentSlots < 1) throw new Error("Expected component spec slots");
   if (desktop.trustPills !== desktop.equipmentRows) throw new Error("Expected one source trust pill per equipment row");
+  if (desktop.readinessPills !== desktop.equipmentRows) throw new Error("Expected one data readiness pill per equipment row");
   if (desktop.sourceQuicklines !== desktop.equipmentRows) throw new Error("Expected one source check line per equipment row");
   if (desktop.metricStrips !== desktop.equipmentRows) throw new Error("Expected one metric strip per equipment row");
   if (desktop.metricCells !== desktop.equipmentRows * 4) throw new Error("Expected four metric cells per equipment row");
-  if (desktop.filterSelects !== 7) throw new Error("Expected seven catalog filter selects");
+  if (desktop.filterSelects !== 8) throw new Error("Expected eight catalog filter selects");
   if (desktop.shareButtons !== 1) throw new Error("Expected share search button");
   if (desktop.resultActionButtons !== 2) throw new Error("Expected result export actions");
   if (desktop.roleFilteredRows < 1 || desktop.roleFilteredRows >= desktop.equipmentRows) throw new Error("Expected role filter to narrow equipment rows");
@@ -110,6 +116,8 @@ async function main() {
   if (!desktop.confidenceUrlHasParam) throw new Error("Expected confidence filter in URL");
   if (desktop.withCaseRows < 1 || desktop.withCaseRows >= desktop.equipmentRows) throw new Error("Expected battlefield case filter to narrow equipment rows");
   if (!desktop.casesUrlHasParam) throw new Error("Expected battlefield case filter in URL");
+  if (desktop.needsReviewRows < 1 || desktop.needsReviewRows >= desktop.equipmentRows) throw new Error("Expected data status filter to narrow equipment rows");
+  if (!desktop.dataStatusUrlHasParam) throw new Error("Expected data status filter in URL");
   if (!desktop.sortedFirstRow.includes("Boxer")) throw new Error("Expected battlefield case sort to put Boxer first");
   if (!desktop.sortUrlHasParam) throw new Error("Expected sort mode in URL");
   if (desktop.csvSuggestedFilename !== "equipment-search-results.csv") throw new Error("Expected CSV download filename");

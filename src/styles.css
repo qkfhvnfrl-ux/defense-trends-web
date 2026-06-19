@@ -528,6 +528,15 @@ a {
   font-weight: 800;
 }
 
+.equipment-row-badges {
+  display: flex;
+  flex: 0 0 auto;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px;
+  max-width: 58%;
+}
+
 .trust-pill {
   flex: 0 0 auto;
   padding: 3px 6px;
@@ -556,6 +565,30 @@ a {
   border-color: rgba(148, 47, 47, 0.25);
   background: #fff0ed;
   color: #8a2e28;
+}
+
+.data-readiness-pill {
+  flex: 0 0 auto;
+  padding: 3px 6px;
+  border: 1px solid rgba(22, 74, 67, 0.15);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--green-deep);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.data-readiness-pill.ready {
+  border-color: rgba(47, 117, 105, 0.28);
+  background: var(--green-soft);
+}
+
+.data-readiness-pill.needs-review {
+  border-color: rgba(160, 110, 23, 0.28);
+  background: #fff7e6;
+  color: #7a4e0b;
 }
 
 .equipment-row small {

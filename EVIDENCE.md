@@ -1,3 +1,42 @@
+# 2026-06-19 데이터 보강 필요 필터 추가
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+## 수정 내역
+
+- `src/App.tsx`: `dataStatus` 필터, `data` URL 파라미터, 데이터 상태 배지, 보강 사유 표시 추가
+- `src/App.tsx`: 결과 요약 복사와 CSV에 데이터 상태/보강 사유 추가
+- `src/styles.css`: 데이터 상태 배지와 행 배지 레이아웃 추가
+- `scripts/verify-render.cjs`: readinessPills 15, filterSelects 8, needsReviewRows 3, `data=needs-review` 검증 추가
+- `scripts/verify-design.cjs`: readinessPills 15, filterSelects 8, 보강 필요 필터/URL 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 421.19 kB / CSS 40.88 kB
+  - test:e2e 통과: readinessPills 15 / filterSelects 8 / needsReviewRows 3 / dataStatusUrlHasParam true / mobile overflow 없음
+  - design:check 통과: readinessPills 15 / filterSelects 8 / needsReviewRows 3 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- 보강 필요 기준은 현재 수동 데이터셋 기준의 운영 규칙이며, 실제 링크 상태 자동 점검 결과와 아직 직접 연결되어 있지 않다.
+- 전장 사례 없음은 결측으로 보지 않으므로, 사례 조사 대상은 별도 필터 `전장 사례 없음`과 함께 운영해야 한다.
+
 # 2026-06-19 검색 결과 핵심 지표 스트립 추가
 
 ## 작업 상태
