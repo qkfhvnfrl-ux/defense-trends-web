@@ -297,3 +297,51 @@ completed
 - 일부 기존 문서의 과거 한글 텍스트가 콘솔에서 깨져 보인다.
 
 ---
+## 2026-06-19 3D 준비 영역 제거 및 공개 장치 스펙 패널 전환
+
+### 작업 상태
+
+completed
+
+### 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run validate:data
+& "C:\Program Files\nodejs\npm.cmd" run test
+& "C:\Program Files\nodejs\npm.cmd" run build
+& "C:\Program Files\nodejs\npm.cmd" run test:e2e
+& "C:\Program Files\nodejs\npm.cmd" run design:check
+& "C:\Program Files\nodejs\npm.cmd" run dev:check
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+### 수정 내역
+
+- `src/components/ComponentSpecPanel.tsx`: 공개 장치/부품 스펙 패널 추가
+- `src/components/ModelViewer.tsx`: 3D 준비 컴포넌트 제거
+- `src/App.tsx`: 상세 영역에서 `ComponentSpecPanel` 사용
+- `src/components/BattlefieldLens.tsx`: GLB 전제 문구 제거
+- `src/components/EquipmentDetail.tsx`: 이미지 대체 문구에서 3D 전제 제거
+- `src/styles.css`: `.model-slot` 스타일을 `.component-spec-panel` 기준으로 전환
+- `scripts/verify-render.cjs`, `scripts/verify-design.cjs`, `scripts/verify-dev-render.cjs`: 검증 기준 갱신
+
+### 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- `npm run validate:data`: 통과, 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+- `npm run test`: 통과, 2 files / 5 tests
+- `npm run build`: 통과, JS 415.87 kB / CSS 39.26 kB
+- `npm run test:e2e`: 통과, 장비 15건 / 지도 마커 12건 / 장치 스펙 패널 1건 / 모바일 overflow 없음
+- `npm run design:check`: 통과, KPI 4개 / 필터 4개 / 장치 스펙 패널 1건 / undersized controls 없음
+- `npm run dev:check`: 통과, 장비 15건 / 장치 스펙 패널 1건 / 브라우저 오류 없음
+- `npm run quality`: 통과
+
+### 남은 리스크
+
+- 실제 3D GLB 뷰어를 다시 도입하려면 3D 의존성, 파일 검증, 모바일 성능 검증을 별도 작업으로 재개해야 한다.
+- `modelPath`, `hotspotPosition`은 미래 호환용으로 남아 있으나 현재 화면에서는 직접 사용하지 않는다.
+
+---

@@ -33,7 +33,7 @@ export function EquipmentDetail({ equipment, incidents, variants }: Props) {
               />
             ) : null}
             <figcaption className={image === "visual-placeholder" ? "visible" : ""}>
-              {equipment.name} 검증 사진 없음 · 3D/제원 중심 표시
+              {equipment.name} 검증 사진 없음 · 공개 제원/출처 중심 표시
             </figcaption>
           </figure>
         ))}

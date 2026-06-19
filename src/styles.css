@@ -783,21 +783,8 @@ a {
   font-weight: 800;
 }
 
-.model-slot {
+.component-spec-panel {
   min-height: auto;
-}
-
-.model-slot code {
-  display: inline-flex;
-  margin-left: 4px;
-  padding: 2px 5px;
-  border-radius: 5px;
-  background: var(--surface-soft);
-  color: var(--green-deep);
-  font-size: 12px;
-  max-width: 100%;
-  white-space: normal;
-  word-break: break-all;
 }
 
 .component-slot-list {

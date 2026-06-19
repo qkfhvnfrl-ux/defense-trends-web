@@ -6,19 +6,18 @@ type Props = {
   onComponentSelect: (component: ComponentSpec) => void;
 };
 
-export function ModelViewer({ equipment, components, onComponentSelect }: Props) {
+export function ComponentSpecPanel({ equipment, components, onComponentSelect }: Props) {
   return (
-    <article className="viewer-panel model-slot">
+    <article className="viewer-panel component-spec-panel">
       <div className="viewer-heading">
         <div>
-          <p className="eyebrow">3D model slot</p>
-          <h2>{equipment.name} 3D 모델 준비 영역</h2>
+          <p className="eyebrow">Open component specs</p>
+          <h2>{equipment.name} 장치/부품 공개 스펙</h2>
         </div>
-        <span className="model-badge">GLB 추후 연동</span>
+        <span className="model-badge">공개 출처 기반</span>
       </div>
       <p className="viewer-caption">
-        현재 버전은 장비 검색과 공개 제원 확인에 집중합니다. Meshy.ai 또는 수동 제작 GLB가 준비되면
-        <code>{equipment.modelPath}</code> 경로에 넣어 3D 뷰어를 다시 활성화할 수 있습니다.
+        장비 검색에 필요한 공개 장치 정보를 우선 표시합니다. 각 항목을 열면 확인 가능한 스펙과 출처를 볼 수 있습니다.
       </p>
       <div className="component-slot-list">
         {components.length ? (

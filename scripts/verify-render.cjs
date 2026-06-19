@@ -29,7 +29,7 @@ async function main() {
     title: await page.locator("h1").innerText(),
     equipmentRows: await page.locator(".equipment-row").count(),
     markers: await page.locator(".case-marker").count(),
-    modelSlots: await page.locator(".model-slot").count(),
+    componentSpecPanels: await page.locator(".component-spec-panel").count(),
     componentSlots: await page.locator(".component-slot").count(),
     filterSelects: await page.locator(".filter-grid select").count(),
     shareButtons: await page.locator(".share-search-button").count(),
@@ -65,7 +65,7 @@ async function main() {
 
   const mobileResult = {
     equipmentRows: await mobile.locator(".equipment-row").count(),
-    modelSlots: await mobile.locator(".model-slot").count(),
+    componentSpecPanels: await mobile.locator(".component-spec-panel").count(),
     bodyWidth: await mobile.evaluate(() => document.body.scrollWidth),
     viewportWidth: await mobile.evaluate(() => window.innerWidth)
   };
@@ -78,7 +78,7 @@ async function main() {
   if (!desktop.title.includes("장비 검색")) throw new Error("Expected search catalog title");
   if (desktop.equipmentRows < 14) throw new Error("Expected expanded equipment rows");
   if (desktop.markers < 6) throw new Error("Expected battlefield markers");
-  if (desktop.modelSlots < 1) throw new Error("Expected simplified 3D model slot");
+  if (desktop.componentSpecPanels < 1) throw new Error("Expected component spec panel");
   if (desktop.componentSlots < 1) throw new Error("Expected component spec slots");
   if (desktop.filterSelects !== 4) throw new Error("Expected four catalog filter selects");
   if (desktop.shareButtons !== 1) throw new Error("Expected share search button");
@@ -90,7 +90,7 @@ async function main() {
   if (!desktop.koreanMapLabels.includes("우크라이나") || !desktop.koreanMapLabels.includes("유럽")) {
     throw new Error("Expected Korean map labels");
   }
-  if (mobileResult.modelSlots < 1) throw new Error("Expected mobile model slot");
+  if (mobileResult.componentSpecPanels < 1) throw new Error("Expected mobile component spec panel");
   if (mobileResult.bodyWidth > mobileResult.viewportWidth + 1) throw new Error("Mobile layout has horizontal overflow");
   for (const route of routeChecks) {
     if (route.rootLength < 1000 || !route.hasHeading) throw new Error(`Route ${route.route} did not render correctly`);

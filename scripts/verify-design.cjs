@@ -41,7 +41,7 @@ async function main() {
     mapOverlays: await desktop.locator(".map-overlay").count(),
     metaPills: await desktop.locator(".meta-row span").count(),
     panelCounters: await desktop.locator(".panel-title span").count(),
-    modelSlots: await desktop.locator(".model-slot").count(),
+    componentSpecPanels: await desktop.locator(".component-spec-panel").count(),
     filterSelects: await desktop.locator(".filter-grid select").count(),
     activeFilterBars: await desktop.locator(".active-filter-bar").count(),
     shareButtons: await desktop.locator(".share-search-button").count(),
@@ -53,7 +53,7 @@ async function main() {
   if (desktopChecks.mapOverlays !== 1) throw new Error("Expected map overlay");
   if (desktopChecks.metaPills < 3) throw new Error("Expected equipment meta pills");
   if (desktopChecks.panelCounters < 1) throw new Error("Expected panel counters");
-  if (desktopChecks.modelSlots < 1) throw new Error("Expected simplified model slot");
+  if (desktopChecks.componentSpecPanels < 1) throw new Error("Expected component spec panel");
   if (desktopChecks.filterSelects !== 4) throw new Error("Expected four structured catalog filters");
   if (desktopChecks.activeFilterBars !== 1) throw new Error("Expected active filter summary bar");
   if (desktopChecks.shareButtons !== 1) throw new Error("Expected share search button");

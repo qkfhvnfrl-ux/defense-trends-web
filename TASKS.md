@@ -127,3 +127,17 @@
 ## 실패 작업
 
 - 없음
+## 2026-06-19 3D 준비 영역 제거 및 공개 장치 스펙 패널 전환
+
+- 상태 전이: new_task -> planned -> executing -> verifying -> completed
+- 목표:
+  - 화면에 남아 있던 3D/GLB 준비 UI를 제거한다.
+  - 동일 영역을 팀 검색 업무에 필요한 공개 장치/부품 스펙 패널로 전환한다.
+- 결과:
+  - `ModelViewer` 제거
+  - `ComponentSpecPanel` 추가
+  - 검색 상세와 장비 상세에서 장치/부품 공개 스펙 패널 표시
+  - Battlefield Lens와 이미지 대체 문구에서 3D/GLB 전제 문구 제거
+  - 렌더/디자인/개발 서버 검증 기준을 `.component-spec-panel`로 갱신
+- 검증:
+  - `npm run quality` 통과

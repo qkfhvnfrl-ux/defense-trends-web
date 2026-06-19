@@ -14,7 +14,7 @@ import type {
 import { loadAppData } from "./data";
 import { EquipmentMap } from "./components/EquipmentMap";
 import { EquipmentDetail } from "./components/EquipmentDetail";
-import { ModelViewer } from "./components/ModelViewer";
+import { ComponentSpecPanel } from "./components/ComponentSpecPanel";
 import { TechnologyPanel } from "./components/TechnologyPanel";
 import { BattlefieldLens } from "./components/BattlefieldLens";
 import { normalizeRoute, routeHref } from "./routing";
@@ -772,7 +772,7 @@ function CatalogPage({
 
       <section className="detail-grid">
         <EquipmentDetail equipment={selectedEquipment} incidents={relatedIncidents} variants={relatedVariants} />
-        <ModelViewer equipment={selectedEquipment} components={relatedComponents} onComponentSelect={onComponentSelect} />
+        <ComponentSpecPanel equipment={selectedEquipment} components={relatedComponents} onComponentSelect={onComponentSelect} />
       </section>
 
       <BattlefieldLens equipment={selectedEquipment} variants={relatedVariants} technologies={relatedTechnologies} />
@@ -793,7 +793,7 @@ function CatalogOverview({ equipment, incidents, sources }: {
       <div>
         <p className="eyebrow">Search-first catalog</p>
         <h2>찾고, 좁히고, 근거를 확인하는 장비 데이터베이스</h2>
-        <p>현재 수록 데이터는 시작점이며, 같은 JSON 구조로 국가와 장비를 계속 확장할 수 있습니다. 3D는 추후 모델 파일이 준비될 때 다시 강화합니다.</p>
+        <p>현재 수록 데이터는 시작점이며, 같은 JSON 구조로 국가와 장비를 계속 확장할 수 있습니다. 공개 출처와 계열차량 정보를 기준으로 검색 품질을 계속 강화합니다.</p>
       </div>
       <div className="catalog-stat-grid">
         <span><strong>{equipment.length}</strong>장비</span>
@@ -853,7 +853,7 @@ function EquipmentDetailPage({ equipment, variants, incidents, components, techn
       <EquipmentHero equipment={equipment} variants={variants} />
       <section className="detail-grid">
         <EquipmentDetail equipment={equipment} incidents={incidents} variants={variants} />
-        <ModelViewer equipment={equipment} components={components} onComponentSelect={onComponentSelect} />
+        <ComponentSpecPanel equipment={equipment} components={components} onComponentSelect={onComponentSelect} />
       </section>
       <BattlefieldLens equipment={equipment} variants={variants} technologies={technologies} />
       <ComparableVehicles equipment={equipment} equipmentList={equipmentList} onSelect={onEquipmentOpen} />

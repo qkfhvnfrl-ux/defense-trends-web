@@ -65,13 +65,13 @@ async function main() {
     });
 
     await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: "networkidle" });
-    await page.waitForSelector(".model-slot", { timeout: 15000 });
+    await page.waitForSelector(".component-spec-panel", { timeout: 15000 });
 
     const result = {
       h1: await page.locator("h1").innerText(),
       rootHtmlLength: await page.locator("#root").evaluate((node) => node.innerHTML.length),
       equipmentRows: await page.locator(".equipment-row").count(),
-      modelSlots: await page.locator(".model-slot").count(),
+      componentSpecPanels: await page.locator(".component-spec-panel").count(),
       errors
     };
     console.log(JSON.stringify(result, null, 2));
@@ -79,7 +79,7 @@ async function main() {
     await browser.close();
     if (result.rootHtmlLength < 1000) throw new Error("Dev server rendered an empty app root");
     if (result.equipmentRows < 14) throw new Error("Dev server did not render expanded equipment list");
-    if (result.modelSlots < 1) throw new Error("Dev server did not render the simplified 3D model slot");
+    if (result.componentSpecPanels < 1) throw new Error("Dev server did not render the component spec panel");
     if (errors.length) throw new Error(`Dev browser errors: ${errors.join("; ")}`);
   } finally {
     child.kill();

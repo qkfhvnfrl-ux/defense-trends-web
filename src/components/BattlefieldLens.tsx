@@ -47,7 +47,7 @@ export function BattlefieldLens({ equipment, variants, technologies }: Props) {
           </div>
           <div>
             <strong>기본 형상 → 드론전 적응형</strong>
-            <p>GLB 모델이 없더라도 전장 개조 개념을 시각적으로 비교하도록 설계했습니다.</p>
+            <p>전장 개조 사례와 장비 특성을 함께 비교하도록 구성했습니다.</p>
           </div>
         </article>
         <article className="lens-card">
