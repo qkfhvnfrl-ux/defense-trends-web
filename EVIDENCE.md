@@ -1,3 +1,42 @@
+# 2026-06-19 출처 인덱스 필터/확인 상태 추가
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+## 수정 내역
+
+- `src/App.tsx`: `/sources` 화면에 출처 검색, 유형 필터, 확인 상태 필터, 상태 요약 추가
+- `src/App.tsx`: 출처 카드에 `최근 확인` 또는 `재확인 필요` 표시 추가
+- `src/styles.css`: 출처 상태 요약과 필터바 스타일 및 반응형 레이아웃 추가
+- `scripts/verify-render.cjs`: 출처 카드/필터/상태 요약/유형 필터/검색 필터 검증 추가
+- `scripts/verify-design.cjs`: 출처 필터 UI와 undersized control 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 423.19 kB / CSS 42.04 kB
+  - test:e2e 통과: sourceCards 46 / sourceFilterInputs 1 / sourceFilterSelects 2 / sourceHealthStats 3 / officialCards 16 / searchFilteredCards 5
+  - design:check 통과: sourceCards 46 / officialCards 16 / searchFilteredCards 5 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- `재확인 필요`는 `checkedAt` 날짜 기반이며 실제 링크 접속 성공/실패를 뜻하지 않는다.
+- 실제 URL 소실 여부는 `npm run sources:check` 결과를 별도로 확인해야 한다.
+
 # 2026-06-19 데이터 보강 필요 필터 추가
 
 ## 작업 상태

@@ -172,6 +172,16 @@ function latestSourceCheckDate(equipment: Equipment) {
   return checkedDates.length ? checkedDates[checkedDates.length - 1] : equipment.lastUpdated;
 }
 
+function getSourceFreshness(checkedAt: string) {
+  const checkedTime = new Date(`${checkedAt}T00:00:00Z`).getTime();
+  const ageDays = Number.isFinite(checkedTime) ? Math.floor((Date.now() - checkedTime) / 86_400_000) : Number.POSITIVE_INFINITY;
+  return {
+    status: ageDays > 180 ? "stale" : "current",
+    label: ageDays > 180 ? "재확인 필요" : "최근 확인",
+    ageDays
+  } as const;
+}
+
 function normalizeSearchText(value: string) {
   return value.trim().toLowerCase();
 }
@@ -1185,7 +1195,22 @@ function CasesPage({ cases, equipment }: { cases: BattlefieldCaseStudy[]; equipm
 }
 
 function SourceIndexPage({ sources, equipment }: { sources: Array<{ title: string; url: string; type: string; checkedAt: string }>; equipment: Equipment[] }) {
-  const sourceTypes = Array.from(new Set(sources.map((source) => source.type)));
+  const [sourceQuery, setSourceQuery] = useState("");
+  const [sourceType, setSourceType] = useState("all");
+  const [freshness, setFreshness] = useState("all");
+  const sourceTypes = Array.from(new Set(sources.map((source) => source.type))).sort((a, b) => a.localeCompare(b));
+  const freshnessByUrl = Object.fromEntries(sources.map((source) => [source.url, getSourceFreshness(source.checkedAt)]));
+  const filteredSources = sources.filter((source) => {
+    const normalizedQuery = normalizeSearchText(sourceQuery);
+    const matchesQuery =
+      !normalizedQuery ||
+      [source.title, source.url, source.type, source.checkedAt].join(" ").toLowerCase().includes(normalizedQuery);
+    const matchesType = sourceType === "all" || source.type === sourceType;
+    const matchesFreshness = freshness === "all" || freshnessByUrl[source.url].status === freshness;
+    return matchesQuery && matchesType && matchesFreshness;
+  });
+  const currentSources = sources.filter((source) => freshnessByUrl[source.url].status === "current").length;
+  const staleSources = sources.length - currentSources;
   return (
     <section className="source-index-page">
       <div className="section-heading">
@@ -1204,14 +1229,46 @@ function SourceIndexPage({ sources, equipment }: { sources: Array<{ title: strin
           <span><strong>{sources.filter((source) => source.type === "Manufacturer").length}</strong>제조사</span>
         </div>
       </div>
+      <div className="source-health-strip">
+        <span><strong>{currentSources}</strong>최근 확인</span>
+        <span><strong>{staleSources}</strong>재확인 필요</span>
+        <span><strong>{filteredSources.length}</strong>현재 표시</span>
+      </div>
+      <div className="source-filter-bar" aria-label="출처 인덱스 필터">
+        <label>
+          <span>출처 검색</span>
+          <input value={sourceQuery} onChange={(event) => setSourceQuery(event.target.value)} placeholder="예: Army, Rheinmetall, RUSI" />
+        </label>
+        <label>
+          <span>출처 유형</span>
+          <select value={sourceType} onChange={(event) => setSourceType(event.target.value)}>
+            <option value="all">전체 유형</option>
+            {sourceTypes.map((type) => <option key={type} value={type}>{type}</option>)}
+          </select>
+        </label>
+        <label>
+          <span>확인 상태</span>
+          <select value={freshness} onChange={(event) => setFreshness(event.target.value)}>
+            <option value="all">전체 상태</option>
+            <option value="current">최근 확인</option>
+            <option value="stale">재확인 필요</option>
+          </select>
+        </label>
+        <button type="button" onClick={() => {
+          setSourceQuery("");
+          setSourceType("all");
+          setFreshness("all");
+        }}>초기화</button>
+      </div>
       <div className="source-cards reference-grid">
-        {sources.map((source) => (
-          <a key={source.url} href={source.url} target="_blank" rel="noreferrer">
+        {filteredSources.map((source) => (
+          <a key={source.url} className="source-card" href={source.url} target="_blank" rel="noreferrer">
             <span className={`source-badge ${source.type.toLowerCase().replace(/\s+/g, "-")}`}>{source.type}</span>
             <strong>{source.title}</strong>
-            <small>{source.checkedAt}</small>
+            <small>{source.checkedAt} · {freshnessByUrl[source.url].label}</small>
           </a>
         ))}
+        {!filteredSources.length ? <p className="empty-state">조건에 맞는 출처가 없습니다.</p> : null}
       </div>
     </section>
   );

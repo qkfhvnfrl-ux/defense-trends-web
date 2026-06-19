@@ -103,6 +103,26 @@ async function main() {
   const filteredRows = await desktop.locator(".equipment-row").count();
   if (filteredRows !== 1) throw new Error(`Expected search to narrow to 1 row, found ${filteredRows}`);
 
+  await desktop.goto(new URL("/sources", desktop.url()).href, { waitUntil: "networkidle" });
+  await desktop.waitForSelector(".source-filter-bar", { timeout: 15000 });
+  const sourceIndex = {
+    sourceCards: await desktop.locator(".source-card").count(),
+    sourceFilterInputs: await desktop.locator(".source-filter-bar input").count(),
+    sourceFilterSelects: await desktop.locator(".source-filter-bar select").count(),
+    sourceHealthStats: await desktop.locator(".source-health-strip span").count()
+  };
+  await desktop.locator(".source-filter-bar select").first().selectOption({ label: "Official" });
+  sourceIndex.officialCards = await desktop.locator(".source-card").count();
+  await desktop.locator(".source-filter-bar button").click();
+  await desktop.locator(".source-filter-bar input").fill("Rheinmetall");
+  sourceIndex.searchFilteredCards = await desktop.locator(".source-card").count();
+  if (sourceIndex.sourceCards < 20) throw new Error("Expected source index cards");
+  if (sourceIndex.sourceFilterInputs !== 1) throw new Error("Expected source search input");
+  if (sourceIndex.sourceFilterSelects !== 2) throw new Error("Expected source filter selects");
+  if (sourceIndex.sourceHealthStats !== 3) throw new Error("Expected source health stats");
+  if (sourceIndex.officialCards < 1 || sourceIndex.officialCards >= sourceIndex.sourceCards) throw new Error("Expected source type filter to narrow cards");
+  if (sourceIndex.searchFilteredCards < 1 || sourceIndex.searchFilteredCards >= sourceIndex.sourceCards) throw new Error("Expected source search to narrow cards");
+
   for (const [label, page] of [
     ["desktop", desktop],
     ["tablet", tablet],
@@ -111,7 +131,7 @@ async function main() {
     await assertNoHorizontalOverflow(page, label);
   }
 
-  const undersizedControls = await desktop.locator(".equipment-row, .segmented-control button, .filter-grid select, .active-filter-bar button, .share-search-button, .result-action-grid button, .component-slot").evaluateAll((nodes) =>
+  const undersizedControls = await desktop.locator(".equipment-row, .segmented-control button, .filter-grid select, .active-filter-bar button, .share-search-button, .result-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button").evaluateAll((nodes) =>
     nodes
       .map((node) => {
         const rect = node.getBoundingClientRect();
@@ -126,7 +146,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, sourceIndex, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {

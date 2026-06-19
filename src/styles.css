@@ -1323,6 +1323,78 @@ a {
   gap: 10px;
 }
 
+.source-health-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.source-health-strip span {
+  display: grid;
+  gap: 4px;
+  min-height: 72px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfb;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.source-health-strip strong {
+  color: var(--green-deep);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.source-filter-bar {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.4fr) repeat(2, minmax(140px, 0.8fr)) auto;
+  gap: 10px;
+  align-items: end;
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.source-filter-bar label {
+  display: grid;
+  gap: 6px;
+}
+
+.source-filter-bar span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.source-filter-bar input,
+.source-filter-bar select {
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.source-filter-bar button {
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: #fff;
+  color: var(--green-deep);
+  font-weight: 900;
+}
+
 .source-cards a,
 .comparable-grid button {
   display: grid;
@@ -1781,6 +1853,7 @@ a {
   .lens-grid,
   .overview-grid,
   .equipment-hero,
+  .source-filter-bar,
   .source-cards,
   .case-strip,
   .case-study-grid,
@@ -1823,6 +1896,7 @@ a {
   .catalog-overview,
   .catalog-stat-grid,
   .component-slot-list,
+  .source-health-strip,
   .result-action-grid {
     grid-template-columns: 1fr;
   }

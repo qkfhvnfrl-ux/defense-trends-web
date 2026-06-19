@@ -80,6 +80,20 @@ async function main() {
     routeChecks.push({ route, rootLength, hasHeading });
   }
 
+  await page.goto(`${baseUrl}/sources`, { waitUntil: "networkidle" });
+  await page.waitForSelector(".source-filter-bar", { timeout: 15000 });
+  const sourceIndex = {
+    sourceCards: await page.locator(".source-card").count(),
+    sourceFilterInputs: await page.locator(".source-filter-bar input").count(),
+    sourceFilterSelects: await page.locator(".source-filter-bar select").count(),
+    sourceHealthStats: await page.locator(".source-health-strip span").count()
+  };
+  await page.locator(".source-filter-bar select").first().selectOption({ label: "Official" });
+  sourceIndex.officialCards = await page.locator(".source-card").count();
+  await page.locator(".source-filter-bar button").click();
+  await page.locator(".source-filter-bar input").fill("Rheinmetall");
+  sourceIndex.searchFilteredCards = await page.locator(".source-card").count();
+
   const mobile = await browser.newPage({ viewport: { width: 390, height: 900 } });
   await mobile.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
   await mobile.waitForSelector(".equipment-row", { timeout: 15000 });
@@ -94,7 +108,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktop, mobile: mobileResult, routeChecks, errors }, null, 2));
+  console.log(JSON.stringify({ desktop, mobile: mobileResult, sourceIndex, routeChecks, errors }, null, 2));
 
   if (!desktop.title.includes("장비 검색")) throw new Error("Expected search catalog title");
   if (desktop.equipmentRows < 14) throw new Error("Expected expanded equipment rows");
@@ -121,6 +135,12 @@ async function main() {
   if (!desktop.sortedFirstRow.includes("Boxer")) throw new Error("Expected battlefield case sort to put Boxer first");
   if (!desktop.sortUrlHasParam) throw new Error("Expected sort mode in URL");
   if (desktop.csvSuggestedFilename !== "equipment-search-results.csv") throw new Error("Expected CSV download filename");
+  if (sourceIndex.sourceCards < 20) throw new Error("Expected source index cards");
+  if (sourceIndex.sourceFilterInputs !== 1) throw new Error("Expected source search input");
+  if (sourceIndex.sourceFilterSelects !== 2) throw new Error("Expected source filter selects");
+  if (sourceIndex.sourceHealthStats !== 3) throw new Error("Expected source health stats");
+  if (sourceIndex.officialCards < 1 || sourceIndex.officialCards >= sourceIndex.sourceCards) throw new Error("Expected source type filter to narrow cards");
+  if (sourceIndex.searchFilteredCards < 1 || sourceIndex.searchFilteredCards >= sourceIndex.sourceCards) throw new Error("Expected source search to narrow cards");
   if (!desktop.koreanMapLabels.includes("우크라이나") || !desktop.koreanMapLabels.includes("유럽")) {
     throw new Error("Expected Korean map labels");
   }
