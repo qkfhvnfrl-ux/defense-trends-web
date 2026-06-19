@@ -1,3 +1,39 @@
+# 2026-06-20 중복 상단 메뉴 축소
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+```
+
+## 수정 내역
+
+- `src/App.tsx`: 상단 `전체 장비` 메뉴 제거
+- `src/App.tsx`: `/equipment`와 장비 상세 경로에서 `장비 검색` 메뉴가 활성화되도록 정리
+- `scripts/verify-render.cjs`: 상단 메뉴 3개와 `전체 장비` 미노출 검증 추가
+- `scripts/verify-design.cjs`: 상단 메뉴 3개와 `전체 장비` 미노출 디자인 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 427.03 kB / CSS 43.65 kB
+  - test:e2e 통과: navButtons 3 / hiddenWholeEquipmentNav 0 / routeChecks 전체 렌더링
+  - design:check 통과: navButtons 3 / hiddenWholeEquipmentNav 0 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- `/equipment` 경로는 호환용으로 유지한다. 완전 제거가 필요하면 외부 공유 링크 영향 검토가 먼저 필요하다.
+- Pages 배포 후 공개 번들에 3개 메뉴 기준이 반영됐는지 확인해야 한다.
+
 # 2026-06-20 팀 작업 큐 추가
 
 ## 작업 상태

@@ -158,7 +158,6 @@ const catalogPresets: CatalogPreset[] = [
 
 const navItems = [
   { path: "/", label: "장비 검색" },
-  { path: "/equipment", label: "전체 장비" },
   { path: "/insights", label: "전장 인사이트" },
   { path: "/sources", label: "출처" }
 ];
@@ -619,8 +618,7 @@ export function App() {
   function isNavActive(itemPath: string) {
     if (itemPath === "/insights") return isInsightsPath;
     if (itemPath === "/sources") return isSourcesPath;
-    if (itemPath === "/equipment") return path === "/equipment" || Boolean(equipmentPathMatch);
-    return path === "/" || path === "/compare";
+    return path === "/" || path === "/equipment" || path === "/compare" || Boolean(equipmentPathMatch);
   }
 
   return (

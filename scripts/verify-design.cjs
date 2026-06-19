@@ -36,6 +36,8 @@ async function main() {
   const tablet = await openApp(browser, { width: 820, height: 1100 });
 
   const desktopChecks = {
+    navButtons: await desktop.locator(".site-nav button").count(),
+    hiddenWholeEquipmentNav: await desktop.getByRole("button", { name: "전체 장비" }).count(),
     kpis: await desktop.locator(".kpi-strip div").count(),
     searchFields: await desktop.locator(".search-box input").count(),
     mapOverlays: await desktop.locator(".map-overlay").count(),
@@ -55,6 +57,8 @@ async function main() {
     resultActionButtons: await desktop.locator(".result-action-grid button").count()
   };
 
+  if (desktopChecks.navButtons !== 3) throw new Error("Expected three primary navigation buttons");
+  if (desktopChecks.hiddenWholeEquipmentNav !== 0) throw new Error("Expected duplicate whole equipment navigation to be hidden");
   if (desktopChecks.kpis !== 4) throw new Error("Expected 4 KPI cards");
   if (desktopChecks.searchFields !== 1) throw new Error("Expected equipment search field");
   if (desktopChecks.mapOverlays !== 1) throw new Error("Expected map overlay");

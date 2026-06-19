@@ -6,6 +6,22 @@
 
 ## 완료 작업
 
+### 2026-06-20 중복 상단 메뉴 축소
+
+- 상태 전이: new_task -> planned -> executing -> verifying -> completed
+- 목표:
+  - 팀원이 보는 상단 메뉴에서 같은 검색 화면으로 이어지는 중복 진입점을 제거한다.
+  - 기존 공유 링크와 상세 라우트는 유지해 호환성을 보존한다.
+- 결과:
+  - `전체 장비` 상단 메뉴 제거
+  - 상단 메뉴를 `장비 검색`, `전장 인사이트`, `출처` 3개로 단순화
+  - `/equipment`와 `/equipment/:id`에서는 `장비 검색` 메뉴가 활성화되도록 정리
+  - E2E/디자인 검증에 메뉴 3개와 `전체 장비` 미노출 조건 추가
+- 검증:
+  - `npm run typecheck` 통과
+  - `npm run lint` 통과
+  - 권한 상승 후 `npm run quality` 통과
+
 ### 2026-06-20 팀 작업 큐 추가
 
 - 상태 전이: new_task -> planned -> executing -> verifying -> completed

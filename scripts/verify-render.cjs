@@ -27,6 +27,8 @@ async function main() {
 
   const desktop = {
     title: await page.locator("h1").innerText(),
+    navButtons: await page.locator(".site-nav button").count(),
+    hiddenWholeEquipmentNav: await page.getByRole("button", { name: "전체 장비" }).count(),
     equipmentRows: await page.locator(".equipment-row").count(),
     markers: await page.locator(".case-marker").count(),
     componentSpecPanels: await page.locator(".component-spec-panel").count(),
@@ -129,6 +131,8 @@ async function main() {
   console.log(JSON.stringify({ desktop, mobile: mobileResult, sourceIndex, routeChecks, errors }, null, 2));
 
   if (!desktop.title.includes("장비 검색")) throw new Error("Expected search catalog title");
+  if (desktop.navButtons !== 3) throw new Error("Expected three primary navigation buttons");
+  if (desktop.hiddenWholeEquipmentNav !== 0) throw new Error("Expected duplicate whole equipment navigation to be hidden");
   if (desktop.equipmentRows < 14) throw new Error("Expected expanded equipment rows");
   if (desktop.markers < 6) throw new Error("Expected battlefield markers");
   if (desktop.componentSpecPanels < 1) throw new Error("Expected component spec panel");
