@@ -32,6 +32,21 @@ type AppData = {
 };
 
 type EquipmentFamily = "all" | "wheeled" | "tracked";
+type FilterValue = string;
+
+type CatalogFilters = {
+  role: FilterValue;
+  country: FilterValue;
+  status: FilterValue;
+  variantMaturity: FilterValue;
+};
+
+type FilterOptions = {
+  roles: string[];
+  countries: string[];
+  statuses: string[];
+  variantMaturities: string[];
+};
 
 const categoryLabels: Record<EquipmentCategory | "all", string> = {
   all: "전체",
@@ -89,6 +104,14 @@ function confidenceLabel(score: number) {
   return "Low";
 }
 
+function normalizeSearchText(value: string) {
+  return value.trim().toLowerCase();
+}
+
+function uniqueSorted(values: string[]) {
+  return Array.from(new Set(values.filter(Boolean))).sort((a, b) => a.localeCompare(b, "ko"));
+}
+
 function ScoreBar({ label, value, reason }: { label: string; value: number; reason?: string }) {
   return (
     <div className="score-item">
@@ -108,6 +131,12 @@ export function App() {
   const [path, setPath] = useState(() => normalizeRoute(window.location.pathname));
   const [family, setFamily] = useState<EquipmentFamily>("all");
   const [category, setCategory] = useState<EquipmentCategory | "all">("all");
+  const [catalogFilters, setCatalogFilters] = useState<CatalogFilters>({
+    role: "all",
+    country: "all",
+    status: "all",
+    variantMaturity: "all"
+  });
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState("m1a2-abrams");
   const [selectedIncidentId, setSelectedIncidentId] = useState<string | null>(null);
@@ -127,13 +156,29 @@ export function App() {
 
   const filteredEquipment = useMemo(() => {
     if (!data) return [];
-    const normalizedQuery = query.trim().toLowerCase();
+    const normalizedQuery = normalizeSearchText(query);
     return data.equipment.filter((item) => {
+      const itemVariants = data.variants.filter((variant) => variant.equipmentId === item.id);
       const matchesFamily =
         family === "all" ||
         (family === "wheeled" && familyCategories.wheeled.includes(item.category)) ||
         (family === "tracked" && familyCategories.tracked.includes(item.category));
       const matchesCategory = category === "all" || item.category === category;
+      const matchesRole =
+        catalogFilters.role === "all" ||
+        item.roleTags.includes(catalogFilters.role) ||
+        itemVariants.some((variant) =>
+          [variant.role, variant.nameKo, variant.armament].some((value) => value.includes(catalogFilters.role))
+        );
+      const matchesCountry =
+        catalogFilters.country === "all" ||
+        item.country.includes(catalogFilters.country) ||
+        item.originCountry.includes(catalogFilters.country) ||
+        item.operatorCountries.some((countryName) => countryName.includes(catalogFilters.country));
+      const matchesStatus = catalogFilters.status === "all" || item.status === catalogFilters.status;
+      const matchesVariantMaturity =
+        catalogFilters.variantMaturity === "all" ||
+        itemVariants.some((variant) => variant.maturity === catalogFilters.variantMaturity);
       const searchable = [
         item.name,
         item.country,
@@ -142,17 +187,32 @@ export function App() {
         item.operatorCountries.join(" "),
         item.aliases.join(" "),
         item.roleTags.join(" "),
-        item.summaryKo
+        item.status,
+        item.summaryKo,
+        itemVariants.map((variant) => `${variant.nameKo} ${variant.role} ${variant.armament} ${variant.maturity}`).join(" ")
       ].join(" ").toLowerCase();
       const matchesQuery = !normalizedQuery || searchable.includes(normalizedQuery);
-      return matchesFamily && matchesCategory && matchesQuery;
+      return matchesFamily && matchesCategory && matchesRole && matchesCountry && matchesStatus && matchesVariantMaturity && matchesQuery;
     });
-  }, [category, data, family, query]);
+  }, [catalogFilters, category, data, family, query]);
 
   const availableCategoryKeys = useMemo(() => {
     if (family === "all") return Object.keys(categoryLabels) as Array<EquipmentCategory | "all">;
     return ["all", ...familyCategories[family]] as Array<EquipmentCategory | "all">;
   }, [family]);
+
+  const filterOptions = useMemo<FilterOptions>(() => {
+    if (!data) return { roles: [], countries: [], statuses: [], variantMaturities: [] };
+    return {
+      roles: uniqueSorted([
+        ...data.equipment.flatMap((item) => item.roleTags),
+        ...data.variants.map((variant) => variant.role)
+      ]),
+      countries: uniqueSorted(data.equipment.flatMap((item) => [item.country, item.originCountry, ...item.operatorCountries])),
+      statuses: uniqueSorted(data.equipment.map((item) => item.status)),
+      variantMaturities: uniqueSorted(data.variants.map((variant) => variant.maturity))
+    };
+  }, [data]);
 
   function navigate(nextPath: string) {
     window.history.pushState(null, "", routeHref(nextPath));
@@ -262,8 +322,11 @@ export function App() {
           relatedVariants={relatedVariants}
           relatedComponents={relatedComponents}
           relatedTechnologies={relatedTechnologies}
+          variants={data.variants}
           family={family}
           category={category}
+          filters={catalogFilters}
+          filterOptions={filterOptions}
           query={query}
           availableCategoryKeys={availableCategoryKeys}
           sources={uniqueSources}
@@ -272,6 +335,13 @@ export function App() {
             setCategory("all");
           }}
           onCategoryChange={setCategory}
+          onFilterChange={(key, value) => setCatalogFilters((current) => ({ ...current, [key]: value }))}
+          onResetFilters={() => {
+            setFamily("all");
+            setCategory("all");
+            setCatalogFilters({ role: "all", country: "all", status: "all", variantMaturity: "all" });
+            setQuery("");
+          }}
           onQueryChange={setQuery}
           onEquipmentSelect={selectEquipment}
           onEquipmentOpen={(id) => navigate(`/equipment/${id}`)}
@@ -348,13 +418,18 @@ function CatalogPage({
   relatedVariants,
   relatedComponents,
   relatedTechnologies,
+  variants,
   family,
   category,
+  filters,
+  filterOptions,
   query,
   availableCategoryKeys,
   sources,
   onFamilyChange,
   onCategoryChange,
+  onFilterChange,
+  onResetFilters,
   onQueryChange,
   onEquipmentSelect,
   onEquipmentOpen,
@@ -370,19 +445,38 @@ function CatalogPage({
   relatedVariants: EquipmentVariant[];
   relatedComponents: ComponentSpec[];
   relatedTechnologies: BattlefieldTechnology[];
+  variants: EquipmentVariant[];
   family: EquipmentFamily;
   category: EquipmentCategory | "all";
+  filters: CatalogFilters;
+  filterOptions: FilterOptions;
   query: string;
   availableCategoryKeys: Array<EquipmentCategory | "all">;
   sources: Array<{ title: string; url: string; type: string; checkedAt: string }>;
   onFamilyChange: (family: EquipmentFamily) => void;
   onCategoryChange: (category: EquipmentCategory | "all") => void;
+  onFilterChange: (key: keyof CatalogFilters, value: string) => void;
+  onResetFilters: () => void;
   onQueryChange: (query: string) => void;
   onEquipmentSelect: (id: string) => void;
   onEquipmentOpen: (id: string) => void;
   onIncidentSelect: (id: string) => void;
   onComponentSelect: (component: ComponentSpec) => void;
 }) {
+  const activeFilterCount = [
+    family !== "all",
+    category !== "all",
+    filters.role !== "all",
+    filters.country !== "all",
+    filters.status !== "all",
+    filters.variantMaturity !== "all",
+    query.trim().length > 0
+  ].filter(Boolean).length;
+  const variantCountByEquipment = variants.reduce<Record<string, number>>((accumulator, variant) => {
+    accumulator[variant.equipmentId] = (accumulator[variant.equipmentId] ?? 0) + 1;
+    return accumulator;
+  }, {});
+
   return (
     <>
       <CatalogOverview equipment={equipment} variantsCount={relatedVariants.length} incidents={incidents} sources={sources} />
@@ -418,6 +512,40 @@ function CatalogPage({
               </button>
             ))}
           </div>
+          <div className="filter-grid" aria-label="세부 검색 필터">
+            <label>
+              <span>임무/파생형</span>
+              <select value={filters.role} onChange={(event) => onFilterChange("role", event.target.value)}>
+                <option value="all">전체 임무</option>
+                {filterOptions.roles.map((role) => <option key={role} value={role}>{role}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>국가</span>
+              <select value={filters.country} onChange={(event) => onFilterChange("country", event.target.value)}>
+                <option value="all">전체 국가</option>
+                {filterOptions.countries.map((country) => <option key={country} value={country}>{country}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>운용 상태</span>
+              <select value={filters.status} onChange={(event) => onFilterChange("status", event.target.value)}>
+                <option value="all">전체 상태</option>
+                {filterOptions.statuses.map((status) => <option key={status} value={status}>{status}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>계열 성숙도</span>
+              <select value={filters.variantMaturity} onChange={(event) => onFilterChange("variantMaturity", event.target.value)}>
+                <option value="all">전체 성숙도</option>
+                {filterOptions.variantMaturities.map((maturity) => <option key={maturity} value={maturity}>{maturity}</option>)}
+              </select>
+            </label>
+          </div>
+          <div className="active-filter-bar">
+            <span>{activeFilterCount ? `${activeFilterCount}개 조건 적용` : "필터 없음"}</span>
+            <button type="button" onClick={onResetFilters}>초기화</button>
+          </div>
           <div className="equipment-list">
             {filteredEquipment.map((item) => (
               <button
@@ -429,6 +557,7 @@ function CatalogPage({
               >
                 <span>{item.name}</span>
                 <small>{item.country} · {categoryLabels[item.category]}</small>
+                <em>{item.roleTags.slice(0, 3).join(" / ")} · 계열 {variantCountByEquipment[item.id] ?? 0}건</em>
               </button>
             ))}
             {!filteredEquipment.length ? <p className="empty-state">검색 조건에 맞는 장비가 없습니다.</p> : null}

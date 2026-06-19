@@ -40,6 +40,10 @@ input {
   font: inherit;
 }
 
+select {
+  font: inherit;
+}
+
 button {
   cursor: pointer;
 }
@@ -392,6 +396,64 @@ a {
   font-weight: 800;
 }
 
+.filter-grid {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.filter-grid label {
+  display: grid;
+  gap: 5px;
+}
+
+.filter-grid span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.filter-grid select {
+  width: 100%;
+  min-height: 38px;
+  padding: 7px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--field);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.active-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfb;
+}
+
+.active-filter-bar span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.active-filter-bar button {
+  min-height: 34px;
+  padding: 4px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--green-deep);
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .equipment-list {
   display: grid;
   gap: 8px;
@@ -419,6 +481,14 @@ a {
 
 .equipment-row small {
   color: var(--muted);
+}
+
+.equipment-row em {
+  color: #435149;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .empty-state {

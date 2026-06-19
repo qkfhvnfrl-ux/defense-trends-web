@@ -1,5 +1,55 @@
 # EVIDENCE
 
+## 2026-06-19 팀원용 장비 검색 필터 고도화
+
+### 작업 상태
+
+completed
+
+### 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run test
+& "C:\Program Files\nodejs\npm.cmd" run validate:data
+& "C:\Program Files\nodejs\npm.cmd" run build
+& "C:\Program Files\nodejs\npm.cmd" run test:e2e
+& "C:\Program Files\nodejs\npm.cmd" run design:check
+& "C:\Program Files\nodejs\npm.cmd" run dev:check
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+### 수정 내역
+
+- `src/App.tsx`: 임무/파생형, 국가, 운용 상태, 계열 성숙도 필터 추가
+- `src/App.tsx`: 검색 대상에 계열차량 명칭, 임무, 무장, 성숙도 포함
+- `src/App.tsx`: 필터 적용 조건 수와 초기화 버튼 추가
+- `src/App.tsx`: 검색 결과 행에 역할 태그와 계열 수 표시
+- `src/styles.css`: 필터 그리드, 선택 상자, 적용 조건 바, 결과 행 보조 텍스트 스타일 추가
+- `scripts/verify-render.cjs`: 필터 4개 렌더링 및 역할 필터 축소 동작 검증 추가
+- `scripts/verify-design.cjs`: 필터 UI, 초기화 버튼 크기, 국가 필터 축소 동작 검증 추가
+
+### 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- `npm run test`: 통과, 2 files / 5 tests
+- `npm run validate:data`: 통과, 15 equipment / 30 variants / 23 components / 7 technologies / 7 case studies / 6 development lens items / 8 engineering references
+- `npm run build`: 통과, JS 411.96 kB / CSS 43.78 kB
+- `npm run test:e2e`: 통과, 필터 select 4개 / 역할 필터 결과 1건 / 모바일 overflow 없음
+- `npm run design:check`: 통과, 국가 필터 결과 4건 / 검색어 필터 결과 1건 / undersized controls 없음
+- `npm run dev:check`: 통과
+- `npm run quality`: 통과
+
+### 남은 리스크
+
+- 현재 장비 데이터는 15종이므로 필터 구조는 준비됐지만 실제 “전 세계 장비 검색” 수준의 DB 확장이 필요하다.
+- 국가 데이터가 일부 대표 운용국 중심이라 향후 `operatorCountries` 정밀 확장이 필요하다.
+- 일부 과거 문서 텍스트가 콘솔 인코딩 환경에서 깨져 보일 수 있다.
+
+---
+
 ## 2026-06-19 운영 문서 체계 도입
 
 ### 작업 상태
