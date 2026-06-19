@@ -1,3 +1,39 @@
+# 2026-06-20 필터 배지 개별 해제
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+```
+
+## 수정 내역
+
+- `src/App.tsx`: 활성 필터 라벨을 개별 해제 액션이 있는 항목 배열로 변경
+- `src/App.tsx`: 필터 배지를 버튼으로 렌더링하고 조건별 해제 처리 추가
+- `src/styles.css`: 필터 배지 버튼 스타일 추가
+- `scripts/verify-render.cjs`: 프리셋 배지 클릭 후 조건 해제/목록 복원/URL 갱신 검증 추가
+- `scripts/verify-design.cjs`: 필터 배지 버튼 크기와 해제 동작 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 429.62 kB / CSS 44.41 kB
+  - test:e2e 통과: presetFilterTags 1 / presetFilterTagsAfterClear 0 / presetRowsAfterTagClear 15 / presetUrlAfterTagClear `/`
+  - design:check 통과: presetFilterTags 1 / presetFilterTagsAfterClear 0 / presetRowsAfterTagClear 15 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- 다중 조건이 적용된 경우 배지는 각 조건을 독립적으로 해제한다. 조건 간 의존성이 생기면 별도 정책이 필요하다.
+
 # 2026-06-20 적용 필터 배지 표시
 
 ## 작업 상태

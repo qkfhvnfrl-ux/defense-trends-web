@@ -554,16 +554,6 @@ a {
   gap: 5px;
 }
 
-.active-filter-tags span {
-  max-width: 100%;
-  padding: 4px 7px;
-  border: 1px solid rgba(47, 117, 105, 0.22);
-  border-radius: 999px;
-  background: var(--green-soft);
-  color: var(--green-deep);
-  overflow-wrap: anywhere;
-}
-
 .active-filter-actions {
   display: flex;
   flex-wrap: wrap;
@@ -586,6 +576,30 @@ a {
   border-color: rgba(22, 74, 67, 0.35);
   background: var(--green-deep);
   color: #fff;
+}
+
+.active-filter-bar .active-filter-tags button {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 30px;
+  gap: 5px;
+  padding: 4px 8px;
+  border: 1px solid rgba(47, 117, 105, 0.22);
+  border-radius: 999px;
+  background: var(--green-soft);
+  color: var(--green-deep);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.active-filter-tags button span {
+  overflow-wrap: anywhere;
+}
+
+.active-filter-tags button b {
+  font-size: 13px;
+  line-height: 1;
 }
 
 .share-status {

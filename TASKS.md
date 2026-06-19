@@ -6,6 +6,22 @@
 
 ## 완료 작업
 
+### 2026-06-20 필터 배지 개별 해제
+
+- 상태 전이: new_task -> planned -> executing -> verifying -> completed
+- 목표:
+  - 적용 중인 필터 중 하나만 빠르게 해제할 수 있게 한다.
+  - 프리셋/공유 링크 기반 검색에서 select를 다시 찾는 반복 작업을 줄인다.
+- 결과:
+  - 활성 필터 배지를 버튼으로 변경
+  - 계열, 분류, 임무, 국가, 상태, 성숙도, 신뢰도, 사례, 데이터 상태, 정렬, 검색어 조건별 개별 해제 지원
+  - 배지 클릭 시 필터 상태와 URL query가 함께 갱신
+  - E2E/디자인 검증에 배지 클릭 후 조건 해제, 전체 목록 복원, URL 파라미터 제거 검증 추가
+- 검증:
+  - `npm run typecheck` 통과
+  - `npm run lint` 통과
+  - 권한 상승 후 `npm run quality` 통과
+
 ### 2026-06-20 적용 필터 배지 표시
 
 - 상태 전이: new_task -> planned -> executing -> verifying -> completed

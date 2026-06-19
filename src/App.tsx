@@ -891,20 +891,20 @@ function CatalogPage({
   onIncidentSelect: (id: string) => void;
   onComponentSelect: (component: ComponentSpec) => void;
 }) {
-  const activeFilterLabels = [
-    family !== "all" ? `계열 ${familyLabels[family]}` : "",
-    category !== "all" ? categoryLabels[category] : "",
-    filters.role !== "all" ? filters.role : "",
-    filters.country !== "all" ? filters.country : "",
-    filters.status !== "all" ? filters.status : "",
-    filters.variantMaturity !== "all" ? filters.variantMaturity : "",
-    filters.confidence !== "all" ? `출처 ${filters.confidence}` : "",
-    filters.casePresence !== "all" ? casePresenceOptions.find((option) => option.value === filters.casePresence)?.label ?? "" : "",
-    filters.dataStatus !== "all" ? dataStatusOptions.find((option) => option.value === filters.dataStatus)?.label ?? "" : "",
-    sortMode !== defaultCatalogSortMode ? sortOptions.find((option) => option.value === sortMode)?.label ?? "" : "",
-    query.trim().length > 0 ? `검색어 ${query.trim()}` : ""
-  ].filter(Boolean);
-  const activeFilterCount = activeFilterLabels.length;
+  const activeFilterItems = [
+    family !== "all" ? { id: "family", label: `계열 ${familyLabels[family]}`, onClear: () => onFamilyChange("all") } : null,
+    category !== "all" ? { id: "category", label: categoryLabels[category], onClear: () => onCategoryChange("all") } : null,
+    filters.role !== "all" ? { id: "role", label: filters.role, onClear: () => onFilterChange("role", "all") } : null,
+    filters.country !== "all" ? { id: "country", label: filters.country, onClear: () => onFilterChange("country", "all") } : null,
+    filters.status !== "all" ? { id: "status", label: filters.status, onClear: () => onFilterChange("status", "all") } : null,
+    filters.variantMaturity !== "all" ? { id: "variantMaturity", label: filters.variantMaturity, onClear: () => onFilterChange("variantMaturity", "all") } : null,
+    filters.confidence !== "all" ? { id: "confidence", label: `출처 ${filters.confidence}`, onClear: () => onFilterChange("confidence", "all") } : null,
+    filters.casePresence !== "all" ? { id: "casePresence", label: casePresenceOptions.find((option) => option.value === filters.casePresence)?.label ?? "", onClear: () => onFilterChange("casePresence", "all") } : null,
+    filters.dataStatus !== "all" ? { id: "dataStatus", label: dataStatusOptions.find((option) => option.value === filters.dataStatus)?.label ?? "", onClear: () => onFilterChange("dataStatus", "all") } : null,
+    sortMode !== defaultCatalogSortMode ? { id: "sortMode", label: sortOptions.find((option) => option.value === sortMode)?.label ?? "", onClear: () => onSortChange(defaultCatalogSortMode) } : null,
+    query.trim().length > 0 ? { id: "query", label: `검색어 ${query.trim()}`, onClear: () => onQueryChange("") } : null
+  ].filter((item): item is { id: string; label: string; onClear: () => void } => Boolean(item?.label));
+  const activeFilterCount = activeFilterItems.length;
   const variantCountByEquipment = variants.reduce<Record<string, number>>((accumulator, variant) => {
     accumulator[variant.equipmentId] = (accumulator[variant.equipmentId] ?? 0) + 1;
     return accumulator;
@@ -1020,9 +1020,14 @@ function CatalogPage({
           <div className="active-filter-bar">
             <div className="active-filter-summary">
               <span>{activeFilterCount ? `${activeFilterCount}개 조건 적용` : "필터 없음"}</span>
-              {activeFilterLabels.length ? (
+              {activeFilterItems.length ? (
                 <div className="active-filter-tags" aria-label="적용 중인 검색 조건">
-                  {activeFilterLabels.map((label) => <span key={label}>{label}</span>)}
+                  {activeFilterItems.map((item) => (
+                    <button key={item.id} type="button" onClick={item.onClear} aria-label={`${item.label} 조건 해제`}>
+                      <span>{item.label}</span>
+                      <b aria-hidden="true">×</b>
+                    </button>
+                  ))}
                 </div>
               ) : null}
             </div>

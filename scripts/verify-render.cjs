@@ -59,8 +59,12 @@ async function main() {
   await page.waitForSelector(".equipment-row", { timeout: 15000 });
   await page.locator(".catalog-preset-grid button").first().click();
   desktop.presetNeedsReviewRows = await page.locator(".equipment-row").count();
-  desktop.presetFilterTags = await page.locator(".active-filter-tags span").count();
+  desktop.presetFilterTags = await page.locator(".active-filter-tags button").count();
   desktop.presetUrlHasDataParam = page.url().includes("data=needs-review");
+  await page.locator(".active-filter-tags button").first().click();
+  desktop.presetFilterTagsAfterClear = await page.locator(".active-filter-tags button").count();
+  desktop.presetRowsAfterTagClear = await page.locator(".equipment-row").count();
+  desktop.presetUrlAfterTagClear = page.url();
   await page.locator(".active-filter-actions button").first().click();
   await page.locator(".filter-grid select").first().selectOption({ label: "대드론/단거리방공" });
   desktop.roleFilteredRows = await page.locator(".equipment-row").count();
@@ -155,6 +159,9 @@ async function main() {
   if (desktop.presetNeedsReviewRows < 1 || desktop.presetNeedsReviewRows >= desktop.equipmentRows) throw new Error("Expected preset to narrow equipment rows");
   if (desktop.presetFilterTags < 1) throw new Error("Expected active filter tags after applying a preset");
   if (!desktop.presetUrlHasDataParam) throw new Error("Expected preset to sync data status into URL");
+  if (desktop.presetFilterTagsAfterClear !== 0) throw new Error("Expected filter tag click to clear the preset condition");
+  if (desktop.presetRowsAfterTagClear !== desktop.equipmentRows) throw new Error("Expected filter tag click to restore all equipment rows");
+  if (desktop.presetUrlAfterTagClear.includes("data=needs-review")) throw new Error("Expected filter tag click to remove data status from URL");
   if (desktop.roleFilteredRows < 1 || desktop.roleFilteredRows >= desktop.equipmentRows) throw new Error("Expected role filter to narrow equipment rows");
   if (!desktop.roleUrlHasParam) throw new Error("Expected role filter in URL");
   if (desktop.reloadedRoleFilteredRows !== desktop.roleFilteredRows) throw new Error("Expected filtered search URL to restore after reload");

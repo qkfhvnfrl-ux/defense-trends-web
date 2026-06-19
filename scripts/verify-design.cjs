@@ -90,10 +90,16 @@ async function main() {
 
   await desktop.locator(".catalog-preset-grid button").first().click();
   const presetRows = await desktop.locator(".equipment-row").count();
-  const presetFilterTags = await desktop.locator(".active-filter-tags span").count();
+  const presetFilterTags = await desktop.locator(".active-filter-tags button").count();
   if (presetRows < 1 || presetRows >= 15) throw new Error(`Expected catalog preset to narrow rows, found ${presetRows}`);
   if (presetFilterTags < 1) throw new Error("Expected active filter tags after applying a preset");
   if (!desktop.url().includes("data=needs-review")) throw new Error("Expected catalog preset to sync into URL");
+  await desktop.locator(".active-filter-tags button").first().click();
+  const presetRowsAfterTagClear = await desktop.locator(".equipment-row").count();
+  const presetFilterTagsAfterClear = await desktop.locator(".active-filter-tags button").count();
+  if (presetFilterTagsAfterClear !== 0) throw new Error("Expected filter tag click to clear the preset condition");
+  if (presetRowsAfterTagClear < 15) throw new Error(`Expected filter tag click to restore all rows, found ${presetRowsAfterTagClear}`);
+  if (desktop.url().includes("data=needs-review")) throw new Error("Expected filter tag click to remove data status from URL");
   await desktop.locator(".active-filter-actions button").first().click();
 
   await desktop.locator(".filter-grid select").nth(1).selectOption({ label: "독일" });
@@ -160,7 +166,7 @@ async function main() {
     await assertNoHorizontalOverflow(page, label);
   }
 
-  const undersizedControls = await desktop.locator(".equipment-row, .team-queue-grid button, .catalog-preset-grid button, .segmented-control button, .filter-grid select, .active-filter-tags span, .active-filter-bar button, .share-search-button, .result-action-grid button, .quick-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
+  const undersizedControls = await desktop.locator(".equipment-row, .team-queue-grid button, .catalog-preset-grid button, .segmented-control button, .filter-grid select, .active-filter-tags button, .active-filter-bar button, .share-search-button, .result-action-grid button, .quick-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
     nodes
       .map((node) => {
         const rect = node.getBoundingClientRect();
@@ -175,7 +181,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, sourceIndex, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, presetRowsAfterTagClear, presetFilterTagsAfterClear, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, sourceIndex, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {
