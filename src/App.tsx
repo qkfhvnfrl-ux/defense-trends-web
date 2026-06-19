@@ -711,6 +711,32 @@ export function App() {
     window.setTimeout(() => setBriefStatus(""), 2200);
   }
 
+  async function copyShortlistLink() {
+    if (!shortlistIds.length) {
+      setShortlistStatus("후보 목록이 비어 있습니다.");
+      window.setTimeout(() => setShortlistStatus(""), 2200);
+      return;
+    }
+    const catalogPath = canonicalPath === "/equipment" ? "/equipment" : "/";
+    const href = buildCatalogHref(catalogPath, {
+      family,
+      category,
+      filters: catalogFilters,
+      sortMode,
+      query,
+      selectedId,
+      shortlistIds
+    });
+    const fullUrl = new URL(href, window.location.origin).href;
+    try {
+      await navigator.clipboard.writeText(fullUrl);
+      setShortlistStatus("후보 링크 복사됨");
+    } catch {
+      setShortlistStatus("브라우저에서 URL 복사를 허용하지 않았습니다.");
+    }
+    window.setTimeout(() => setShortlistStatus(""), 2200);
+  }
+
   async function copyShortlistBrief() {
     if (!data) return;
     const shortlistedEquipment = shortlistIds
@@ -832,6 +858,7 @@ export function App() {
           onRemoveShortlist={removeShortlistItem}
           onClearShortlist={clearShortlist}
           onCopyShortlist={copyShortlistBrief}
+          onCopyShortlistLink={copyShortlistLink}
           onQueryChange={setQuery}
           onEquipmentSelect={selectEquipment}
           onEquipmentOpen={(id) => navigate(`/equipment/${id}`)}
@@ -938,6 +965,7 @@ function CatalogPage({
   onRemoveShortlist,
   onClearShortlist,
   onCopyShortlist,
+  onCopyShortlistLink,
   onQueryChange,
   onEquipmentSelect,
   onEquipmentOpen,
@@ -983,6 +1011,7 @@ function CatalogPage({
   onRemoveShortlist: (id: string) => void;
   onClearShortlist: () => void;
   onCopyShortlist: () => void;
+  onCopyShortlistLink: () => void;
   onQueryChange: (query: string) => void;
   onEquipmentSelect: (id: string) => void;
   onEquipmentOpen: (id: string) => void;
@@ -1208,6 +1237,7 @@ function CatalogPage({
           onRemoveShortlist={onRemoveShortlist}
           onClearShortlist={onClearShortlist}
           onCopyShortlist={onCopyShortlist}
+          onCopyShortlistLink={onCopyShortlistLink}
           onOpen={onEquipmentOpen}
         />
       </section>
@@ -1295,6 +1325,7 @@ function CatalogQuickFacts({
   onRemoveShortlist,
   onClearShortlist,
   onCopyShortlist,
+  onCopyShortlistLink,
   onOpen
 }: {
   equipment: Equipment;
@@ -1311,6 +1342,7 @@ function CatalogQuickFacts({
   onRemoveShortlist: (id: string) => void;
   onClearShortlist: () => void;
   onCopyShortlist: () => void;
+  onCopyShortlistLink: () => void;
   onOpen: (id: string) => void;
 }) {
   const isShortlisted = shortlistIds.includes(equipment.id);
@@ -1373,6 +1405,7 @@ function CatalogQuickFacts({
         )}
         <div className="shortlist-actions">
           <button type="button" onClick={onCopyShortlist} disabled={!shortlistEquipment.length}>후보 요약 복사</button>
+          <button type="button" onClick={onCopyShortlistLink} disabled={!shortlistEquipment.length}>후보 링크 복사</button>
           <button type="button" onClick={onClearShortlist} disabled={!shortlistEquipment.length}>비우기</button>
         </div>
         {shortlistStatus ? <p className="share-status shortlist-status" role="status">{shortlistStatus}</p> : null}

@@ -81,16 +81,18 @@ async function main() {
   if (desktopChecks.resultActionButtons !== 2) throw new Error("Expected two result export buttons");
   if (desktopChecks.quickActionButtons !== 3) throw new Error("Expected three selected equipment quick actions");
   if (desktopChecks.shortlistPanels !== 1) throw new Error("Expected selected equipment shortlist panel");
-  if (desktopChecks.shortlistActionButtons !== 2) throw new Error("Expected two shortlist action buttons");
+  if (desktopChecks.shortlistActionButtons !== 3) throw new Error("Expected three shortlist action buttons");
 
   await desktop.locator(".shortlist-toggle-button").click();
   const shortlistItemsAfterAdd = await desktop.locator(".shortlist-item").count();
   const shortlistEnabledActionsAfterAdd = await desktop.locator(".shortlist-actions button:not([disabled])").count();
+  const shortlistLinkButtons = await desktop.getByRole("button", { name: "후보 링크 복사" }).count();
   const shortlistUrlAfterAdd = desktop.url();
   if (shortlistItemsAfterAdd !== 1) throw new Error(`Expected shortlist add to create one item, found ${shortlistItemsAfterAdd}`);
-  if (shortlistEnabledActionsAfterAdd !== 2) throw new Error("Expected shortlist actions to enable after add");
+  if (shortlistEnabledActionsAfterAdd !== 3) throw new Error("Expected shortlist actions to enable after add");
+  if (shortlistLinkButtons !== 1) throw new Error("Expected shortlist link copy action");
   if (!shortlistUrlAfterAdd.includes("shortlist=")) throw new Error("Expected shortlist add to sync into URL");
-  await desktop.locator(".shortlist-actions button").nth(1).click();
+  await desktop.locator(".shortlist-actions button").nth(2).click();
   const shortlistItemsAfterClear = await desktop.locator(".shortlist-item").count();
   const shortlistUrlAfterClear = desktop.url();
   if (shortlistItemsAfterClear !== 0) throw new Error(`Expected shortlist clear to remove items, found ${shortlistItemsAfterClear}`);
@@ -218,7 +220,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, shortlistItemsAfterAdd, shortlistEnabledActionsAfterAdd, shortlistUrlAfterAdd, shortlistItemsAfterClear, shortlistUrlAfterClear, shortlistItemsFromUrl, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, presetRowsAfterTagClear, presetFilterTagsAfterClear, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, compareCanonicalPath, casesCanonicalPath, sourceIndex, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, shortlistItemsAfterAdd, shortlistEnabledActionsAfterAdd, shortlistLinkButtons, shortlistUrlAfterAdd, shortlistItemsAfterClear, shortlistUrlAfterClear, shortlistItemsFromUrl, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, presetRowsAfterTagClear, presetFilterTagsAfterClear, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, compareCanonicalPath, casesCanonicalPath, sourceIndex, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {

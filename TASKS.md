@@ -441,3 +441,27 @@
   - `npm run typecheck` 통과
   - `npm run lint` 통과
   - 권한 상승 후 `npm run quality` 통과
+# 2026-06-20 후보 링크 복사 액션 추가
+
+## 진행 중 작업
+
+- 없음
+
+## 완료 작업
+
+### 2026-06-20 후보 링크 복사 액션 추가
+
+- 상태 전이: new_task -> planned -> executing -> verifying -> completed
+- 목표:
+  - 팀 후보 목록 패널 안에서 직접 공유 링크를 복사할 수 있게 한다.
+  - 기존 검색 링크 복사 버튼을 찾는 반복 작업을 줄인다.
+- 결과:
+  - `후보 링크 복사` 버튼 추가
+  - 후보 action 버튼을 2개에서 3개로 확장
+  - 후보가 없으면 후보 action 전체 비활성화 유지
+  - 후보 링크 복사 성공/실패 상태 메시지 추가
+  - e2e/design 검증에 후보 링크 복사 버튼 수와 action 활성화 수 추가
+- 검증:
+  - `npm run typecheck` 통과
+  - `npm run lint` 통과
+  - 권한 상승 후 `npm run quality` 통과

@@ -1069,3 +1069,42 @@ completed
   - Boxer / Leopard 2A7 텍스트 확인
   - 비우기 후 URL에서 `shortlist` 제거
   - 후보 추가 후 URL에 `shortlist=m1a2-abrams` 반영
+# 2026-06-20 후보 링크 복사 액션 추가
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+## 수정 내역
+
+- `src/App.tsx`: 후보 목록 전용 링크 복사 함수 추가
+- `src/App.tsx`: 후보 패널에 `후보 링크 복사` 버튼 추가
+- `src/styles.css`: 후보 action grid를 3열로 변경
+- `scripts/verify-render.cjs`: 후보 action 3개, 링크 복사 버튼 1개, URL 동기화 검증 추가
+- `scripts/verify-design.cjs`: 후보 action 3개와 버튼 크기 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 최초 `npm run quality`: 샌드박스 상위 디렉터리 접근 제한으로 Vitest/esbuild가 `vite.config.ts` 로드 실패
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 433.82 kB / CSS 45.79 kB
+  - test:e2e 통과: shortlistActionButtons 3 / shortlistEnabledActionsAfterAdd 3 / shortlistLinkButtons 1 / shortlist URL add-remove-clear 동기화
+  - design:check 통과: shortlistActionButtons 3 / shortlistLinkButtons 1 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- Clipboard API가 차단된 브라우저에서는 상태 메시지를 보여주며, 사용자는 주소창 URL을 직접 복사해야 한다.
+- 미추적 `ax-development-journey.html`은 이번 작업 범위에서 제외했다.

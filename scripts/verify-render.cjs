@@ -56,12 +56,13 @@ async function main() {
   await page.locator(".shortlist-toggle-button").click();
   desktop.shortlistItemsAfterAdd = await page.locator(".shortlist-item").count();
   desktop.shortlistEnabledActionsAfterAdd = await page.locator(".shortlist-actions button:not([disabled])").count();
+  desktop.shortlistLinkButtons = await page.getByRole("button", { name: "후보 링크 복사" }).count();
   desktop.shortlistUrlAfterAdd = page.url();
   await page.locator(".shortlist-remove").first().click();
   desktop.shortlistItemsAfterRemove = await page.locator(".shortlist-item").count();
   desktop.shortlistUrlAfterRemove = page.url();
   await page.locator(".shortlist-toggle-button").click();
-  await page.locator(".shortlist-actions button").nth(1).click();
+  await page.locator(".shortlist-actions button").nth(2).click();
   desktop.shortlistItemsAfterClear = await page.locator(".shortlist-item").count();
   desktop.shortlistUrlAfterClear = page.url();
   await page.goto(`${baseUrl}/?shortlist=boxer,leopard-2a7`, { waitUntil: "networkidle" });
@@ -175,9 +176,10 @@ async function main() {
   if (desktop.quickActionButtons !== 3) throw new Error("Expected three selected equipment quick actions");
   if (desktop.shortlistPanels !== 1) throw new Error("Expected selected equipment shortlist panel");
   if (desktop.shortlistItemsInitial !== 0) throw new Error("Expected empty shortlist on first load");
-  if (desktop.shortlistActionButtons !== 2) throw new Error("Expected two shortlist actions");
+  if (desktop.shortlistActionButtons !== 3) throw new Error("Expected three shortlist actions");
   if (desktop.shortlistItemsAfterAdd !== 1) throw new Error("Expected shortlist add to create one item");
-  if (desktop.shortlistEnabledActionsAfterAdd !== 2) throw new Error("Expected shortlist actions to enable after add");
+  if (desktop.shortlistEnabledActionsAfterAdd !== 3) throw new Error("Expected shortlist actions to enable after add");
+  if (desktop.shortlistLinkButtons !== 1) throw new Error("Expected shortlist link copy action");
   if (!desktop.shortlistUrlAfterAdd.includes("shortlist=")) throw new Error("Expected shortlist add to sync into URL");
   if (desktop.shortlistItemsAfterRemove !== 0) throw new Error("Expected shortlist remove to clear the item");
   if (desktop.shortlistUrlAfterRemove.includes("shortlist=")) throw new Error("Expected shortlist remove to clear URL param");
