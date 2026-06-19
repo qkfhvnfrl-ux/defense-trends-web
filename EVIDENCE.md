@@ -913,3 +913,43 @@ completed
 - 대량 데이터 확장 후에는 검색어 매칭 점수 기반 정렬도 검토할 수 있다.
 
 ---
+
+# 2026-06-20 구형 라우트 canonical 정리
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+## 수정 내역
+
+- `src/App.tsx`: `canonicalRouteFor` 추가
+- `src/App.tsx`: `/compare`를 `/`로, `/development`, `/technologies`, `/cases`를 `/insights`로 history replace 처리
+- `src/App.tsx`: 내부 화면 판정은 canonical path 기준으로 정리
+- `scripts/verify-render.cjs`: routeChecks에 최종 URL 경로 검증 추가
+- `scripts/verify-design.cjs`: `/compare?data=needs-review` query 보존과 `/cases` -> `/insights` 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 최초 `npm run quality`: 샌드박스 상위 디렉터리 접근 제한으로 Vitest/esbuild가 `vite.config.ts` 로드 실패
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 429.79 kB / CSS 44.41 kB
+  - test:e2e 통과: `/compare` finalPath `/`, `/development|/technologies|/cases` finalPath `/insights`
+  - design:check 통과: compareCanonicalPath `/`, casesCanonicalPath `/insights`
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- 아직 공개 GitHub Pages 배포 전 상태다. 커밋, push, gh-pages 배포 후 공개 URL에서 재확인해야 한다.
+- 미추적 `ax-development-journey.html`은 이번 작업 범위에서 제외했다.

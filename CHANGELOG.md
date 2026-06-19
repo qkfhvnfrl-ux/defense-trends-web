@@ -251,3 +251,15 @@
 - 현재 검색어, 출처 유형, 확인 상태 필터가 적용된 결과만 복사/다운로드하도록 했다.
 - 출처 CSV 파일명을 `source-index-results.csv`로 고정했다.
 - 렌더/디자인 검증에 출처 내보내기 버튼과 CSV 다운로드 파일명 검증을 추가했다.
+
+# 변경사항 요약
+
+## 2026-06-20 구형 라우트 canonical 정리
+
+- 현재 메뉴에서 숨겨진 `/compare`, `/development`, `/technologies`, `/cases` 접속 시 공식 경로로 주소를 자동 정리했다.
+- `/compare`는 장비 검색 `/`으로, `/development`, `/technologies`, `/cases`는 `/insights`로 이동한다.
+- `/compare?data=needs-review`처럼 기존 검색 필터 공유 링크의 query string을 보존한다.
+- e2e와 디자인 검증에 canonical 최종 경로 확인을 추가했다.
+- `npm run quality` 통과를 확인했다.
+
+---

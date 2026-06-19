@@ -136,6 +136,18 @@ async function main() {
   const filteredRows = await desktop.locator(".equipment-row").count();
   if (filteredRows !== 1) throw new Error(`Expected search to narrow to 1 row, found ${filteredRows}`);
 
+  await desktop.goto(new URL("/compare?data=needs-review", desktop.url()).href, { waitUntil: "networkidle" });
+  await desktop.waitForSelector(".equipment-row", { timeout: 15000 });
+  const compareCanonicalPath = new URL(desktop.url()).pathname;
+  const compareCanonicalUrl = desktop.url();
+  if (compareCanonicalPath !== "/") throw new Error(`Expected /compare to canonicalize to /, found ${compareCanonicalPath}`);
+  if (!compareCanonicalUrl.includes("data=needs-review")) throw new Error("Expected /compare canonical route to preserve query filters");
+
+  await desktop.goto(new URL("/cases", desktop.url()).href, { waitUntil: "networkidle" });
+  await desktop.waitForSelector(".cases-page", { timeout: 15000 });
+  const casesCanonicalPath = new URL(desktop.url()).pathname;
+  if (casesCanonicalPath !== "/insights") throw new Error(`Expected /cases to canonicalize to /insights, found ${casesCanonicalPath}`);
+
   await desktop.goto(new URL("/sources", desktop.url()).href, { waitUntil: "networkidle" });
   await desktop.waitForSelector(".source-filter-bar", { timeout: 15000 });
   const sourceIndex = {
@@ -181,7 +193,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, presetRowsAfterTagClear, presetFilterTagsAfterClear, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, sourceIndex, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, presetRowsAfterTagClear, presetFilterTagsAfterClear, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, compareCanonicalPath, casesCanonicalPath, sourceIndex, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {

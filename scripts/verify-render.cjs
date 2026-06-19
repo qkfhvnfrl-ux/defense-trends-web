@@ -98,7 +98,8 @@ async function main() {
     await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
     const rootLength = await page.locator("#root").evaluate((node) => node.innerHTML.length);
     const hasHeading = await page.locator("h1, h2").first().isVisible();
-    routeChecks.push({ route, rootLength, hasHeading });
+    const finalPath = new URL(page.url()).pathname;
+    routeChecks.push({ route, finalPath, rootLength, hasHeading });
   }
 
   await page.goto(`${baseUrl}/sources`, { waitUntil: "networkidle" });
@@ -189,6 +190,16 @@ async function main() {
   if (mobileResult.bodyWidth > mobileResult.viewportWidth + 1) throw new Error("Mobile layout has horizontal overflow");
   for (const route of routeChecks) {
     if (route.rootLength < 1000 || !route.hasHeading) throw new Error(`Route ${route.route} did not render correctly`);
+    const canonicalRoutes = {
+      "/compare": "/",
+      "/development": "/insights",
+      "/technologies": "/insights",
+      "/cases": "/insights"
+    };
+    const expectedFinalPath = canonicalRoutes[route.route] ?? route.route;
+    if (route.finalPath !== expectedFinalPath) {
+      throw new Error(`Route ${route.route} ended at ${route.finalPath}, expected ${expectedFinalPath}`);
+    }
   }
   if (errors.length) throw new Error(`Browser errors: ${errors.join("; ")}`);
 }

@@ -203,3 +203,11 @@ completed
 - 기본순, 출처 신뢰도 높은순, 전장 사례 많은순, 계열 많은순, 최근 확인일순으로 결과를 정렬할 수 있다.
 - 정렬 기준은 URL query string의 `sort` 파라미터와 동기화되어 검색 링크 공유와 새로고침 복원이 가능하다.
 - 결과 요약 복사와 CSV 다운로드는 현재 정렬된 결과 순서를 그대로 사용한다.
+
+# 2026-06-20 상태 갱신: 구형 라우트 canonical 정리
+
+- 숨겨진 구형 URL을 현재 3개 메뉴 구조에 맞게 자동 정리했다.
+- `/compare`는 장비 검색 `/`으로 canonical 처리한다.
+- `/development`, `/technologies`, `/cases`는 전장 인사이트 `/insights`로 canonical 처리한다.
+- 기존 공유 링크는 계속 열리며, `/compare?data=needs-review`처럼 검색 query string은 보존된다.
+- 검증 결과 `npm run quality`에서 routeChecks 최종 경로와 디자인 검증의 `compareCanonicalPath`, `casesCanonicalPath`를 확인했다.

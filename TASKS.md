@@ -1,3 +1,27 @@
+# 2026-06-20 구형 라우트 canonical 정리
+
+## 진행 중 작업
+
+- 없음
+
+## 완료 작업
+
+### 2026-06-20 구형 라우트 canonical 정리
+
+- 상태 전이: new_task -> planned -> executing -> verifying -> completed
+- 목표:
+  - 숨겨진 이전 메뉴 URL을 현재 메뉴 구조에 맞는 공식 URL로 정리한다.
+  - 기존 공유 링크 호환성은 유지한다.
+- 결과:
+  - `/compare`를 `/`로 canonical 처리
+  - `/development`, `/technologies`, `/cases`를 `/insights`로 canonical 처리
+  - `/compare?data=needs-review` query string 보존 검증 추가
+  - routeChecks에 최종 경로 검증 추가
+- 검증:
+  - `npm run typecheck` 통과
+  - `npm run lint` 통과
+  - 권한 상승 후 `npm run quality` 통과
+
 # TASKS
 
 ## 진행 중 작업

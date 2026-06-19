@@ -250,7 +250,13 @@ function isSourceFreshnessFilter(value: string | null): value is "all" | "curren
 }
 
 function isCatalogPath(path: string) {
-  return path === "/" || path === "/equipment" || path === "/compare";
+  return path === "/" || path === "/equipment";
+}
+
+function canonicalRouteFor(path: string) {
+  if (path === "/compare") return "/";
+  if (path === "/development" || path === "/technologies" || path === "/cases") return "/insights";
+  return path;
 }
 
 function readCatalogStateFromLocation(): CatalogUrlState {
@@ -426,6 +432,7 @@ export function App() {
   const [shareStatus, setShareStatus] = useState("");
   const [exportStatus, setExportStatus] = useState("");
   const [briefStatus, setBriefStatus] = useState("");
+  const canonicalPath = canonicalRouteFor(path);
 
   useEffect(() => {
     loadAppData().then(setData).catch((reason: unknown) => {
@@ -449,8 +456,14 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    if (!isCatalogPath(path)) return;
-    const catalogPath = path === "/equipment" ? "/equipment" : "/";
+    if (canonicalPath === path) return;
+    const nextHref = `${routeHref(canonicalPath)}${window.location.search}`;
+    window.history.replaceState(null, "", nextHref);
+  }, [canonicalPath, path]);
+
+  useEffect(() => {
+    if (!isCatalogPath(canonicalPath)) return;
+    const catalogPath = canonicalPath === "/equipment" ? "/equipment" : "/";
     const nextHref = buildCatalogHref(catalogPath, {
       family,
       category,
@@ -463,7 +476,7 @@ export function App() {
     if (currentHref !== nextHref) {
       window.history.replaceState(null, "", nextHref);
     }
-  }, [catalogFilters, category, family, path, query, selectedId, sortMode]);
+  }, [canonicalPath, catalogFilters, category, family, query, selectedId, sortMode]);
 
   const filteredEquipment = useMemo(() => {
     if (!data) return [];
@@ -563,7 +576,7 @@ export function App() {
   }
 
   async function copySearchLink() {
-    const catalogPath = path === "/equipment" ? "/equipment" : "/";
+    const catalogPath = canonicalPath === "/equipment" ? "/equipment" : "/";
     const href = buildCatalogHref(catalogPath, {
       family,
       category,
@@ -623,7 +636,7 @@ export function App() {
   const relatedVariants = data.variants.filter((variant) => variant.equipmentId === selectedEquipment.id);
   const relatedTechnologies = data.technologies.filter((technology) => technology.relatedEquipmentIds.includes(selectedEquipment.id));
 
-  const equipmentPathMatch = path.match(/^\/equipment\/([^/]+)$/);
+  const equipmentPathMatch = canonicalPath.match(/^\/equipment\/([^/]+)$/);
   const routeSelectedEquipment = equipmentPathMatch
     ? data.equipment.find((item) => item.id === equipmentPathMatch[1]) ?? selectedEquipment
     : selectedEquipment;
@@ -633,13 +646,13 @@ export function App() {
   const routeTechnologies = data.technologies.filter((technology) => technology.relatedEquipmentIds.includes(routeSelectedEquipment.id));
 
   const uniqueSources = buildSourceIndex(data);
-  const isInsightsPath = ["/insights", "/development", "/technologies", "/cases"].includes(path);
-  const isSourcesPath = path === "/sources";
+  const isInsightsPath = canonicalPath === "/insights";
+  const isSourcesPath = canonicalPath === "/sources";
 
   function isNavActive(itemPath: string) {
     if (itemPath === "/insights") return isInsightsPath;
     if (itemPath === "/sources") return isSourcesPath;
-    return path === "/" || path === "/equipment" || path === "/compare" || Boolean(equipmentPathMatch);
+    return canonicalPath === "/" || canonicalPath === "/equipment" || Boolean(equipmentPathMatch);
   }
 
   async function copySelectedEquipmentBrief() {
