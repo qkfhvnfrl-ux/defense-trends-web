@@ -1,3 +1,39 @@
+# 2026-06-20 적용 필터 배지 표시
+
+## 작업 상태
+
+completed
+
+## 실행 명령어
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+```
+
+## 수정 내역
+
+- `src/App.tsx`: 활성 필터 라벨 배열 생성 추가
+- `src/App.tsx`: 활성 필터 영역에 적용 조건 배지 표시 추가
+- `src/styles.css`: 필터 배지 줄바꿈/시각 스타일 추가
+- `scripts/verify-render.cjs`: 프리셋 적용 후 필터 배지 표시 검증 추가
+- `scripts/verify-design.cjs`: 필터 배지 표시 및 컨트롤 크기 검증 추가
+
+## 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- 권한 상승 후 `npm run quality`: 통과
+  - validate:data 통과: 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+  - test 통과: 2 files / 5 tests
+  - build 통과: JS 428.86 kB / CSS 44.21 kB
+  - test:e2e 통과: presetFilterTags 1 / presetNeedsReviewRows 3 / browser errors 없음
+  - design:check 통과: presetFilterTags 1 / undersized controls 없음
+  - dev:check 통과: browser errors 없음
+
+## 남은 리스크
+
+- 필터 배지는 읽기 전용이다. 개별 배지 클릭 해제는 필요성이 확인되면 별도 작업으로 추가한다.
+
 # 2026-06-20 선택 장비 요약 복사 추가
 
 ## 작업 상태

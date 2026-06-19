@@ -90,7 +90,9 @@ async function main() {
 
   await desktop.locator(".catalog-preset-grid button").first().click();
   const presetRows = await desktop.locator(".equipment-row").count();
+  const presetFilterTags = await desktop.locator(".active-filter-tags span").count();
   if (presetRows < 1 || presetRows >= 15) throw new Error(`Expected catalog preset to narrow rows, found ${presetRows}`);
+  if (presetFilterTags < 1) throw new Error("Expected active filter tags after applying a preset");
   if (!desktop.url().includes("data=needs-review")) throw new Error("Expected catalog preset to sync into URL");
   await desktop.locator(".active-filter-actions button").first().click();
 
@@ -158,7 +160,7 @@ async function main() {
     await assertNoHorizontalOverflow(page, label);
   }
 
-  const undersizedControls = await desktop.locator(".equipment-row, .team-queue-grid button, .catalog-preset-grid button, .segmented-control button, .filter-grid select, .active-filter-bar button, .share-search-button, .result-action-grid button, .quick-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
+  const undersizedControls = await desktop.locator(".equipment-row, .team-queue-grid button, .catalog-preset-grid button, .segmented-control button, .filter-grid select, .active-filter-tags span, .active-filter-bar button, .share-search-button, .result-action-grid button, .quick-action-grid button, .component-slot, .source-filter-bar input, .source-filter-bar select, .source-filter-bar button, .source-action-grid button").evaluateAll((nodes) =>
     nodes
       .map((node) => {
         const rect = node.getBoundingClientRect();
@@ -173,7 +175,7 @@ async function main() {
   await browser.close();
   server.close();
 
-  console.log(JSON.stringify({ desktopChecks, sourceQueueCards, sourceQueueEmptyStates, presetRows, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, sourceIndex, designTokens: 6 }, null, 2));
+  console.log(JSON.stringify({ desktopChecks, sourceQueueCards, sourceQueueEmptyStates, presetRows, presetFilterTags, countryFilteredRows, lowConfidenceRows, withCaseRows, needsReviewRows, sortedFirstRow, filteredRows, sourceIndex, designTokens: 6 }, null, 2));
 }
 
 main().catch((error) => {

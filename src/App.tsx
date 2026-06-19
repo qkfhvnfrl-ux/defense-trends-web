@@ -891,19 +891,20 @@ function CatalogPage({
   onIncidentSelect: (id: string) => void;
   onComponentSelect: (component: ComponentSpec) => void;
 }) {
-  const activeFilterCount = [
-    family !== "all",
-    category !== "all",
-    filters.role !== "all",
-    filters.country !== "all",
-    filters.status !== "all",
-    filters.variantMaturity !== "all",
-    filters.confidence !== "all",
-    filters.casePresence !== "all",
-    filters.dataStatus !== "all",
-    sortMode !== defaultCatalogSortMode,
-    query.trim().length > 0
-  ].filter(Boolean).length;
+  const activeFilterLabels = [
+    family !== "all" ? `계열 ${familyLabels[family]}` : "",
+    category !== "all" ? categoryLabels[category] : "",
+    filters.role !== "all" ? filters.role : "",
+    filters.country !== "all" ? filters.country : "",
+    filters.status !== "all" ? filters.status : "",
+    filters.variantMaturity !== "all" ? filters.variantMaturity : "",
+    filters.confidence !== "all" ? `출처 ${filters.confidence}` : "",
+    filters.casePresence !== "all" ? casePresenceOptions.find((option) => option.value === filters.casePresence)?.label ?? "" : "",
+    filters.dataStatus !== "all" ? dataStatusOptions.find((option) => option.value === filters.dataStatus)?.label ?? "" : "",
+    sortMode !== defaultCatalogSortMode ? sortOptions.find((option) => option.value === sortMode)?.label ?? "" : "",
+    query.trim().length > 0 ? `검색어 ${query.trim()}` : ""
+  ].filter(Boolean);
+  const activeFilterCount = activeFilterLabels.length;
   const variantCountByEquipment = variants.reduce<Record<string, number>>((accumulator, variant) => {
     accumulator[variant.equipmentId] = (accumulator[variant.equipmentId] ?? 0) + 1;
     return accumulator;
@@ -1017,7 +1018,14 @@ function CatalogPage({
             </label>
           </div>
           <div className="active-filter-bar">
-            <span>{activeFilterCount ? `${activeFilterCount}개 조건 적용` : "필터 없음"}</span>
+            <div className="active-filter-summary">
+              <span>{activeFilterCount ? `${activeFilterCount}개 조건 적용` : "필터 없음"}</span>
+              {activeFilterLabels.length ? (
+                <div className="active-filter-tags" aria-label="적용 중인 검색 조건">
+                  {activeFilterLabels.map((label) => <span key={label}>{label}</span>)}
+                </div>
+              ) : null}
+            </div>
             <div className="active-filter-actions">
               <button type="button" onClick={onResetFilters}>초기화</button>
               <button className="share-search-button" type="button" onClick={onShareSearch}>검색 링크 복사</button>

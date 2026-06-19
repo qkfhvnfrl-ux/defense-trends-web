@@ -59,6 +59,7 @@ async function main() {
   await page.waitForSelector(".equipment-row", { timeout: 15000 });
   await page.locator(".catalog-preset-grid button").first().click();
   desktop.presetNeedsReviewRows = await page.locator(".equipment-row").count();
+  desktop.presetFilterTags = await page.locator(".active-filter-tags span").count();
   desktop.presetUrlHasDataParam = page.url().includes("data=needs-review");
   await page.locator(".active-filter-actions button").first().click();
   await page.locator(".filter-grid select").first().selectOption({ label: "대드론/단거리방공" });
@@ -152,6 +153,7 @@ async function main() {
   if (!desktop.sourceQueueUrlHasFreshness) throw new Error("Expected source review queue to open stale source filter");
   if (desktop.sourceQueueCards < 1 && desktop.sourceQueueEmptyStates < 1) throw new Error("Expected source review queue to show cards or an empty state");
   if (desktop.presetNeedsReviewRows < 1 || desktop.presetNeedsReviewRows >= desktop.equipmentRows) throw new Error("Expected preset to narrow equipment rows");
+  if (desktop.presetFilterTags < 1) throw new Error("Expected active filter tags after applying a preset");
   if (!desktop.presetUrlHasDataParam) throw new Error("Expected preset to sync data status into URL");
   if (desktop.roleFilteredRows < 1 || desktop.roleFilteredRows >= desktop.equipmentRows) throw new Error("Expected role filter to narrow equipment rows");
   if (!desktop.roleUrlHasParam) throw new Error("Expected role filter in URL");

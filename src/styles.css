@@ -536,10 +536,32 @@ a {
   background: #fbfcfb;
 }
 
+.active-filter-summary {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
 .active-filter-bar span {
   color: var(--muted);
   font-size: 12px;
   font-weight: 900;
+}
+
+.active-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.active-filter-tags span {
+  max-width: 100%;
+  padding: 4px 7px;
+  border: 1px solid rgba(47, 117, 105, 0.22);
+  border-radius: 999px;
+  background: var(--green-soft);
+  color: var(--green-deep);
+  overflow-wrap: anywhere;
 }
 
 .active-filter-actions {
