@@ -1,5 +1,51 @@
 # EVIDENCE
 
+## 2026-06-19 불필요한 3D/구형 코드 제거
+
+### 작업 상태
+
+completed
+
+### 실행 명령어
+
+```powershell
+rg "@react-three|three|pngjs|canvas-frame|viewer-controls|hotspot|DevelopmentLensPage|TrendPanel|development-page|requirements-matrix|lifecycle-rail" -n package.json package-lock.json src scripts
+& "C:\Program Files\nodejs\npm.cmd" uninstall @react-three/drei @react-three/fiber three pngjs
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run validate:data
+& "C:\Program Files\nodejs\npm.cmd" run test
+& "C:\Program Files\nodejs\npm.cmd" run build
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+### 수정 내역
+
+- `package.json`, `package-lock.json`: `@react-three/drei`, `@react-three/fiber`, `three`, `pngjs` 제거
+- `src/components/DevelopmentLensPage.tsx`: 미사용 구형 개발 렌즈 페이지 삭제
+- `src/components/TrendPanel.tsx`: 미사용 트렌드 패널 삭제
+- `src/styles.css`: 3D 캔버스 조작 UI, 핫스팟 버튼, 삭제된 개발 렌즈 페이지 전용 스타일 제거
+- `src/styles.css`: CSS 블록 정리 중 발생한 `reference-grid` 닫힘 누락을 복구
+
+### 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- `npm run validate:data`: 통과, 15 equipment / 30 variants / 23 components / 7 technologies / 7 case studies / 6 development lens items / 8 engineering references
+- `npm run test`: 통과, 2 files / 5 tests
+- `npm run build`: 통과, JS 415.91 kB / CSS 39.47 kB
+- `npm run test:e2e`: 통과, 장비 15건 / 필터 4개 / 결과 내보내기 버튼 2개 / CSV 파일명 확인 / 모바일 overflow 없음
+- `npm run design:check`: 통과
+- `npm run dev:check`: 통과
+- `npm run quality`: 통과
+
+### 남은 리스크
+
+- 실제 3D 뷰어를 다시 활성화할 때는 제거한 3D 런타임 의존성을 재도입해야 한다.
+- `hotspotPosition` 필드는 현재 화면에서 직접 사용하지 않지만 향후 GLB 핫스팟 연동을 위해 유지했다.
+
+---
+
 ## 2026-06-19 검색 결과 내보내기 추가
 
 ### 작업 상태

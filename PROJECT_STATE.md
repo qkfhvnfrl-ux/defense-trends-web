@@ -1,5 +1,13 @@
 # PROJECT_STATE
 
+## 2026-06-19 상태 갱신: 불필요한 3D/구형 코드 제거
+
+- 현재 검색 중심 버전에서 사용하지 않는 3D 런타임 의존성을 제거했다.
+- 제거한 패키지는 `@react-three/drei`, `@react-three/fiber`, `three`, `pngjs`이다.
+- 사용되지 않는 `DevelopmentLensPage`, `TrendPanel` 컴포넌트를 삭제했다.
+- 3D 캔버스 조작 UI와 구형 개발 렌즈 페이지 전용 CSS를 제거했다.
+- `hotspotPosition` 데이터 필드는 추후 GLB 핫스팟 복구를 위해 유지한다.
+
 ## 2026-06-19 상태 갱신: 검색 결과 내보내기
 
 - 필터된 장비 목록을 팀원에게 전달할 수 있도록 결과 내보내기 기능을 추가했다.
@@ -44,7 +52,6 @@ completed
 - Vite
 - React
 - TypeScript
-- Three.js / React Three Fiber
 - Leaflet / React Leaflet
 - Zod
 - Vitest
@@ -58,7 +65,7 @@ completed
 - 장비 상세, 비교, 기술, 사례 페이지
 - 세계지도 기반 전장 사례 표시
 - 한국어 지도 보조 라벨
-- 3D 플레이스홀더 모델 및 부품 핫스팟
+- 추후 GLB 연동을 위한 모델 준비 슬롯 및 공개 부품 스펙 목록
 - 차량 계열/파생형 데이터
 - 현대 전장 기술 패널
 - 출처 URL 검증 스크립트

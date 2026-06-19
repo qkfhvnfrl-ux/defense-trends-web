@@ -6,6 +6,21 @@
 
 ## 완료 작업
 
+### 2026-06-19 불필요한 3D/구형 코드 제거
+
+- 상태 전이: new_task → planned → executing → verifying → completed
+- 목표:
+  - 현재 검색 중심 버전에 필요 없는 3D 런타임과 구형 화면 코드를 제거
+  - 팀원에게 필요한 기능만 남기고 유지보수 표면 축소
+- 결과:
+  - `@react-three/drei`, `@react-three/fiber`, `three`, `pngjs` 의존성 제거
+  - 미사용 `DevelopmentLensPage` 삭제
+  - 미사용 `TrendPanel` 삭제
+  - 3D 캔버스/핫스팟 조작 CSS 제거
+  - 삭제된 개발 렌즈 페이지 전용 CSS 제거
+- 검증:
+  - `npm run quality` 통과
+
 ### 2026-06-19 검색 결과 내보내기 추가
 
 - 상태 전이: new_task → planned → executing → verifying → completed
