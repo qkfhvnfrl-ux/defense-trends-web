@@ -478,6 +478,24 @@ a {
   font-weight: 900;
 }
 
+.result-action-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.result-action-grid button {
+  min-height: 38px;
+  padding: 7px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--green-deep);
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .equipment-list {
   display: grid;
   gap: 8px;
@@ -2046,7 +2064,8 @@ a {
 
   .catalog-overview,
   .catalog-stat-grid,
-  .component-slot-list {
+  .component-slot-list,
+  .result-action-grid {
     grid-template-columns: 1fr;
   }
 

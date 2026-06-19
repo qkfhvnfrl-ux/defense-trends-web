@@ -173,6 +173,47 @@ function buildCatalogHref(path: string, state: CatalogUrlState) {
   return `${routeHref(path)}${query ? `?${query}` : ""}`;
 }
 
+function escapeCsv(value: string | number) {
+  const text = String(value);
+  return `"${text.replace(/"/g, "\"\"")}"`;
+}
+
+function getVariantCountByEquipment(variants: EquipmentVariant[]) {
+  return variants.reduce<Record<string, number>>((accumulator, variant) => {
+    accumulator[variant.equipmentId] = (accumulator[variant.equipmentId] ?? 0) + 1;
+    return accumulator;
+  }, {});
+}
+
+function buildResultSummary(equipmentList: Equipment[], variants: EquipmentVariant[]) {
+  const variantCountByEquipment = getVariantCountByEquipment(variants);
+  const rows = equipmentList.map((item, index) =>
+    `${index + 1}. ${item.name} | ${categoryLabels[item.category]} | ${item.originCountry} | ${item.roleTags.slice(0, 3).join(", ")} | 계열 ${variantCountByEquipment[item.id] ?? 0}건`
+  );
+  return [`장비 검색 결과 ${equipmentList.length}건`, ...rows].join("\n");
+}
+
+function buildEquipmentCsv(equipmentList: Equipment[], variants: EquipmentVariant[]) {
+  const variantCountByEquipment = getVariantCountByEquipment(variants);
+  const headers = ["장비명", "분류", "국가", "원산국", "제조사", "운용 상태", "임무 태그", "계열 수", "출처 신뢰도", "상세 ID"];
+  const rows = equipmentList.map((item) => [
+    item.name,
+    categoryLabels[item.category],
+    item.country,
+    item.originCountry,
+    item.manufacturer,
+    item.status,
+    item.roleTags.join(" / "),
+    variantCountByEquipment[item.id] ?? 0,
+    item.sourceConfidenceScore,
+    item.id
+  ]);
+  return [
+    headers.map(escapeCsv).join(","),
+    ...rows.map((row) => row.map(escapeCsv).join(","))
+  ].join("\r\n");
+}
+
 function ScoreBar({ label, value, reason }: { label: string; value: number; reason?: string }) {
   return (
     <div className="score-item">
@@ -199,6 +240,7 @@ export function App() {
   const [selectedIncidentId, setSelectedIncidentId] = useState<string | null>(null);
   const [selectedComponent, setSelectedComponent] = useState<ComponentSpec | null>(null);
   const [shareStatus, setShareStatus] = useState("");
+  const [exportStatus, setExportStatus] = useState("");
 
   useEffect(() => {
     loadAppData().then(setData).catch((reason: unknown) => {
@@ -325,6 +367,32 @@ export function App() {
     window.setTimeout(() => setShareStatus(""), 2200);
   }
 
+  async function copyFilteredResults() {
+    const summary = buildResultSummary(filteredEquipment, data?.variants ?? []);
+    try {
+      await navigator.clipboard.writeText(summary);
+      setExportStatus("검색 결과 요약 복사됨");
+    } catch {
+      setExportStatus("브라우저에서 복사를 허용하지 않았습니다");
+    }
+    window.setTimeout(() => setExportStatus(""), 2200);
+  }
+
+  function downloadFilteredCsv() {
+    const csv = `\uFEFF${buildEquipmentCsv(filteredEquipment, data?.variants ?? [])}`;
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "equipment-search-results.csv";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    setExportStatus("CSV 다운로드 준비됨");
+    window.setTimeout(() => setExportStatus(""), 2200);
+  }
+
   if (error) {
     return <main className="state-page">데이터 오류: {error}</main>;
   }
@@ -430,6 +498,7 @@ export function App() {
           filterOptions={filterOptions}
           query={query}
           shareStatus={shareStatus}
+          exportStatus={exportStatus}
           availableCategoryKeys={availableCategoryKeys}
           sources={uniqueSources}
           onFamilyChange={(nextFamily) => {
@@ -445,6 +514,8 @@ export function App() {
             setQuery("");
           }}
           onShareSearch={copySearchLink}
+          onCopyResults={copyFilteredResults}
+          onDownloadCsv={downloadFilteredCsv}
           onQueryChange={setQuery}
           onEquipmentSelect={selectEquipment}
           onEquipmentOpen={(id) => navigate(`/equipment/${id}`)}
@@ -528,6 +599,7 @@ function CatalogPage({
   filterOptions,
   query,
   shareStatus,
+  exportStatus,
   availableCategoryKeys,
   sources,
   onFamilyChange,
@@ -535,6 +607,8 @@ function CatalogPage({
   onFilterChange,
   onResetFilters,
   onShareSearch,
+  onCopyResults,
+  onDownloadCsv,
   onQueryChange,
   onEquipmentSelect,
   onEquipmentOpen,
@@ -557,6 +631,7 @@ function CatalogPage({
   filterOptions: FilterOptions;
   query: string;
   shareStatus: string;
+  exportStatus: string;
   availableCategoryKeys: Array<EquipmentCategory | "all">;
   sources: Array<{ title: string; url: string; type: string; checkedAt: string }>;
   onFamilyChange: (family: EquipmentFamily) => void;
@@ -564,6 +639,8 @@ function CatalogPage({
   onFilterChange: (key: keyof CatalogFilters, value: string) => void;
   onResetFilters: () => void;
   onShareSearch: () => void;
+  onCopyResults: () => void;
+  onDownloadCsv: () => void;
   onQueryChange: (query: string) => void;
   onEquipmentSelect: (id: string) => void;
   onEquipmentOpen: (id: string) => void;
@@ -657,6 +734,11 @@ function CatalogPage({
             </div>
           </div>
           {shareStatus ? <p className="share-status" role="status">{shareStatus}</p> : null}
+          <div className="result-action-grid" aria-label="검색 결과 내보내기">
+            <button type="button" onClick={onCopyResults}>결과 요약 복사</button>
+            <button type="button" onClick={onDownloadCsv}>CSV 다운로드</button>
+          </div>
+          {exportStatus ? <p className="share-status" role="status">{exportStatus}</p> : null}
           <div className="equipment-list">
             {filteredEquipment.map((item) => (
               <button
