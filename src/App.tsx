@@ -40,6 +40,7 @@ type CatalogFilters = {
   status: FilterValue;
   variantMaturity: FilterValue;
   confidence: FilterValue;
+  casePresence: FilterValue;
 };
 
 type FilterOptions = {
@@ -62,7 +63,8 @@ const defaultCatalogFilters: CatalogFilters = {
   country: "all",
   status: "all",
   variantMaturity: "all",
-  confidence: "all"
+  confidence: "all",
+  casePresence: "all"
 };
 
 const defaultSelectedEquipmentId = "m1a2-abrams";
@@ -89,6 +91,11 @@ const familyCategories: Record<Exclude<EquipmentFamily, "all">, EquipmentCategor
 };
 
 const confidenceOptions = ["High", "Medium", "Low"];
+
+const casePresenceOptions = [
+  { value: "with-cases", label: "사례 있음" },
+  { value: "without-cases", label: "사례 없음" }
+];
 
 const navItems = [
   { path: "/", label: "장비 검색" },
@@ -166,7 +173,8 @@ function readCatalogStateFromLocation(): CatalogUrlState {
       country: params.get("country") || "all",
       status: params.get("status") || "all",
       variantMaturity: params.get("maturity") || "all",
-      confidence: params.get("confidence") || "all"
+      confidence: params.get("confidence") || "all",
+      casePresence: params.get("cases") || "all"
     },
     query: params.get("q") || "",
     selectedId: params.get("eq") || defaultSelectedEquipmentId
@@ -183,6 +191,7 @@ function buildCatalogHref(path: string, state: CatalogUrlState) {
   if (state.filters.status !== "all") params.set("status", state.filters.status);
   if (state.filters.variantMaturity !== "all") params.set("maturity", state.filters.variantMaturity);
   if (state.filters.confidence !== "all") params.set("confidence", state.filters.confidence);
+  if (state.filters.casePresence !== "all") params.set("cases", state.filters.casePresence);
   if (state.selectedId !== defaultSelectedEquipmentId) params.set("eq", state.selectedId);
   const query = params.toString();
   return `${routeHref(path)}${query ? `?${query}` : ""}`;
@@ -203,14 +212,14 @@ function getVariantCountByEquipment(variants: EquipmentVariant[]) {
 function buildResultSummary(equipmentList: Equipment[], variants: EquipmentVariant[]) {
   const variantCountByEquipment = getVariantCountByEquipment(variants);
   const rows = equipmentList.map((item, index) =>
-    `${index + 1}. ${item.name} | ${categoryLabels[item.category]} | ${item.originCountry} | ${item.roleTags.slice(0, 3).join(", ")} | 계열 ${variantCountByEquipment[item.id] ?? 0}건 | 출처 ${confidenceLabel(item.sourceConfidenceScore)} ${item.sourceConfidenceScore} | 확인 ${latestSourceCheckDate(item)}`
+    `${index + 1}. ${item.name} | ${categoryLabels[item.category]} | ${item.originCountry} | ${item.roleTags.slice(0, 3).join(", ")} | 계열 ${variantCountByEquipment[item.id] ?? 0}건 | 전장 사례 ${item.battlefieldCaseIds.length}건 | 출처 ${confidenceLabel(item.sourceConfidenceScore)} ${item.sourceConfidenceScore} | 확인 ${latestSourceCheckDate(item)}`
   );
   return [`장비 검색 결과 ${equipmentList.length}건`, ...rows].join("\n");
 }
 
 function buildEquipmentCsv(equipmentList: Equipment[], variants: EquipmentVariant[]) {
   const variantCountByEquipment = getVariantCountByEquipment(variants);
-  const headers = ["장비명", "분류", "국가", "원산국", "제조사", "운용 상태", "임무 태그", "계열 수", "출처 신뢰도", "출처 등급", "최근 확인일", "출처 수", "상세 ID"];
+  const headers = ["장비명", "분류", "국가", "원산국", "제조사", "운용 상태", "임무 태그", "계열 수", "전장 사례 수", "출처 신뢰도", "출처 등급", "최근 확인일", "출처 수", "상세 ID"];
   const rows = equipmentList.map((item) => [
     item.name,
     categoryLabels[item.category],
@@ -220,6 +229,7 @@ function buildEquipmentCsv(equipmentList: Equipment[], variants: EquipmentVarian
     item.status,
     item.roleTags.join(" / "),
     variantCountByEquipment[item.id] ?? 0,
+    item.battlefieldCaseIds.length,
     item.sourceConfidenceScore,
     confidenceLabel(item.sourceConfidenceScore),
     latestSourceCheckDate(item),
@@ -324,6 +334,10 @@ export function App() {
       const matchesConfidence =
         catalogFilters.confidence === "all" ||
         confidenceLabel(item.sourceConfidenceScore) === catalogFilters.confidence;
+      const matchesCasePresence =
+        catalogFilters.casePresence === "all" ||
+        (catalogFilters.casePresence === "with-cases" && item.battlefieldCaseIds.length > 0) ||
+        (catalogFilters.casePresence === "without-cases" && item.battlefieldCaseIds.length === 0);
       const searchable = [
         item.name,
         item.country,
@@ -337,7 +351,7 @@ export function App() {
         itemVariants.map((variant) => `${variant.nameKo} ${variant.role} ${variant.armament} ${variant.maturity}`).join(" ")
       ].join(" ").toLowerCase();
       const matchesQuery = !normalizedQuery || searchable.includes(normalizedQuery);
-      return matchesFamily && matchesCategory && matchesRole && matchesCountry && matchesStatus && matchesVariantMaturity && matchesConfidence && matchesQuery;
+      return matchesFamily && matchesCategory && matchesRole && matchesCountry && matchesStatus && matchesVariantMaturity && matchesConfidence && matchesCasePresence && matchesQuery;
     });
   }, [catalogFilters, category, data, family, query]);
 
@@ -676,6 +690,7 @@ function CatalogPage({
     filters.status !== "all",
     filters.variantMaturity !== "all",
     filters.confidence !== "all",
+    filters.casePresence !== "all",
     query.trim().length > 0
   ].filter(Boolean).length;
   const variantCountByEquipment = variants.reduce<Record<string, number>>((accumulator, variant) => {
@@ -752,6 +767,13 @@ function CatalogPage({
               <select value={filters.confidence} onChange={(event) => onFilterChange("confidence", event.target.value)}>
                 <option value="all">전체 신뢰도</option>
                 {confidenceOptions.map((confidence) => <option key={confidence} value={confidence}>{confidence}</option>)}
+              </select>
+            </label>
+            <label>
+              <span>전장 사례</span>
+              <select value={filters.casePresence} onChange={(event) => onFilterChange("casePresence", event.target.value)}>
+                <option value="all">전체 사례</option>
+                {casePresenceOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
               </select>
             </label>
           </div>

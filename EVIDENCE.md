@@ -439,3 +439,51 @@ completed
 - 출처 신뢰도 점수 산정 자체는 아직 수동 데이터 기반이다.
 
 ---
+## 2026-06-19 전장 사례 유무 필터 추가
+
+### 작업 상태
+
+completed
+
+### 실행 명령어
+
+```powershell
+& "C:\Program Files\nodejs\npm.cmd" run typecheck
+& "C:\Program Files\nodejs\npm.cmd" run lint
+& "C:\Program Files\nodejs\npm.cmd" run validate:data
+& "C:\Program Files\nodejs\npm.cmd" run test
+& "C:\Program Files\nodejs\npm.cmd" run build
+& "C:\Program Files\nodejs\npm.cmd" run test:e2e
+& "C:\Program Files\nodejs\npm.cmd" run design:check
+& "C:\Program Files\nodejs\npm.cmd" run dev:check
+& "C:\Program Files\nodejs\npm.cmd" run quality
+```
+
+### 수정 내역
+
+- `src/App.tsx`: `CatalogFilters.casePresence` 추가
+- `src/App.tsx`: `cases` URL query string 읽기/쓰기 추가
+- `src/App.tsx`: `battlefieldCaseIds` 기반 전장 사례 유무 필터링 추가
+- `src/App.tsx`: 검색 패널에 `전장 사례` 선택 상자 추가
+- `src/App.tsx`: 결과 요약 복사와 CSV 다운로드에 전장 사례 수 추가
+- `scripts/verify-render.cjs`: 필터 6개, 사례 있음 필터, URL 동기화 검증 추가
+- `scripts/verify-design.cjs`: 필터 6개, 사례 있음 필터, URL 동기화 검증 추가
+
+### 검증 결과
+
+- `npm run typecheck`: 통과
+- `npm run lint`: 통과
+- `npm run validate:data`: 통과, 15 equipment / 30 variants / 23 components / 7 battlefield technologies / 7 case studies / 6 development lens items / 8 engineering references
+- `npm run test`: 통과, 2 files / 5 tests
+- `npm run build`: 통과, JS 418.20 kB / CSS 39.87 kB
+- `npm run test:e2e`: 통과, filterSelects 6 / withCaseRows 7 / casesUrlHasParam true / 모바일 overflow 없음
+- `npm run design:check`: 통과, filterSelects 6 / withCaseRows 7 / undersized controls 없음
+- `npm run dev:check`: 통과, 장비 15건 / 브라우저 오류 없음
+- `npm run quality`: 통과
+
+### 남은 리스크
+
+- 전장 사례 유무는 현재 `battlefieldCaseIds` 데이터 입력 품질에 의존한다.
+- 향후 사례 데이터가 늘어나면 분쟁 지역, 시기, 사례 신뢰도 기준의 추가 필터가 필요할 수 있다.
+
+---
