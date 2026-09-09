@@ -18,6 +18,7 @@ import { ComponentSpecPanel } from "./components/ComponentSpecPanel";
 import { TechnologyPanel } from "./components/TechnologyPanel";
 import { BattlefieldLens } from "./components/BattlefieldLens";
 import { normalizeRoute, routeHref } from "./routing";
+import { matchesEquipmentQuery } from "./search";
 
 type AppData = {
   equipment: Equipment[];
@@ -502,7 +503,6 @@ export function App() {
 
   const filteredEquipment = useMemo(() => {
     if (!data) return [];
-    const normalizedQuery = normalizeSearchText(query);
     const variantCountByEquipment = getVariantCountByEquipment(data.variants);
     return data.equipment.filter((item) => {
       const itemVariants = data.variants.filter((variant) => variant.equipmentId === item.id);
@@ -536,19 +536,7 @@ export function App() {
       const matchesDataStatus =
         catalogFilters.dataStatus === "all" ||
         getDataReadiness(item, variantCountByEquipment[item.id] ?? 0).status === catalogFilters.dataStatus;
-      const searchable = [
-        item.name,
-        item.country,
-        item.originCountry,
-        item.manufacturer,
-        item.operatorCountries.join(" "),
-        item.aliases.join(" "),
-        item.roleTags.join(" "),
-        item.status,
-        item.summaryKo,
-        itemVariants.map((variant) => `${variant.nameKo} ${variant.role} ${variant.armament} ${variant.maturity}`).join(" ")
-      ].join(" ").toLowerCase();
-      const matchesQuery = !normalizedQuery || searchable.includes(normalizedQuery);
+      const matchesQuery = matchesEquipmentQuery(item, itemVariants, query, categoryLabels[item.category]);
       return matchesFamily && matchesCategory && matchesRole && matchesCountry && matchesStatus && matchesVariantMaturity && matchesConfidence && matchesCasePresence && matchesDataStatus && matchesQuery;
     }).sort((a, b) => compareCatalogEquipment(a, b, sortMode, variantCountByEquipment));
   }, [catalogFilters, category, data, family, query, sortMode]);
@@ -1057,12 +1045,12 @@ function CatalogPage({
             <span>{filteredEquipment.length}건</span>
           </div>
           <label className="search-box">
-            <span>모델, 국가, 제조사 검색</span>
+            <span>장비명, 국가, 제조사, 임무 검색</span>
             <input
               type="search"
               value={query}
               onChange={(event) => onQueryChange(event.target.value)}
-              placeholder="예: Leopard, Patria, Germany"
+              placeholder="예: 독일 8×8, 스트라이커, T90M"
             />
           </label>
           <div className="catalog-preset-grid" aria-label="업무 검색 프리셋">
