@@ -2210,3 +2210,68 @@ a {
     padding: 10px;
   }
 }
+
+/* Photo-referenced exterior inspection. */
+.vehicle-model-section {
+  margin: 22px 0; padding: 24px; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow-soft);
+  scroll-margin-top: 100px; min-width: 0;
+}
+.model-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.model-section-heading h2 { font-size: 1.4rem; margin: 5px 0 0; }
+.model-reconstruction-badge { background: #f6edda; color: #755923; padding: 8px 12px; border-radius: 6px; font-size: .875rem; white-space: nowrap; }
+.vehicle-model-layout { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 20px; }
+.model-main { min-width: 0; }
+.model-stage { height: clamp(340px, 40vw, 550px); background: #19282f; border-radius: 12px; position: relative; overflow: hidden; }
+.model-stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.model-error { position: absolute; inset: 0; display: grid; align-content: center; padding: 32px; color: #e4edf0; line-height: 1.7; z-index: 1; }
+.model-view-controls { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 12px; }
+.model-view-controls button, .model-assembly-row button {
+  min-height: 44px; padding: 8px 13px; border: 1px solid var(--line-strong);
+  border-radius: 7px; background: var(--surface); color: var(--ink); font-size: .875rem;
+}
+.model-view-controls button:hover, .model-view-controls button[aria-pressed="true"], .model-assembly-row button[aria-pressed="true"] {
+  background: var(--green-deep); border-color: var(--green-deep); color: white;
+}
+.model-sidebar { padding: 18px; border-radius: 12px; background: var(--surface-soft); min-width: 0; }
+.model-variant-label { display: grid; gap: 10px; font-weight: 700; font-size: 1rem; }
+.model-variant-label select { min-width: 0; width: 100%; min-height: 46px; border: 1px solid var(--line-strong); border-radius: 7px; padding: 10px; background: white; color: var(--ink); font-size: .875rem; }
+.model-variant-note { color: var(--muted); font-size: .875rem; line-height: 1.65; margin: 12px 0 16px; }
+.model-assembly-list { display: grid; gap: 6px; }
+.model-assembly-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.model-assembly-row label { display: flex; gap: 10px; align-items: center; cursor: pointer; min-height: 44px; font-size: .9375rem; }
+.model-assembly-row input { width: 18px; height: 18px; accent-color: var(--green-deep); }
+.model-assembly-row button { padding: 7px 11px; }
+.model-selection { min-height: 65px; margin: 15px 0; color: var(--muted); font-size: .875rem; line-height: 1.65; }
+.model-download { width: 100%; border: 0; border-radius: 8px; padding: 13px; min-height: 46px; background: var(--green-deep); color: white; font-size: .9375rem; font-weight: 700; }
+.model-download:disabled { opacity: .55; cursor: default; }
+.model-help { color: var(--muted); font-size: .875rem; line-height: 1.6; margin: 10px 0 0; }
+.model-reference-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 22px 0 10px; }
+.model-reference-grid h3 { margin: 0 0 10px; font-size: 1rem; }
+.model-reference-grid ul { margin: 0; padding-left: 20px; color: var(--muted); line-height: 1.8; font-size: .9375rem; }
+.model-reference-grid li { margin-bottom: 5px; }
+.model-uncertainty { padding: 12px; background: #f6f1e6; border-left: 3px solid #b59b61; color: #705d3f; font-size: .875rem; line-height: 1.7; }
+.model-photo-sources { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 10px; border-top: 1px solid var(--line); padding-top: 16px; }
+.model-photo-sources a { display: grid; gap: 7px; text-decoration: none; background: var(--surface-soft); border: 1px solid var(--line); padding: 14px; border-radius: 8px; overflow-wrap: anywhere; }
+.model-photo-sources a span { color: var(--muted); font-size: .875rem; }
+.model-photo-sources a strong { font-size: .9375rem; line-height: 1.5; }
+.model-photo-sources a small { color: var(--green-deep); font-size: .875rem; }
+.model-jump-link { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; font-size: .9375rem; }
+.model-loading { padding: 32px; border: 1px solid var(--line); background: white; border-radius: 12px; }
+@media (max-width: 1000px) {
+  .vehicle-model-layout { grid-template-columns: 1fr; }
+  .model-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 20px; }
+  .model-variant-note { grid-column: 1; }
+  .model-assembly-list { grid-column: 2; grid-row: 1 / span 2; }
+  .model-selection { min-height: 0; margin: 0; }
+}
+@media (max-width: 620px) {
+  .vehicle-model-section { padding: 14px; border-radius: 12px; }
+  .model-section-heading { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .model-section-heading h2 { font-size: 1.2rem; }
+  .model-stage { height: 330px; }
+  .model-sidebar { display: block; padding: 14px; }
+  .model-selection { margin: 14px 0; }
+  .model-reference-grid { grid-template-columns: 1fr; gap: 16px; }
+  .model-view-controls button { flex: 1 1 auto; }
+}

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import type {
   BattlefieldCase,
   BattlefieldCaseStudy,
@@ -19,6 +19,8 @@ import { TechnologyPanel } from "./components/TechnologyPanel";
 import { BattlefieldLens } from "./components/BattlefieldLens";
 import { normalizeRoute, routeHref } from "./routing";
 import { matchesEquipmentQuery } from "./search";
+
+const VehicleModelPanel = lazy(() => import("./components/VehicleModelPanel"));
 
 type AppData = {
   equipment: Equipment[];
@@ -1230,6 +1232,9 @@ function CatalogPage({
         />
       </section>
 
+      <Suspense fallback={<p className="model-loading">3D 외형을 준비하고 있습니다.</p>}>
+        <VehicleModelPanel key={selectedEquipment.id} equipment={selectedEquipment} variants={relatedVariants} />
+      </Suspense>
       <section className="detail-grid">
         <EquipmentDetail equipment={selectedEquipment} incidents={relatedIncidents} variants={relatedVariants} />
         <ComponentSpecPanel equipment={selectedEquipment} components={relatedComponents} onComponentSelect={onComponentSelect} />
@@ -1345,6 +1350,7 @@ function CatalogQuickFacts({
         <span>{confidenceLabel(equipment.sourceConfidenceScore)}</span>
       </div>
       <p className="summary">{equipment.summaryKo}</p>
+      <a className="model-jump-link" href="#vehicle-3d">3D 외형과 임무장비 보기 ↓</a>
       <dl className="catalog-fact-list">
         <div><dt>분류</dt><dd>{categoryLabels[equipment.category]}</dd></div>
         <div><dt>원산국</dt><dd>{equipment.originCountry}</dd></div>
@@ -1415,6 +1421,9 @@ function EquipmentDetailPage({ equipment, variants, incidents, components, techn
   return (
     <>
       <EquipmentHero equipment={equipment} variants={variants} />
+      <Suspense fallback={<p className="model-loading">3D 외형을 준비하고 있습니다.</p>}>
+        <VehicleModelPanel key={equipment.id} equipment={equipment} variants={variants} />
+      </Suspense>
       <section className="detail-grid">
         <EquipmentDetail equipment={equipment} incidents={incidents} variants={variants} />
         <ComponentSpecPanel equipment={equipment} components={components} onComponentSelect={onComponentSelect} />

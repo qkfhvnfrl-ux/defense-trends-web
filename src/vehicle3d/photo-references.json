@@ -1,0 +1,507 @@
+[
+  {
+    "equipmentId": "stryker",
+    "exactVariant": "M1126 Stryker ICV (기본 병력수송형; DVH/A1 미확정)",
+    "sources": [
+      {
+        "title": "Exercise Raider Focus continues [Image 10 of 10]",
+        "url": "https://www.dvidshub.net/image/521313/exercise-raider-focus-continues",
+        "publisher": "DVIDS / U.S. Army",
+        "observedFeatures": [
+          "사진 원본 직접 열람 미완료. 아래 외형 항목은 형식 식별용 잠정 목록이며 관찰 확정값이 아님."
+        ]
+      },
+      {
+        "title": "M1126 (Stryker) American Infantry Carrier Vehicle",
+        "url": "https://odin.t2com.army.mil/WEG/Asset/M1126_(Stryker)_American_Infantry_Carrier_Vehicle",
+        "publisher": "U.S. Army ODIN",
+        "observedFeatures": [
+          "M1126 명칭 확인용. 페이지 본문은 동적 렌더링으로 미노출."
+        ]
+      }
+    ],
+    "externalFeaturesKo": [
+      "8×8 차륜 배열",
+      "쐐기형 전면과 각진 차체",
+      "높은 후방 병력실",
+      "지붕의 소형 원격무장장치",
+      "긴 안테나와 외부 적재물"
+    ],
+    "missionEquipmentKo": [
+      "ICV형의 지붕 원격무장장치를 기준으로 사용",
+      "30 mm Dragoon 포탑 또는 MGS 대구경 포탑과 혼합 금지"
+    ],
+    "uncertaintyKo": "사진 검색 결과는 M1126을 명시하지만 원본 페이지 접근이 차단되어 직접 시각 검증하지 못함. 위 외형은 잠정 형식 체크리스트. 슬랫·추가 패널·무장장치 세부형은 확정하지 않음.",
+    "inspectionStatus": "source-only"
+  },
+  {
+    "equipmentId": "boxer",
+    "exactVariant": "BOXER APC, 독일군 운용 사진의 병력수송 모듈 (A1/A2 세부형 미확정)",
+    "sources": [
+      {
+        "title": "Armoured Personnel Carrier",
+        "url": "https://www.artec-boxer.com/vehicles/armoured-personnel-carrier/",
+        "publisher": "ARTEC",
+        "observedFeatures": [
+          "한쪽에 대형 타이어 네 개가 보이는 8×8 차체",
+          "급하게 낮아지는 쐐기형 전면과 높은 병력실",
+          "옆면의 큰 직사각형 패널과 노출된 원형 체결부",
+          "지붕 앞쪽 소형 원격무장장치와 수직 안테나",
+          "열린 후방 출입구와 아래로 내려간 넓은 램프",
+          "네 바퀴 위로 각각 꺾인 각진 휠아치"
+        ],
+        "imageUrl": "https://www.artec-boxer.com/fileadmin/user_upload/Slider/ARTEC-Armoured-Personnel-Carrier-02.JPG"
+      }
+    ],
+    "externalFeaturesKo": [
+      "한쪽에 대형 타이어 네 개가 보이는 8×8 차체",
+      "급하게 낮아지는 쐐기형 전면과 높은 병력실",
+      "옆면의 큰 직사각형 패널과 노출된 원형 체결부",
+      "지붕 앞쪽 소형 원격무장장치와 수직 안테나",
+      "열린 후방 출입구와 아래로 내려간 넓은 램프",
+      "네 바퀴 위로 각각 꺾인 각진 휠아치"
+    ],
+    "missionEquipmentKo": [
+      "지붕 원격무장장치는 사진의 APC 구성으로 제한",
+      "후방 병력실 모듈과 램프를 주요 임무 외형으로 표현"
+    ],
+    "uncertaintyKo": "사진 직접 열람 확인. 이 사진만으로 APC 개량 연식이나 원격무장장치 정확한 하위형은 확정할 수 없음. IFV LANCE/SAMSON 포탑과 혼합하지 않음.",
+    "inspectionStatus": "photo-checked"
+  },
+  {
+    "equipmentId": "patria-amv",
+    "exactVariant": "Patria AMV 원형 계열: 스웨덴 Pansarterrängbil 360 참고; XP는 별도 비교용",
+    "sources": [
+      {
+        "title": "Customer's AMV Guide",
+        "url": "https://www.patriagroup.com/newsroom/patria-magazine/case/customers-amv-guide",
+        "publisher": "Patria; 사진 크레딧 Swedish Armed Forces / Christian Lövgren 및 Jani Mahkonen",
+        "observedFeatures": [
+          "사진 원본 직접 열람 미완료. 아래 외형 항목은 형식 식별용 잠정 목록이며 관찰 확정값이 아님."
+        ]
+      },
+      {
+        "title": "Patria AMV XP — 별도 파생형 비교용",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility/patria-amv-xp-number-1-in-the-battlefield",
+        "imageUrl": "https://www.patriagroup.com/sites/default/files/styles/box_highlights_1920x1248/public/images/Patria%2BAMV%2BXP%2BIFV1_web.jpg?itok=n3Nt2KYH",
+        "publisher": "Patria",
+        "observedFeatures": [
+          "페이지 대체텍스트는 Patria AMV XP IFV. 원형 AMV 참고 이미지로 사용하지 않음."
+        ]
+      }
+    ],
+    "externalFeaturesKo": [
+      "8×8 차륜 배열",
+      "경사진 전면과 높은 후방 병력실",
+      "바퀴 위로 이어지는 각진 측면",
+      "지붕 해치와 통신 안테나",
+      "병력수송형 지붕 무장장치 설치부"
+    ],
+    "missionEquipmentKo": [
+      "원형 AMV 병력수송형의 임무 구성부터 선택해야 함",
+      "AMOS/NEMO 박격포 포탑·중구경 IFV 포탑은 별도 파생형임"
+    ],
+    "uncertaintyKo": "2013~2014년 Patria 원문으로 원형 AMV 기반 Pansarterrängbil 360 확인. 사진 파일은 페이지 추출에 노출되지 않아 직접 시각 검증하지 못함. 외형 목록은 잠정값. XP 사진의 차체 패널·차륜 비례·포탑·전면 형상을 원형 AMV에 전사하지 말 것.",
+    "inspectionStatus": "source-only"
+  },
+  {
+    "equipmentId": "vbci",
+    "exactVariant": "VBCI MK1, 프랑스군 25 mm 포탑형",
+    "sources": [
+      {
+        "title": "VBCI MK1",
+        "url": "https://knds.com/en/products/systems/vbci-mk-1",
+        "publisher": "KNDS",
+        "observedFeatures": [
+          "높고 넓은 쐐기형 전면",
+          "전면 양 모서리에 낮게 배치된 원형 전조등",
+          "차체 지붕 위의 각진 유인 포탑",
+          "포탑 앞쪽 기관포와 위쪽 관측장치",
+          "차체 앞 지붕의 해치와 관측부",
+          "측면 수직 패널의 반복되는 체결선"
+        ],
+        "imageUrl": "https://knds.com/_next/image?q=75&url=https%3A%2F%2Fknds.com%2Fmedia%2FVBCI_l_c2c82fe5e5.jpg&w=3840"
+      }
+    ],
+    "externalFeaturesKo": [
+      "높고 넓은 쐐기형 전면",
+      "전면 양 모서리에 낮게 배치된 원형 전조등",
+      "차체 지붕 위의 각진 유인 포탑",
+      "포탑 앞쪽 기관포와 위쪽 관측장치",
+      "차체 앞 지붕의 해치와 관측부",
+      "측면 수직 패널의 반복되는 체결선"
+    ],
+    "missionEquipmentKo": [
+      "제조사 본문은 프랑스군 MK1의 25 mm 기관포를 명시",
+      "포탑·해치·관측장치를 독립된 외부 요소로 표현"
+    ],
+    "uncertaintyKo": "사진 직접 열람 확인. 정면 사진은 포신이 짧게 투영되어 실제 길이 측정에 부적합. MK2/RCT40 및 미사일 포드와 혼합하지 않음.",
+    "inspectionStatus": "photo-checked"
+  },
+  {
+    "equipmentId": "caesar-8x8",
+    "exactVariant": "CAESAR 8×8, Tatra 차대, 2017년 제조사 사진의 이동 구성",
+    "sources": [
+      {
+        "title": "CAESAR®8x8",
+        "url": "https://knds.com/en/products/systems/caesar-8x8",
+        "publisher": "KNDS",
+        "observedFeatures": [
+          "긴 4축 트럭 차대와 한쪽의 대형 바퀴 네 개",
+          "작은 창과 각진 도어가 있는 전방 운전실",
+          "차대 후방에 노출된 포가와 포미 덮개",
+          "전방 운전실 위쪽으로 길게 뻗어 고정된 포신",
+          "차대 옆의 긴 직사각형 수납함과 상판의 예비 타이어",
+          "후미에 들어 올려 접은 큰 지지판과 작업 발판"
+        ],
+        "imageUrl": "https://knds.com/_next/image?q=75&url=https%3A%2F%2Fbackend.knds.com%2Fuploads%2Fnexter_ceasar_2017_05_1321_low_resolution_356a83e35a.jpg&w=2048"
+      }
+    ],
+    "externalFeaturesKo": [
+      "긴 4축 트럭 차대와 한쪽의 대형 바퀴 네 개",
+      "작은 창과 각진 도어가 있는 전방 운전실",
+      "차대 후방에 노출된 포가와 포미 덮개",
+      "전방 운전실 위쪽으로 길게 뻗어 고정된 포신",
+      "차대 옆의 긴 직사각형 수납함과 상판의 예비 타이어",
+      "후미에 들어 올려 접은 큰 지지판과 작업 발판"
+    ],
+    "missionEquipmentKo": [
+      "155 mm / 52 구경장 주포의 외부 포신·포가",
+      "반자동 장전 보조부는 외부 실루엣만 표현",
+      "이동 상태의 접힌 후방 지지판을 기준으로 표현"
+    ],
+    "uncertaintyKo": "사진 직접 열람 확인. KNDS는 Tatra T-815 차대를 명시. 사진은 2017년 형상이며 체코 양산형의 운전실·지붕 무장 옵션과 동일하다고 단정하지 않음.",
+    "inspectionStatus": "photo-checked"
+  },
+  {
+    "equipmentId": "m113",
+    "exactVariant": "M113 기본 병력수송형 계열; A2/A3 세부형 미확정",
+    "sources": [
+      {
+        "title": "M113 Family of Vehicles",
+        "url": "https://www.baesystems.com/en/product/m113-family-of-vehicles",
+        "publisher": "BAE Systems",
+        "observedFeatures": [
+          "사진 원본 직접 열람 미완료. 아래 외형 항목은 형식 식별용 잠정 목록이며 관찰 확정값이 아님."
+        ],
+        "imageUrl": "https://www.baesystems.com/dam/jcr%3A0c242932-0e49-46de-a9ba-6ac7d8f67318"
+      }
+    ],
+    "externalFeaturesKo": [
+      "상자형 차체와 평평한 지붕",
+      "짧은 경사 전면",
+      "양쪽 궤도와 한쪽 다섯 개 전륜의 기본형 윤곽",
+      "지붕의 원형 승무원 해치",
+      "후방의 넓은 출입 램프"
+    ],
+    "missionEquipmentKo": [
+      "기본 병력수송형의 지붕 기관총 설치부",
+      "M577 지휘형의 높은 지붕 또는 M113AS4 연장차체와 혼합 금지"
+    ],
+    "uncertaintyKo": "제조사 페이지는 M113 계열 전체이며 사진 캡션도 M113로만 표시. 원본 접근이 차단되어 직접 시각 검증하지 못함. 외형 목록은 잠정값. A3 후미 외부 연료통이나 A2MK1 키트를 기본형 공통으로 단정하지 않음.",
+    "inspectionStatus": "source-only"
+  },
+  {
+    "equipmentId": "gepard",
+    "exactVariant": "Flakpanzer Gepard 1A2, 독일 연방군 2010년 훈련 사진",
+    "sources": [
+      {
+        "title": "Der Flugabwehrkanonenpanzer Gepard",
+        "url": "https://www.bundeswehr.de/de/meldungen/flugabwehrkanonenpanzer-gepard-5400072",
+        "publisher": "Bundeswehr / Marcus Rott",
+        "observedFeatures": [
+          "사진 원본 직접 열람 미완료. 아래 외형 항목은 형식 식별용 잠정 목록이며 관찰 확정값이 아님."
+        ],
+        "imageUrl": "https://www.bundeswehr.de/resource/image/5400318/landscape_ratio16x9/200/113/440dd6da533e0086ef95b4cb12691692/551C45CD13DA3348534B5D14FFCD0171/flugabwehrkanonenpanzer-gepard-1-a2.jpg"
+      }
+    ],
+    "externalFeaturesKo": [
+      "넓은 궤도식 차체 위의 큰 포탑",
+      "포탑 좌우로 떨어져 배치된 두 기관포",
+      "포탑 뒤쪽의 회전 탐색 레이더",
+      "포탑 전방의 추적 레이더",
+      "긴 포신 두 개가 만드는 대칭 실루엣"
+    ],
+    "missionEquipmentKo": [
+      "두 개의 35 mm 기관포",
+      "탐색 레이더와 추적 레이더를 별개의 외장 부품으로 표현"
+    ],
+    "uncertaintyKo": "공식 캡션은 Gepard 1A2라고 명시. 이미지 URL은 노출됐지만 직접 내려받기에 실패하여 사진의 전개·접힘 상태는 확정하지 않음. 외형 목록 중 레이더 위치는 잠정 체크리스트. 네덜란드 PRTL의 다른 레이더 형태와 혼합하지 않음.",
+    "inspectionStatus": "source-only"
+  },
+  {
+    "equipmentId": "m1a2-abrams",
+    "exactVariant": "M1A2 Abrams · 2019년 미 육군 훈련 사진, SEP 세부형 미확정",
+    "sources": [
+      {
+        "title": "M1A2 Abrams Tank [Image 1 of 2]",
+        "url": "https://www.dvidshub.net/image/6224180/m1a2-abrams-tank",
+        "publisher": "U.S. Army TACOM / DVIDS; Spc. Nathan Franco",
+        "observedFeatures": [
+          "넓은 경사면 두 개로 나뉜 포탑 전면",
+          "중앙 포신에 굵은 원통형 구간과 외피 분절",
+          "포탑 양옆에 다연장 연막탄 발사관",
+          "상부에 독립된 광학 장비와 무장 장착부",
+          "차체 측면을 길게 덮는 판형 스커트",
+          "모래색 도장과 포탑 뒤쪽의 긴 안테나 두 개"
+        ],
+        "imageUrl": "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/2005/6224180/1000w_q95.jpg"
+      }
+    ],
+    "externalFeaturesKo": [
+      "넓은 경사면 두 개로 나뉜 포탑 전면",
+      "중앙 포신에 굵은 원통형 구간과 외피 분절",
+      "포탑 양옆에 다연장 연막탄 발사관",
+      "상부에 독립된 광학 장비와 무장 장착부",
+      "차체 측면을 길게 덮는 판형 스커트",
+      "모래색 도장과 포탑 뒤쪽의 긴 안테나 두 개"
+    ],
+    "missionEquipmentKo": [
+      "상부 광학 장비와 기관총 장착부",
+      "포탑 측면 연막탄 발사기"
+    ],
+    "uncertaintyKo": "실제 사진 확인. 캡션은 M1A2만 명시하므로 SEP v2/v3로 단정하지 않음. 훈련용 부착물과 적재물은 기본 형상에서 분리해야 함.",
+    "inspectionStatus": "photo-checked"
+  },
+  {
+    "equipmentId": "leopard-2a7",
+    "exactVariant": "Leopard 2 A7 계열 · 제조사 갤러리의 A7/A7V 표기 혼재",
+    "sources": [
+      {
+        "title": "LEOPARD 2 A7",
+        "url": "https://knds.com/en/products/systems/leopard/leopard-2-a7",
+        "publisher": "KNDS",
+        "observedFeatures": [
+          "포탑 전면의 뚜렷한 쐐기형 양쪽 돌출부",
+          "긴 원통형 주포와 포신 중간의 굵은 구간",
+          "상부 관측창과 해치 주변의 직립 장비",
+          "차체 측면의 긴 사각 스커트 판열",
+          "차체 전면 양쪽의 원형 등화",
+          "포탑·전면 상판 위에 덮인 위장망"
+        ],
+        "imageUrl": "https://knds.com/media/Leopard_2_A7_KMW_003_8bb039a861.jpg"
+      }
+    ],
+    "externalFeaturesKo": [
+      "포탑 전면의 뚜렷한 쐐기형 양쪽 돌출부",
+      "긴 원통형 주포와 포신 중간의 굵은 구간",
+      "상부 관측창과 해치 주변의 직립 장비",
+      "차체 측면의 긴 사각 스커트 판열",
+      "차체 전면 양쪽의 원형 등화",
+      "포탑·전면 상판 위에 덮인 위장망"
+    ],
+    "missionEquipmentKo": [
+      "상부 기관총 장착부",
+      "주야간 관측 장비",
+      "제조사에 따르면 원격무장 장착은 선택 사양"
+    ],
+    "uncertaintyKo": "실제 사진 확인. 페이지 제목은 A7이나 성능·갤러리 설명은 A7V로 혼재한다. A7 단일 형식의 완전한 기준사진으로 사용하지 말 것. 위장망에 가려진 표면은 추정하지 않음.",
+    "inspectionStatus": "photo-checked"
+  },
+  {
+    "equipmentId": "challenger-3",
+    "exactVariant": "Challenger 3 · 2026년 제조사 시험차 사진",
+    "sources": [
+      {
+        "title": "Challenger 3 reaches key milestone with first-ever crewed live firing trials",
+        "url": "https://www.rheinmetall.com/en/media/news-watch/news/2026/01/2026-01-20-challenger-3-completes-successful-manned-live-firing-trials",
+        "publisher": "Rheinmetall / RBSL",
+        "observedFeatures": [
+          "뒤에서 보이는 폭넓은 직육면체 포탑 후부",
+          "포탑 후면의 수직 패널 분할선",
+          "차체 후면 양쪽의 대형 원통형 외부 용기",
+          "측면 스커트 아래로 드러난 대형 보기륜",
+          "포탑 위로 솟은 관측 장비와 긴 안테나",
+          "상부의 소형 황색 시험용 경광등"
+        ],
+        "imageUrl": "https://www.rheinmetall.com/Rheinmetall%20Group/Presse/News/Images/2026/01/187634/image-thumb__187634__small-stage/2026-01-20-challenger-3-completes-successful-manned-live-firing-trials.bb170fc9.jpg?1768913945="
+      }
+    ],
+    "externalFeaturesKo": [
+      "뒤에서 보이는 폭넓은 직육면체 포탑 후부",
+      "포탑 후면의 수직 패널 분할선",
+      "차체 후면 양쪽의 대형 원통형 외부 용기",
+      "측면 스커트 아래로 드러난 대형 보기륜",
+      "포탑 위로 솟은 관측 장비와 긴 안테나",
+      "상부의 소형 황색 시험용 경광등"
+    ],
+    "missionEquipmentKo": [
+      "제조사가 명시한 120mm L55A1 주포",
+      "상부 관측·통신 장비"
+    ],
+    "uncertaintyKo": "실제 후방 사진 확인. 사격 화염이 전방을 가려 주포와 포탑 전면 형상 관찰에는 부적합. 시험차이므로 최종 양산차의 모든 외부 장비를 대표하지 않음.",
+    "inspectionStatus": "photo-checked"
+  },
+  {
+    "equipmentId": "leclerc-xlr",
+    "exactVariant": "Leclerc XLR · KNDS 제조사 자료",
+    "sources": [
+      {
+        "title": "LECLERC XLR",
+        "url": "https://knds.com/fr/produits/systemes/leclerc-xlr",
+        "publisher": "KNDS",
+        "observedFeatures": [
+          "외관 검토 후보: 각진 포탑 전면",
+          "외관 검토 후보: 긴 주포와 원통형 포신 외피",
+          "외관 검토 후보: 차체 측면 추가 패널",
+          "외관 검토 후보: 후부 격자형 외장",
+          "외관 검토 후보: 상부 관측 장비"
+        ],
+        "imageUrl": "https://knds.com/media/LECLERC_XLR_77765d2245.jpg"
+      },
+      {
+        "title": "Le char Leclerc XLR rénové",
+        "url": "https://www.defense.gouv.fr/terre/nos-materiels/nos-equipements-terre/vehicules-larmee-terre/vehicules-chars-bataille/char-leclerc-xlr-renove",
+        "publisher": "Ministère des Armées / Armée de Terre",
+        "observedFeatures": [
+          "XLR 형식명과 120mm 주포의 공식 교차 확인용; 직접 사진 확인 불가"
+        ]
+      }
+    ],
+    "externalFeaturesKo": [
+      "각진 포탑 전면",
+      "긴 주포와 원통형 포신 외피",
+      "차체 측면 추가 패널",
+      "후부 격자형 외장",
+      "상부 관측 장비"
+    ],
+    "missionEquipmentKo": [
+      "제조사 페이지에서 모듈식 외부 방호 장비를 명시",
+      "주포·관측 장비의 상세 외형은 사진 재확인 필요"
+    ],
+    "uncertaintyKo": "제조사 페이지와 갤러리 이미지 URL은 확인했으나 이미지 서버 오류로 사진을 직접 검토하지 못함. 외관 목록은 확인 후보이며 관찰 확정값이 아님. 일반 Leclerc·다른 개량형과 혼용 금지.",
+    "inspectionStatus": "source-only"
+  },
+  {
+    "equipmentId": "t90m",
+    "exactVariant": "T-90M Proryv · 생산 시기별 외형 구분 필요",
+    "sources": [
+      {
+        "title": "Танки победы: Т-34 и Т-90М",
+        "url": "https://rostec.ru/media/news/tanki-pobedy-t-34-i-t-90m/",
+        "publisher": "Rostec",
+        "observedFeatures": [
+          "외관 검토 후보: 낮은 차체와 각진 포탑",
+          "외관 검토 후보: 긴 주포의 분절형 외피",
+          "외관 검토 후보: 포탑·차체 측면의 반복 외장 블록",
+          "외관 검토 후보: 포탑 후부의 상자형 돌출부",
+          "외관 검토 후보: 상부 관측 장비·기관총 장착부"
+        ]
+      }
+    ],
+    "externalFeaturesKo": [
+      "낮은 차체와 각진 포탑",
+      "긴 주포의 분절형 외피",
+      "포탑·차체 측면의 반복 외장 블록",
+      "포탑 후부의 상자형 돌출부",
+      "상부 관측 장비·기관총 장착부"
+    ],
+    "missionEquipmentKo": [
+      "외부 무장·센서 배치는 사진 재확인 필요",
+      "추가 지붕 구조물·위장 덮개는 생산 시기와 개별 차량에 따라 별도 취급"
+    ],
+    "uncertaintyKo": "Rostec 공식 기사 검색 결과만 확인. 원문과 사진은 502 오류로 미검토; 관찰 확정값이 아님. T-90MS 수출형·T-90A 사진을 T-90M으로 대체하지 말 것. 직접 이미지 URL은 미확인으로 생략.",
+    "inspectionStatus": "source-only"
+  },
+  {
+    "equipmentId": "m2a2-bradley",
+    "exactVariant": "M2A2 ODS-SA Bradley · 2014년 미 주방위군 공개 사진",
+    "sources": [
+      {
+        "title": "Pa. Guard announces upgraded Bradley Fighting Vehicle [Image 2 of 2]",
+        "url": "https://www.dvidshub.net/image/1178649/pa-guard-announces-upgraded-bradley-fighting-vehicle",
+        "publisher": "Pennsylvania National Guard / DVIDS; Staff Sgt. Matthew Jones",
+        "observedFeatures": [
+          "높은 상자형 차체와 크게 경사진 전면 상판",
+          "작은 포탑에서 길게 뻗은 가는 기관포",
+          "포탑 옆으로 들린 두 구멍의 사각 TOW 발사대",
+          "측면 패널의 볼트열·손잡이·장착점",
+          "전면 모서리 등화와 큰 견인 고리",
+          "궤도 위쪽을 덮는 모래색 측면 외장"
+        ],
+        "imageUrl": "https://d1ldvf68ux039x.cloudfront.net/thumbs/photos/1403/1178649/1000w_q95.jpg"
+      }
+    ],
+    "externalFeaturesKo": [
+      "높은 상자형 차체와 크게 경사진 전면 상판",
+      "작은 포탑에서 길게 뻗은 가는 기관포",
+      "포탑 옆으로 들린 두 구멍의 사각 TOW 발사대",
+      "측면 패널의 볼트열·손잡이·장착점",
+      "전면 모서리 등화와 큰 견인 고리",
+      "궤도 위쪽을 덮는 모래색 측면 외장"
+    ],
+    "missionEquipmentKo": [
+      "현장 안내판: 25mm Bushmaster·7.62mm 기관총·TOW",
+      "상부 관측창과 전면 등화"
+    ],
+    "uncertaintyKo": "실제 사진 및 ODS-SA 캡션 확인. 공개 행사 차량의 TOW 발사대가 상승한 상태이며 모든 주행 장면의 기본 자세는 아님. M2A3/M2A4 독립관측장비를 추가하지 않음.",
+    "inspectionStatus": "photo-checked"
+  },
+  {
+    "equipmentId": "cv90",
+    "exactVariant": "CV90 계열 · MkIV 제조사 홍보 구성 참고",
+    "sources": [
+      {
+        "title": "CV90MkIV",
+        "url": "https://www.baesystems.com/en/product/cv90-mkiv",
+        "publisher": "BAE Systems Hägglunds",
+        "observedFeatures": [
+          "넓게 경사진 차체 상판과 낮은 전면 코",
+          "전면 좌우의 가로형 등화 구획",
+          "각진 외장으로 둘러싼 소형 포탑",
+          "포탑 양옆의 여러 원형 발사관",
+          "포탑 위에 솟은 둥근 관측 장비",
+          "녹색·검정의 직선적인 분할 위장 도장"
+        ],
+        "imageUrl": "https://cf-images.eu-west-1.prod.boltdns.net/v1/static/5276467570001/341e9158-5d04-4648-883c-d0b9024f3e21/9d12e7e4-66ca-4961-b1dd-7b2a7d2e00d0/1280x720/match/image.jpg"
+      }
+    ],
+    "externalFeaturesKo": [
+      "넓게 경사진 차체 상판과 낮은 전면 코",
+      "전면 좌우의 가로형 등화 구획",
+      "각진 외장으로 둘러싼 소형 포탑",
+      "포탑 양옆의 여러 원형 발사관",
+      "포탑 위에 솟은 둥근 관측 장비",
+      "녹색·검정의 직선적인 분할 위장 도장"
+    ],
+    "missionEquipmentKo": [
+      "D-series 포탑은 제조사 설명상 대전차미사일·능동방호 장착 구성 제공",
+      "포탑 상부 관측 장비와 연막 발사관"
+    ],
+    "uncertaintyKo": "실제 공식 동영상 썸네일 확인. CV90은 다수 국가·포탑의 계열명이며 본 참조는 MkIV 홍보 구성에 한정. 포신이 정면을 향해 길이 판독 불가. CV9040·MkIIIC의 차체 세부를 혼합하지 않음.",
+    "inspectionStatus": "photo-checked"
+  },
+  {
+    "equipmentId": "puma-ifv",
+    "exactVariant": "Puma · S1 연방군 자료 참고",
+    "sources": [
+      {
+        "title": "Schützenpanzer Puma S1 / Neuer Puma im Revier",
+        "url": "https://www.bundeswehr.de/de/organisation/heer/aktuelles/neuer-puma-revier-5820268",
+        "publisher": "Bundeswehr; Marco Dorow",
+        "observedFeatures": [
+          "외관 검토 후보: 낮고 비대칭인 기관포 포탑",
+          "외관 검토 후보: 포탑 위로 솟은 관측 장비",
+          "외관 검토 후보: 두꺼운 블록형 측면 외장",
+          "외관 검토 후보: 차체 주변의 소형 카메라",
+          "외관 검토 후보: 포탑 옆 MELLS 장착부"
+        ],
+        "imageUrl": "https://www.bundeswehr.de/resource/image/5820256/landscape_ratio16x9/200/113/4da23ccb9a23f03de9a61d4cbb1d907d/395BD5F278F73E76C0F266E0DDBF156E/schuetzenpanzer-puma-s1-regen-marsch.jpg"
+      }
+    ],
+    "externalFeaturesKo": [
+      "낮고 비대칭인 기관포 포탑",
+      "포탑 위로 솟은 관측 장비",
+      "두꺼운 블록형 측면 외장",
+      "차체 주변의 소형 카메라",
+      "포탑 옆 MELLS 장착부"
+    ],
+    "missionEquipmentKo": [
+      "공식 설명: MELLS 대전차미사일 체계",
+      "공식 설명: S1의 전방·전주위 주야간 카메라 체계",
+      "공식 설명: 개선된 디지털 통신 장비"
+    ],
+    "uncertaintyKo": "본문과 S1 갤러리 캡션은 확인. 이미지 URL은 공식 링크에서 추출했으나 다운로드 실패로 외형 직접 검토는 미완료. S0·VJTF와 S1을 구별하고 모든 갤러리 세부를 S1 표준으로 단정하지 않음.",
+    "inspectionStatus": "source-only"
+  }
+]
