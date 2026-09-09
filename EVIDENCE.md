@@ -1,3 +1,13 @@
+# 2026-09-09 차량 3D 및 사이트 반영
+
+- 프로덕션 빌드(tsc + Vite 6.4.3), 단위 테스트 4개 파일/26개, lint, 데이터 검증 통과.
+- 15개 기본형 + 27개 파생형의 유한 좌표/4개 부위/드로콜 수와 실제 GLB 바이너리 헤더·노드·메타데이터 검증 통과.
+- 3D는 별도 지연 로딩 청크(655.30 kB, gzip 171.19 kB). 500 kB 경고는 비차단이며 남아 있다.
+- 브라우저 렌더링 및 E2E 검사는 수행하지 않았다. 사진 기반 비례 추정이라 정밀 형상 일치를 보증하지 않는다.
+- 명령: npm run test; npm run lint; node --import tsx scripts/validate-data.mjs; GITHUB_ACTIONS=true GITHUB_REPOSITORY=qkfhvnfrl-ux/defense-trends-web node /root/.codex/plugins/cache/openai-curated-remote/sites/0.1.52/scripts/build-site.mjs; node scripts/prepare-gh-pages.cjs.
+- 초기 타입/임포트 및 effect 상태 변경 lint 오류를 수정한 후 위 검증이 통과했다.
+- 검색 배포 f230da32c014e40c0cc3b166114dbeefc96222fb: Pages workflow 34330184814 성공, 공개 HTML HTTP 200 및 새 JS 연결 확인.
+
 # 2026-09-09 검색 정확도 개선
 
 ## 작업 상태
