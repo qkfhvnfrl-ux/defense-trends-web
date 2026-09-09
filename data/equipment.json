@@ -31,7 +31,8 @@
       }
     ],
     "aliases": [
-      "Stryker"
+      "Stryker",
+      "스트라이커"
     ],
     "originCountry": "미국",
     "operatorCountries": [
@@ -100,7 +101,9 @@
       }
     ],
     "aliases": [
-      "Boxer"
+      "Boxer",
+      "복서",
+      "박서"
     ],
     "originCountry": "독일/네덜란드",
     "operatorCountries": [
@@ -169,7 +172,8 @@
       }
     ],
     "aliases": [
-      "Patria AMV"
+      "Patria AMV",
+      "파트리아 AMV"
     ],
     "originCountry": "핀란드",
     "operatorCountries": [
@@ -295,7 +299,9 @@
       }
     ],
     "aliases": [
-      "M1A2 Abrams"
+      "M1A2 Abrams",
+      "에이브럼스",
+      "에이브람스"
     ],
     "originCountry": "미국",
     "operatorCountries": [
@@ -358,7 +364,9 @@
       }
     ],
     "aliases": [
-      "Leopard 2A7"
+      "Leopard 2A7",
+      "레오파르트",
+      "레오파드"
     ],
     "originCountry": "독일",
     "operatorCountries": [
@@ -421,7 +429,8 @@
       }
     ],
     "aliases": [
-      "Challenger 3"
+      "Challenger 3",
+      "챌린저 3"
     ],
     "originCountry": "영국",
     "operatorCountries": [
@@ -482,7 +491,8 @@
       }
     ],
     "aliases": [
-      "Leclerc XLR"
+      "Leclerc XLR",
+      "르클레르"
     ],
     "originCountry": "프랑스",
     "operatorCountries": [
@@ -543,7 +553,8 @@
       }
     ],
     "aliases": [
-      "M2A2 Bradley ODS-SA"
+      "M2A2 Bradley ODS-SA",
+      "브래들리"
     ],
     "originCountry": "미국",
     "operatorCountries": [
@@ -667,7 +678,9 @@
       }
     ],
     "aliases": [
-      "Puma IFV"
+      "Puma IFV",
+      "푸마",
+      "퓨마"
     ],
     "originCountry": "독일",
     "operatorCountries": [
@@ -797,7 +810,8 @@
       }
     ],
     "aliases": [
-      "Gepard 1A2"
+      "Gepard 1A2",
+      "게파르트"
     ],
     "originCountry": "독일",
     "operatorCountries": [
@@ -865,7 +879,9 @@
     }
     ],
     "aliases": [
-      "CAESAR 8x8"
+      "CAESAR 8x8",
+      "시저",
+      "카이사르"
     ],
     "originCountry": "프랑스",
     "operatorCountries": [
