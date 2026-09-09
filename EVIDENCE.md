@@ -1,3 +1,49 @@
+# 2026-09-09 검색 정확도 개선
+
+## 작업 상태
+
+completed — 구현 및 로컬 검증 완료. 브라우저 E2E 및 공개 사이트 배포는 수행하지 않았다.
+
+## 수정 전 재현
+
+main c5f6eb4fa74d39ba89363264a53f8b20cc2bce11의 검색 로직과 실제 equipment/variants JSON으로 확인했다.
+
+| 검색어 | 수정 전 | 수정 후 |
+| --- | --- | --- |
+| 독일 8x8 | 0건 | boxer |
+| 스트라이커 | 0건 | stryker |
+| T90M | 0건 | t90m |
+| Leopard2A7 | 0건 | leopard-2a7 |
+| Boxer | boxer | boxer |
+| 독일 8x8 스트라이커 | 0건 | 0건 |
+
+## 실행 및 결과
+
+- node /root/.codex/plugins/cache/openai-curated-remote/sites/0.1.52/scripts/build-site.mjs
+  - 프로젝트의 npm run build (tsc -b && vite build) 실행 및 통과.
+  - Vite 6.4.3, 161 modules, JS 434.07 kB / CSS 45.79 kB.
+- npm run test: 3개 파일, 23개 테스트 통과.
+  - 기존 데이터 스키마/참조/라우팅 테스트 5개 포함.
+  - 새 검색 테스트 18개: 한글 별칭 11종, 여러 단어, 이름 정규화, 파생형, 분류, 불일치 및 기존 검색.
+- npm run lint: 통과.
+- node --import tsx scripts/validate-data.mjs: 통과.
+  - 장비 15, 파생형 30, 부품 23, 기술 7, 사례 7, 개발 관점 6, 참고자료 8.
+- 새 검색 함수를 실제 JSON과 별도로 실행해 위 검색 결과를 재확인했다.
+- diff 검토: 기존 상세 필터, 정렬, URL, 후보/내보내기 로직과 package-lock.json 변경 없음.
+
+## 확인된 오류와 해결
+
+- 최초 build에서 테스트 JSON의 직접 타입 단언이 specs의 추론 타입과 맞지 않아 TS2352 발생.
+  - 기존 Zod 스키마로 테스트 데이터를 파싱하도록 변경하고 build/test/lint 재실행 통과.
+- npm run validate:data는 tsx CLI의 로컬 IPC 소켓 생성이 EPERM으로 거부되어 실행 실패.
+  - 소켓을 생성하지 않는 node --import tsx로 동일한 검증 스크립트를 실행해 통과.
+  - 권한 변경이나 실행 제한 해제는 수행하지 않았다.
+
+## 검증 한계
+
+- npm run quality 전체 및 브라우저 렌더링/E2E 검사는 실행하지 않았다.
+- 검색 결과 정확도는 현재 제공되는 정적 데이터 범위의 키워드 일치를 의미하며 제원 자체를 새로 검증하지 않았다.
+
 # 2026-06-20 필터 배지 개별 해제
 
 ## 작업 상태
