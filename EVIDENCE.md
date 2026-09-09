@@ -1,3 +1,11 @@
+# 2026-09-09 공개 배포 완료
+
+- PR #2 병합: 252eee377c6d39e3d1a552637fb4ea76a7631a6d.
+- gh-pages 배포: 142bb3caeb9eab86dbf024a68e8416b4e35a409f.
+- GitHub Pages workflow 34379134872: completed / success 확인.
+- 공개 index.html, 메인 JS, 지연 로딩 3D JS, CSS 모두 HTTP 200 및 로컬 빌드와 SHA-256 일치 확인. 배포 완료 전 조회의 구버전 HTML/404는 완료 후 재조회에서 해결됐다.
+- URL: https://qkfhvnfrl-ux.github.io/defense-trends-web/
+
 # 2026-09-09 차량 3D 및 사이트 반영
 
 - 프로덕션 빌드(tsc + Vite 6.4.3), 단위 테스트 4개 파일/26개, lint, 데이터 검증 통과.

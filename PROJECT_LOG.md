@@ -1,3 +1,10 @@
+# 2026-09-09 공개 배포 완료
+
+- PR #2 병합: 252eee377c6d39e3d1a552637fb4ea76a7631a6d.
+- gh-pages 배포: 142bb3caeb9eab86dbf024a68e8416b4e35a409f.
+- GitHub Pages workflow 34379134872: completed / success 확인.
+- URL: https://qkfhvnfrl-ux.github.io/defense-trends-web/
+
 # 2026-09-09 차량 3D 및 사이트 반영
 
 - 검색 PR #1을 병합하고 기존 GitHub Pages에 게시했다.
