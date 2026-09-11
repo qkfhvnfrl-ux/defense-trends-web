@@ -1,3 +1,11 @@
+# 2026-09-11 GitHub v4 공개 배포
+
+- 소스 commit bec45475a3b57353a97d4663fc081012450e37d9, main 및 release/v4 저장 확인.
+- Pages commit 069b213d33c519ad886392fa742beb8ca7c63bb0.
+- Pages workflow 34563747353 completed / success, 대상 SHA 일치 확인.
+- 공개 빌드 성공, ESLint 통과, 3개 버전의 HTML 자산 경로·중복 접두어 부재 검사 통과.
+- 직접 HTTP 해시 검증은 네트워크 승인 취소로 미완료. web 공개 URL 조회도 도구의 열기 제한으로 실패. 배포 완료는 GitHub Pages 성공 상태에 근거한다. 브라우저 클릭 검증은 사용자 수행.
+
 # 2026-09-10 v4 게시 성공
 
 - 원본 commit: 5d7e01f18cbef8a8c434ce9b531f6b061078484b.

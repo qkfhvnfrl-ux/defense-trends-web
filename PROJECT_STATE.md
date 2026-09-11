@@ -1,3 +1,10 @@
+# 2026-09-11 GitHub 기준 운영
+
+- 상태: completed. 최신 소스 main, 고정 소스 release/v4, 공개 산출물 gh-pages.
+- 최신 공개 URL: https://qkfhvnfrl-ux.github.io/defense-trends-web/versions/v4/
+- 버전 목록: https://qkfhvnfrl-ux.github.io/defense-trends-web/versions/
+- v2/v3/v4 공개 경로 보관. 기존 Sites 검토본은 그대로 두며 GitHub가 앞으로의 기준.
+
 # 2026-09-10 v4 기능 5종 구현
 
 - 상태: completed. 비공개 v4 게시 성공: https://hoseung-equipment-review.tko-korean.chatgpt.site/versions/v4/
