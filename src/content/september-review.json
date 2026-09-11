@@ -1,0 +1,239 @@
+{
+  "checkedAt": "2026-09-09",
+  "scope": "2026년 6월 이후 발표 우선 조사 · 확인된 자료만 반영",
+  "events": [
+    {
+      "id": "battlesuite-apis",
+      "date": "2026-09-09",
+      "kind": "인터페이스 공개",
+      "title": "Battlesuite의 Onboard·Tactical API 공개",
+      "summary": "Rheinmetall이 두 인터페이스 사양의 공개를 발표했습니다. 플랫폼·센서·지휘 애플리케이션 간 연결을 위한 규격입니다.",
+      "meaning": "검토 관점: 차량 데이터와 임무장비 인터페이스를 분리해 변경 이력을 관리할 수 있는지 확인합니다.",
+      "limit": "제품 전체 소스 공개나 특정 차량의 적용 완료를 뜻하지 않습니다.",
+      "equipmentIds": [],
+      "source": {
+        "title": "Battlesuite interface specifications released",
+        "url": "https://www.rheinmetall.com/en/media/news-watch/news/2026/09/2026-09-09-rheinmetall-releases-battlesuite-interfaces-as-open-source",
+        "publisher": "Rheinmetall",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      }
+    },
+    {
+      "id": "tremos-order",
+      "date": "2026-09-08",
+      "kind": "조달 합의",
+      "title": "핀란드, TREMOS 100문 이상 조달 합의",
+      "summary": "Patria는 2026년부터 2028년까지 납품하는 양산 조달 합의를 발표했습니다.",
+      "meaning": "검토 관점: 임무 모듈 선택 시 포탑형과 다른 차량 탑재 개념을 구분해 비교합니다.",
+      "limit": "TREMOS는 NEMO와 다른 체계입니다. AMV 탑재 계약으로 해석하지 않습니다.",
+      "equipmentIds": [],
+      "source": {
+        "title": "Finland to acquire over 100 Patria TREMOS mortar systems",
+        "url": "https://www.patriagroup.com/newsroom/news/2026/finland-to-acquire-over-100-patria-tremos-mortar-systems",
+        "publisher": "Patria",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      }
+    },
+    {
+      "id": "patria-dvd",
+      "date": "2026-09-07",
+      "kind": "전시 예정",
+      "title": "Patria 6×6의 C-UAS·방공 구성 전시 예고",
+      "summary": "9월 16~17일 DVD에서 RWS/C-UAS 구성과 Thales 단거리 방공 개념을 선보일 예정입니다.",
+      "meaning": "검토 관점: 동일 플랫폼의 임무 구성 확장과 운용형 확정을 구분합니다.",
+      "limit": "확인일에는 아직 전시 전입니다. 6×6 소식이며 AMV 8×8 실전 적용 증거가 아닙니다.",
+      "equipmentIds": [],
+      "source": {
+        "title": "Patria protected mobility solutions at DVD 2026",
+        "url": "https://www.patriagroup.com/newsroom/news/2026/discover-patrias-protected-mobility-solutions-for-modern-land-forces-at-dvd-2026",
+        "publisher": "Patria",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      }
+    },
+    {
+      "id": "xm30-prototype",
+      "date": "2026-09-01",
+      "kind": "시제품 인도",
+      "title": "Lynx XM30 첫 시제품, 미 육군 시험 단계 진입",
+      "summary": "American Rheinmetall이 8대 중 첫 시제품 인도를 발표했습니다. Bradley 후속 경쟁 사업의 개발·성능 시험 단계입니다.",
+      "meaning": "검토 관점: 모듈형 전자 구조와 시제품 시험 결과를 양산 요구조건과 구분합니다.",
+      "limit": "Bradley 교체 완료나 XM30의 최종 사업자 선정을 의미하지 않습니다.",
+      "equipmentIds": [
+        "m2a2-bradley"
+      ],
+      "source": {
+        "title": "First Lynx XM30 prototype delivered to U.S. Army",
+        "url": "https://www.rheinmetall.com/en/media/news-watch/news/2026/09/2026-09-01-american-rheinmetall-delivers-first-lynx-xm30-combat-vehicle-prototype-to-us-army",
+        "publisher": "Rheinmetall",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      }
+    },
+    {
+      "id": "passive-air-picture",
+      "date": "2026-08-19",
+      "kind": "연동 시연",
+      "title": "수동 레이더 항적과 방공 지휘체계 연동 시연",
+      "summary": "Timber Express에서 Twinvis 항적을 Skymaster에 통합해 Skynex 시나리오에 사용했다고 발표했습니다.",
+      "meaning": "검토 관점: 센서 자체 성능 외에 서로 다른 센서 데이터의 연결과 표시 방식도 확인합니다.",
+      "limit": "Skyranger로의 확장 가능성을 언급한 시연입니다. Boxer 전 차량에 탑재됐다는 뜻은 아닙니다.",
+      "equipmentIds": [
+        "boxer"
+      ],
+      "source": {
+        "title": "Passive sensor integration demonstrated",
+        "url": "https://www.rheinmetall.com/en/media/news-watch/news/2026/08/2026-08-19-rheinmetall-and-hensoldt-demonstrate-the-successful-integration-of-passive-sensor-technology",
+        "publisher": "Rheinmetall / Hensoldt",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      }
+    },
+    {
+      "id": "boxer-rct30-order",
+      "date": "2026-08-07",
+      "kind": "추가 발주",
+      "title": "독일·네덜란드, Boxer RCT30 69대 추가",
+      "summary": "2025년 222대 계약의 옵션이 행사됐습니다. 독일 35대, 네덜란드 34대가 추가되며 계약 합계는 291대입니다.",
+      "meaning": "검토 관점: 30mm 포탑과 MELLS를 탑재하는 임무 모듈의 계열 확장 사례입니다.",
+      "limit": "계약 수량이며 인도 또는 운용 완료 수량이 아닙니다.",
+      "equipmentIds": [
+        "boxer"
+      ],
+      "source": {
+        "title": "Additional 69 BOXER RCT30 vehicles",
+        "url": "https://knds.com/en/press-releases/additional-69-boxer-rct-30-wheeled-infantry-fighting-vehicles-for-germany-and-the-netherlands",
+        "publisher": "KNDS",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      }
+    }
+  ],
+  "audits": [
+    {
+      "equipmentId": "stryker",
+      "name": "Stryker",
+      "status": "갱신",
+      "checkedAt": "2026-09-09",
+      "note": "해당 요약·추가 출처를 확인했습니다. 나머지 제원과 과거 출처의 일괄 재검증은 아닙니다."
+    },
+    {
+      "equipmentId": "boxer",
+      "name": "Boxer",
+      "status": "갱신",
+      "checkedAt": "2026-09-09",
+      "note": "해당 요약·추가 출처를 확인했습니다. 나머지 제원과 과거 출처의 일괄 재검증은 아닙니다."
+    },
+    {
+      "equipmentId": "patria-amv",
+      "name": "Patria AMV",
+      "status": "갱신",
+      "checkedAt": "2026-09-09",
+      "note": "해당 요약·추가 출처를 확인했습니다. 나머지 제원과 과거 출처의 일괄 재검증은 아닙니다."
+    },
+    {
+      "equipmentId": "vbci",
+      "name": "VBCI",
+      "status": "기존 근거 재확인",
+      "checkedAt": "2026-09-09",
+      "note": "2024년 MkII 제안 자료 재확인. 카타르 계약·인도 완료로 변경할 근거는 확보하지 못했습니다."
+    },
+    {
+      "equipmentId": "m1a2-abrams",
+      "name": "M1A2 Abrams",
+      "status": "갱신",
+      "checkedAt": "2026-09-09",
+      "note": "해당 요약·추가 출처를 확인했습니다. 나머지 제원과 과거 출처의 일괄 재검증은 아닙니다."
+    },
+    {
+      "equipmentId": "leopard-2a7",
+      "name": "Leopard 2A7",
+      "status": "갱신",
+      "checkedAt": "2026-09-09",
+      "note": "해당 요약·추가 출처를 확인했습니다. 나머지 제원과 과거 출처의 일괄 재검증은 아닙니다."
+    },
+    {
+      "equipmentId": "challenger-3",
+      "name": "Challenger 3",
+      "status": "기존 근거 재확인",
+      "checkedAt": "2026-09-09",
+      "note": "2024년 시제품 8대 자료 재확인. 2026년 전력화 완료를 확인하지 못했습니다."
+    },
+    {
+      "equipmentId": "leclerc-xlr",
+      "name": "Leclerc XLR",
+      "status": "기존 근거 재확인",
+      "checkedAt": "2026-09-09",
+      "note": "2024년 제조사 사양서 재확인. 최신 인도 수량은 추가 확인이 필요합니다."
+    },
+    {
+      "equipmentId": "m2a2-bradley",
+      "name": "M2A2 Bradley ODS-SA",
+      "status": "갱신",
+      "checkedAt": "2026-09-09",
+      "note": "해당 요약·추가 출처를 확인했습니다. 나머지 제원과 과거 출처의 일괄 재검증은 아닙니다."
+    },
+    {
+      "equipmentId": "cv90",
+      "name": "CV90",
+      "status": "갱신",
+      "checkedAt": "2026-09-09",
+      "note": "해당 요약·추가 출처를 확인했습니다. 나머지 제원과 과거 출처의 일괄 재검증은 아닙니다."
+    },
+    {
+      "equipmentId": "puma-ifv",
+      "name": "Puma IFV",
+      "status": "갱신",
+      "checkedAt": "2026-09-09",
+      "note": "해당 요약·추가 출처를 확인했습니다. 나머지 제원과 과거 출처의 일괄 재검증은 아닙니다."
+    },
+    {
+      "equipmentId": "t90m",
+      "name": "T-90M Proryv",
+      "status": "최신 근거 부족",
+      "checkedAt": "2026-09-09",
+      "note": "2026년 6월 이후의 신뢰할 수 있는 개별 장비 갱신 근거가 충분하지 않아 기존 확인일을 유지했습니다."
+    },
+    {
+      "equipmentId": "gepard",
+      "name": "Gepard 1A2",
+      "status": "최신 근거 부족",
+      "checkedAt": "2026-09-09",
+      "note": "2026년 6월 이후의 신뢰할 수 있는 개별 장비 갱신 근거가 충분하지 않아 기존 확인일을 유지했습니다."
+    },
+    {
+      "equipmentId": "caesar-8x8",
+      "name": "CAESAR 8x8",
+      "status": "갱신",
+      "checkedAt": "2026-09-09",
+      "note": "해당 요약·추가 출처를 확인했습니다. 나머지 제원과 과거 출처의 일괄 재검증은 아닙니다."
+    },
+    {
+      "equipmentId": "m113",
+      "name": "M113 APC",
+      "status": "최신 근거 부족",
+      "checkedAt": "2026-09-09",
+      "note": "2026년 6월 이후의 신뢰할 수 있는 개별 장비 갱신 근거가 충분하지 않아 기존 확인일을 유지했습니다."
+    }
+  ]
+}

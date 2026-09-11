@@ -1,3 +1,56 @@
+# 2026-09-10 v4 게시 성공
+
+- 원본 commit: 5d7e01f18cbef8a8c434ce9b531f6b061078484b.
+- 저장 버전: appgprj_6aa1d395b1908191b4260843e8117c44~appgver_be3b3d928f4c8191a812659031cdcc1f.
+- 배포: appgdep_6aa24abec1648191b6b8019b8224c0eb, succeeded.
+- URL: https://hoseung-equipment-review.tko-korean.chatgpt.site/versions/v4/
+- 본인 전용 배포 검사 통과. 공개 GitHub Pages v3는 변경하지 않음.
+- 실제 배포 아카이브에 v2/v3/v4 포함, v1 미포함 확인.
+
+# 2026-09-10 v4 검증
+
+- node node_modules/vitest/vitest.mjs run: 5개 파일 28개 테스트 통과. PDF HTML 탈출/실행 URL 차단, 파생형 기본 제원 구분 포함.
+- node node_modules/eslint/bin/eslint.js .: 통과.
+- Sites build-site.mjs: TypeScript, Vite 및 3개 버전 패키징 통과. PDF 테스트 JSON 타입 캐스팅 오류 1건 수정 후 통과.
+- v2/v3 아카이브 해시 및 버전별 HTML 자산 경로 검사 통과. 잔존 v1 출력 제거, 원본 아카이브는 보존.
+- 사진 URL 13건 조회: 5건 image/jpeg 정상, 나머지는 404/502/시간 초과 또는 HTML 응답. 사진 실패 안내와 원문 링크 제공. 일부 원본 서버 접근은 환경별 차이가 있을 수 있음.
+- 신규 날짜 확인: 영국 국방부 Challenger 3 계약 발표 2021-05-07, 148대, £800m. 2026-09-10 원문 확인.
+- 기존 6건 연표는 2026-09-09 확인 자료. 배치 근거 없는 사건은 배치로 변환하지 않음.
+- 사용자 방침에 따라 브라우저 클릭/시각 및 실제 PDF 저장 확인은 수행하지 않음. 3D 청크 크기 경고는 잔존.
+
+# 2026-09-10 v3 공개 배포 검증
+
+- 상태: completed. Pages commit e211a7fdc356b99cab10edbb5323b7f4ab54b940.
+- Pages workflow 34434589481 completed / success, 대상 SHA 일치.
+- node scripts/build-public-release.mjs: TypeScript 및 Vite 통과.
+- 공개 루트, v3 HTML, insights HTML, JS/CSS 3개, JSON 9개: 15건 모두 HTTP 200 및 로컬 SHA-256 일치.
+- 모든 생성 HTML의 자산 경로 검사 및 원본 JSON 바이트 비교 통과. 공개 산출물에 v1/v2 없음.
+- npm run lint: 생성 dist-public 제외 누락으로 최초 실패, ESLint 생성물 제외 후 통과. 기존 기능 테스트는 9월 9일 26개 통과 결과 유지; 이번에는 배포 경로만 변경.
+- 이전 npm run build는 남아 있는 dist/versions 때문에 패키징 실패. 공개 배포는 독립 출력과 --emptyOutDir를 쓰는 재현 가능한 빌드로 해결.
+- 남은 제한: 3D 지연 로딩 청크 크기 경고, 실제 클릭/시각 확인은 사용자 수행. 3D는 사진 참고 외형이며 실측 CAD가 아님.
+
+# 2026-09-09 비공개 게시 완료
+
+- URL: https://hoseung-equipment-review.tko-korean.chatgpt.site
+- 소스: 5ca8718ddc441f7ebc0e1dcb94b99a9685344dff.
+- 배포 appgdep_6aa1d7289c088191bf280ad2c4cff4b3 succeeded.
+- 접근 재확인: current_user_role=owner, access_mode=custom, allowed_users=1, allowed_groups=0. 소유자 전용 배포 검증도 통과.
+- v1/v2는 장비 확인일 이전 상태 유지, v3만 9종 설명 갱신. 3개 버전의 경로·데이터·아카이브 검사 통과.
+- 공개 Pages 종료 커밋 a3d5d6531ebe3d8d35af26fd14111c9c0d0d88d3, workflow 34410175143 success. 현재 공개 트리는 종료 안내 HTML과 .nojekyll만 포함한다.
+- 공개 URL 재조회: index.html HTTP 200 종료 안내, data/equipment.json 및 이전 3D JS HTTP 404 확인.
+- GitHub 과거 소스와 커밋의 공개 설정은 별개로 유지됨.
+
+# 2026-09-09 비공개 검토 버전 검증
+
+- npm run test: 4개 파일 / 26개 통과.
+- npm run lint: 미사용 technologies 매개변수를 수정한 후 통과.
+- node --import tsx scripts/validate-data.mjs: 장비 15 / 파생형 30 / 기술 7 / 사례 7 등 참조·스키마 통과.
+- 프로덕션 tsc/Vite 빌드 통과. 3D 청크 크기 경고는 비차단이며 지연 로딩을 유지한다.
+- 이전 두 버전은 원래 소스 커밋에서 전용 base 경로로 빌드했다. SHA-256을 기록하고 패키징에서 검사한다.
+- 3개 버전의 JS/CSS 경로, insights/sources/equipment 상세 파일, trailing slash 정규화 스크립트 확인.
+- 최신 자료는 src/content/september-review.json과 각 레코드 sources에서 날짜·원문·확인 범위를 추적한다.
+- 브라우저 시각/상호작용 검사는 수행하지 않았다. 사용자가 새 링크에서 확인할 예정.
+
 # 2026-09-09 공개 배포 완료
 
 - PR #2 병합: 252eee377c6d39e3d1a552637fb4ea76a7631a6d.

@@ -1,0 +1,20 @@
+{
+  "version": "v2",
+  "sourceCommit": "252eee377c6d39e3d1a552637fb4ea76a7631a6d",
+  "files": {
+    "index.html": "393899af3ac3acacba7b32d6fad22fa615e78df6e00df46331cd3cbb08dde18f",
+    "data/engineeringReferences.json": "6e4caa1d9133cd605f83878590d3a35400162de560e21d1e73bd206889c908db",
+    "data/developmentLens.json": "dcc1edf65b3ef0db401cd430649c81521dccb71592d409cb30eddbb3716bdca2",
+    "data/equipment.json": "7d9c1651d3db31bac7b87b3d01ac1ddf6831d7f63e6885e89917f364bdc25a12",
+    "data/technologies.json": "aed74ef4a3851d7ce4f7104add59cf7990b67436c780d5bf6c854e9ca5badb88",
+    "data/battlefieldCases.json": "d544705e32bf285335b52dbb8648d67136ef77ed7001d92c19423dd306f2d011",
+    "data/variants.json": "2887677deab3f782a8a87c3ffcc635065d68ad0fa8e180b6016e13365fd0f6c5",
+    "data/incidents.json": "70f2970136ed15883147239a6503e6a40da209167e6ea566f6bbb3c0784c70c0",
+    "data/components.json": "74f9373775150bed7917f5d477df1f0da58265f200a6ff7f6522605cbae5b367",
+    "data/trends.json": "5ef12d3e8987d60838689de4b61a911f67a12d49407e3e12a7931f7d6b6b32da",
+    "assets/index-DjBfiJLt.js": "5f660d41fe619620177c5903b4fcc2667f4675259d0aae1e4ea2627123b28d3b",
+    "assets/index-PpuIYbX6.css": "ce414373f3c0af540069052971037e7a2733823a5f64c3982efe0bc2e6db97f9",
+    "assets/VehicleModelPanel-BOSXQ3Em.js": "57db1f059cf2d27bf8793e86601b8dfb005db59f46b645efe9716fa6b8b606d9",
+    "models/README.md": "9407ef0e192969a702785795fe18d608723a579b7e141189d4e94cd944474116"
+  }
+}

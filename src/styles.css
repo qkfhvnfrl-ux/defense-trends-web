@@ -2275,3 +2275,53 @@ a {
   .model-reference-grid { grid-template-columns: 1fr; gap: 16px; }
   .model-view-controls button { flex: 1 1 auto; }
 }
+
+/* 3D selection information stays within the viewport; DOM controls support touch and keyboard. */
+.model-stage { position: relative; border: 1px solid #395263; border-radius: 14px; overflow: hidden; }
+.model-stage-label { position: absolute; z-index: 2; top: 16px; left: 18px; right: 18px; color: #d3e2ec; font-size: .875rem; pointer-events: none; }
+.model-part-popover { position: absolute; z-index: 3; right: 18px; top: 50px; width: min(310px, calc(100% - 36px)); max-height: calc(100% - 70px); overflow: auto; padding: 16px; border: 1px solid #759cb8; border-radius: 12px; background: #f6faff; color: #182c3e; box-shadow: 0 12px 36px #0005; }
+.model-popover-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #40647d; font-size: .875rem; }
+.model-popover-heading button { width: 44px; min-height: 44px; border: 0; border-radius: 8px; color: #182c3e; background: #e3edf5; font-size: 1.5rem; cursor: pointer; }
+.model-part-popover h3 { margin: 4px 0 12px; font-size: 1.1rem; color: #12283b; }
+.model-part-popover p { margin: 8px 0; font-size: .9375rem; line-height: 1.6; }
+.model-part-popover small { display: block; font-size: .8125rem; color: #4b6173; line-height: 1.5; }
+.model-part-popover a { display: inline-flex; min-height: 44px; align-items: center; color: #17597f; font-size: .875rem; font-weight: 700; }
+.model-assembly-row button[aria-pressed="true"] { background: #214f70; border-color: #214f70; color: white; }
+@media (max-width: 600px) { .model-part-popover { top: auto; bottom: 12px; right: 12px; width: calc(100% - 24px); max-height: 56%; } }
+
+.latest-updates { margin: 24px 0 36px; padding: 24px; background: #edf4fa; border: 1px solid #c6d9e8; border-radius: 16px; color: #183348; }
+.updates-heading { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.updates-heading h2 { margin: 4px 0; font-size: 1.5rem; }
+.updates-heading > span, .updates-scope { font-size: .875rem; color: #47637a; }
+.update-filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+.update-filters button { min-height: 44px; padding: 8px 14px; background: white; color: #294e68; border: 1px solid #aec4d4; border-radius: 8px; cursor: pointer; font-size: .875rem; }
+.update-filters button[aria-pressed="true"] { background: #183f5e; color: white; border-color: #183f5e; }
+.update-cards { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.update-card { background: white; border: 1px solid #d2e0eb; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; }
+.update-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: #526c80; font-size: .875rem; }
+.update-meta span { background: #e6f0f7; padding: 4px 8px; border-radius: 4px; color: #215578; }
+.update-card h3 { margin: 16px 0 8px; color: #152e42; font-size: 1.125rem; line-height: 1.5; }
+.update-card p { margin: 8px 0; font-size: 1rem; line-height: 1.65; }
+.update-card .update-meaning { border-top: 1px solid #e0e9f0; padding-top: 12px; color: #32546e; font-size: .9375rem; }
+.update-card .update-limit { color: #6a5a3d; font-size: .875rem; }
+.update-card a { color: #175d8b; font-size: .875rem; margin-top: auto; padding-top: 10px; min-height: 44px; display: inline-flex; align-items: center; font-weight: 700; }
+.review-coverage { margin-top: 22px; border-top: 1px solid #c4d6e4; padding-top: 12px; }
+.review-coverage summary { cursor: pointer; padding: 12px 0; font-size: .9375rem; }
+.review-table-wrap { overflow-x: auto; }
+.review-coverage table { border-collapse: collapse; width: 100%; font-size: .875rem; }
+.review-coverage th,.review-coverage td { padding: 12px; border-bottom: 1px solid #d0dde6; text-align: left; vertical-align: top; min-width: 90px; }
+.review-coverage td:last-child { min-width: 230px; }
+.equipment-review { background: #eaf2f8; color: #294960; padding: 14px 20px; border-left: 3px solid #5784a5; border-radius: 6px; margin-top: 20px; }
+.equipment-review strong { font-size: .875rem; }.equipment-review p { margin: 5px 0 0; font-size: .875rem; line-height: 1.6; }
+@media(max-width:760px) { .update-cards { grid-template-columns: 1fr; }.latest-updates{ padding:16px; }.update-card{padding:16px;} }
+
+/* v4 equipment research tools */
+.photo-correspondence,.research-tool{padding:1.25rem;border:1px solid #cbd8e3;border-radius:12px;background:#fff;margin-top:1.25rem;min-width:0}
+.photo-correspondence img{display:block;width:100%;max-height:360px;object-fit:contain;background:#e9eef3;border-radius:8px;margin:1rem 0}
+.photo-correspondence small{display:block;margin-top:.75rem;color:#526779;font-size:.875rem}
+.research-tool h3,.photo-correspondence h3{margin-top:0}.research-tool select,.photo-correspondence select{max-width:100%;padding:.65rem;font:inherit;border:1px solid #adbdcb;border-radius:6px;background:white;color:#16334a}
+.research-tool button{min-height:44px;padding:.5rem .85rem;cursor:pointer;font:inherit}.research-tool button[aria-pressed=true]{background:#163e5e;color:white}
+.research-table-wrap{overflow-x:auto}.research-tool table{border-collapse:collapse;width:100%;font-size:.95rem}.research-tool th,.research-tool td{padding:.85rem;text-align:left;border-bottom:1px solid #dce4eb;vertical-align:top;min-width:130px}.research-tool th{background:#edf3f8}.research-tool .different{background:#fff2d7}.research-tool td p{margin:.4rem 0}.research-controls{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin:1rem 0}.research-controls label{display:grid;gap:.5rem;flex:1;min-width:180px}
+@media(max-width:640px){.photo-correspondence,.research-tool{padding:1rem}.research-tool th,.research-tool td{min-width:110px}}
+
+.equipment-timeline{list-style:none;padding:0 0 0 1.1rem;border-left:3px solid #b8ccdc;margin:1.5rem 0}.equipment-timeline li{padding:0 0 1.75rem 1rem}.equipment-timeline h4{font-size:1.05rem;margin:.65rem 0}.equipment-timeline strong{display:inline-block;margin-left:.6rem;padding:.2rem .55rem;background:#e7eff6;border-radius:4px}.equipment-timeline small{display:block;margin-top:.5rem;color:#53697d}.research-tool details{margin:1rem 0}.research-tool summary{cursor:pointer;line-height:1.6;padding:.5rem 0;font-weight:650}

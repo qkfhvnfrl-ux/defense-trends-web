@@ -1,0 +1,20 @@
+import type { Equipment, EquipmentVariant } from "../types";
+const escape = (value: string) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+const safeUrl = (value: string) => /^https?:\/\//i.test(value) ? escape(value) : "#";
+export function equipmentBriefHtml(equipment: Equipment, variant: EquipmentVariant | undefined, capture: string | undefined, pageUrl: string) {
+  const title = variant?.nameKo ?? equipment.name;
+  const sources = [...new Map([...equipment.sources, ...(variant?.sources ?? [])].map(s => [s.url, s])).values()];
+  const image = capture?.startsWith("data:image/png;base64,") ? `<img class="model" src="${escape(capture)}" alt="선택한 3D 외형"/>` : '<p class="no-image">3D 화면을 사용할 수 없어 외형 이미지를 제외했습니다.</p>';
+  return `<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escape(title)} · 장비 요약</title><style>
+  *{box-sizing:border-box}body{font:14px/1.5 Arial,"Noto Sans KR","Malgun Gothic",sans-serif;color:#16334b;background:#edf2f7;margin:0}main{width:min(100%,210mm);margin:20px auto;background:#fff;padding:14mm}.toolbar{padding:16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}button{font:inherit;min-height:44px;padding:8px 18px;cursor:pointer}h1{font-size:25px;margin:0 0 6px}h2{font-size:16px;margin:14px 0 6px}p{margin:6px 0}.meta,.note{font-size:12px;color:#53677a}.model{width:100%;height:55mm;object-fit:contain;background:#12212c;margin-top:12px}.columns{display:grid;grid-template-columns:1fr 1fr;gap:16px}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;padding:4px 6px;border-bottom:1px solid #d5dfe7;vertical-align:top}th{width:36%}a{color:#174f77;overflow-wrap:anywhere}.sources{font-size:10px;padding-left:18px;columns:2;column-gap:18px}.sources li{break-inside:avoid;margin:0 0 4px}footer{margin-top:10px;border-top:1px solid #cad6e0;padding-top:8px;font-size:11px}section{break-inside:avoid}@page{size:A4;margin:10mm}@media print{body{background:white}.toolbar{display:none}main{width:auto;margin:0;padding:0}.model{height:48mm}a{color:inherit}}@media(max-width:600px){main{padding:18px}.columns{grid-template-columns:1fr}.sources{columns:1}}
+  </style></head><body><div class="toolbar"><button type="button" onclick="window.print()">인쇄 / PDF로 저장</button><span>인쇄 대상에서 ‘PDF로 저장’을 선택하세요. 용지 A4 · 배율 100% · 머리글/바닥글 끄기 권장</span></div><main><header><p class="meta">세계 장비 검색 · v4 장비 요약</p><h1>${escape(title)}</h1><p>${escape(equipment.manufacturer)} · ${escape(equipment.originCountry)}</p><p class="meta">자료 갱신 ${escape(equipment.lastUpdated)} · ${escape(variant?.maturity ?? equipment.status)}</p></header>${image}<p class="note">사진 참고 외형 · 비례 추정 · 실측 CAD 아님. 현재 시점과 표시 중인 구성으로 저장합니다.</p><div class="columns"><section><h2>임무와 구성</h2><p>${escape(variant?.role ?? equipment.roleTags.join(" · "))}</p>${variant ? `<p><strong>탑재 장비</strong> ${escape(variant.armament)}</p>` : ""}<p>${escape((variant?.notesKo ?? equipment.summaryKo).slice(0,500))}</p></section><section><h2>${variant ? "기본형 참고 제원" : "주요 제원"}</h2>${variant ? '<p class="note">선택 파생형의 확정 제원이 아닙니다.</p>' : ""}<table><tbody>${Object.entries(equipment.specs).slice(0,10).map(([key,value]) => `<tr><th>${escape(key)}</th><td>${escape(value)}</td></tr>`).join("")}</tbody></table></section></div><section><h2>근거 출처</h2><ol class="sources">${sources.map(s => `<li><a href="${safeUrl(s.url)}">${escape(s.title)}</a> · 확인 ${escape(s.checkedAt)}</li>`).join("")}</ol></section><footer><a href="${safeUrl(pageUrl)}">전체 설명·제원·자료 이력은 사이트에서 보기</a><p>요약본은 주요 제원 최대 10개와 설명 최대 500자를 담습니다. 출력 환경에 따라 페이지 수가 달라질 수 있습니다.</p></footer></main></body></html>`;
+}
+export function openEquipmentBrief(equipment: Equipment, variant: EquipmentVariant | undefined, capture?: string) {
+  const popup = window.open("", "_blank");
+  if (!popup) return false;
+  popup.opener = null;
+  popup.document.open();
+  popup.document.write(equipmentBriefHtml(equipment, variant, capture, window.location.href));
+  popup.document.close();
+  return true;
+}

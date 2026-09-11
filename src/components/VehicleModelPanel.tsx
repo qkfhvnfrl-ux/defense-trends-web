@@ -1,3 +1,5 @@
+import { openEquipmentBrief } from "../export/equipmentBrief";
+import { VariantComparison } from "./VariantComparison";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
@@ -9,7 +11,7 @@ import type { ModelReference } from "../vehicle3d/references";
 import type { Equipment, EquipmentVariant } from "../types";
 
 type Runtime = {
-  root: THREE.Group; groups: Record<AssemblyKey, THREE.Group>; camera: THREE.PerspectiveCamera;
+  capture: () => string; root: THREE.Group; groups: Record<AssemblyKey, THREE.Group>; camera: THREE.PerspectiveCamera;
   controls: OrbitControls; center: THREE.Vector3; radius: number; highlight: THREE.BoxHelper;
 };
 type Props = { equipment: Equipment; variants: EquipmentVariant[] };
@@ -25,6 +27,8 @@ export default function VehicleModelPanel({ equipment, variants }: Props) {
   const [error, setError] = useState("");
   const [saveStatus, setSaveStatus] = useState("");
   const [saving, setSaving] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [failedPhoto, setFailedPhoto] = useState("");
   const reference = referenceIndex.get(equipment.id);
   const currentVariant = variants.find(item => item.id === variant);
 
@@ -39,7 +43,7 @@ export default function VehicleModelPanel({ equipment, variants }: Props) {
       return () => window.clearTimeout(timeout);
     }
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color("#19282f");
+    scene.background = new THREE.Color("#12212c");
     const camera = new THREE.PerspectiveCamera(36, 1, .05, 120);
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
@@ -79,12 +83,12 @@ export default function VehicleModelPanel({ equipment, variants }: Props) {
     key.shadow.camera.right = key.shadow.camera.top = 12;
     key.shadow.normalBias = .035; scene.add(key);
     const fill = new THREE.DirectionalLight("#89adca", 1.8); fill.position.set(-8, 5, -6); scene.add(fill);
-    const floor = new THREE.Mesh(new THREE.CircleGeometry(radius * 1.6, 64), new THREE.MeshStandardMaterial({ color: "#23343b", roughness: 1 }));
+    const floor = new THREE.Mesh(new THREE.CircleGeometry(radius * 1.6, 64), new THREE.MeshStandardMaterial({ color: "#203342", roughness: 1 }));
     floor.rotation.x = -Math.PI / 2; floor.position.y = .055; floor.receiveShadow = true; scene.add(floor);
-    const grid = new THREE.GridHelper(radius * 2.9, 24, "#547079", "#344b53");
+    const grid = new THREE.GridHelper(radius * 2.9, 24, "#557288", "#2c4355");
     grid.position.y = .06; scene.add(grid);
     const highlight = new THREE.BoxHelper(root, "#e0c774"); highlight.visible = false; scene.add(highlight);
-    runtimeRef.current = { root, groups, camera, controls, center, radius, highlight };
+    runtimeRef.current = { root, groups, camera, controls, center, radius, highlight, capture: () => { renderer.render(scene, camera); return renderer.domElement.toDataURL("image/png"); } };
     const resize = () => {
       const width = Math.max(mount.clientWidth, 1), height = Math.max(mount.clientHeight, 1);
       camera.aspect = width / height; camera.updateProjectionMatrix(); renderer.setSize(width, height, false);
@@ -170,7 +174,22 @@ export default function VehicleModelPanel({ equipment, variants }: Props) {
     } catch { setSaveStatus("모델을 저장하지 못했습니다. 다시 시도해 주세요."); }
     finally { setSaving(false); }
   }
+  function saveBrief() {
+    let capture: string | undefined;
+    try { capture = runtimeRef.current?.capture(); } catch { /* Text-only export remains available. */ }
+    const opened = openEquipmentBrief(equipment, currentVariant, capture);
+    setSaveStatus(opened ? "요약 화면을 열었습니다. ‘인쇄 / PDF로 저장’을 누른 뒤 PDF로 저장을 선택하세요." : "요약 화면을 열지 못했습니다. 이 사이트의 팝업을 허용한 뒤 다시 눌러 주세요.");
+  }
   const selectedAssembly = assemblies.find(item => item.key === selectedPart);
+  const missionTitle = currentVariant?.nameKo ?? equipment.name + " 기본 구성";
+  const missionArmament = currentVariant?.armament ?? equipment.specs["주무장"] ?? equipment.specs["무장"] ?? equipment.specs["주요 무장"] ?? equipment.specs["주포"];
+  const closeInfo = () => setSelectedPart(null);
+  const photoSources = reference?.sources.filter(source => source.imageUrl) ?? [];
+  const photo = photoSources[photoIndex] ?? photoSources[0];
+  const partWords: Record<AssemblyKey, RegExp> = { hull: /차체|전면|측면|장갑|램프|병력실/, running: /바퀴|타이어|차륜|궤도|휠|현수/, mission: /포탑|포신|주포|무장|레이더|모듈|미사일/, details: /안테나|해치|적재|부속|배기|그릴/ };
+  const observations = photo?.observedFeatures ?? reference?.externalFeaturesKo ?? [];
+  const relatedObservations = selectedPart ? observations.filter(text => partWords[selectedPart].test(text)) : observations;
+
   return (
     <section className="vehicle-model-section" id="vehicle-3d" aria-labelledby="vehicle-model-title">
       <div className="model-section-heading">
@@ -179,8 +198,22 @@ export default function VehicleModelPanel({ equipment, variants }: Props) {
       </div>
       <div className="vehicle-model-layout">
         <div className="model-main">
-          <div className="model-stage" ref={mountRef}>
+          <div className="model-stage" ref={mountRef} onKeyDown={e => { if (e.key === "Escape") closeInfo(); }}>
+            <span className="model-stage-label">{equipment.name} · {currentVariant?.nameKo ?? "기본 외형"}</span>
             {error ? <p className="model-error" role="status">{error}</p> : null}
+            {selectedAssembly && visible[selectedAssembly.key] ? (
+              <aside className="model-part-popover" aria-label="선택 장비 정보" aria-live="polite">
+                <div className="model-popover-heading"><span>{selectedAssembly.label}</span><button type="button" onClick={closeInfo} aria-label="장비 정보 닫기">×</button></div>
+                <h3>{selectedPart === "mission" ? missionTitle : selectedAssembly.label}</h3>
+                {selectedPart === "mission" ? <>
+                  {missionArmament ? <p><strong>탑재 장비</strong> {missionArmament}</p> : null}
+                  <p>{currentVariant?.role ?? equipment.roleTags.join(" · ")}</p>
+                  <p>{currentVariant?.notesKo ?? reference?.missionEquipmentKo[0] ?? selectedAssembly.description}</p>
+                  <small>선택 구성의 대표 장비입니다. 세부 장착품은 운용형마다 다를 수 있습니다.</small>
+                  {(currentVariant?.sources[0] ?? reference?.sources[0]) ? <a href={(currentVariant?.sources[0] ?? reference?.sources[0])?.url} target="_blank" rel="noreferrer">장비 출처 보기 ↗</a> : null}
+                </> : <p>{selectedAssembly.description}</p>}
+              </aside>
+            ) : null}
           </div>
           <div className="model-view-controls" aria-label="3D 시점">
             <button type="button" onClick={() => view("perspective")}>기본 시점</button>
@@ -192,7 +225,19 @@ export default function VehicleModelPanel({ equipment, variants }: Props) {
             <button type="button" onClick={() => zoom(1.25)} aria-label="3D 축소">축소 −</button>
             <button type="button" aria-pressed={rotating} onClick={() => setRotating(!rotating)}>{rotating ? "회전 멈춤" : "자동 회전"}</button>
           </div>
-          <p className="model-help">드래그로 회전 · 휠 또는 두 손가락으로 확대 · 형상을 누르면 구성 선택</p>
+          <p className="model-help">드래그로 회전 · 휠 또는 두 손가락으로 확대 · 임무장비를 누르면 장비 정보 표시</p>
+          <section className="photo-correspondence" aria-label="실사진과 3D 대응 보기">
+            <h3>실사진과 함께 보기</h3>
+            <p>{reference?.exactVariant ?? equipment.name}</p>
+            {variant !== "base" && <p className="model-uncertainty">현재 선택한 파생형의 사진이 아닐 수 있습니다. 아래 사진은 기본 외형의 참고 자료입니다.</p>}
+            {photoSources.length > 1 && <label>참고 사진 <select value={photoIndex} onChange={e => { setPhotoIndex(Number(e.target.value)); setFailedPhoto(""); }}>{photoSources.map((source, i) => <option key={source.url} value={i}>{source.title}</option>)}</select></label>}
+            {photo?.imageUrl && failedPhoto !== photo.imageUrl ? <a href={photo.imageUrl} target="_blank" rel="noreferrer"><img src={photo.imageUrl} alt={`${reference?.exactVariant ?? equipment.name} 공개 참고 사진`} loading="lazy" referrerPolicy="no-referrer" onError={() => setFailedPhoto(photo.imageUrl ?? "")} /></a> : <p role="status">{photo ? "원본 서버에서 사진을 불러오지 못했습니다. 아래 원문에서 확인해 주세요." : "직접 표시할 사진이 확인되지 않았습니다. 아래 사진·원문 출처에서 확인해 주세요."}</p>}
+            <div className="model-view-controls" aria-label="사진에서 비교할 부위">{assemblies.map(part => <button type="button" key={part.key} aria-pressed={selectedPart === part.key} onClick={() => { setSelectedPart(part.key); setVisible(previous => ({ ...previous, [part.key]: true })); }}>{part.label}</button>)}</div>
+            <strong>{selectedAssembly ? `${selectedAssembly.label} · 사진 관찰 항목` : "사진 관찰 항목"}</strong>
+            {relatedObservations.length ? <ul>{relatedObservations.map(text => <li key={text}>{text}</li>)}</ul> : <p>이 부위의 사진 관찰 기록은 없습니다. 3D 형상은 추정이 포함됩니다.</p>}
+            {photo && <a href={photo.url} target="_blank" rel="noreferrer">{photo.publisher} · {photo.title} ↗</a>}
+            <small>부위를 고르면 3D의 같은 구성 그룹을 강조합니다. 사진의 특정 픽셀이나 치수를 자동 정합한 결과는 아닙니다.</small>
+          </section>
         </div>
         <aside className="model-sidebar" aria-label="3D 구성과 형상 설명">
           <label className="model-variant-label">임무장비 구성
@@ -210,9 +255,11 @@ export default function VehicleModelPanel({ equipment, variants }: Props) {
           </div>
           <p className="model-selection" role="status">{selectedAssembly ? selectedAssembly.description : "차체·주행장치·임무장비·외부 부속을 각각 확인할 수 있습니다."}</p>
           <button type="button" className="model-download" onClick={saveModel} disabled={saving || Boolean(error)}>{saving ? "모델 저장 중…" : "3D 모델 저장 (.glb)"}</button>
+          <button type="button" className="model-download" onClick={saveBrief}>장비 요약 PDF 저장</button>
           {saveStatus ? <p className="model-help" role="status">{saveStatus}</p> : null}
         </aside>
       </div>
+      <VariantComparison equipment={equipment} variants={variants} onPreview={id => { setVariant(id); setSelectedPart("mission"); setVisible(previous => ({ ...previous, mission: true })); mountRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }); }} />
       <div className="model-reference-grid">
         <article><h3>{reference?.inspectionStatus === "photo-checked" ? "사진에서 확인한 외형" : "외형 확인 항목"}</h3><p className="model-help">{reference?.inspectionStatus === "photo-checked" ? "참고 사진을 직접 확인했습니다. 3D의 비례와 세부 부품은 단순화했습니다." : "공개 자료는 확인했으며, 사진 직접 검토가 필요한 항목이 있습니다."}</p><ul>{(reference?.externalFeaturesKo ?? ["차체, 주행장치와 상부 장비의 대표 외형을 구분합니다."]).map(text => <li key={text}>{text}</li>)}</ul></article>
         <article><h3>임무장비와 재현 범위</h3><ul>{(reference?.missionEquipmentKo ?? ["선택한 임무형의 상부 장비 배치를 참고용으로 표시합니다."]).map(text => <li key={text}>{text}</li>)}</ul><p className="model-uncertainty">{reference?.uncertaintyKo} 사진으로 확인되지 않는 부분과 치수는 추정입니다. 실측 CAD·사진측량 복원 모델이 아닙니다.</p></article>

@@ -1,0 +1,129 @@
+[
+  {
+    "id": "trend-us-abrams-modernization",
+    "equipmentIds": [
+      "m1a2-abrams"
+    ],
+    "type": "개량",
+    "region": "북미",
+    "titleKo": "Abrams SEP 계열 지속 개량",
+    "summaryKo": "미 육군과 GDLS는 Abrams의 전자장비, 생존성, 전력관리 개선을 중심으로 SEP 계열 개량을 이어가고 있다.",
+    "date": "2026",
+    "sources": [
+      {
+        "title": "General Dynamics Land Systems - Abrams",
+        "url": "https://www.gdls.com/abrams/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "trend-boxer-uk",
+    "equipmentIds": [
+      "boxer"
+    ],
+    "type": "도입",
+    "region": "유럽",
+    "titleKo": "영국 Boxer MIV 전력화 확대",
+    "summaryKo": "영국은 Mechanised Infantry Vehicle 사업으로 Boxer 계열 도입을 추진하며 생산·조립 기반을 확대하고 있다.",
+    "date": "2026",
+    "sources": [
+      {
+        "title": "UK Government - First British-made Boxer vehicles",
+        "url": "https://www.gov.uk/government/news/first-british-made-boxer-vehicles-ready-for-army",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "trend-leopard-europe",
+    "equipmentIds": [
+      "leopard-2a7"
+    ],
+    "type": "개량",
+    "region": "유럽",
+    "titleKo": "Leopard 2 계열 재생산·개량 수요 증가",
+    "summaryKo": "우크라이나 전쟁 이후 유럽 각국의 전차 전력 보강 수요가 커지며 Leopard 2 계열의 정비, 개량, 신규 조달 논의가 확대되었다.",
+    "date": "2026",
+    "sources": [
+      {
+        "title": "KNDS - Leopard main battle tank family",
+        "url": "https://knds.com/en/products/leopard",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "trend-challenger-3-production",
+    "equipmentIds": [
+      "challenger-3"
+    ],
+    "type": "개량",
+    "region": "유럽",
+    "titleKo": "Challenger 3 전력화 준비",
+    "summaryKo": "영국은 Challenger 2 차체를 기반으로 신형 포탑과 120mm 활강포를 적용하는 Challenger 3 전력화를 진행 중이다.",
+    "date": "2026",
+    "sources": [
+      {
+        "title": "UK Government - Challenger 3 contract and capability",
+        "url": "https://www.gov.uk/government/news/british-army-to-possess-most-lethal-tank-in-europe",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "trend-france-scorpion",
+    "equipmentIds": [
+      "leclerc-xlr",
+      "vbci"
+    ],
+    "type": "개량",
+    "region": "유럽",
+    "titleKo": "프랑스 SCORPION 체계 연동",
+    "summaryKo": "프랑스는 Leclerc XLR 등 지상전 장비를 SCORPION 전장정보체계와 연동하는 방향으로 현대화를 추진한다.",
+    "date": "2026",
+    "sources": [
+      {
+        "title": "French Ministry of Armed Forces - SCORPION programme",
+        "url": "https://www.defense.gouv.fr/eurosatory/the-scorpion-programme",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "trend-patria-cavsim",
+    "equipmentIds": [
+      "patria-amv"
+    ],
+    "type": "수출",
+    "region": "유럽/아시아",
+    "titleKo": "Patria AMV XP 수출형 플랫폼 지속 제안",
+    "summaryKo": "Patria는 AMV XP를 기반으로 수상주행, 다양한 무장 모듈, 임무형 구성을 앞세워 수출 시장을 공략하고 있다.",
+    "date": "2026",
+    "sources": [
+      {
+        "title": "Patria - AMV XP",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility/patria-amv-xp-number-1-in-the-battlefield",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "id": "trend-stryker-upgrades",
+    "equipmentIds": [
+      "stryker"
+    ],
+    "type": "개량",
+    "region": "북미",
+    "titleKo": "Stryker 화력·생존성 개량",
+    "summaryKo": "Stryker 계열은 30mm 포탑형, 방공형, 대전차형 등 임무별 파생형과 생존성 향상 패키지를 통해 계속 개량되고 있다.",
+    "date": "2026",
+    "sources": [
+      {
+        "title": "General Dynamics Land Systems - Stryker",
+        "url": "https://www.gdls.com/stryker/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  }
+]

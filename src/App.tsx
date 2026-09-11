@@ -16,9 +16,11 @@ import { EquipmentMap } from "./components/EquipmentMap";
 import { EquipmentDetail } from "./components/EquipmentDetail";
 import { ComponentSpecPanel } from "./components/ComponentSpecPanel";
 import { TechnologyPanel } from "./components/TechnologyPanel";
-import { BattlefieldLens } from "./components/BattlefieldLens";
 import { normalizeRoute, routeHref } from "./routing";
 import { matchesEquipmentQuery } from "./search";
+import { EquipmentTimeline } from "./components/EquipmentTimeline";
+import { EquipmentHistory } from "./components/EquipmentHistory";
+import { LatestUpdates, EquipmentReview } from "./components/LatestUpdates";
 
 const VehicleModelPanel = lazy(() => import("./components/VehicleModelPanel"));
 
@@ -760,7 +762,7 @@ export function App() {
         <div>
           <p className="eyebrow">Global equipment catalog</p>
           <h1>전 세계 지상 장비 검색</h1>
-          <p className="hero-subtitle">팀원이 필요한 장비를 빠르게 찾고 제원, 계열차량, 전장 사례, 공개 출처를 한 화면에서 확인하는 검색 중심 카탈로그입니다.</p>
+          <p className="hero-subtitle">장비를 검색하고 외형·임무 구성·공개 자료의 변화까지 확인합니다.</p>
         </div>
         <div className="kpi-strip" aria-label="자료 현황">
           <div><strong>{data.equipment.length}</strong><span>장비</span></div>
@@ -1233,14 +1235,13 @@ function CatalogPage({
       </section>
 
       <Suspense fallback={<p className="model-loading">3D 외형을 준비하고 있습니다.</p>}>
-        <VehicleModelPanel key={selectedEquipment.id} equipment={selectedEquipment} variants={relatedVariants} />
+        <EquipmentTimeline equipment={selectedEquipment} /><EquipmentHistory equipmentId={selectedEquipment.id} /><EquipmentReview equipmentId={selectedEquipment.id} /><VehicleModelPanel key={selectedEquipment.id} equipment={selectedEquipment} variants={relatedVariants} />
       </Suspense>
       <section className="detail-grid">
         <EquipmentDetail equipment={selectedEquipment} incidents={relatedIncidents} variants={relatedVariants} />
         <ComponentSpecPanel equipment={selectedEquipment} components={relatedComponents} onComponentSelect={onComponentSelect} />
       </section>
 
-      <BattlefieldLens equipment={selectedEquipment} variants={relatedVariants} technologies={relatedTechnologies} />
     </>
   );
 }
@@ -1408,7 +1409,7 @@ function CatalogQuickFacts({
   );
 }
 
-function EquipmentDetailPage({ equipment, variants, incidents, components, technologies, equipmentList, onComponentSelect, onEquipmentOpen }: {
+function EquipmentDetailPage({ equipment, variants, incidents, components, equipmentList, onComponentSelect, onEquipmentOpen }: {
   equipment: Equipment;
   variants: EquipmentVariant[];
   incidents: BattlefieldCase[];
@@ -1422,13 +1423,12 @@ function EquipmentDetailPage({ equipment, variants, incidents, components, techn
     <>
       <EquipmentHero equipment={equipment} variants={variants} />
       <Suspense fallback={<p className="model-loading">3D 외형을 준비하고 있습니다.</p>}>
-        <VehicleModelPanel key={equipment.id} equipment={equipment} variants={variants} />
+        <EquipmentTimeline equipment={equipment} /><EquipmentHistory equipmentId={equipment.id} /><EquipmentReview equipmentId={equipment.id} /><VehicleModelPanel key={equipment.id} equipment={equipment} variants={variants} />
       </Suspense>
       <section className="detail-grid">
         <EquipmentDetail equipment={equipment} incidents={incidents} variants={variants} />
         <ComponentSpecPanel equipment={equipment} components={components} onComponentSelect={onComponentSelect} />
       </section>
-      <BattlefieldLens equipment={equipment} variants={variants} technologies={technologies} />
       <ComparableVehicles equipment={equipment} equipmentList={equipmentList} onSelect={onEquipmentOpen} />
       <SourcePanel equipment={equipment} />
     </>
@@ -1520,6 +1520,7 @@ function FieldInsightsPage({ technologies, cases, developmentLens, references, e
         </div>
         <span>{technologies.length + cases.length + developmentLens.length}건</span>
       </div>
+      <LatestUpdates /><EquipmentTimeline /><EquipmentHistory />
       <div className="overview-grid">
         {developmentLens.slice(0, 3).map((item) => (
           <article key={item.id} className="lens-card light">

@@ -1,0 +1,19 @@
+{
+  "version": "v1",
+  "sourceCommit": "9b654a1fc79ad807cb1f63b05b837b9ee03ddb2f",
+  "files": {
+    "index.html": "2e96625e33618786b7e07d263e39bbb1fa4c08f1bc1501c7e69d547d574f4d0c",
+    "data/engineeringReferences.json": "6e4caa1d9133cd605f83878590d3a35400162de560e21d1e73bd206889c908db",
+    "data/developmentLens.json": "dcc1edf65b3ef0db401cd430649c81521dccb71592d409cb30eddbb3716bdca2",
+    "data/equipment.json": "7d9c1651d3db31bac7b87b3d01ac1ddf6831d7f63e6885e89917f364bdc25a12",
+    "data/technologies.json": "aed74ef4a3851d7ce4f7104add59cf7990b67436c780d5bf6c854e9ca5badb88",
+    "data/battlefieldCases.json": "d544705e32bf285335b52dbb8648d67136ef77ed7001d92c19423dd306f2d011",
+    "data/variants.json": "2887677deab3f782a8a87c3ffcc635065d68ad0fa8e180b6016e13365fd0f6c5",
+    "data/incidents.json": "70f2970136ed15883147239a6503e6a40da209167e6ea566f6bbb3c0784c70c0",
+    "data/components.json": "74f9373775150bed7917f5d477df1f0da58265f200a6ff7f6522605cbae5b367",
+    "data/trends.json": "5ef12d3e8987d60838689de4b61a911f67a12d49407e3e12a7931f7d6b6b32da",
+    "assets/index-CT9Abuz8.css": "3486f6fca6521004232df702a28a2b276bad57059f032b2e23116a49a4a29f59",
+    "assets/index-BtGq4fa2.js": "3cfd15808287a4854990a7864f3335f6f907705c112b7626788f1d9a67c14d6a",
+    "models/README.md": "9407ef0e192969a702785795fe18d608723a579b7e141189d4e94cd944474116"
+  }
+}

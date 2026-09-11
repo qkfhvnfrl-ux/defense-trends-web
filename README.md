@@ -1,3 +1,14 @@
+# 세계 장비 검색 · GitHub 관리
+
+- 최신 공개본: https://qkfhvnfrl-ux.github.io/defense-trends-web/versions/v4/
+- 버전 목록: https://qkfhvnfrl-ux.github.io/defense-trends-web/versions/
+- 이전 버전: [v3](https://qkfhvnfrl-ux.github.io/defense-trends-web/versions/v3/) · [v2](https://qkfhvnfrl-ux.github.io/defense-trends-web/versions/v2/)
+- 소스 기준은 main, 공개 산출물은 gh-pages. 버전별 변경은 CHANGELOG.md와 Git 이력을 확인한다.
+- releases.json에서 최근 3개 버전을 관리한다. version-archive의 이전 빌드는 SHA-256 검증 후 재사용한다.
+- 재현: npm ci 후 node scripts/build-public-release.mjs. dist-public을 gh-pages에 게시한다.
+- 새 수정본은 v5처럼 새로운 경로를 사용한다. 이전 기준으로 되돌릴 때는 releases.json의 기준과 공개 루트 연결을 이전 보관본으로 변경한다.
+- GitHub 저장소와 Pages는 공개다. 개인 자료를 이 저장소에 추가하지 않는다.
+
 # 해외 장갑차·전차 동향 웹앱
 
 해외 차륜형장갑차와 전차의 공개 출처 기반 동향, 전장 운용 사례, 장비 스펙, 3D 형상 확인을 위한 정적 웹앱입니다.

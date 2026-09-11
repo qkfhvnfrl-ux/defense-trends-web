@@ -1,0 +1,336 @@
+[
+  {
+    "equipmentId": "stryker",
+    "name": "Stryker",
+    "from": "v2",
+    "to": "v3",
+    "recordedAt": "2026-09-09",
+    "changes": [
+      {
+        "field": "설명",
+        "before": "미 육군의 8x8 차륜형 장갑차 계열로 병력수송, 정찰, 화력지원, 의무후송 등 다양한 파생형이 운용된다. 우크라이나 지원 사례로 현대 전장에서의 기동·방호 운용이 다시 주목받고 있다.",
+        "after": "8×8 장갑차 계열이다. 제조사 현행 자료는 A1(DVH)의 강화된 동력·전력·디지털 기반과 Sgt Stout 방공형, NEXUS 지휘 개념 및 Leonidas 대드론 구성을 구분해 소개한다. 각 구성의 소개를 전체 차량의 탑재·전력화 완료로 해석하지 않는다."
+      },
+      {
+        "field": "제원 · 중량",
+        "before": "형식별 상이, 약 18~25톤급",
+        "after": "형식별 상이. A1 제조사 총중량 기준 60,000 lb(약 27.2톤)"
+      }
+    ],
+    "sources": [
+      {
+        "title": "GDLS Stryker product family",
+        "url": "https://www.gdls.com/stryker/",
+        "publisher": "GDLS",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      },
+      {
+        "title": "U.S. Army - Stryker Dragoon production",
+        "url": "https://www.army.mil/article/207851/anad_gdls_complete_production_of_stryker_dragoons",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "equipmentId": "boxer",
+    "name": "Boxer",
+    "from": "v2",
+    "to": "v3",
+    "recordedAt": "2026-09-09",
+    "changes": [
+      {
+        "field": "설명",
+        "before": "모듈형 임무 모듈을 핵심으로 하는 8x8 장갑차다. 독일, 네덜란드, 영국, 호주 등에서 운용·도입이 진행되며 병력수송, 지휘, 의무, 화력지원 임무로 확장되고 있다.",
+        "after": "교체형 임무 모듈을 사용하는 8×8 장갑차 계열이다. 2026년 8월 KNDS는 독일·네덜란드 RCT30 69대 추가 발주를 발표했다. 2025년 222대 계약과 합쳐 291대이며 인도 완료 수량은 아니다."
+      },
+      {
+        "field": "추가 출처",
+        "before": "해당 출처 미수록",
+        "after": "Additional 69 BOXER RCT30 vehicles"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Additional 69 BOXER RCT30 vehicles",
+        "url": "https://knds.com/en/press-releases/additional-69-boxer-rct-30-wheeled-infantry-fighting-vehicles-for-germany-and-the-netherlands",
+        "publisher": "KNDS",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      },
+      {
+        "title": "Rheinmetall - Boxer armoured transport vehicle",
+        "url": "https://www.rheinmetall.com/en/products/wheeled-armoured-vehicles/boxer",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "KNDS - Boxer vehicle family",
+        "url": "https://knds.com/en/products/boxer",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "equipmentId": "patria-amv",
+    "name": "Patria AMV",
+    "from": "v2",
+    "to": "v3",
+    "recordedAt": "2026-09-09",
+    "changes": [
+      {
+        "field": "설명",
+        "before": "핀란드 Patria의 8x8 장갑차 플랫폼으로 폴란드 Rosomak 계열 등 여러 국가에서 운용된다. 발칸, 아프가니스탄, 우크라이나 관련 운용 사례가 공개 자료에 언급된다.",
+        "after": "핀란드의 8×8 장갑차 계열이다. AMV XP 현행 자료는 기본형·고상형, 일반·연장 축거, 지휘·의무·NEMO 등 임무 확장을 제시한다. 이 페이지의 기본 AMV 외형과 XP, 별도 플랫폼인 Patria 6×6의 제원·수주를 구분해야 한다."
+      }
+    ],
+    "sources": [
+      {
+        "title": "Patria AMV XP current product information",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility/patria-amv-xp-number-1-in-the-battlefield",
+        "publisher": "Patria",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      },
+      {
+        "title": "Patria - wheeled mobility vehicles",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "equipmentId": "m1a2-abrams",
+    "name": "M1A2 Abrams",
+    "from": "v2",
+    "to": "v3",
+    "recordedAt": "2026-09-09",
+    "changes": [
+      {
+        "field": "설명",
+        "before": "미국의 주력전차 계열로 120mm 활강포, 복합장갑, 디지털 사격통제체계를 기반으로 지속 개량되고 있다. 우크라이나 지원 이후 실전 운용 사례가 공개 보도에서 확인된다.",
+        "after": "120mm 활강포를 갖춘 미국 주력전차 계열이다. M1A2 SEPv3 제조사 자료는 보조동력장치, 전력 분배, 디지털 통신과 방호 개량을 설명한다. Abrams 계열의 우크라이나 운용 사례를 M1A2 특정 형식의 실전 기록으로 간주하지 않는다."
+      }
+    ],
+    "sources": [
+      {
+        "title": "GDLS Abrams / M1A2 SEPv3",
+        "url": "https://www.gdls.com/abrams/",
+        "publisher": "GDLS",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      },
+      {
+        "title": "U.S. Army - Abrams Main Battle Tank",
+        "url": "https://www.army.mil/article/1374/the_m1_abrams_main_battle_tank",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "equipmentId": "leopard-2a7",
+    "name": "Leopard 2A7",
+    "from": "v2",
+    "to": "v3",
+    "recordedAt": "2026-09-09",
+    "changes": [
+      {
+        "field": "설명",
+        "before": "Leopard 2 계열의 최신 운용형 중 하나로 방호, 전력, 열관리, 시가전 운용성이 강화되었다. Leopard 2 계열은 우크라이나 전장에서 운용 사례가 널리 공개되었다.",
+        "after": "Leopard 2A7은 Leopard 2 계열의 개량형이다. KNDS 현행 자료는 후속 A8과 무인포탑 A-RC 3.0을 별도로 소개한다. A7을 계열 전체의 최신 형식으로 단정하거나 다른 형식의 운용 사례·제원을 혼용하지 않는다."
+      }
+    ],
+    "sources": [
+      {
+        "title": "KNDS Leopard family and A8",
+        "url": "https://knds.com/en/products/leopard",
+        "publisher": "KNDS",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      },
+      {
+        "title": "Rheinmetall - Main battle tank Leopard technology",
+        "url": "https://www.rheinmetall.com/en/products/tracked-armoured-vehicles/main-battle-tank-leopard-trademark-of-knds-deutschland",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "equipmentId": "m2a2-bradley",
+    "name": "M2A2 Bradley ODS-SA",
+    "from": "v2",
+    "to": "v3",
+    "recordedAt": "2026-09-09",
+    "changes": [
+      {
+        "field": "설명",
+        "before": "미국제 궤도형 보병전투차로 25mm 기관포, TOW 대전차미사일, 보병 수송 능력을 결합한다. 우크라이나 전장에서 전차·장갑차 교전, 보병 보호, 드론 위협 대응 개조 사례가 함께 관찰된다.",
+        "after": "25mm 기관포와 TOW를 탑재하는 궤도형 보병전투차다. 2026년 9월 후속 경쟁 사업인 Lynx XM30 첫 시제품 인도가 발표됐다. 이는 개발 시험 진전이며 현재 Bradley 운용이나 M2A2 ODS-SA 제원을 대체하지 않는다."
+      },
+      {
+        "field": "추가 출처",
+        "before": "해당 출처 미수록",
+        "after": "Lynx XM30 first prototype delivery"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Lynx XM30 first prototype delivery",
+        "url": "https://www.rheinmetall.com/en/media/news-watch/news/2026/09/2026-09-01-american-rheinmetall-delivers-first-lynx-xm30-combat-vehicle-prototype-to-us-army",
+        "publisher": "Rheinmetall",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      },
+      {
+        "title": "U.S. Army - Bradley Fighting Vehicle",
+        "url": "https://www.army.mil/article/258428/bradley_fighting_vehicle",
+        "checkedAt": "2026-06-06"
+      },
+      {
+        "title": "U.S. Department of War - Ukraine security assistance, Jan. 19 2023",
+        "url": "https://www.war.gov/News/Releases/Release/Article/3272866/biden-administration-announces-additional-security-assistance-for-ukraine/",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "equipmentId": "cv90",
+    "name": "CV90",
+    "from": "v2",
+    "to": "v3",
+    "recordedAt": "2026-09-09",
+    "changes": [
+      {
+        "field": "설명",
+        "before": "스웨덴 기반 궤도형 보병전투차 계열로, 30/35/40mm 기관포형과 지휘·구난·박격포 등 다양한 파생형이 존재한다. 제조사는 10개국 이상 운용과 17개 계약 파생형을 공개하고 있다.",
+        "after": "다양한 무장과 임무형을 가진 궤도형 보병전투차 계열이다. MkIV 제조사 자료는 최대 1,000마력, 총중량 등급 38톤 및 확장형 전자 구조를 제시한다. 해당 수치는 MkIV 기준이며 모든 CV90 운용형의 공통 제원이 아니다."
+      }
+    ],
+    "sources": [
+      {
+        "title": "CV90 MkIV product information",
+        "url": "https://www.baesystems.com/en-us/product/cv90-mkiv",
+        "publisher": "BAE Systems",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      }
+    ]
+  },
+  {
+    "equipmentId": "puma-ifv",
+    "name": "Puma IFV",
+    "from": "v2",
+    "to": "v3",
+    "recordedAt": "2026-09-09",
+    "changes": [
+      {
+        "field": "설명",
+        "before": "독일의 최신 궤도형 보병전투차로 30mm 기관포, MELLS 대전차미사일, 360도 카메라, 디지털 전장 연동, 레이저 경보 및 재머 통합을 특징으로 한다.",
+        "after": "독일 궤도형 보병전투차로 30mm 무인포탑과 MELLS, 디지털 보병체계 연동을 갖춘다. 제조사 자료는 승무원 3명과 보병 6명, 방호 구성 A/C에 따른 중량 차이, MUSS 소프트킬 체계를 구분해 설명한다."
+      },
+      {
+        "field": "제원 · 방호 구성별 중량",
+        "before": "기록 없음",
+        "after": "A: 31.4톤 / C: 43톤 (KNDS 자료)"
+      },
+      {
+        "field": "제원 · 승무원/탑승",
+        "before": "기록 없음",
+        "after": "승무원 3명 + 보병 6명"
+      }
+    ],
+    "sources": [
+      {
+        "title": "KNDS PUMA",
+        "url": "https://knds.com/en/products/systems/puma",
+        "publisher": "KNDS",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      },
+      {
+        "title": "Rheinmetall - Puma Infantry Fighting Vehicle",
+        "url": "https://www.rheinmetall.com/en/products/tracked-vehicles/tracked-armoured-vehicles/puma-infantry-fighting-vehicle",
+        "checkedAt": "2026-06-06"
+      }
+    ]
+  },
+  {
+    "equipmentId": "caesar-8x8",
+    "name": "CAESAR 8x8",
+    "from": "v2",
+    "to": "v3",
+    "recordedAt": "2026-09-09",
+    "changes": [
+      {
+        "field": "설명",
+        "before": "155mm 차륜형 자주포 계열로 고속 기동과 사격 후 이탈 개념에 맞춰 운용된다. 우크라이나 전장에서는 FPV 드론 위협 때문에 운전실과 탄약 적재부 위에 메시형 보호 구조물을 추가하는 사례가 공개되었다.",
+        "after": "Tatra 8×8 차체 기반 155mm/52구경장 자주포다. 제조사 현행 자료는 승무원 4명, 36발 적재와 반자동 장전 체계를 제시한다. CAESAR 6×6·MK2와 구분하며, 전장 보호 구조물은 차량별 비표준 구성이므로 공통 제원으로 취급하지 않는다."
+      },
+      {
+        "field": "제원 · 구동",
+        "before": "6x6 또는 8x8 계열",
+        "after": "8×8 / Tatra T-815 차체"
+      },
+      {
+        "field": "제원 · 승무원",
+        "before": "기록 없음",
+        "after": "4명 (제조사 현행 자료)"
+      },
+      {
+        "field": "제원 · 적재 탄약",
+        "before": "기록 없음",
+        "after": "36발"
+      },
+      {
+        "field": "제원 · 전투중량",
+        "before": "기록 없음",
+        "after": "32톤 (요구 사양에 따라 변동)"
+      }
+    ],
+    "sources": [
+      {
+        "title": "KNDS CAESAR 8x8",
+        "url": "https://knds.com/en/products/systems/caesar-8x8",
+        "publisher": "KNDS",
+        "sourceType": "Manufacturer",
+        "checkedAt": "2026-09-09",
+        "accessedDate": "2026-09-09",
+        "confidence": "High",
+        "notes": "원문 확인. 발표·제품 설명에 대한 신뢰도이며 독립 성능 검증을 뜻하지 않음."
+      },
+      {
+        "title": "Ukraine Ministry of Defence - CAESAR self-propelled howitzer overview",
+        "url": "https://mod.gov.ua/en/news/mobility-precision-and-digital-fire-control-overview-of-the-french-caesar-self-propelled-howitzer",
+        "checkedAt": "2026-06-08"
+      },
+      {
+        "title": "RFE/RL - improvised anti-drone armor in Ukraine",
+        "url": "https://www.rferl.org/a/ukraine-russia-invasion-hedgehog-armor-photos/33660328.html",
+        "checkedAt": "2026-06-08"
+      }
+    ]
+  }
+]
