@@ -1,6 +1,13 @@
+# v5 공개 검증 완료
+
+- 공개 URL: https://qkfhvnfrl-ux.github.io/defense-trends-web/versions/v5/
+- Pages 실행 36731676575 성공, 산출물 850ccbc4fac7d1dc4f1d6b41dcf560184f86d256.
+- 실제 Chrome: OSM 타일 배경 정상, 사례 마커 12개, Stryker 사례 팝업 및 확대 타일 확인. API KEY REQUIRED 대체 이미지 없음.
+- 기존 v4/v3 공개 산출물은 변경하지 않음. 3D WebGL 환경 제약은 지도 수정과 별도.
+
 # 2026-09-30 API 키 없는 지도 복구
 
-- 상태: verifying. 사용자 1번 선택으로 키 없는 지도 교체 승인.
+- 상태: completed. 사용자 1번 선택으로 키 없는 지도 교체 승인.
 - 계획: EquipmentMap 타일 URL과 attribution 변경, v5 경로 생성, v4/v3 보관. 데이터·마커·Leaflet 유지.
 - 위험: 외부 타일 서비스 제공 상태. OSM 표준 URL 및 attribution 정책 준수, 일괄 다운로드 없음.
 - 검증: build/test/lint, 실제 배포 지도 배경 및 마커 확인.
