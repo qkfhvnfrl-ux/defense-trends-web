@@ -1,3 +1,10 @@
+# 2026-09-30 API 키 없는 지도 복구
+
+- 상태: verifying. 사용자 1번 선택으로 키 없는 지도 교체 승인.
+- 계획: EquipmentMap 타일 URL과 attribution 변경, v5 경로 생성, v4/v3 보관. 데이터·마커·Leaflet 유지.
+- 위험: 외부 타일 서비스 제공 상태. OSM 표준 URL 및 attribution 정책 준수, 일괄 다운로드 없음.
+- 검증: build/test/lint, 실제 배포 지도 배경 및 마커 확인.
+
 # 2026-09-11 GitHub 기준 운영
 
 - 상태: completed. 최신 소스 main, 고정 소스 release/v4, 공개 산출물 gh-pages.

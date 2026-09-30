@@ -1,3 +1,9 @@
+# 2026-09-30 v5 지도 복구
+
+- CARTO 무키 타일에서 API KEY REQUIRED 이미지 재현. OpenStreetMap 표준 타일 URL 및 attribution으로 교체.
+- node scripts/build-public-release.mjs 성공(v5/v4/v3); npm test 28개 통과; npm run lint 통과.
+- v4 원본 공개 산출물을 보관하고 복구 경로 유지. 실제 v5 브라우저 검증 및 Pages 배포 확인 진행 중.
+
 # 2026-09-11 GitHub v4 공개 배포
 
 - 소스 commit bec45475a3b57353a97d4663fc081012450e37d9, main 및 release/v4 저장 확인.
