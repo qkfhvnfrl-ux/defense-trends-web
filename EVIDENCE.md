@@ -1,8 +1,15 @@
+# v5 공개 검증 완료
+
+- 공개 URL: https://qkfhvnfrl-ux.github.io/defense-trends-web/versions/v5/
+- Pages 실행 36731676575 성공, 산출물 850ccbc4fac7d1dc4f1d6b41dcf560184f86d256.
+- 실제 Chrome: OSM 타일 배경 정상, 사례 마커 12개, Stryker 사례 팝업 및 확대 타일 확인. API KEY REQUIRED 대체 이미지 없음.
+- 기존 v4/v3 공개 산출물은 변경하지 않음. 3D WebGL 환경 제약은 지도 수정과 별도.
+
 # 2026-09-30 v5 지도 복구
 
 - CARTO 무키 타일에서 API KEY REQUIRED 이미지 재현. OpenStreetMap 표준 타일 URL 및 attribution으로 교체.
 - node scripts/build-public-release.mjs 성공(v5/v4/v3); npm test 28개 통과; npm run lint 통과.
-- v4 원본 공개 산출물을 보관하고 복구 경로 유지. 실제 v5 브라우저 검증 및 Pages 배포 확인 진행 중.
+- v4 원본 공개 산출물을 보관하고 복구 경로 유지. 실제 v5 브라우저에서 지도 배경, 지역 라벨, 사례 팝업, 확대 후 OSM 타일 표시 확인. Pages 36731676575 completed/success.
 
 # 2026-09-11 GitHub v4 공개 배포
 
