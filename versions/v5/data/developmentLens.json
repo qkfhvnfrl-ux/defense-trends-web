@@ -1,0 +1,482 @@
+[
+  {
+    "id": "open-vehicle-architecture",
+    "titleKo": "개방형 차량 전장전자 아키텍처",
+    "themeKo": "아키텍처/인터페이스",
+    "lifecyclePhaseKo": "기본설계",
+    "summaryKo": "차량 플랫폼을 단일 장비가 아니라 센서, 전원, 통신, 임무장비가 반복적으로 교체되는 개방형 체계로 보는 관점이다. NGVA와 NAF를 기준으로 기능, 물리, 정보, 운용 관점을 분리해 추적하면 파생형과 임무장비 통합 리스크를 줄일 수 있다.",
+    "sourceConfidenceScore": 92,
+    "relatedEquipmentIds": ["boxer", "puma-ifv", "cv90", "leopard-2a7", "challenger-3"],
+    "tags": ["NGVA", "NAF", "Vetronics", "Mission module", "Open architecture"],
+    "threatDrivers": [
+      "드론, 전자전, 네트워크전 위협이 빠르게 바뀌어 임무장비 교체 주기가 차량 수명보다 짧아짐",
+      "RCWS, EO/IR, 레이더, 재머, BMS가 동시에 붙으면서 전원·냉각·데이터 인터페이스 병목 발생",
+      "수출형과 운용국별 파생형이 늘어나면서 동일 플랫폼 내 구성관리 복잡도 증가"
+    ],
+    "requirementSignals": [
+      "센서와 임무장비를 교체해도 운용자 HMI와 데이터 모델을 유지할 수 있어야 함",
+      "전원·데이터·시간동기·상태감시 인터페이스를 초기 설계 기준선으로 관리해야 함",
+      "파생형별 임무 모듈 변경이 차체 안전성, EMC, 사이버 보안, 정비성에 미치는 영향을 추적해야 함"
+    ],
+    "architectureImpacts": [
+      {
+        "areaKo": "전장전자",
+        "implicationKo": "센서, RCWS, BMS, 재머를 공통 데이터 백본과 공통 표시통제 장치에 연결",
+        "designTradeoffKo": "초기 비용과 소프트웨어 복잡도는 증가하지만 장기 파생형 개발 속도가 빨라짐"
+      },
+      {
+        "areaKo": "전원/냉각",
+        "implicationKo": "대드론 장비와 능동방호 장비를 고려한 예비 전력, 냉각, 배선 공간을 확보",
+        "designTradeoffKo": "중량과 체적 여유를 선반영해야 하며, 과도한 여유 설계는 비용을 키움"
+      },
+      {
+        "areaKo": "구성관리",
+        "implicationKo": "차체, 포탑, 임무장비, 소프트웨어 버전을 독립 기준선으로 관리",
+        "designTradeoffKo": "문서와 시험 기준선 관리는 늘어나지만 결함 재현성과 수출형 추적성이 높아짐"
+      }
+    ],
+    "verificationItems": [
+      {
+        "phaseKo": "상세설계",
+        "itemKo": "인터페이스 통제문서 ICD와 전원 예산 검토",
+        "evidenceKo": "장비별 전력 피크, 데이터율, 냉각 요구, 케이블 경로 분석"
+      },
+      {
+        "phaseKo": "통합시험",
+        "itemKo": "임무장비 교체 후 HMI, 상태감시, 장애 메시지 일관성 확인",
+        "evidenceKo": "통합시험 절차서, 결함 주입 결과, 운용자 평가 기록"
+      },
+      {
+        "phaseKo": "운용시험",
+        "itemKo": "임무 모듈 변경이 승무원 업무부하와 정비시간에 미치는 영향 확인",
+        "evidenceKo": "운용 시나리오별 작업시간, 정비 접근성, 임무 성공률"
+      }
+    ],
+    "riskRegister": [
+      {
+        "riskKo": "공통 아키텍처 없이 파생형을 빠르게 늘리면 통합시험 비용이 후반에 폭증",
+        "mitigationKo": "초기 체계요구조건에 전원·데이터·HMI 공통 규칙을 명시",
+        "ownerKo": "체계설계/전장전자",
+        "level": "High"
+      },
+      {
+        "riskKo": "운용국별 임무장비가 달라져 동일 결함의 재현과 형상 추적이 어려워짐",
+        "mitigationKo": "차량 구성품과 소프트웨어를 독립 형상항목으로 관리",
+        "ownerKo": "형상관리",
+        "level": "Medium"
+      }
+    ],
+    "sources": [
+      {
+        "title": "NATO Generic Vehicle Architecture",
+        "url": "https://www.natogva.org/",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      },
+      {
+        "title": "NATO Architecture Framework",
+        "url": "https://www.nato.int/content/dam/nato/webready/documents/publications-and-reports/NATO-Architecture-Framework-v4-1-en.pdf",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      }
+    ]
+  },
+  {
+    "id": "drone-cuas-survivability",
+    "titleKo": "FPV 드론 위협과 생존성 요구사항",
+    "themeKo": "위협-요구사항 추적",
+    "lifecyclePhaseKo": "소요/요구분석",
+    "summaryKo": "러시아-우크라이나 전쟁 이후 상부공격 FPV 드론, 소형 정찰 UAV, 포병 유도 루프가 장갑차와 전차의 설계 기준을 바꾸고 있다. 상부 방호, 탐지, 소프트킬, 하드킬, 위장, 정비성까지 한 묶음의 생존성 요구로 관리해야 한다.",
+    "sourceConfidenceScore": 86,
+    "relatedEquipmentIds": ["m2a2-bradley", "t90m", "caesar-8x8", "gepard", "boxer", "stryker"],
+    "tags": ["FPV", "C-UAS", "상부방호", "전자전", "현대전 교훈"],
+    "threatDrivers": [
+      "상용 부품 기반 FPV 드론의 대량 운용으로 전차·장갑차 상부와 후방 취약부 노출",
+      "정찰 UAV와 포병의 결합으로 은폐 시간과 기동 간 노출시간이 주요 생존성 변수로 부상",
+      "야전 급조 방호구조물이 효과와 부작용을 동시에 만들며 정식 개량 요구로 전환"
+    ],
+    "requirementSignals": [
+      "상부·후방 취약부에 대한 방호, 탐지, 재밍, 위장 요구를 별도 성능항목으로 분리",
+      "급조 구조물 장착 시 시야, 탈출, 정비, 화재, 중량중심 변화 영향 평가",
+      "대드론 장비의 전력소모, 전자파 영향, 아군 통신 간섭을 통합 검증"
+    ],
+    "architectureImpacts": [
+      {
+        "areaKo": "방호체계",
+        "implicationKo": "케이지, 네트, ERA, APS, 소프트킬 장비를 상호 배타가 아닌 조합 설계로 검토",
+        "designTradeoffKo": "생존성은 올라가지만 중량, 시야, 승하차, 정비 접근성 저하 가능"
+      },
+      {
+        "areaKo": "센서/전자전",
+        "implicationKo": "탐지 센서, 재머, RCWS 연동을 통해 발견-교란-대응 시간을 줄임",
+        "designTradeoffKo": "주파수 관리와 사이버·EMC 검증 부담 증가"
+      },
+      {
+        "areaKo": "운용개념",
+        "implicationKo": "차량 단독 생존성보다 소대·중대 단위 C-UAS 레이어를 설계",
+        "designTradeoffKo": "플랫폼 요구와 부대체계 요구의 경계가 모호해져 소요 정의가 중요"
+      }
+    ],
+    "verificationItems": [
+      {
+        "phaseKo": "요구분석",
+        "itemKo": "드론 위협 시나리오와 취약부 매핑",
+        "evidenceKo": "전장 사례, 위협 프로파일, 취약부 FMEA"
+      },
+      {
+        "phaseKo": "시제통합",
+        "itemKo": "재머·센서·RCWS 동시 운용 시 전자파 간섭 확인",
+        "evidenceKo": "EMC 시험, 통신품질 로그, 센서 오탐/미탐 분석"
+      },
+      {
+        "phaseKo": "운용시험",
+        "itemKo": "케이지/네트 장착 상태에서 승무원 탈출, 정비, 재장전 시간 측정",
+        "evidenceKo": "야전 운용평가, 안전성 체크리스트, 정비시간 기록"
+      }
+    ],
+    "riskRegister": [
+      {
+        "riskKo": "급조 방호물을 그대로 정식화하면 안전·정비·법규 요구를 놓칠 수 있음",
+        "mitigationKo": "급조 사례는 설계 아이디어로만 사용하고 체계안전 분석을 별도로 수행",
+        "ownerKo": "방호/체계안전",
+        "level": "High"
+      },
+      {
+        "riskKo": "재머 운용이 아군 통신과 GNSS, BMS 성능을 저하시킬 수 있음",
+        "mitigationKo": "주파수 운용계획과 임무별 전자파 통제 절차를 시험에 포함",
+        "ownerKo": "전자전/통신",
+        "level": "High"
+      }
+    ],
+    "sources": [
+      {
+        "title": "RUSI - Protecting the Force from Uncrewed Aerial Systems",
+        "url": "https://www.rusi.org/explore-our-research/publications/occasional-papers/protecting-force-uncrewed-aerial-systems",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      },
+      {
+        "title": "RFE/RL - Russia's hedgehog armor adaptations",
+        "url": "https://www.rferl.org/a/ukraine-russia-invasion-hedgehog-armor-photos/33660328.html",
+        "checkedAt": "2026-06-08",
+        "confidence": "Medium"
+      },
+      {
+        "title": "Rheinmetall - Skyranger 30 mobile air defence",
+        "url": "https://www.rheinmetall.com/en/media/news-watch/news/2024/02/2024-02-27-bundeswehr-ordered-skyranger-30-mobile-air-defence-system",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      }
+    ]
+  },
+  {
+    "id": "system-safety-test-evaluation",
+    "titleKo": "체계안전과 시험평가 기준선",
+    "themeKo": "시험평가/안전",
+    "lifecyclePhaseKo": "시제/시험평가",
+    "summaryKo": "장갑차 체계개발은 기동·화력·방호 성능만 보는 것이 아니라 승무원 안전, 정비 안전, 전자파, 소프트웨어, 탄약, 화재, 탈출성까지 전 수명주기 위험을 관리해야 한다. 체계안전과 시험평가 항목을 요구사항과 함께 추적해야 후반 설계 변경을 줄일 수 있다.",
+    "sourceConfidenceScore": 90,
+    "relatedEquipmentIds": ["m1a2-abrams", "leopard-2a7", "challenger-3", "leclerc-xlr", "cv90"],
+    "tags": ["MIL-STD-882", "T&E", "FMEA", "RAM", "체계안전"],
+    "threatDrivers": [
+      "중량 증가, 고전압 장비, 탄약 적재, 자동화 장비 증가로 안전 위험 복합화",
+      "소프트웨어와 네트워크 의존도가 커져 기능 고장과 사이버 영향이 물리 안전으로 전이",
+      "급조 개량이나 임무장비 추가가 기존 안전인증 기준선을 흔들 수 있음"
+    ],
+    "requirementSignals": [
+      "위험원 식별, 심각도/발생도 평가, 잔여위험 승인 절차를 요구사항으로 명시",
+      "운용·정비·수송·탄약취급·비상탈출 시나리오별 안전검증 항목 정의",
+      "RAM, 정비성, 환경시험, 전자파, 소프트웨어 안전을 시험평가 계획에 통합"
+    ],
+    "architectureImpacts": [
+      {
+        "areaKo": "체계안전",
+        "implicationKo": "안전 요구사항을 설계 산출물, 시험절차, 운용교범과 연결",
+        "designTradeoffKo": "초기 문서 부담은 증가하지만 양산 전 결함 재작업을 줄임"
+      },
+      {
+        "areaKo": "시험평가",
+        "implicationKo": "개발시험과 운용시험을 분리하되 같은 요구사항 ID로 추적",
+        "designTradeoffKo": "검증체계는 복잡해지지만 성능 주장과 증거의 연결성이 높아짐"
+      }
+    ],
+    "verificationItems": [
+      {
+        "phaseKo": "기본설계",
+        "itemKo": "예비위험분석 PHA와 체계안전계획 수립",
+        "evidenceKo": "위험원 목록, 위험평가표, 완화조치 책임자"
+      },
+      {
+        "phaseKo": "상세설계",
+        "itemKo": "서브시스템 위험분석 SSHA와 인터페이스 위험분석",
+        "evidenceKo": "FMEA/FMECA, 인터페이스 위험 추적표"
+      },
+      {
+        "phaseKo": "운용시험",
+        "itemKo": "정비, 탈출, 화재, 탄약 취급, 야전 수리 절차 검증",
+        "evidenceKo": "운용평가 기록, 사고/아차사고 로그, 사용자 평가"
+      }
+    ],
+    "riskRegister": [
+      {
+        "riskKo": "성능 중심 개발로 안전 요구사항이 후반에 발견되면 설계 변경 비용이 큼",
+        "mitigationKo": "초기 요구사항 ID에 안전·정비·운용 검증항목을 함께 연결",
+        "ownerKo": "체계안전/시험평가",
+        "level": "High"
+      },
+      {
+        "riskKo": "운용시험에서 발견된 사용자 업무부하 문제가 단순 UI 문제가 아닐 수 있음",
+        "mitigationKo": "인간공학, HMI, 임무절차를 통합 평가",
+        "ownerKo": "운용시험/HMI",
+        "level": "Medium"
+      }
+    ],
+    "sources": [
+      {
+        "title": "OUSD(R&E) - Systems Engineering Guidebook",
+        "url": "https://ac.cto.mil/wp-content/uploads/2022/02/Systems-Eng-Guidebook_Feb2022-Cleared-slp.pdf",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      },
+      {
+        "title": "DLA ASSIST QuickSearch - MIL-STD-882",
+        "url": "https://quicksearch.dla.mil/qsDocDetails.aspx?ident_number=36027",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      }
+    ]
+  },
+  {
+    "id": "digital-engineering-traceability",
+    "titleKo": "디지털 엔지니어링과 요구사항 추적성",
+    "themeKo": "MBSE/디지털 엔지니어링",
+    "lifecyclePhaseKo": "전 수명주기",
+    "summaryKo": "체계개발형 웹사이트로 운영하려면 장비 소개보다 데이터 간 연결성이 중요하다. 위협, 요구사항, 기능, 물리 구성품, 시험증거, 출처를 하나의 추적 구조로 관리하면 설계 의사결정과 변경 영향 분석에 쓸 수 있다.",
+    "sourceConfidenceScore": 88,
+    "relatedEquipmentIds": ["stryker", "boxer", "patria-amv", "m2a2-bradley", "puma-ifv"],
+    "tags": ["MBSE", "Digital thread", "Traceability", "Configuration"],
+    "threatDrivers": [
+      "소프트웨어 정의 임무장비와 센서 통합으로 요구사항 변경 빈도 증가",
+      "전장 교훈이 빠르게 들어오면서 기존 설계 기준선에 대한 변경 영향 분석 필요",
+      "수출형과 개량형이 병행되며 동일 플랫폼의 기준선이 복수화"
+    ],
+    "requirementSignals": [
+      "모든 요구사항은 위협 또는 운용 시나리오와 연결되어야 함",
+      "시험결과가 요구사항 충족 여부를 직접 설명할 수 있어야 함",
+      "소스 데이터의 신뢰도와 확인일을 요구사항 근거로 함께 저장"
+    ],
+    "architectureImpacts": [
+      {
+        "areaKo": "데이터 모델",
+        "implicationKo": "요구사항, 구성품, 파생형, 시험항목을 ID 기반으로 연결",
+        "designTradeoffKo": "초기 데이터 정제 비용이 있지만 자동 검증과 변경 영향 분석이 가능"
+      },
+      {
+        "areaKo": "운영체계",
+        "implicationKo": "출처 검증, 이미지 검증, 렌더링 검증을 릴리즈 절차에 포함",
+        "designTradeoffKo": "배포 전 검증 시간이 늘지만 공개 사이트 신뢰성이 높아짐"
+      }
+    ],
+    "verificationItems": [
+      {
+        "phaseKo": "데이터 검증",
+        "itemKo": "장비, 파생형, 기술, 사례, 개발 Lens 간 참조 무결성 확인",
+        "evidenceKo": "Zod 스키마, cross-reference 검사, 중복 ID 검사"
+      },
+      {
+        "phaseKo": "릴리즈",
+        "itemKo": "출처 URL, 이미지 URL, 주요 화면 렌더링 자동 확인",
+        "evidenceKo": "sources:check, images:check, e2e 렌더링 로그"
+      }
+    ],
+    "riskRegister": [
+      {
+        "riskKo": "공개 출처가 소실되면 요구사항 근거가 약해짐",
+        "mitigationKo": "출처 확인일, 최종 URL, 대체 출처를 함께 관리",
+        "ownerKo": "데이터 큐레이션",
+        "level": "Medium"
+      },
+      {
+        "riskKo": "정성 평가 점수가 근거 없이 권위처럼 보일 수 있음",
+        "mitigationKo": "점수는 공개 출처 기반 비교 지표임을 UI에 명시",
+        "ownerKo": "분석/UX",
+        "level": "Medium"
+      }
+    ],
+    "sources": [
+      {
+        "title": "OUSD(R&E) - Systems Engineering Guidebook",
+        "url": "https://ac.cto.mil/wp-content/uploads/2022/02/Systems-Eng-Guidebook_Feb2022-Cleared-slp.pdf",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      },
+      {
+        "title": "NATO Architecture Framework",
+        "url": "https://www.nato.int/content/dam/nato/webready/documents/publications-and-reports/NATO-Architecture-Framework-v4-1-en.pdf",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      }
+    ]
+  },
+  {
+    "id": "export-capability-planning",
+    "titleKo": "수출·도입 동향과 능력기획 연결",
+    "themeKo": "획득/시장/능력기획",
+    "lifecyclePhaseKo": "선행연구",
+    "summaryKo": "방산 체계개발 관점에서는 단순 스펙 비교보다 어떤 국가가 어떤 위협과 능력 공백 때문에 장비를 도입하는지 보는 것이 중요하다. SIPRI, DSCA, EDA 같은 공개 데이터는 수출성, 공동개발, 부품공급망, 운용국 요구를 읽는 데 쓸 수 있다.",
+    "sourceConfidenceScore": 89,
+    "relatedEquipmentIds": ["m1a2-abrams", "boxer", "patria-amv", "leopard-2a7", "cv90"],
+    "tags": ["FMS", "SIPRI", "EDA CDP", "Capability planning", "Export"],
+    "threatDrivers": [
+      "유럽 재래식 전력 보강과 우크라이나 전쟁 교훈으로 장갑차·전차 수요 증가",
+      "운용국별 산업협력, 현지 생산, 부품 공급망 요구가 플랫폼 선정에 영향",
+      "미국 FMS와 유럽 공동개발 프로그램이 수출 가능성과 형상 표준화를 좌우"
+    ],
+    "requirementSignals": [
+      "수출형은 성능뿐 아니라 현지 정비, 부품공급, 교육, 기술이전 요구를 포함",
+      "도입국 능력기획 문서와 실제 구매 발표를 함께 추적",
+      "공동개발 플랫폼은 구성품 표준화와 국가별 변형을 동시에 관리"
+    ],
+    "architectureImpacts": [
+      {
+        "areaKo": "수출형 설계",
+        "implicationKo": "민감 구성품과 공개 가능 구성품을 분리한 모듈화 필요",
+        "designTradeoffKo": "성능 최적화보다 수출 통제와 유지보수성이 우선될 수 있음"
+      },
+      {
+        "areaKo": "군수지원",
+        "implicationKo": "운용국별 정비계단, 부품 공급, 교육 패키지를 설계 산출물과 연결",
+        "designTradeoffKo": "초기 개발범위가 커지지만 장기 운용성과 수출성이 높아짐"
+      }
+    ],
+    "verificationItems": [
+      {
+        "phaseKo": "선행연구",
+        "itemKo": "대상국 위협, 운용환경, 기존 장비, 능력 공백 분석",
+        "evidenceKo": "도입 발표, FMS 통보, SIPRI 이전 데이터, 능력기획 문서"
+      },
+      {
+        "phaseKo": "사업화",
+        "itemKo": "현지 생산·정비·교육 요구가 설계 기준선에 반영되는지 확인",
+        "evidenceKo": "산업협력 조건, 공급망 리스크, 정비성 요구"
+      }
+    ],
+    "riskRegister": [
+      {
+        "riskKo": "수출 요구를 후반에 반영하면 형상 분기가 통제되지 않음",
+        "mitigationKo": "초기부터 수출형 옵션과 민감기술 분리 기준선을 둠",
+        "ownerKo": "사업개발/체계설계",
+        "level": "Medium"
+      },
+      {
+        "riskKo": "공개 구매 발표만으로 실제 납품과 운용을 오인할 수 있음",
+        "mitigationKo": "계약, 납품, 실전 배치, 운용 사례를 별도 상태로 구분",
+        "ownerKo": "시장분석",
+        "level": "Medium"
+      }
+    ],
+    "sources": [
+      {
+        "title": "SIPRI Arms Transfers Database",
+        "url": "https://www.sipri.org/databases/armstransfers",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      },
+      {
+        "title": "Defense Security Cooperation Agency - Major Arms Sales",
+        "url": "https://www.dsca.mil/Press-Media/Major-Arms-Sales?Category=24979",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      },
+      {
+        "title": "European Defence Agency - Capability Development Plan",
+        "url": "https://eda.europa.eu/what-we-do/all-activities/activities-search/capability-development-plan",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      }
+    ]
+  },
+  {
+    "id": "mission-module-variant-strategy",
+    "titleKo": "계열차량·임무모듈 개발전략",
+    "themeKo": "파생형/제품군 전략",
+    "lifecyclePhaseKo": "제품군 설계",
+    "summaryKo": "RCWS형, 30mm 포탑형, 방공형, 박격포형, 의무형, 지휘형을 같은 차체에서 운영하려면 장비 목록이 아니라 제품군 아키텍처로 관리해야 한다. 파생형별 공통부품률, 전원 여유, 승무원 구성, 내부 체적, 중량중심을 요구사항으로 추적해야 한다.",
+    "sourceConfidenceScore": 87,
+    "relatedEquipmentIds": ["boxer", "patria-amv", "stryker", "vbci", "m113"],
+    "tags": ["Variants", "Mission module", "RCWS", "Mortar carrier", "Ambulance"],
+    "threatDrivers": [
+      "차륜형 플랫폼이 병력수송, 보병전투, 방공, 박격포, 의무, 지휘 임무를 동시에 요구받음",
+      "급변하는 위협 때문에 동일 플랫폼의 임무 전환 속도와 업그레이드 가능성이 경쟁력으로 부상",
+      "운용국별 포탑, 통신, 방호 요구가 달라져 공통 차체의 설계 여유가 중요"
+    ],
+    "requirementSignals": [
+      "계열형별 공통부품률과 독립 형상항목을 정의",
+      "임무모듈 교체 시 전원·데이터·중량·냉각·승무원 동선 영향 분석",
+      "의무형·지휘형처럼 비화력 임무도 방호와 전장정보 요구를 함께 관리"
+    ],
+    "architectureImpacts": [
+      {
+        "areaKo": "차체/임무모듈",
+        "implicationKo": "공통 차체와 임무 모듈을 분리해 제품군 로드맵을 구성",
+        "designTradeoffKo": "모듈성은 유연성을 주지만 구조 중량과 인터페이스 비용을 증가시킴"
+      },
+      {
+        "areaKo": "군수지원",
+        "implicationKo": "공통 정비품과 파생형 전용품을 분리해 보급체계를 설계",
+        "designTradeoffKo": "공통품 중심 설계는 장기 유지비를 낮추지만 최적 성능을 제한할 수 있음"
+      }
+    ],
+    "verificationItems": [
+      {
+        "phaseKo": "기본설계",
+        "itemKo": "계열형별 중량·전원·체적 여유 검토",
+        "evidenceKo": "파생형 매트릭스, 공통품 목록, 설계 여유표"
+      },
+      {
+        "phaseKo": "시제통합",
+        "itemKo": "임무모듈 교체와 형상 변경 절차 검증",
+        "evidenceKo": "교체 시간, 작업자 수, 시험 후 결함 목록"
+      },
+      {
+        "phaseKo": "운용시험",
+        "itemKo": "의무형·지휘형·방공형의 실제 임무 워크플로 확인",
+        "evidenceKo": "운용자 평가, 임무 성공률, 통신·전력 로그"
+      }
+    ],
+    "riskRegister": [
+      {
+        "riskKo": "파생형 요구가 누적되면 공통 차체의 중량과 전력 여유가 빠르게 소진",
+        "mitigationKo": "제품군 로드맵에서 예비 중량·전력·냉각을 관리",
+        "ownerKo": "제품군 설계",
+        "level": "High"
+      },
+      {
+        "riskKo": "계열형이 많아질수록 정비와 교육 체계가 복잡해짐",
+        "mitigationKo": "공통 정비 절차와 파생형 전용 절차를 분리 문서화",
+        "ownerKo": "군수지원",
+        "level": "Medium"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Rheinmetall - Boxer armoured transport vehicle",
+        "url": "https://www.rheinmetall.com/en/products/wheeled-armoured-vehicles/boxer",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      },
+      {
+        "title": "Patria - wheeled mobility vehicles",
+        "url": "https://www.patriagroup.com/products-and-services/protected-mobility/wheeled-mobility",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      },
+      {
+        "title": "General Dynamics Land Systems - Stryker",
+        "url": "https://www.gdls.com/stryker/",
+        "checkedAt": "2026-06-08",
+        "confidence": "High"
+      }
+    ]
+  }
+]

@@ -1,12 +1,19 @@
 {
-  "current": "v4",
-  "baseline": "v4",
+  "current": "v5",
+  "baseline": "v5",
   "retention": 3,
   "versions": [
     {
+      "id": "v5",
+      "title": "API 키 없는 지도 복구",
+      "status": "승인됨",
+      "date": "2026-09-30",
+      "summary": "OpenStreetMap 표준 배경 지도 적용, 기존 지역 라벨·전장 사례 마커 유지"
+    },
+    {
       "id": "v4",
       "title": "사진 대응 · 비교 · 이력 · 연표 · PDF",
-      "status": "승인됨",
+      "status": "보관",
       "date": "2026-09-10",
       "summary": "사진과 3D 함께 보기, 파생형 비교, 자료 변경 이력, 단계별 연표, 장비 요약 PDF"
     },
@@ -16,13 +23,6 @@
       "status": "보관",
       "date": "2026-09-09",
       "summary": "임의 전장적응 점수 제거, 임무장비 정보창, 최신 발표와 자료 검토 현황"
-    },
-    {
-      "id": "v2",
-      "title": "3D 외형 추가",
-      "status": "보관",
-      "date": "2026-09-09",
-      "summary": "15종 차량 외형, 파생형 구성 전환, GLB 저장"
     }
   ]
 }
