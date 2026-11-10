@@ -70,7 +70,7 @@
       }
     ],
     "image": {
-      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Ff%2Ffc%2FROKA_K808_APC_river_crossing_training_-_March_2021.jpg&w=1600&output=jpg",
+      "src": "assets/k808.jpg",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:ROKA_K808_APC_river_crossing_training_-_March_2021.jpg",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fc/ROKA_K808_APC_river_crossing_training_-_March_2021.jpg",
       "author": "대한민국 국방부 / ROK Ministry of National Defense",
@@ -157,7 +157,7 @@
       }
     ],
     "image": {
-      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fe%2Fe9%2FIFV_Vilkas_sideview.jpg&w=1600&output=jpg",
+      "src": "assets/boxer.jpg",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:IFV_Vilkas_sideview.jpg",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/IFV_Vilkas_sideview.jpg",
       "author": "Ieva Budzeikaitė / Lithuanian Ministry of National Defence / Wikimedia Commons",
@@ -241,7 +241,7 @@
       }
     ],
     "image": {
-      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fc%2Fca%2FJGSDF_Patria_AMV_XP_%252825-5045%2529_left_side_view_at_Camp_Tsuchiura_September_28%252C_2025_02.jpg&w=1600&output=jpg",
+      "src": "assets/amv.jpg",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:JGSDF_Patria_AMV_XP_(25-5045)_left_side_view_at_Camp_Tsuchiura_September_28,_2025_02.jpg",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/c/ca/JGSDF_Patria_AMV_XP_%2825-5045%29_left_side_view_at_Camp_Tsuchiura_September_28%2C_2025_02.jpg",
       "author": "Hunini / Wikimedia Commons",
@@ -326,7 +326,7 @@
       }
     ],
     "image": {
-      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F8%2F86%2FDanish_Army_-_Scania_R650_and_Broshuis_3-axle_PL2_pendular_axle_low_loaders_with_Mowag_Piranha_V_%2528cropped%2529.png&w=1600&output=jpg",
+      "src": "assets/piranha5.png",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:Danish_Army_-_Scania_R650_and_Broshuis_3-axle_PL2_pendular_axle_low_loaders_with_Mowag_Piranha_V_(cropped).png",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Danish_Army_-_Scania_R650_and_Broshuis_3-axle_PL2_pendular_axle_low_loaders_with_Mowag_Piranha_V_%28cropped%29.png",
       "author": "Green Nor / Wikimedia Commons",
@@ -416,7 +416,7 @@
       "Mk1과 Mk2의 수치를 혼용하지 않았습니다."
     ],
     "image": {
-      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F0%2F0d%2FVBCI%252C_%2528V%25C3%25A9hicule_Blind%25C3%25A9_de_Combat_de_l%2527Infanterie%2529%252C_French_army_licence_registration_%25276094_0048%2527%252C_OURCQ_1918_photo-1.JPG&w=1600&output=jpg",
+      "src": "assets/vbci.jpg",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:VBCI,_(V%C3%A9hicule_Blind%C3%A9_de_Combat_de_l%27Infanterie),_French_army_licence_registration_%276094_0048%27,_OURCQ_1918_photo-1.JPG",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0d/VBCI%2C_%28V%C3%A9hicule_Blind%C3%A9_de_Combat_de_l%27Infanterie%29%2C_French_army_licence_registration_%276094_0048%27%2C_OURCQ_1918_photo-1.JPG",
       "author": "Alf van Beem (AlfvanBeem)",
@@ -508,7 +508,7 @@
       "M1126 초기형 기준입니다. 추가 방호, 슬랫 장갑, DVH 및 A1은 중량·차고가 달라집니다."
     ],
     "image": {
-      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F7%2F72%2FStryker-profile.jpg&w=1600&output=jpg",
+      "src": "assets/stryker.jpg",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:Stryker-profile.jpg",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/72/Stryker-profile.jpg",
       "author": "U.S. Army / Eighth Army",
@@ -583,7 +583,7 @@
       "AMC(박격포형)·ACP(지휘형)·VBM30 NG와 구분합니다."
     ],
     "image": {
-      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F7%2F7c%2FItalian_Army_-_Mechanized_Brigade_%2522Pinerolo%2522_Freccia_IFV.jpg&w=1600&output=jpg",
+      "src": "assets/freccia.jpg",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:Italian_Army_-_Mechanized_Brigade_%22Pinerolo%22_Freccia_IFV.jpg",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Italian_Army_-_Mechanized_Brigade_%22Pinerolo%22_Freccia_IFV.jpg",
       "author": "Italian Army — www.esercito.difesa.it",
@@ -676,7 +676,7 @@
       "체코군 KBVP를 기준으로 선택했습니다. 신형 EVO 25 t와 구분합니다."
     ],
     "image": {
-      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F7%2F7a%2FBAHNA_2018_-_269.jpg&w=1600&output=jpg",
+      "src": "assets/pandur2.jpg",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:BAHNA_2018_-_269.jpg",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/BAHNA_2018_-_269.jpg",
       "author": "Adam Hauner",
@@ -763,7 +763,7 @@
       }
     ],
     "image": {
-      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fd9%2FTerrex_Infantry_Carrier_Vehicle_side_profile_AOH_2022_300522.jpg&w=1600&output=jpg",
+      "src": "assets/terrex.jpg",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:Terrex_Infantry_Carrier_Vehicle_side_profile_AOH_2022_300522.jpg",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Terrex_Infantry_Carrier_Vehicle_side_profile_AOH_2022_300522.jpg",
       "author": "Seloloving",
@@ -842,7 +842,7 @@
       }
     ],
     "image": {
-      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F0%2F03%2FBTR-82A_-_TankBiathlon14part2-61.jpg&w=1600&output=jpg",
+      "src": "assets/btr82a.jpg",
       "pageUrl": "https://commons.wikimedia.org/wiki/File:BTR-82A_-_TankBiathlon14part2-61.jpg",
       "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/03/BTR-82A_-_TankBiathlon14part2-61.jpg",
       "author": "Vitaly V. Kuzmin",
