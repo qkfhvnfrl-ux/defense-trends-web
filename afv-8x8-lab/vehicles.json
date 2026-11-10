@@ -1,0 +1,862 @@
+[
+  {
+    "id": "k808",
+    "name": "K808 백호",
+    "country": "대한민국",
+    "countryCode": "KR",
+    "variant": "K808 8×8 보병전투용",
+    "weight": {
+      "value": 20,
+      "display": "20 t",
+      "status": "verified",
+      "note": "현대로템 현행 제품 공개제원. 2016년 자료를 인용한 과거 국방일보의 17.5 t와 다르므로 현행 제조사값을 채택.",
+      "sourceIds": [
+        "k808-rotem",
+        "k808-rotem-en"
+      ]
+    },
+    "clearance": {
+      "value": null,
+      "display": "공개 근거 미확인",
+      "status": "unknown",
+      "note": "제조사 공개 페이지에서 지상고 수치를 확인하지 못했습니다. 수직장애물 0.5 m는 지상고가 아닙니다.",
+      "sourceIds": [
+        "k808-rotem"
+      ]
+    },
+    "tires": {
+      "value": "365/80 R20",
+      "display": "365/80 R20",
+      "status": "verified",
+      "note": "런플랫, K808 항목에 명시.",
+      "sourceIds": [
+        "k808-rotem",
+        "k808-rotem-en"
+      ]
+    },
+    "driver": {
+      "value": "front-left",
+      "display": "전방 좌측 (사진 판독)",
+      "status": "limited",
+      "note": "공개 사진의 해치 위치 판독에 따른 배치 추정입니다. 정확한 착좌 중심·눈점 좌표와 공식 배치도는 미확인. 차량 진행방향 기준 좌측이며 사진 화면 좌측과는 다릅니다.",
+      "sourceIds": [
+        "k808-photo"
+      ]
+    },
+    "sources": [
+      {
+        "id": "k808-rotem",
+        "title": "K808/K806 제품 제원",
+        "url": "https://www.hyundai-rotem.co.kr/ko/business/defense/details.do?productNm=K808%2FK806+%EC%B0%A8%EB%A5%9C%ED%98%95%EC%9E%A5%EA%B0%91%EC%B0%A8",
+        "publisher": "현대로템"
+      },
+      {
+        "id": "k808-rotem-en",
+        "title": "K808/K806 WAV — Features",
+        "url": "https://www.hyundai-rotem.co.kr/en/business/defense/details.do?productCt03=defense0204",
+        "publisher": "Hyundai Rotem"
+      },
+      {
+        "id": "k808-dema",
+        "title": "K806 / K808 (2019, 2016년 자료 인용)",
+        "url": "https://kookbang.dema.mil.kr/newsWeb/20190513/1/ATCE_CTGR_0080010003/view.do",
+        "publisher": "국방일보"
+      },
+      {
+        "id": "k808-photo",
+        "title": "사진의 해치 배치 판독용 원본",
+        "url": "https://commons.wikimedia.org/wiki/File:ROKA_K808_APC_river_crossing_training_-_March_2021.jpg",
+        "publisher": "대한민국 국방부 / ROK Ministry of National Defense"
+      }
+    ],
+    "image": {
+      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Ff%2Ffc%2FROKA_K808_APC_river_crossing_training_-_March_2021.jpg&w=1600&output=jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:ROKA_K808_APC_river_crossing_training_-_March_2021.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fc/ROKA_K808_APC_river_crossing_training_-_March_2021.jpg",
+      "author": "대한민국 국방부 / ROK Ministry of National Defense",
+      "license": "KOGL Type 1 / 공공누리 제1유형",
+      "licenseUrl": "https://www.kogl.or.kr/info/licenseType1.do",
+      "front": "right",
+      "viewQuality": "전방 사선 · 전체 형상 참고",
+      "note": "국방부 실사 영상의 공개 스틸. 차체 전체와 측면 4개 바퀴가 지상에 보이는 전방 사선 사진입니다. 동계 위장포가 측면 장갑 일부를 가리므로 외형 세부 비교에는 제한이 있습니다. 정측면은 아닙니다. 웹 배포본은 구도·종횡비를 유지하며 필요 시 축소·압축했습니다.",
+      "width": 1903,
+      "height": 1080
+    },
+    "notes": [
+      "K806 6×6 및 K30W 대공포 계열형과 구분합니다.",
+      "사진에서 그린 각도는 2차원 투영 각도이며 실제 조종수 시야각이 아닙니다."
+    ]
+  },
+  {
+    "id": "boxer",
+    "name": "BOXER Vilkas",
+    "country": "독일·네덜란드",
+    "countryCode": "DE/NL",
+    "variant": "리투아니아 Vilkas / BOXER IFV Samson",
+    "weight": {
+      "value": 33,
+      "display": "33 t",
+      "status": "verified",
+      "note": "리투아니아군 공개 Kovinė masė(전투중량) 33 t. 독일군 APC의 36.5 t와 제조사 Samson 최대 총중량 38.5 t와는 다른 기준입니다.",
+      "sourceIds": [
+        "boxer-lt",
+        "boxer-samson"
+      ]
+    },
+    "clearance": {
+      "value": 500,
+      "display": "500 mm",
+      "status": "verified",
+      "note": "ARTEC BOXER IFV Samson 공개 지상고 0.50 m. 사진의 순간 현가·노면 상태와는 다릅니다.",
+      "sourceIds": [
+        "boxer-samson"
+      ]
+    },
+    "tires": {
+      "value": "415/80 R685",
+      "display": "415/80 R685 (계열)",
+      "status": "limited",
+      "note": "Michelin 2014 보도자료의 독일·네덜란드 Boxer용 규격. Vilkas 사진 차량의 개별 적용 규격은 확인하지 못했습니다. R685는 685 mm 림 직경 표기입니다.",
+      "sourceIds": [
+        "boxer-michelin"
+      ]
+    },
+    "driver": {
+      "value": "front-right",
+      "display": "전방 우측",
+      "status": "limited",
+      "note": "독일군 설명에서 공통 BOXER 주행모듈 조종석은 전방 우측. 리투아니아 Vilkas의 정확한 눈 기준점·좌표는 미확인입니다.",
+      "sourceIds": [
+        "boxer-bw"
+      ]
+    },
+    "sources": [
+      {
+        "id": "boxer-lt",
+        "title": "Pėstininkų kovos mašina Vilkas: 공식 기술자료",
+        "url": "https://www.kariuomene.lt/ginkluote/kovos-masinos/pestininku-kovos-masina-vilkas/23952",
+        "publisher": "리투아니아군"
+      },
+      {
+        "id": "boxer-samson",
+        "title": "BOXER Infantry Fighting Vehicle Samson: product data",
+        "url": "https://www.artec-boxer.com/vehicles/infantry-fighting-vehicle/samson/",
+        "publisher": "ARTEC"
+      },
+      {
+        "id": "boxer-bw",
+        "title": "GTK Boxer: 기술자료 및 조종석 위치",
+        "url": "https://www.bundeswehr.de/de/ausruestung-technik-bundeswehr/landsysteme-bundeswehr/gtk-boxer",
+        "publisher": "독일 연방군"
+      },
+      {
+        "id": "boxer-michelin",
+        "title": "Michelin Eurosatory 2014 Press Kit, p.6",
+        "url": "https://mb.cision.com/Public/55/9610598/b34a4070519813d8.pdf",
+        "publisher": "Michelin (Cision 배포)"
+      }
+    ],
+    "image": {
+      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fe%2Fe9%2FIFV_Vilkas_sideview.jpg&w=1600&output=jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:IFV_Vilkas_sideview.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/IFV_Vilkas_sideview.jpg",
+      "author": "Ieva Budzeikaitė / Lithuanian Ministry of National Defence / Wikimedia Commons",
+      "license": "GFDL 1.2 or later",
+      "licenseUrl": "https://www.gnu.org/licenses/old-licenses/fdl-1.2.html",
+      "licenseFile": "assets/licenses/GFDL-1.2.txt",
+      "front": "left",
+      "viewQuality": "정측면에 가까움 · 전체 차체·차륜",
+      "note": "2023-06-26 리투아니아군 Vilkas. 전두부·후미·포탑과 4개 차륜의 전체 형상이 보입니다. Wikimedia 1280 px 축소본, 추가 크롭·기하 보정 없음. GFDL 1.2 이상, 변경 불가 절·앞뒤 표지문구 없음. 라이선스 사본: assets/licenses/GFDL-1.2.txt. 웹 배포본은 구도·종횡비를 유지하며 필요 시 축소·압축했습니다.",
+      "width": 1280,
+      "height": 853
+    },
+    "notes": [
+      "리투아니아군 Vilkas 전투중량을 사용하며 독일군 병력수송형 중량과 구분합니다.",
+      "타이어와 조종석은 BOXER 계열 자료로, 해당 사진 차량의 개별 적용을 별도로 확인하지 못했습니다.",
+      "실제 조종수 시야각·눈 기준점은 확인된 공개 수치가 없습니다."
+    ]
+  },
+  {
+    "id": "amv",
+    "name": "Patria AMV XP",
+    "country": "핀란드",
+    "countryCode": "FI",
+    "variant": "AMV XP 기본 차체 / 사진: 일본 육상자위대 인원수송형",
+    "weight": {
+      "value": 32,
+      "display": "최대 32 t",
+      "status": "verified",
+      "note": "Patria 브로셔의 Max. combat weight. 특정 일본군 차량의 실측 전투중량이 아닌 플랫폼 최대치입니다.",
+      "sourceIds": [
+        "amv-brochure",
+        "amv-manufacturer"
+      ]
+    },
+    "clearance": {
+      "value": null,
+      "display": "미확인",
+      "status": "unknown",
+      "note": "제조사 자료는 차고 조절 옵션과 유기압 현가장치를 설명하지만 지상고 수치를 제시하지 않습니다.",
+      "sourceIds": [
+        "amv-brochure"
+      ]
+    },
+    "tires": {
+      "value": null,
+      "display": "현행 규격 미확인",
+      "status": "unknown",
+      "note": "2015 리투아니아 제안형 보도자료에 14.00 R20이 있으나 현행 32 t형 및 사진 속 일본형에 적용되는지 검증하지 못했습니다.",
+      "sourceIds": [
+        "amv-press",
+        "amv-brochure"
+      ]
+    },
+    "driver": {
+      "value": "front-left",
+      "display": "전방 좌측",
+      "status": "limited",
+      "note": "2015 AMV XP 소개 보도자료는 AMV 계열의 조종석을 전방 좌측으로 설명합니다. 현행 일본형의 정확한 좌표·눈 위치는 미확인입니다.",
+      "sourceIds": [
+        "amv-press"
+      ]
+    },
+    "sources": [
+      {
+        "id": "amv-brochure",
+        "title": "Patria AMV XP technical specifications",
+        "url": "https://www.patriagroup.com/download/patria-amv-xp-brochure-2",
+        "publisher": "Patria"
+      },
+      {
+        "id": "amv-manufacturer",
+        "title": "Patria AMV XP – Performance evolved",
+        "url": "https://www.patriagroup.com/newsroom/patria-magazine/tech/patria-amv-xp-performance-evolved",
+        "publisher": "Patria"
+      },
+      {
+        "id": "amv-press",
+        "title": "Patria AMVXP for Lithuania: technical introduction (2015)",
+        "url": "https://sc.bns.lt/view/item/patria-amvxp-for-lithuania-technically-the-most-advanced-8x8-vehicle-194820",
+        "publisher": "Patria 소개 보도자료 / BNS 배포·Fabula Rud Pedersen Lithuania 등록"
+      }
+    ],
+    "image": {
+      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fc%2Fca%2FJGSDF_Patria_AMV_XP_%252825-5045%2529_left_side_view_at_Camp_Tsuchiura_September_28%252C_2025_02.jpg&w=1600&output=jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:JGSDF_Patria_AMV_XP_(25-5045)_left_side_view_at_Camp_Tsuchiura_September_28,_2025_02.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/c/ca/JGSDF_Patria_AMV_XP_%2825-5045%29_left_side_view_at_Camp_Tsuchiura_September_28%2C_2025_02.jpg",
+      "author": "Hunini / Wikimedia Commons",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "front": "left",
+      "viewQuality": "정측면에 가까움 · 전체 차체",
+      "note": "2025-09-28 Tsuchiura, 일본 육상자위대 AMV XP 25-5045. 전체 차체·차륜이 보이는 좌측면 사진. 원본 구도 유지, 정투영 보정 없음. 웹 배포본은 구도·종횡비를 유지하며 필요 시 축소·압축했습니다.",
+      "width": 2200,
+      "height": 1238
+    },
+    "notes": [
+      "제원은 제조사 현행 AMV XP 플랫폼이고 사진은 일본 육상자위대 인원수송형입니다. 형식별 장비·현가 차이가 있습니다.",
+      "기존 AMV 또는 Rosomak 제원을 XP의 확정 제원으로 대입하지 않았습니다.",
+      "실제 조종수 시야각·눈 기준점의 공개 수치 미확인."
+    ]
+  },
+  {
+    "id": "piranha5",
+    "name": "PIRANHA V",
+    "country": "스위스",
+    "countryCode": "CH",
+    "variant": "덴마크 Piranha 5 / 사진: 운반차 적재 상태",
+    "weight": {
+      "value": 32,
+      "display": "32 t (공식 차량중량)",
+      "status": "limited",
+      "note": "덴마크군 2015·2020 자료의 Vægt 32 tons. 이 자료는 전투 적재상태를 명시하지 않으므로 확정 전투중량으로 단정하지 않습니다. 현행 GDELS 8×8 최대 총중량 33 t와 구분합니다.",
+      "sourceIds": [
+        "piranha-dk2015",
+        "piranha-dk2020",
+        "piranha-gdels"
+      ]
+    },
+    "clearance": {
+      "value": null,
+      "display": "미확인",
+      "status": "unknown",
+      "note": "해당 덴마크형의 지상고를 확인할 수 있는 제조사·군의 수치 자료를 확보하지 못했습니다.",
+      "sourceIds": [
+        "piranha-dk2020",
+        "piranha-gdels"
+      ]
+    },
+    "tires": {
+      "value": null,
+      "display": "미확인",
+      "status": "unknown",
+      "note": "해당 형식의 타이어 규격을 제조사·군 자료에서 확인하지 못했습니다. 사진 비례로 추정하지 않습니다.",
+      "sourceIds": [
+        "piranha-gdels"
+      ]
+    },
+    "driver": {
+      "value": null,
+      "display": "위치 미확인",
+      "status": "unknown",
+      "note": "검색한 제조사·군의 문서에서 조종석 좌우 위치를 명시적으로 검증하지 못했습니다. 정확한 눈 기준점도 미확인입니다.",
+      "sourceIds": [
+        "piranha-gdels",
+        "piranha-dk2020"
+      ]
+    },
+    "sources": [
+      {
+        "id": "piranha-dk2015",
+        "title": "Piranha 5 er Hærens nye pansrede mandskabsvogn (2015)",
+        "url": "https://www.forsvaret.dk/da/nyhedsarkiv/harstaben/2015/piranha-5-er-harens-nye-pansrede-mandskabsvogn/",
+        "publisher": "덴마크 국방군"
+      },
+      {
+        "id": "piranha-dk2020",
+        "title": "Omskoling til nye pansrede køretøjer i fuld gang (2020)",
+        "url": "https://www.forsvaret.dk/da/organisation/haeren/denkongeligelivgarde/nyheder/2020/omskoling_piranha_v/",
+        "publisher": "덴마크 국방군"
+      },
+      {
+        "id": "piranha-gdels",
+        "title": "PIRANHA family product overview",
+        "url": "https://www.gdels.com/en/products/wheeled-vehicles/piranha",
+        "publisher": "GDELS"
+      }
+    ],
+    "image": {
+      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F8%2F86%2FDanish_Army_-_Scania_R650_and_Broshuis_3-axle_PL2_pendular_axle_low_loaders_with_Mowag_Piranha_V_%2528cropped%2529.png&w=1600&output=jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Danish_Army_-_Scania_R650_and_Broshuis_3-axle_PL2_pendular_axle_low_loaders_with_Mowag_Piranha_V_(cropped).png",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/8/86/Danish_Army_-_Scania_R650_and_Broshuis_3-axle_PL2_pendular_axle_low_loaders_with_Mowag_Piranha_V_%28cropped%29.png",
+      "author": "Green Nor / Wikimedia Commons",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "front": "left",
+      "viewQuality": "정측면에 가까움 · 전체 차체·차륜",
+      "note": "2025-02-02 운반차에 적재된 덴마크 Piranha V. 전두부·후미·4개 차륜의 전체 형상이 보입니다. 운반차 바닥은 지면이 아니며 적재·결박 상태의 현가 높이를 운용 지상고로 해석하지 마십시오. Wikimedia에 공개된 크롭 파일의 1280 px 축소본; 추가 기하 보정 없음. 웹 배포본은 구도·종횡비를 유지하며 필요 시 축소·압축했습니다.",
+      "width": 1280,
+      "height": 347
+    },
+    "notes": [
+      "덴마크군 공개 제원이며 사진 차량의 임무형·적재·결박 상태는 확정되지 않았습니다.",
+      "사진에서 계산한 각도는 실제 잠망경·카메라의 시야각이 아닙니다."
+    ]
+  },
+  {
+    "id": "vbci",
+    "name": "VBCI",
+    "country": "프랑스",
+    "countryCode": "FR",
+    "variant": "프랑스군 VCI / 초기 Mk1",
+    "weight": {
+      "value": 28,
+      "display": "28 t",
+      "status": "verified",
+      "note": "프랑스 육군 공개 중량. 추가 방호형 32 t와 구분합니다. 사진의 적재·방호 상태를 계량한 값은 아닙니다.",
+      "sourceIds": [
+        "vbci-army",
+        "vbci-dga"
+      ]
+    },
+    "clearance": {
+      "value": null,
+      "display": "미확인",
+      "status": "unknown",
+      "note": "Mk1에 적용되는 지상고를 이번에 확인한 제조사·운용군 자료에서 찾지 못했습니다. Mk2 T40의 400 mm를 전용하지 않았습니다.",
+      "sourceIds": [
+        "vbci-knds"
+      ]
+    },
+    "tires": {
+      "value": "395/90 R560",
+      "display": "395/90 R560",
+      "status": "verified",
+      "note": "Michelin 2014 제조사 보도자료의 VBCI 전용 규격. R560은 림 직경 mm 표기이며 R20과 다릅니다.",
+      "sourceIds": [
+        "michelin2014"
+      ]
+    },
+    "driver": {
+      "value": "front-left",
+      "display": "전방 좌측",
+      "status": "limited",
+      "note": "공개 차량 사진의 전방 해치 위치 판독. 차량 전진 방향 기준 좌측이며 착좌 기준점·눈높이 좌표는 미확인입니다.",
+      "sourceIds": [
+        "vbci-knds"
+      ]
+    },
+    "sources": [
+      {
+        "id": "vbci-army",
+        "title": "프랑스 육군 — VBCI (공개 중량 28 t)",
+        "url": "https://www.defense.gouv.fr/terre/nos-materiels/nos-equipements-terre/vehicules-larmee-terre/vehicules-combat-dinfanterie/vbci-vehicule-blinde",
+        "publisher": "프랑스 국방부"
+      },
+      {
+        "id": "vbci-dga",
+        "title": "DGA — VBCI, 32 t 강화형 구분",
+        "url": "https://www.defense.gouv.fr/dga/vehicule-blinde-combat-dinfanterie-vbci",
+        "publisher": "프랑스 국방부 DGA"
+      },
+      {
+        "id": "vbci-knds",
+        "title": "VBCI MK1 제품·사진",
+        "url": "https://knds.com/fr/produits/systemes/vbci-mk-1",
+        "publisher": "KNDS France"
+      },
+      {
+        "id": "michelin2014",
+        "title": "Eurosatory 2014 Press Kit, 특수 타이어 규격",
+        "url": "https://mb.cision.com/Public/55/9610598/b34a4070519813d8.pdf",
+        "publisher": "Michelin (Cision 배포본)"
+      }
+    ],
+    "notes": [
+      "Mk1과 Mk2의 수치를 혼용하지 않았습니다."
+    ],
+    "image": {
+      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F0%2F0d%2FVBCI%252C_%2528V%25C3%25A9hicule_Blind%25C3%25A9_de_Combat_de_l%2527Infanterie%2529%252C_French_army_licence_registration_%25276094_0048%2527%252C_OURCQ_1918_photo-1.JPG&w=1600&output=jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:VBCI,_(V%C3%A9hicule_Blind%C3%A9_de_Combat_de_l%27Infanterie),_French_army_licence_registration_%276094_0048%27,_OURCQ_1918_photo-1.JPG",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0d/VBCI%2C_%28V%C3%A9hicule_Blind%C3%A9_de_Combat_de_l%27Infanterie%29%2C_French_army_licence_registration_%276094_0048%27%2C_OURCQ_1918_photo-1.JPG",
+      "author": "Alf van Beem (AlfvanBeem)",
+      "license": "CC0 1.0",
+      "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "front": "right",
+      "viewQuality": "정측면에 가까움",
+      "note": "2010년 프랑스군 VBCI OURCQ 1918. 차체 전체와 한쪽 바퀴 4개가 보이는 실제 사진. 원근 왜곡 미보정. 원본 그대로 사용. 웹 배포본은 구도·종횡비를 유지하며 필요 시 축소·압축했습니다.",
+      "width": 2200,
+      "height": 1651
+    }
+  },
+  {
+    "id": "stryker",
+    "name": "Stryker M1126",
+    "country": "미국 · 캐나다",
+    "countryCode": "US",
+    "variant": "초기 M1126 ICV / flat-bottom hull",
+    "weight": {
+      "value": 17.24,
+      "display": "약 17.24 t",
+      "status": "limited",
+      "note": "초기 GM GDLS 브로슈어의 전투중량 38,000 lb를 17.2365 t로 환산. 당시 공개 기준값이며 추가 방호형·DVH·A1이나 사진 차량의 계량값이 아닙니다.",
+      "sourceIds": [
+        "stryker-gdls",
+        "stryker-gao"
+      ]
+    },
+    "clearance": {
+      "value": 533,
+      "display": "533 mm",
+      "status": "limited",
+      "note": "미 국방부 2005 BRAC 첨부 장비 제원의 21 in(533.4 mm). 초기형 공개 수치이며 현수장치·적재 조건과 후기형 차이가 있습니다.",
+      "sourceIds": [
+        "stryker-brac"
+      ]
+    },
+    "tires": {
+      "value": "395/85 R20",
+      "display": "395/85 R20",
+      "status": "limited",
+      "note": "미국 세관 분류판정 NY J81184의 Stryker ICV용 Michelin XML 규격(정부 원문 미러). 초기 BRAC 요약표와 타이어 표기가 달라 적용 차량별 확인이 필요합니다.",
+      "sourceIds": [
+        "stryker-cbp"
+      ]
+    },
+    "driver": {
+      "value": "front-left",
+      "display": "전방 좌측",
+      "status": "limited",
+      "note": "미육군 공개 사진에서 조종수 해치를 판독한 위치. 차량 전진 방향 기준이며 착좌 기준점은 미확인입니다.",
+      "sourceIds": [
+        "stryker-driver"
+      ]
+    },
+    "sources": [
+      {
+        "id": "stryker-gdls",
+        "title": "Stryker Family of Vehicles — 초기 제조사 브로슈어, 2001",
+        "url": "https://www.militarynewbie.com/wp-content/uploads/2013/11/stryker_spec1.pdf",
+        "publisher": "GM GDLS Defense Group (보관본)"
+      },
+      {
+        "id": "stryker-gao",
+        "title": "GAO-04-925 — 적재 구성별 중량 차이",
+        "url": "https://www.gao.gov/assets/a243753.html",
+        "publisher": "U.S. Government Accountability Office"
+      },
+      {
+        "id": "stryker-brac",
+        "title": "BRAC 2005 첨부 장비제원 — Stryker",
+        "url": "https://digital.library.unt.edu/ark:/67531/metadc18619/m2/1/high_res_d/BRAC-2005_05337.pdf",
+        "publisher": "U.S. Department of Defense (UNT 보관본)"
+      },
+      {
+        "id": "stryker-cbp",
+        "title": "NY J81184 — Michelin XML / Stryker ICV",
+        "url": "https://www.customsmobile.com/rulings/docview?doc_id=NY+J81184",
+        "publisher": "U.S. Customs ruling (CustomsMobile 원문 미러)"
+      },
+      {
+        "id": "stryker-driver",
+        "title": "FOAL EAGLE 2015 — M1126 조종수 사진",
+        "url": "https://www.dvidshub.net/image/1825475/foal-eagle-2015",
+        "publisher": "U.S. Army / DVIDS"
+      }
+    ],
+    "notes": [
+      "M1126 초기형 기준입니다. 추가 방호, 슬랫 장갑, DVH 및 A1은 중량·차고가 달라집니다."
+    ],
+    "image": {
+      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F7%2F72%2FStryker-profile.jpg&w=1600&output=jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Stryker-profile.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/72/Stryker-profile.jpg",
+      "author": "U.S. Army / Eighth Army",
+      "license": "Public domain (U.S. Army)",
+      "licenseUrl": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Military-Army",
+      "front": "right",
+      "viewQuality": "정측면에 가까움 · 저해상도",
+      "note": "한국에서 촬영된 미육군 Stryker 계열 실제 사진. 원문은 세부 형식 미표기하므로 M1126 세부 형식 일치 여부는 확정하지 않음. 600×394 원본이며 차체 전체와 4개 바퀴가 보임. 전경 풀·꽃 일부가 바퀴와 겹침. 원본 그대로 사용. 웹 배포본은 구도·종횡비를 유지하며 필요 시 축소·압축했습니다.",
+      "width": 600,
+      "height": 394
+    }
+  },
+  {
+    "id": "freccia",
+    "name": "Freccia",
+    "country": "이탈리아",
+    "countryCode": "IT",
+    "variant": "VBM Freccia AIFV / ATGM (25 mm형)",
+    "weight": {
+      "value": null,
+      "display": "전투 미확인 · 최대총중량 31.5 t",
+      "status": "unknown",
+      "note": "제조사 AIFV/ATGM 자료는 공차중량 22.0 t와 최대총중량(GVW) 31.5 t를 제시합니다. 이를 전투중량으로 바꾸어 표시하지 않았습니다.",
+      "sourceIds": [
+        "freccia-cio"
+      ]
+    },
+    "clearance": {
+      "value": 410,
+      "display": "410 mm",
+      "status": "verified",
+      "note": "제조사 AIFV/ATGM 브로슈어의 0.41 m를 mm로 환산. 측정 적재 조건은 따로 명시되지 않았습니다.",
+      "sourceIds": [
+        "freccia-cio"
+      ]
+    },
+    "tires": {
+      "value": "14.00R20",
+      "display": "14.00R20",
+      "status": "verified",
+      "note": "제조사 공개 규격 XZL/XML.",
+      "sourceIds": [
+        "freccia-cio"
+      ]
+    },
+    "driver": {
+      "value": "front-left",
+      "display": "전방 좌측",
+      "status": "limited",
+      "note": "공개 사진상 전방 좌측 조종수 해치 판독. 제조사는 조종수용 전방 잠망경 3개를 명시하나 정확한 착좌 좌표는 미공개입니다.",
+      "sourceIds": [
+        "freccia-cio",
+        "freccia-army"
+      ]
+    },
+    "sources": [
+      {
+        "id": "freccia-cio",
+        "title": "VBM FRECCIA AIFV/ATGM 제조사 제원표 (1쪽)",
+        "url": "https://www.iveco-otomelara.com/docs/VBM-Freccia-AIFV-ATGM.pdf",
+        "publisher": "Iveco–Oto Melara / CIO"
+      },
+      {
+        "id": "freccia-army",
+        "title": "이탈리아 육군 — VBM 8×8 Freccia",
+        "url": "https://www.esercito.difesa.it/equipaggiamenti/veicoli-blindati-e-corazzati-da-combattimento/veicoli-da-combattimento/vbm-8x8-freccia/81580.html",
+        "publisher": "Esercito Italiano"
+      }
+    ],
+    "notes": [
+      "참고: 제조사 최대총중량 31.5 t, 공차중량 22.0 t. 전투중량은 미확인.",
+      "AMC(박격포형)·ACP(지휘형)·VBM30 NG와 구분합니다."
+    ],
+    "image": {
+      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F7%2F7c%2FItalian_Army_-_Mechanized_Brigade_%2522Pinerolo%2522_Freccia_IFV.jpg&w=1600&output=jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Italian_Army_-_Mechanized_Brigade_%22Pinerolo%22_Freccia_IFV.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Italian_Army_-_Mechanized_Brigade_%22Pinerolo%22_Freccia_IFV.jpg",
+      "author": "Italian Army — www.esercito.difesa.it",
+      "license": "CC BY 2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+      "front": "left",
+      "viewQuality": "측면 · 약한 전방 사각",
+      "note": "이탈리아 육군 Pinerolo 여단 Freccia IFV. 차체와 바퀴 전체가 보이나 전면이 일부 보여 완전한 정측면은 아님. 안테나 끝 일부는 사진 위 경계 밖. Commons 제공본은 원본에서 차량 중심으로 크롭된 806×488 사진. 추가 편집 없음. 웹 배포본은 구도·종횡비를 유지하며 필요 시 축소·압축했습니다.",
+      "width": 806,
+      "height": 488
+    }
+  },
+  {
+    "id": "pandur2",
+    "name": "Pandur II",
+    "country": "체코 · 오스트리아",
+    "countryCode": "CZ",
+    "variant": "Pandur II 8×8 CZ KBVP",
+    "weight": {
+      "value": 20.6,
+      "display": "20.6 t",
+      "status": "verified",
+      "note": "체코군 현행 페이지와 2026 A-report의 승무원 포함 전투중량 20,600 kg. 구형 20주년 자료는 20,800 kg이며 이 차이를 숨기지 않습니다.",
+      "sourceIds": [
+        "pandur-army",
+        "pandur-2026",
+        "pandur-2012"
+      ]
+    },
+    "clearance": {
+      "value": 448,
+      "display": "448 mm",
+      "status": "verified",
+      "note": "체코 국방부 20주년 자료 p.170의 KBVP 제원. 하중·타이어 공기압에 따라 실제 지상고는 변합니다.",
+      "sourceIds": [
+        "pandur-2012"
+      ]
+    },
+    "tires": {
+      "value": null,
+      "display": "체코형 미확인",
+      "status": "unknown",
+      "note": "포르투갈군 Pandur II의 365/80 R20은 공식 조달 자료로 확인되나, 여기의 체코 KBVP와 동일하다고 단정하지 않았습니다.",
+      "sourceIds": [
+        "pandur-pt-tire"
+      ]
+    },
+    "driver": {
+      "value": "front-left",
+      "display": "전방 좌측",
+      "status": "limited",
+      "note": "제조사 브로슈어는 조종수실을 전방에 배치한다고 명시합니다. 좌측 여부는 공개 차량 사진 판독이며 착좌 좌표는 미확인입니다.",
+      "sourceIds": [
+        "pandur-tdv"
+      ]
+    },
+    "sources": [
+      {
+        "id": "pandur-army",
+        "title": "체코군 — Pandur II 8×8 전투중량",
+        "url": "https://acr.mo.gov.cz/technika-a-vyzbroj/tanky/-kolovy-obrneny-transporter-pandur-ii-8x8-89949/",
+        "publisher": "Armáda ČR"
+      },
+      {
+        "id": "pandur-2026",
+        "title": "A-report 3/2026 — KBVP Pandur II CZ",
+        "url": "https://mocr.mo.gov.cz/images/ar/AR3_2026.pdf",
+        "publisher": "체코 국방부"
+      },
+      {
+        "id": "pandur-2012",
+        "title": "20 let Armády České republiky, p.170",
+        "url": "https://www.mo.gov.cz/assets/multimedia-a-knihovna/publikace/20-let-acr/20-let-acr_cs.pdf",
+        "publisher": "체코 국방부"
+      },
+      {
+        "id": "pandur-tdv",
+        "title": "Pandur II 8×8 제조사 브로슈어",
+        "url": "https://tatradv.cz/wp-content/uploads/2024/05/PANDUR-ENG.pdf",
+        "publisher": "Tatra Defence Vehicle"
+      },
+      {
+        "id": "pandur-pt-tire",
+        "title": "포르투갈군 Pandur II 타이어 조달 (형식 참고용)",
+        "url": "https://files.diariodarepublica.pt/cp_hora/2022/10/202/415797612.pdf",
+        "publisher": "포르투갈 육군 / Diário da República"
+      }
+    ],
+    "notes": [
+      "체코군 KBVP를 기준으로 선택했습니다. 신형 EVO 25 t와 구분합니다."
+    ],
+    "image": {
+      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F7%2F7a%2FBAHNA_2018_-_269.jpg&w=1600&output=jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:BAHNA_2018_-_269.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/BAHNA_2018_-_269.jpg",
+      "author": "Adam Hauner",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "front": "left",
+      "viewQuality": "측면 · 약한 전방 사각",
+      "note": "BAHNA 2018의 체코군 Pandur II KBVP. 차체 전체와 한쪽 바퀴 4개가 보이며 전면이 약간 보여 엄밀한 정측면은 아님. 원근 왜곡 미보정. 원본 그대로 사용. 웹 배포본은 구도·종횡비를 유지하며 필요 시 축소·압축했습니다.",
+      "width": 2200,
+      "height": 1096
+    }
+  },
+  {
+    "id": "terrex",
+    "name": "Terrex ICV",
+    "country": "싱가포르",
+    "countryCode": "SG",
+    "variant": "Terrex 1 / SAF ICV",
+    "weight": {
+      "value": 24,
+      "display": "24 t (GVW)",
+      "status": "verified",
+      "note": "싱가포르 국방부 총중량(GVW) 24 t. 최대 허용총중량 26 t와 구분하며 전투중량과 동일한 정의로 단정하지 않습니다.",
+      "sourceIds": [
+        "terrex-mindef",
+        "terrex-army"
+      ]
+    },
+    "clearance": {
+      "value": null,
+      "display": "공개 근거 미확인",
+      "status": "unknown",
+      "note": "Terrex 1의 신뢰할 수 있는 공개 1차 자료에서 지상고를 확인하지 못했습니다. Terrex 2/3/s5 수치를 대입하지 않았습니다.",
+      "sourceIds": []
+    },
+    "tires": {
+      "value": "395/85 R20",
+      "display": "395/85 R20 XZL",
+      "status": "limited",
+      "note": "ST Kinetics 구형 제조사 브로슈어의 공개 재게시본 기준. 현재 생산사 사이트 원본을 확보하지 못해 제한된 근거로 표시합니다.",
+      "sourceIds": [
+        "terrex-brochure"
+      ]
+    },
+    "driver": {
+      "value": "front-left",
+      "display": "전방 좌측 (사진 판독)",
+      "status": "limited",
+      "note": "공개 사진의 해치 위치 판독에 따른 배치 추정입니다. 정확한 착좌 중심·눈점 좌표와 공식 배치도는 미확인. 차량 진행방향 기준 좌측이며 사진 화면 좌측과는 다릅니다.",
+      "sourceIds": [
+        "terrex-photo"
+      ]
+    },
+    "sources": [
+      {
+        "id": "terrex-mindef",
+        "title": "Fact Sheet: Terrex Infantry Carrier Vehicle (2012-10-10)",
+        "url": "https://www.mindef.gov.sg/news-and-events/latest-releases/2012oct10-news-releases-00217/",
+        "publisher": "Singapore Ministry of Defence"
+      },
+      {
+        "id": "terrex-army",
+        "title": "Infantry — Terrex specifications",
+        "url": "https://www.army.gov.sg/our-forces/formations/infantry/",
+        "publisher": "Singapore Army"
+      },
+      {
+        "id": "terrex-brochure",
+        "title": "ST Kinetics Terrex 8×8 Wheeled Armoured Vehicle brochure (재게시본)",
+        "url": "https://www.scribd.com/document/34850905/1045CdbJAaGn6iMnNYeT",
+        "publisher": "ST Kinetics / Scribd 재게시"
+      },
+      {
+        "id": "terrex-st",
+        "title": "Terrex 8×8 Infantry Fighting Vehicle",
+        "url": "https://www.stengg.com/en/defence/land/land-defence-systems/terrex-8x8-infantry-fighting-vehicle/",
+        "publisher": "ST Engineering"
+      },
+      {
+        "id": "terrex-photo",
+        "title": "사진의 해치 배치 판독용 원본",
+        "url": "https://commons.wikimedia.org/wiki/File:Terrex_Infantry_Carrier_Vehicle_side_profile_AOH_2022_300522.jpg",
+        "publisher": "Seloloving"
+      }
+    ],
+    "image": {
+      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fd9%2FTerrex_Infantry_Carrier_Vehicle_side_profile_AOH_2022_300522.jpg&w=1600&output=jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:Terrex_Infantry_Carrier_Vehicle_side_profile_AOH_2022_300522.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Terrex_Infantry_Carrier_Vehicle_side_profile_AOH_2022_300522.jpg",
+      "author": "Seloloving",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "front": "left",
+      "viewQuality": "near-side",
+      "note": "차체와 4개 측면 바퀴 전체가 보이는 근정측면 실사진. 렌즈 원근·왜곡과 약간의 촬영각이 있으며 후방 열린 램프 일부는 프레임 밖입니다. 원본 5044×3363. 웹 배포본은 구도·종횡비를 유지하며 필요 시 축소·압축했습니다.",
+      "width": 2200,
+      "height": 1467
+    },
+    "notes": [
+      "Terrex 2/3/s5와 제원을 혼합하지 않습니다.",
+      "실제 시야각과 사진 측정값은 별개입니다."
+    ]
+  },
+  {
+    "id": "btr82a",
+    "name": "BTR-82A",
+    "country": "러시아",
+    "countryCode": "RU",
+    "variant": "BTR-82A 기본형",
+    "weight": {
+      "value": 16,
+      "display": "16 t",
+      "status": "verified",
+      "note": "러시아 국가근위대 공개 질량과 우크라이나 공군대학 자료의 전투중량이 일치.",
+      "sourceIds": [
+        "btr-rosguard",
+        "btr-hups"
+      ]
+    },
+    "clearance": {
+      "value": 475,
+      "display": "475 mm",
+      "status": "limited",
+      "note": "우크라이나 공군대학 군사자료 표 1.9 기준. 제조사 최신 원본 제원으로 재확인하지 못했습니다.",
+      "sourceIds": [
+        "btr-hups"
+      ]
+    },
+    "tires": {
+      "value": null,
+      "display": "공개 근거 미확인",
+      "status": "unknown",
+      "note": "KI-126 1150×400−457와 13.00−18 자료가 혼재합니다. BTR-82A 해당 형식의 1차 문서로 적용 타이어를 확정하지 못했습니다.",
+      "sourceIds": []
+    },
+    "driver": {
+      "value": "front-left",
+      "display": "전방 좌측 (사진 판독)",
+      "status": "limited",
+      "note": "공개 사진의 해치 위치 판독에 따른 배치 추정입니다. 정확한 착좌 중심·눈점 좌표와 공식 배치도는 미확인. 차량 진행방향 기준 좌측이며 사진 화면 좌측과는 다릅니다.",
+      "sourceIds": [
+        "btr82a-photo"
+      ]
+    },
+    "sources": [
+      {
+        "id": "btr-rosguard",
+        "title": "Бронетранспортер БТР-82А",
+        "url": "https://www.rosguard.gov.ru/page/index/bronetransporter-btr82a",
+        "publisher": "러시아 국가근위대 Rosgvardiya"
+      },
+      {
+        "id": "btr-hups",
+        "title": "Довідник учасника ООС — 표 1.9, p.60",
+        "url": "https://hups.mil.gov.ua/assets/doc/announcement/dovidnik-uchasnika-oos-hnups.pdf",
+        "publisher": "우크라이나 하르키우 국립공군대학"
+      },
+      {
+        "id": "btr82a-photo",
+        "title": "사진의 해치 배치 판독용 원본",
+        "url": "https://commons.wikimedia.org/wiki/File:BTR-82A_-_TankBiathlon14part2-61.jpg",
+        "publisher": "Vitaly V. Kuzmin"
+      }
+    ],
+    "image": {
+      "src": "https://wsrv.nl/?url=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2F0%2F03%2FBTR-82A_-_TankBiathlon14part2-61.jpg&w=1600&output=jpg",
+      "pageUrl": "https://commons.wikimedia.org/wiki/File:BTR-82A_-_TankBiathlon14part2-61.jpg",
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/03/BTR-82A_-_TankBiathlon14part2-61.jpg",
+      "author": "Vitaly V. Kuzmin",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "front": "right",
+      "viewQuality": "near-side",
+      "note": "차체와 측면 4개 타이어 전체가 보이는 근정측면 실사진. 약간의 후방 사선 및 광각 원근이 남아 있습니다. 안테나 끝 일부는 프레임 밖입니다. 원본 워터마크를 유지했습니다. 웹 배포본은 구도·종횡비를 유지하며 필요 시 축소·압축했습니다.",
+      "width": 2200,
+      "height": 1467
+    },
+    "notes": [
+      "BTR-82AM, BTR-82AT, BTR-22와 구분합니다.",
+      "사진상의 2D 각도는 실제 조종수 시야각이 아닙니다."
+    ]
+  }
+]
